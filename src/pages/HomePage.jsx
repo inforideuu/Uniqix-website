@@ -218,12 +218,12 @@ const HomePage = ({ setCurrentPage }) => {
             style={{ 
               padding: '2.5rem', 
               borderRadius: '1.5rem', 
-              boxShadow: 'var(--shadow-glass)',
+              boxShadow: isIntroHovered ? 'var(--card-hover-shadow)' : 'var(--shadow-glass)',
               border: '1px solid var(--border-glass)',
               transformStyle: 'preserve-3d',
               ...tiltStyle,
               background: isIntroHovered ? 'var(--card-hover-bg-white)' : 'var(--bg-glass)',
-              transition: 'background 0.3s ease, transform 0.1s ease'
+              transition: 'background 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease'
             }}
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsIntroHovered(true)}
@@ -232,7 +232,7 @@ const HomePage = ({ setCurrentPage }) => {
               setIsIntroHovered(false);
             }}
           >
-            <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '2rem', color: 'var(--text-primary)', fontFamily: "'Playfair Display', Georgia, serif" }}>Who is Uniqix?</h2>
+            <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '2rem', color: 'var(--text-primary)', fontFamily: "'Playfair Display', Georgia, serif" }}>What Defines Uniqix ?</h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: '1.8', marginBottom: '1.5rem',textAlign:'justify' }}>
               Uniqix Pte Ltd is a Singapore-based company specializing in aggregating the procurement of products and services for more than 23 industries, focusing on cost savings and technology transformation for our clients.
             </p>
@@ -605,10 +605,10 @@ const HomePage = ({ setCurrentPage }) => {
                     padding: '3rem 2rem 2.5rem 2rem', 
                     position: 'relative',
                     borderRadius: '24px',
-                    border: '1px solid rgba(255, 255, 255, 0.05)',
-                    background: isHovered ? 'rgba(255, 255, 255, 0.08)' : 'rgba(255, 255, 255, 0.03)',
-                    boxShadow: isHovered ? 'var(--card-hover-shadow)' : 'none',
-                    borderColor: isHovered ? 'var(--card-hover-border)' : 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    background: isHovered ? '#ffffff' : '#c5a059',
+                    boxShadow: isHovered ? '0 20px 45px rgba(0, 0, 0, 0.15)' : '0 10px 25px rgba(197, 160, 89, 0.2)',
+                    borderColor: isHovered ? '#ffffff' : 'rgba(197, 160, 89, 0.3)',
                     cursor: 'pointer',
                     textAlign: 'center',
                     transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
@@ -624,17 +624,18 @@ const HomePage = ({ setCurrentPage }) => {
                       top: '35%',
                       transform: 'translateY(-50%)',
                       zIndex: 10,
-                      background: 'rgba(255, 255, 255, 0.08)',
+                      background: isHovered ? 'rgba(197, 160, 89, 0.2)' : 'rgba(255, 255, 255, 0.2)',
                       width: '32px',
                       height: '32px',
                       borderRadius: '50%',
                       boxShadow: '0 4px 10px rgba(0,0,0,0.06)',
-                      border: '1px solid rgba(255, 255, 255, 0.05)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'center'
+                      justifyContent: 'center',
+                      transition: 'all 0.3s'
                     }}>
-                      <ChevronRight style={{ width: '16px', height: '16px', color: 'var(--primary)' }} />
+                      <ChevronRight style={{ width: '16px', height: '16px', color: '#06122c' }} />
                     </div>
                   )}
 
@@ -643,14 +644,15 @@ const HomePage = ({ setCurrentPage }) => {
                     position: 'absolute',
                     top: '-1px',
                     left: '2rem',
-                    background: stepObj.color,
+                    background: isHovered ? stepObj.color : '#06122c',
                     color: '#ffffff',
                     padding: '6px 14px 10px 14px',
                     fontSize: '0.8rem',
                     fontWeight: 800,
                     clipPath: 'polygon(0% 0%, 100% 0%, 100% 85%, 50% 100%, 0% 85%)',
                     boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                    fontFamily: 'monospace'
+                    fontFamily: 'monospace',
+                    transition: 'all 0.3s'
                   }}>
                     {stepObj.step}
                   </div>
@@ -662,31 +664,32 @@ const HomePage = ({ setCurrentPage }) => {
                       width: '88px',
                       height: '88px',
                       borderRadius: '50%',
-                      border: `2px solid ${stepObj.color}15`,
-                      background: 'rgba(255, 255, 255, 0.04)',
+                      border: isHovered ? `2px solid ${stepObj.color}25` : '2px solid rgba(6, 18, 44, 0.1)',
+                      background: isHovered ? 'rgba(0, 0, 0, 0.02)' : 'rgba(255, 255, 255, 0.2)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       margin: '1.5rem auto 1.5rem auto',
-                      boxShadow: `0 8px 24px ${stepObj.color}04`
+                      boxShadow: isHovered ? `0 8px 24px ${stepObj.color}15` : 'none',
+                      transition: 'all 0.3s'
                     }}
                   >
-                    {stepObj.icon}
+                    {isHovered ? stepObj.icon : React.cloneElement(stepObj.icon, { style: { ...stepObj.icon.props.style, color: '#06122c' } })}
                   </div>
 
-                  <h4 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', marginBottom: '0.75rem', letterSpacing: '-0.01em', transition: 'color 0.4s' }}>
+                  <h4 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#06122c', marginBottom: '0.75rem', letterSpacing: '-0.01em', transition: 'color 0.4s' }}>
                     {stepObj.title}
                   </h4>
-                  <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.88rem', lineHeight: '1.5', marginBottom: '1.5rem', transition: 'color 0.4s' }}>
+                  <p style={{ color: isHovered ? '#475569' : 'rgba(6, 18, 44, 0.8)', fontSize: '0.88rem', lineHeight: '1.5', marginBottom: '1.5rem', transition: 'color 0.4s' }}>
                     {stepObj.desc}
                   </p>
                   
                   {/* Feature checklist */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', borderTop: '1px solid rgba(255, 255, 255, 0.1)', paddingTop: '1.25rem', textAlign: 'left' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', borderTop: isHovered ? '1px solid rgba(0, 0, 0, 0.08)' : '1px solid rgba(6, 18, 44, 0.15)', paddingTop: '1.25rem', textAlign: 'left', transition: 'all 0.3s' }}>
                     {stepObj.features.map((feat, fIdx) => (
                       <div key={fIdx} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        {React.cloneElement(feat.icon, { style: { width: '14px', height: '14px', color: stepObj.color } })}
-                        <span style={{ fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.7)', fontWeight: 500, transition: 'color 0.4s' }}>
+                        {React.cloneElement(feat.icon, { style: { width: '14px', height: '14px', color: isHovered ? stepObj.color : '#06122c' } })}
+                        <span style={{ fontSize: '0.85rem', color: isHovered ? '#475569' : 'rgba(6, 18, 44, 0.8)', fontWeight: 500, transition: 'color 0.4s' }}>
                           {feat.text}
                         </span>
                       </div>
@@ -829,10 +832,10 @@ const HomePage = ({ setCurrentPage }) => {
       <section style={{ padding: '5rem 0' }}>
         <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '2.5rem', textAlign: 'center' }}>
           {[
-            { target: '$580M+', label: 'Commodities Traded', color: '#f59e0b' },
-            { target: '40+', label: 'Dormitory Hubs', color: 'var(--primary)' },
-            { target: '100%', label: 'Assay Traceability', color: '#0d9488' },
-            { target: '80k+', label: 'Workers Housed', color: 'var(--text-primary)' }
+            { target: '$580M+', label: 'Commodities Traded' },
+            { target: '40+', label: 'Dormitory Hubs' },
+            { target: '100%', label: 'Assay Traceability' },
+            { target: '80k+', label: 'Workers Housed' }
           ].map((stat, idx) => {
             const [hovered, setHovered] = useState(false);
             return (
@@ -841,29 +844,53 @@ const HomePage = ({ setCurrentPage }) => {
                 className="glass-panel"
                 style={{
                   padding: '3rem 2rem',
-                  borderRadius: '24px',
-                  border: '1px solid var(--border-glass)',
-                  background: 'var(--bg-glass)',
+                  borderRadius: '18px',
+                  border: '1px solid rgba(255,255,255,0.05)',
+                  background: 'var(--footer-bg)',
                   boxShadow: 'var(--shadow-glass)',
                   transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
                   transform: hovered ? 'translateY(-6px)' : 'none',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  position: 'relative',
+                  overflow: 'hidden'
                 }}
                 onMouseEnter={(e) => {
                   setHovered(true);
-                  e.currentTarget.style.borderColor = 'rgba(65, 164, 222, 0.3)';
-                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(65, 164, 222, 0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(197, 160, 89, 0.35)';
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(197, 160, 89, 0.15)';
                 }}
                 onMouseLeave={(e) => {
                   setHovered(false);
-                  e.currentTarget.style.borderColor = 'var(--border-glass)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)';
                   e.currentTarget.style.boxShadow = 'var(--shadow-glass)';
                 }}
               >
-                <span style={{ fontSize: '3.2rem', fontWeight: 900, color: stat.color === 'var(--primary)' ? 'rgba(65, 164, 222, 1)' : stat.color, display: 'block', marginBottom: '0.75rem', letterSpacing: '-0.03em' }}>
+                {/* Gold corner accents */}
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '30px',
+                  height: '30px',
+                  background: 'linear-gradient(135deg, #c5a059 25%, transparent 25%)',
+                  opacity: hovered ? 0.6 : 0.3,
+                  transition: 'opacity 0.3s'
+                }} />
+                <div style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  right: 0,
+                  width: '30px',
+                  height: '30px',
+                  background: 'linear-gradient(315deg, #c5a059 25%, transparent 25%)',
+                  opacity: hovered ? 0.6 : 0.3,
+                  transition: 'opacity 0.3s'
+                }} />
+
+                <span className="stat-number" style={{ fontSize: '3.2rem', fontWeight: 900, color: '#c5a059', display: 'block', marginBottom: '0.75rem', letterSpacing: '-0.03em' }}>
                   <Counter target={stat.target} trigger={hovered} />
                 </span>
-                <span style={{ color: 'var(--text-secondary)', fontSize: '0.98rem', fontWeight: 700, letterSpacing: '0.01em' }}>{stat.label}</span>
+                <span style={{ color: '#ffffff', opacity: 0.85, fontSize: '0.98rem', fontWeight: 700, letterSpacing: '0.01em' }}>{stat.label}</span>
               </div>
             );
           })}

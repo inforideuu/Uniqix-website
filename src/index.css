@@ -173,6 +173,11 @@ body {
   transition: color 0.4s ease;
 }
 
+.glass-panel span.stat-number,
+.glass-panel span.stat-number span {
+  color: #c5a059 !important;
+}
+
 
 /* --- PREMIUM 3D HOVER EFFECTS (TILT ROTATION REMOVED) --- */
 

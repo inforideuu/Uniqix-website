@@ -326,8 +326,34 @@ const AboutPage = () => {
       </section>
 
       {/* 2. OUR BUSINESS MODEL Section */}
-      <section style={{ padding: '4rem 0 6rem 0', borderTop: '1px solid var(--border-glass)' }}>
-        <div className="container">
+      <section style={{ 
+        padding: '6rem 0', 
+        borderTop: '1px solid var(--border-glass)',
+        background: 'var(--bg-secondary)',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        {/* Subtle decorative gold curves in background */}
+        <div style={{
+          position: 'absolute',
+          top: '10%',
+          right: '-5%',
+          width: '400px',
+          height: '400px',
+          backgroundImage: 'radial-gradient(ellipse at center, rgba(197, 160, 89, 0.05) 0%, transparent 70%)',
+          pointerEvents: 'none'
+        }} />
+        <div style={{
+          position: 'absolute',
+          bottom: '10%',
+          left: '-5%',
+          width: '400px',
+          height: '400px',
+          backgroundImage: 'radial-gradient(ellipse at center, rgba(197, 160, 89, 0.05) 0%, transparent 70%)',
+          pointerEvents: 'none'
+        }} />
+
+        <div className="container" style={{ maxWidth: '1200px' }}>
           
           {/* Header */}
           <div style={{ textAlign: 'center', marginBottom: '4.5rem' }}>
@@ -342,68 +368,71 @@ const AboutPage = () => {
               marginBottom: '0.75rem',
               fontFamily: '"Times New Roman", Times, serif'
             }}>
-              Bridge The Gap
+              Bridging Possibilities. Delivering Value.
             </h2>
             <div style={{ width: '80px', height: '3px', background: '#c5a059', margin: '0.5rem auto 1.5rem auto', borderRadius: '2px' }} />
-            <p style={{ fontSize: '1.1rem', fontWeight: 500, color: 'var(--text-secondary)' }}>
-              Between Corporate Consumers and Trade Partners
+            <p style={{ fontSize: '1.1rem', fontWeight: 500, color: 'var(--text-secondary)', maxWidth: '700px', margin: '0 auto', lineHeight: '1.6' }}>
+              Uniqix connects corporate consumers with trusted trade partners to create a seamless ecosystem of supply, solutions, and growth.
             </p>
           </div>
 
           {/* Bridge Interaction Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.8fr 1fr', gap: '2rem', alignItems: 'center', maxWidth: '1200px', margin: '0 auto' }} className="bridge-layout">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr 1fr', gap: '2rem', alignItems: 'center', maxWidth: '1200px', margin: '0 auto', position: 'relative' }} className="bridge-layout">
             
             {/* Left Box: Corporate Consumers */}
             <div 
               className="glass-panel" 
               style={{ 
-                padding: '2.5rem 1.75rem', 
-                borderRadius: '1.5rem', 
-                border: '1px solid rgba(197, 160, 89, 0.25)', 
-                background: isCorpHovered ? '#df9f28ff' : 'var(--bg-glass)',
-                boxShadow: isCorpHovered ? '0 20px 45px rgba(197, 160, 89, 0.35)' : '0 10px 30px rgba(0,0,0,0.02)',
-                transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                cursor: 'pointer'
+                background: 'var(--bg-glass)',
+                borderRadius: '1.5rem',
+                boxShadow: 'var(--shadow-glass)',
+                border: '1px solid var(--border-glass)',
+                overflow: 'hidden',
+                display: 'flex',
+                flexDirection: 'column',
+                transition: 'all 0.3s ease'
               }}
-              onMouseEnter={() => setIsCorpHovered(true)}
-              onMouseLeave={() => setIsCorpHovered(false)}
             >
               <div style={{ 
-                background: isCorpHovered ? '#ffffff' : '#06122c', 
-                color: isCorpHovered ? '#c5a059' : '#ffffff', 
-                padding: '12px 16px', 
-                borderRadius: '0.75rem', 
+                background: 'var(--footer-bg)', 
+                color: '#ffffff', 
+                padding: '1.5rem 1.25rem', 
                 textAlign: 'center', 
                 fontWeight: 800, 
                 fontSize: '0.95rem', 
-                marginBottom: '2rem',
-                letterSpacing: '0.03em',
-                transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+                letterSpacing: '0.05em',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px'
               }}>
-                Corporate Consumers
+                <Users style={{ width: '18px', height: '18px', color: '#ffffff' }} />
+                <div style={{ textAlign: 'left', lineHeight: '1.2' }}>
+                  <div style={{ fontSize: '0.7rem', opacity: 0.7, color:'#ffffff' }}>CORPORATE</div>
+                  <div style={{color:'#ffffff'}}>CONSUMERS</div>
+                </div>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
+              <div style={{ padding: '1.75rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
                 {corporateConsumers.map((item, idx) => (
                   <div key={idx} style={{ 
                     display: 'flex', 
                     alignItems: 'center', 
                     gap: '12px', 
-                    fontSize: '0.95rem', 
-                    color: isCorpHovered ? '#ffffff' : 'var(--text-secondary)', 
-                    fontWeight: 550,
-                    transition: 'color 0.4s'
+                    fontSize: '0.92rem', 
+                    color: 'var(--text-secondary)', 
+                    fontWeight: 600
                   }}>
                     <div style={{ 
-                      width: '28px', 
-                      height: '28px', 
+                      width: '26px', 
+                      height: '26px', 
                       borderRadius: '50%', 
-                      background: isCorpHovered ? '#ffffff' : 'rgba(197, 160, 89, 0.06)', 
+                      background: 'rgba(197, 160, 89, 0.06)', 
+                      border: '1px solid rgba(197, 160, 89, 0.15)',
                       display: 'flex', 
                       alignItems: 'center', 
-                      justifyContent: 'center',
-                      transition: 'background-color 0.4s'
+                      justifyContent: 'center'
                     }}>
-                      {item.icon}
+                      {React.cloneElement(item.icon, { style: { width: '13px', height: '13px', color: '#c5a059' } })}
                     </div>
                     <span>{item.name}</span>
                   </div>
@@ -412,100 +441,139 @@ const AboutPage = () => {
             </div>
 
             {/* Middle: Bridge Illustration */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '1rem', position: 'relative' }}>
+              
+              {/* UNIQIX Logo Text Above Bridge */}
+              <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                <div style={{ fontSize: '1.8rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '0.08em', marginBottom: '2px' }}>UNIQIX</div>
+                <div style={{ fontSize: '0.65rem', fontWeight: 800, color: 'var(--text-secondary)', letterSpacing: '0.15em', textTransform: 'uppercase', opacity: 0.8 }}>THE CONNECTING EDGE</div>
+              </div>
+
               <div style={{ width: '100%', position: 'relative' }}>
                 
-                {/* stylized bridge graphic */}
-                <svg viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: 'auto' }}>
-                  {/* Wave pattern under the bridge */}
-                  <path d="M0 210 Q 50 205 100 210 T 200 210 T 300 210 T 400 210 T 500 210 T 600 210" stroke="rgba(197, 160, 89, 0.15)" strokeWidth="2" />
-                  <path d="M0 218 Q 70 214 140 218 T 280 218 T 420 218 T 560 218" stroke="rgba(197, 160, 89, 0.08)" strokeWidth="1" />
+                {/* Gold bridge graphic matching image */}
+                <svg viewBox="0 0 500 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: 'auto', overflow: 'visible' }}>
+                  {/* Gold Dotted Arch Connections */}
+                  <path d="M 10 120 C 120 70, 220 70, 250 120" stroke="#c5a059" strokeWidth="2.5" strokeDasharray="3 4" opacity="0.7" />
+                  <path d="M 250 120 C 280 70, 380 70, 490 120" stroke="#c5a059" strokeWidth="2.5" strokeDasharray="3 4" opacity="0.7" />
+                  <path d="M 10 130 C 120 85, 220 85, 250 120" stroke="#c5a059" strokeWidth="1.5" strokeDasharray="1 3" opacity="0.4" />
+                  <path d="M 250 120 C 280 85, 380 85, 490 130" stroke="#c5a059" strokeWidth="1.5" strokeDasharray="1 3" opacity="0.4" />
 
                   {/* Arches of the bridge */}
-                  <path d="M 30 200 C 100 130, 180 130, 250 200" stroke="var(--text-primary)" strokeWidth="4.5" strokeLinecap="round" />
-                  <path d="M 250 200 C 300 150, 360 150, 410 200" stroke="var(--text-primary)" strokeWidth="4.5" strokeLinecap="round" />
-                  <path d="M 410 200 C 470 140, 530 140, 570 200" stroke="var(--text-primary)" strokeWidth="4.5" strokeLinecap="round" />
+                  <path d="M 20 180 Q 135 110 250 180" stroke="#c5a059" strokeWidth="4.5" fill="none" opacity="0.9" />
+                  <path d="M 250 180 Q 365 110 480 180" stroke="#c5a059" strokeWidth="4.5" fill="none" opacity="0.9" />
+                  <path d="M 20 180 Q 135 125 250 180" stroke="#c5a059" strokeWidth="1.5" fill="none" opacity="0.6" />
+                  <path d="M 250 180 Q 365 125 480 180" stroke="#c5a059" strokeWidth="1.5" fill="none" opacity="0.6" />
+
+                  {/* Vertical pillars */}
+                  <line x1="80" y1="140" x2="80" y2="160" stroke="#c5a059" strokeWidth="2.5" />
+                  <line x1="135" y1="140" x2="135" y2="150" stroke="#c5a059" strokeWidth="2.5" />
+                  <line x1="190" y1="140" x2="190" y2="160" stroke="#c5a059" strokeWidth="2.5" />
                   
-                  {/* Thin golden arch details */}
-                  <path d="M 30 200 C 100 145, 180 145, 250 200" stroke="#c5a059" strokeWidth="1.5" strokeDasharray="4 3" />
-                  <path d="M 250 200 C 300 160, 360 160, 410 200" stroke="#c5a059" strokeWidth="1.5" strokeDasharray="4 3" />
-                  <path d="M 410 200 C 470 150, 530 150, 570 200" stroke="#c5a059" strokeWidth="1.5" strokeDasharray="4 3" />
+                  <line x1="310" y1="140" x2="310" y2="160" stroke="#c5a059" strokeWidth="2.5" />
+                  <line x1="365" y1="140" x2="365" y2="150" stroke="#c5a059" strokeWidth="2.5" />
+                  <line x1="420" y1="140" x2="420" y2="160" stroke="#c5a059" strokeWidth="2.5" />
 
-                  {/* Main Road Deck */}
-                  <line x1="20" y1="140" x2="580" y2="140" stroke="var(--text-primary)" strokeWidth="6" strokeLinecap="round" />
-                  <line x1="20" y1="145" x2="580" y2="145" stroke="#c5a059" strokeWidth="2" strokeLinecap="round" />
+                  {/* Bridge Deck */}
+                  <line x1="10" y1="140" x2="490" y2="140" stroke="#06122c" strokeWidth="6.5" strokeLinecap="round" />
+                  <line x1="10" y1="145" x2="490" y2="145" stroke="#c5a059" strokeWidth="2" strokeLinecap="round" />
 
-                  {/* Vertical support suspenders */}
-                  <line x1="90" y1="140" x2="90" y2="175" stroke="var(--text-primary)" strokeWidth="1.5" />
-                  <line x1="140" y1="140" x2="140" y2="155" stroke="var(--text-primary)" strokeWidth="1.5" />
-                  <line x1="190" y1="140" x2="190" y2="172" stroke="var(--text-primary)" strokeWidth="1.5" />
-                  <line x1="300" y1="140" x2="300" y2="176" stroke="var(--text-primary)" strokeWidth="1.5" />
-                  <line x1="330" y1="140" x2="330" y2="172" stroke="var(--text-primary)" strokeWidth="1.5" />
-                  <line x1="360" y1="140" x2="360" y2="175" stroke="var(--text-primary)" strokeWidth="1.5" />
-                  <line x1="470" y1="140" x2="470" y2="174" stroke="var(--text-primary)" strokeWidth="1.5" />
-                  <line x1="510" y1="140" x2="510" y2="175" stroke="var(--text-primary)" strokeWidth="1.5" />
-
-                  {/* UNIQIX Badge centered in the bridge */}
-                  <g filter="drop-shadow(0px 6px 12px rgba(197, 160, 89, 0.25))">
-                    <rect x="238" y="105" width="124" height="34" rx="8" fill="#c5a059" />
-                    <text x="300" y="127" fill="#ffffff" fontSize="13" fontWeight="800" textAnchor="middle" letterSpacing="0.08em" fontFamily="Inter, sans-serif">UNIQIX</text>
-                  </g>
+                  {/* Water Reflection */}
+                  <path d="M 10 195 Q 125 190 250 195 T 490 195" stroke="rgba(197, 160, 89, 0.25)" strokeWidth="2.5" />
+                  <path d="M 30 205 Q 140 202 250 205 T 470 205" stroke="rgba(197, 160, 89, 0.15)" strokeWidth="1.5" />
                 </svg>
 
+                {/* Central circular badge overlay */}
+                <div style={{
+                  position: 'absolute',
+                  top: '59%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '64px',
+                  height: '64px',
+                  borderRadius: '50%',
+                  background: '#06122c',
+                  border: '4px solid #c5a059',
+                  boxShadow: '0 4px 15px rgba(197, 160, 89, 0.4)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  zIndex: 5
+                }}>
+                  <span style={{ color: '#ffffff', fontSize: '0.72rem', fontWeight: 900, letterSpacing: '0.05em' }}>UNIQIX</span>
+                </div>
+
               </div>
+
+              {/* Three inline badges underneath the bridge */}
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginTop: '2rem', width: '100%' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', color: 'var(--text-primary)', fontWeight: 700 }}>
+                  <Briefcase style={{ width: '15px', height: '15px', color: '#c5a059' }} /> Streamlined Procurement
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', color: 'var(--text-primary)', fontWeight: 700 }}>
+                  <Users style={{ width: '15px', height: '15px', color: '#c5a059' }} /> Trusted Partnerships
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', color: '#c5a059', fontWeight: 700 }}>
+                  <TrendingUp style={{ width: '15px', height: '15px', color: '#c5a059' }} /> Sustainable Growth
+                </div>
+              </div>
+
             </div>
 
             {/* Right Box: Trade Partners */}
             <div 
               className="glass-panel" 
               style={{ 
-                padding: '2.5rem 1.75rem', 
-                borderRadius: '1.5rem', 
-                border: '1px solid rgba(197, 160, 89, 0.25)', 
-                background: isTradeHovered ? '#df9f28ff' : 'var(--bg-glass)',
-                boxShadow: isTradeHovered ? '0 20px 45px rgba(197, 160, 89, 0.35)' : '0 10px 30px rgba(0,0,0,0.02)',
-                transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                cursor: 'pointer'
+                background: 'var(--bg-glass)',
+                borderRadius: '1.5rem',
+                boxShadow: 'var(--shadow-glass)',
+                border: '1px solid var(--border-glass)',
+                overflow: 'hidden',
+                display: 'flex',
+                flexDirection: 'column',
+                transition: 'all 0.3s ease'
               }}
-              onMouseEnter={() => setIsTradeHovered(true)}
-              onMouseLeave={() => setIsTradeHovered(false)}
             >
               <div style={{ 
-                background: isTradeHovered ? '#ffffff' : '#06122c', 
-                color: isTradeHovered ? '#c5a059' : '#ffffff', 
-                padding: '12px 16px', 
-                borderRadius: '0.75rem', 
+                background: 'var(--footer-bg)', 
+                color: '#ffffff', 
+                padding: '1.5rem 1.25rem', 
                 textAlign: 'center', 
                 fontWeight: 800, 
                 fontSize: '0.95rem', 
-                marginBottom: '2rem',
-                letterSpacing: '0.03em',
-                transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+                letterSpacing: '0.05em',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px'
               }}>
-                Trade Partners
+                <HeartHandshake style={{ width: '18px', height: '18px', color: '#ffffff' }} />
+                <div style={{ textAlign: 'left', lineHeight: '1.2' }}>
+                  <div style={{ fontSize: '0.7rem', opacity: 0.7,color:'#ffffff' }}>TRADE</div>
+                  <div style={{color:'#ffffff'}}>PARTNERS</div>
+                </div>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
+              <div style={{ padding: '1.75rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
                 {tradePartners.map((item, idx) => (
                   <div key={idx} style={{ 
                     display: 'flex', 
                     alignItems: 'center', 
                     gap: '12px', 
-                    fontSize: '0.95rem', 
-                    color: isTradeHovered ? '#ffffff' : 'var(--text-secondary)', 
-                    fontWeight: 550,
-                    transition: 'color 0.4s'
+                    fontSize: '0.92rem', 
+                    color: 'var(--text-secondary)', 
+                    fontWeight: 600
                   }}>
                     <div style={{ 
-                      width: '28px', 
-                      height: '28px', 
+                      width: '26px', 
+                      height: '26px', 
                       borderRadius: '50%', 
-                      background: isTradeHovered ? '#ffffff' : 'rgba(197, 160, 89, 0.06)', 
+                      background: 'rgba(197, 160, 89, 0.06)', 
+                      border: '1px solid rgba(197, 160, 89, 0.15)',
                       display: 'flex', 
                       alignItems: 'center', 
-                      justifyContent: 'center',
-                      transition: 'background-color 0.4s'
+                      justifyContent: 'center'
                     }}>
-                      {item.icon}
+                      {React.cloneElement(item.icon, { style: { width: '13px', height: '13px', color: '#c5a059' } })}
                     </div>
                     <span>{item.name}</span>
                   </div>
@@ -515,61 +583,159 @@ const AboutPage = () => {
 
           </div>
 
-          {/* Bottom Grid: 6 Solutions Cards with 3D Effect */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1.5rem', marginTop: '5rem', borderBottom: '1px solid var(--border-glass)', paddingBottom: '5rem' }}>
-            {bridgeSolutions.map((sol, idx) => {
-              const isHovered = hoveredCardIdx === idx;
+          {/* Bottom Grid: 5 Solutions Cards */}
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(5, 1fr)', 
+            gap: '1.25rem', 
+            marginTop: '5rem' 
+          }} className="bridge-solutions-grid">
+            {[
+              {
+                name: 'Procurement Services',
+                desc: 'End-to-end procurement solutions tailored to your business needs.',
+                icon: <Briefcase style={{ width: '22px', height: '22px' }} />
+              },
+              {
+                name: 'AI Robotics',
+                desc: 'Autonomous solutions powered by AI for a smarter tomorrow.',
+                icon: <Cpu style={{ width: '22px', height: '22px' }} />
+              },
+              {
+                name: 'Smart Energy Solutions',
+                desc: 'Energy-efficient systems designed for a sustainable future.',
+                icon: <Lightbulb style={{ width: '22px', height: '22px' }} />
+              },
+              {
+                name: 'Sustainable Packaging',
+                desc: 'Eco-friendly packaging solutions for a greener planet.',
+                icon: <Box style={{ width: '22px', height: '22px' }} />
+              },
+              {
+                name: 'International Trade',
+                desc: 'Global trade solutions connecting markets and opportunities.',
+                icon: <Globe style={{ width: '22px', height: '22px' }} />
+              }
+            ].map((sol, idx) => {
               return (
                 <div 
                   key={idx} 
                   className="glass-panel" 
                   style={{ 
-                    padding: '2.5rem 1.5rem', 
+                    padding: '2.25rem 1.25rem', 
                     borderRadius: '1.25rem', 
                     textAlign: 'center', 
                     display: 'flex', 
                     flexDirection: 'column', 
                     alignItems: 'center', 
-                    gap: '16px',
-                    background: isHovered ? '#df9f28ff' : 'var(--bg-glass)',
-                    border: '1px solid rgba(197, 160, 89, 0.18)',
-                    boxShadow: '0 6px 20px rgba(0, 0, 0, 0.015)',
+                    background: 'var(--bg-glass)',
+                    border: '1px solid var(--border-glass)',
+                    boxShadow: 'var(--shadow-glass)',
                     cursor: 'pointer',
-                    transformStyle: 'preserve-3d',
-                    transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                    ...(isHovered ? cardTiltStyle : {})
+                    transition: 'all 0.3s ease'
                   }}
-                  onMouseMove={(e) => handleMouseMove(e, idx)}
-                  onMouseLeave={handleMouseLeave}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-6px)';
+                    e.currentTarget.style.borderColor = '#c5a059';
+                    e.currentTarget.style.boxShadow = 'var(--card-hover-shadow)';
+                    e.currentTarget.style.background = 'var(--bg-primary)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'none';
+                    e.currentTarget.style.borderColor = 'var(--border-glass)';
+                    e.currentTarget.style.boxShadow = 'var(--shadow-glass)';
+                    e.currentTarget.style.background = 'var(--bg-glass)';
+                  }}
                 >
                   <div style={{ 
-                    background: isHovered ? '#ffffff' : 'rgba(197, 160, 89, 0.08)', 
-                    border: '1px solid rgba(197, 160, 89, 0.15)',
+                    background: 'rgba(197, 160, 89, 0.05)', 
+                    border: '2px solid #c5a059',
                     width: '52px', 
                     height: '52px', 
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    transform: 'translateZ(10px)',
-                    boxShadow: '0 4px 10px rgba(197, 160, 89, 0.05)',
-                    transition: 'all 0.4s'
+                    marginBottom: '1rem'
                   }}>
-                    {React.cloneElement(sol.icon, { style: { ...sol.icon.props.style, color: isHovered ? '#c5a059' : '#c5a059' } })}
+                    {React.cloneElement(sol.icon, { style: { ...sol.icon.props.style, color: '#c5a059' } })}
                   </div>
                   <div style={{ 
-                    fontSize: '0.9rem', 
+                    fontSize: '0.95rem', 
                     fontWeight: 800, 
-                    color: isHovered ? '#ffffff' : 'var(--text-primary)',
+                    color: 'var(--text-primary)',
                     lineHeight: '1.3',
-                    transform: 'translateZ(15px)',
-                    transition: 'color 0.4s'
+                    marginBottom: '0.5rem'
                   }}>
                     {sol.name}
                   </div>
+                  <div style={{ 
+                    fontSize: '0.8rem', 
+                    color: 'var(--text-secondary)',
+                    lineHeight: '1.4'
+                  }}>
+                    {sol.desc}
+                  </div>
+                  <div style={{ width: '36px', height: '2px', background: '#c5a059', margin: '0.75rem auto 0 auto', borderRadius: '1px' }} />
                 </div>
               );
             })}
+          </div>
+
+          {/* Dark Blue stats bar at the bottom */}
+          <div style={{
+            background: 'var(--footer-bg)',
+            borderRadius: '1rem',
+            padding: '1.75rem 3rem',
+            marginTop: '4rem',
+            display: 'flex',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            boxShadow: 'var(--shadow-glass)'
+          }} className="bridge-stats-bar">
+            
+            {/* Stat 1 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <Globe style={{ width: '28px', height: '28px', color: '#c5a059' }} />
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.6)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Global Network</span>
+                <span style={{ fontSize: '1.25rem', color: '#ffffff', fontWeight: 800 }}>50+ Countries</span>
+              </div>
+            </div>
+
+            <div style={{ width: '1px', height: '30px', background: 'rgba(255, 255, 255, 0.15)' }} className="stats-divider" />
+
+            {/* Stat 2 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <Users style={{ width: '28px', height: '28px', color: '#c5a059' }} />
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.6)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Trusted Partners</span>
+                <span style={{ fontSize: '1.25rem', color: '#ffffff', fontWeight: 800 }}>500+</span>
+              </div>
+            </div>
+
+            <div style={{ width: '1px', height: '30px', background: 'rgba(255, 255, 255, 0.15)' }} className="stats-divider" />
+
+            {/* Stat 3 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <TrendingUp style={{ width: '28px', height: '28px', color: '#c5a059' }} />
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.6)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Solutions Delivered</span>
+                <span style={{ fontSize: '1.25rem', color: '#ffffff', fontWeight: 800 }}>10K+</span>
+              </div>
+            </div>
+
+            <div style={{ width: '1px', height: '30px', background: 'rgba(255, 255, 255, 0.15)' }} className="stats-divider" />
+
+            {/* Stat 4 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <Award style={{ width: '28px', height: '28px', color: '#c5a059' }} />
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.6)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Years of Excellence</span>
+                <span style={{ fontSize: '1.25rem', color: '#ffffff', fontWeight: 800 }}>7+</span>
+              </div>
+            </div>
+
           </div>
 
         </div>

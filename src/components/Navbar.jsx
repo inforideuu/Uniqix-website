@@ -27,14 +27,14 @@ const Navbar = ({ currentPage, setCurrentPage, theme, toggleTheme, setActiveProd
         top: '1.25rem',
         left: '50%',
         transform: 'translateX(-50%)',
-        width: '90%',
-        maxWidth: '1200px',
+        width: '78%',
+        maxWidth: '1000px',
         zIndex: 100,
         height: '68px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0 1rem',
+        padding: '0 2rem',
         boxShadow: '0 10px 30px -10px rgba(0, 0, 0, 0.05)',
       }}
       className="glass-panel"
@@ -55,7 +55,7 @@ const Navbar = ({ currentPage, setCurrentPage, theme, toggleTheme, setActiveProd
       <div
         style={{
           display: 'none',
-          gap: '1rem',
+          gap: '1.75rem',
           alignItems: 'center',
         }}
         className="desktop-menu"
@@ -67,11 +67,12 @@ const Navbar = ({ currentPage, setCurrentPage, theme, toggleTheme, setActiveProd
             background: 'none',
             border: 'none',
             color: currentPage === 'home' ? 'var(--primary)' : 'var(--text-secondary)',
-            fontSize: '0.9rem',
+            fontSize: '0.85rem',
             fontWeight: 700,
             padding: '0.5rem',
             cursor: 'pointer',
             transition: 'color 0.2s',
+            letterSpacing: '0.05em'
           }}
         >
           HOME
@@ -84,11 +85,12 @@ const Navbar = ({ currentPage, setCurrentPage, theme, toggleTheme, setActiveProd
             background: 'none',
             border: 'none',
             color: currentPage === 'about' ? 'var(--primary)' : 'var(--text-secondary)',
-            fontSize: '0.9rem',
+            fontSize: '0.85rem',
             fontWeight: 700,
             padding: '0.5rem',
             cursor: 'pointer',
             transition: 'color 0.2s',
+            letterSpacing: '0.05em'
           }}
         >
           ABOUT US
@@ -102,7 +104,7 @@ const Navbar = ({ currentPage, setCurrentPage, theme, toggleTheme, setActiveProd
               background: 'none',
               border: 'none',
               color: (currentPage === 'services' || currentPage === 'products') ? 'var(--primary)' : 'var(--text-secondary)',
-              fontSize: '0.9rem',
+              fontSize: '0.85rem',
               fontWeight: 700,
               padding: '0.5rem',
               cursor: 'pointer',
@@ -110,6 +112,7 @@ const Navbar = ({ currentPage, setCurrentPage, theme, toggleTheme, setActiveProd
               alignItems: 'center',
               gap: '4px',
               transition: 'color 0.2s',
+              letterSpacing: '0.05em'
             }}
           >
             SOLUTIONS <ChevronDown style={{ width: '14px', height: '14px' }} />
@@ -131,66 +134,46 @@ const Navbar = ({ currentPage, setCurrentPage, theme, toggleTheme, setActiveProd
             background: 'none',
             border: 'none',
             color: currentPage === 'dormitories' ? 'var(--primary)' : 'var(--text-secondary)',
-            fontSize: '0.9rem',
+            fontSize: '0.85rem',
             fontWeight: 700,
             padding: '0.5rem',
             cursor: 'pointer',
             transition: 'color 0.2s',
+            letterSpacing: '0.05em'
           }}
         >
           OUR DORMITORIES
         </button>
 
-        {/* INTERNATIONAL TRADE */}
-        <button
-          onClick={() => handleNavClick('trade')}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: currentPage === 'trade' ? 'var(--primary)' : 'var(--text-secondary)',
-            fontSize: '0.9rem',
-            fontWeight: 700,
-            padding: '0.5rem',
-            cursor: 'pointer',
-            transition: 'color 0.2s',
-          }}
-        >
-          INTERNATIONAL TRADE
-        </button>
-
-        {/* CASE STUDIES */}
-        <button
-          onClick={() => handleNavClick('case-studies')}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: currentPage === 'case-studies' ? 'var(--primary)' : 'var(--text-secondary)',
-            fontSize: '0.9rem',
-            fontWeight: 700,
-            padding: '0.5rem',
-            cursor: 'pointer',
-            transition: 'color 0.2s',
-          }}
-        >
-          CASE STUDIES
-        </button>
-
-        {/* PARTNERSHIP */}
-        <button
-          onClick={() => handleNavClick('partnership')}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: currentPage === 'partnership' ? 'var(--primary)' : 'var(--text-secondary)',
-            fontSize: '0.9rem',
-            fontWeight: 700,
-            padding: '0.5rem',
-            cursor: 'pointer',
-            transition: 'color 0.2s',
-          }}
-        >
-          PARTNERSHIP
-        </button>
+        {/* MORE DROPDOWN */}
+        <div style={{ position: 'relative' }} className="nav-dropdown-container">
+          <button
+            onClick={() => toggleDropdown('more')}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: (currentPage === 'trade' || currentPage === 'case-studies' || currentPage === 'partnership') ? 'var(--primary)' : 'var(--text-secondary)',
+              fontSize: '0.85rem',
+              fontWeight: 700,
+              padding: '0.5rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+              transition: 'color 0.2s',
+              letterSpacing: '0.05em'
+            }}
+          >
+            MORE <ChevronDown style={{ width: '14px', height: '14px' }} />
+          </button>
+          {activeDropdown === 'more' && (
+            <div className="nav-dropdown-menu">
+              <button onClick={() => handleNavClick('trade')}>International Trade</button>
+              <button onClick={() => handleNavClick('case-studies')}>Case Studies</button>
+              <button onClick={() => handleNavClick('partnership')}>Partnership</button>
+            </div>
+          )}
+        </div>
 
         {/* CONTACT US */}
         <button
@@ -199,11 +182,12 @@ const Navbar = ({ currentPage, setCurrentPage, theme, toggleTheme, setActiveProd
             background: 'none',
             border: 'none',
             color: currentPage === 'contact' ? 'var(--primary)' : 'var(--text-secondary)',
-            fontSize: '0.9rem',
+            fontSize: '0.85rem',
             fontWeight: 700,
             padding: '0.5rem',
             cursor: 'pointer',
             transition: 'color 0.2s',
+            letterSpacing: '0.05em'
           }}
         >
           CONTACT US
@@ -293,12 +277,19 @@ const Navbar = ({ currentPage, setCurrentPage, theme, toggleTheme, setActiveProd
 
           <button onClick={() => handleNavClick('dormitories')} className="mobile-nav-btn">OUR DORMITORIES</button>
 
-           {/* TRADE */}
-          <button onClick={() => handleNavClick('trade')} className="mobile-nav-btn">INTERNATIONAL TRADE</button>
-
-          <button onClick={() => handleNavClick('case-studies')} className="mobile-nav-btn">CASE STUDIES</button>
-
-          <button onClick={() => handleNavClick('partnership')} className="mobile-nav-btn">PARTNERSHIP</button>
+           {/* MORE */}
+          <div>
+            <div onClick={() => toggleDropdown('more')} className="mobile-nav-btn" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span>MORE</span> <ChevronDown style={{ width: '16px', height: '16px' }} />
+            </div>
+            {activeDropdown === 'more' && (
+              <div style={{ paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.5rem' }}>
+                <button onClick={() => handleNavClick('trade')} className="mobile-sub-btn">International Trade</button>
+                <button onClick={() => handleNavClick('case-studies')} className="mobile-sub-btn">Case Studies</button>
+                <button onClick={() => handleNavClick('partnership')} className="mobile-sub-btn">Partnership</button>
+              </div>
+            )}
+          </div>
           <button onClick={() => handleNavClick('contact')} className="mobile-nav-btn">CONTACT US</button>
         </div>
       )}
