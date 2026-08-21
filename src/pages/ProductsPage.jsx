@@ -9,6 +9,7 @@ import {
 import fu from '../assets/fieldunit.png';
 import dash from '../assets/dashboard.png';
 import school from '../assets/school.png';
+import dragonflyConcept from '../assets/dragonfly_concept.jpg';
 
 import emsMgmtImg from '../assets/ems_management.png';
 import dimmingImg from '../assets/stepless_dimming.png';
@@ -19,8 +20,8 @@ import stretchFilmImg from '../assets/stretch_film.jpg';
 import bubbleWrapImg from '../assets/bubble_wrap.jpg';
 import oppTapeImg from '../assets/opp_tape.jpg';
 
-import eggCartonImg from '../assets/egg_carton.jpg';
-import roundContainerImg from '../assets/round_container.jpg';
+import eggCartonImg from '../assets/egg_carton.jpeg';
+import rectangularTubsImg from '../assets/rectangular_tubs.jpg';
 import dividedContainerImg from '../assets/divided_container.jpg';
 import rectContainerImg from '../assets/rect_container.jpg';
 
@@ -101,7 +102,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
     const whyDragonflyCards = [
       {
         title: 'Continuous Source Elimination',
-        desc: 'Traditional chemical fogging only disperses flying insects temporarily. Dragonfly patrols continuously to eliminate the breeding population at the source.',
+        desc: 'Traditional chemical fogging and misting only disperse flying insects temporarily. Dragonfly patrols continuously to eliminate the breeding population at the source',
         tag: 'PROACTIVE',
         color: '#c5a059'
       },
@@ -323,6 +324,29 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                 <img src={dash} alt="Dragonfly Telemetry Dashboard" style={{ width: '100%', borderRadius: '1rem', objectFit: 'cover', height: '240px', transform: 'translateZ(10px)' }} />
                 <div style={{ padding: '1rem 0.5rem 0.5rem 0.5rem', fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: 700, textAlign: 'center', transform: 'translateZ(15px)' }}>
                   L3 SUTD ROS Telemetry & Active Sensor Dashboard
+                </div>
+              </div>
+
+              {/* Card 4: AI Vector Control Robot */}
+              <div 
+                className="glass-panel"
+                style={{
+                  padding: '12px',
+                  borderRadius: '1.25rem',
+                  border: '1px solid var(--border-glass)',
+                  background: 'var(--bg-glass)',
+                  boxShadow: 'var(--shadow-glass)',
+                  cursor: 'pointer',
+                  transformStyle: 'preserve-3d',
+                  transition: 'all 0.3s ease',
+                  ...(hoveredCardId === 'vis-3' ? tiltStyles['vis-3'] : {})
+                }}
+                onMouseMove={(e) => handleMouseMove3D(e, 'vis-3')}
+                onMouseLeave={() => handleMouseLeave3D('vis-3')}
+              >
+                <img src={dragonflyConcept} alt="Dragonfly AI Vector Control" style={{ width: '100%', borderRadius: '1rem', objectFit: 'cover', height: '240px', transform: 'translateZ(10px)' }} />
+                <div style={{ padding: '1rem 0.5rem 0.5rem 0.5rem', fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: 700, textAlign: 'center', transform: 'translateZ(15px)' }}>
+                  Co-branded AI Vector Control Autonomous Unit
                 </div>
               </div>
 
@@ -591,16 +615,16 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                 {
                   id: 'inv-egg',
                   title: 'Biodegradable Egg Cartons',
-                  specs: 'Moulded paper pulp 10-egg cartons, export-grade cushioning and nesting.',
+                  specs: 'Moulded paper pulp 15-egg cartons, export-grade cushioning and nesting.',
                   features: ['100% Recyclable pulp', 'Impact-resistant structure', 'Biodegradable material'],
                   image: eggCartonImg
                 },
                 {
-                  id: 'inv-round',
-                  title: 'Round Microwave Safe Tubs',
-                  specs: 'BPA-free transparent round plastic containers with leak-resistant lids.',
+                  id: 'inv-rectangular-tubs',
+                  title: 'Rectangular Microwave Safe Tubs',
+                  specs: 'BPA-free transparent rectangular plastic containers with leak-resistant lids.',
                   features: ['Microwave safe reheating', 'BPA-free formulation', 'Tight liquid-safe seals'],
-                  image: roundContainerImg
+                  image: rectangularTubsImg
                 },
                 {
                   id: 'inv-divided',

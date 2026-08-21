@@ -48,14 +48,17 @@ const Footer = ({ setCurrentPage, setActiveProductTab }) => {
         <div style={{ textAlign: 'left' }}>
           <div
             style={{
-              display: 'flex',
+              display: 'inline-flex',
               alignItems: 'center',
               marginBottom: '1.25rem',
               cursor: 'pointer',
+              background: '#ffffff',
+              padding: '6px 12px',
+              borderRadius: '6px',
             }}
             onClick={() => handleNavClick('home')}
           >
-            <img src="/logo.png" alt="Uniqix Logo" style={{ height: '40px', objectFit: 'contain' }} />
+            <img src="/logo.png" alt="Uniqix Logo" style={{ height: '32px', objectFit: 'contain' }} />
           </div>
           <p style={{ color: 'var(--footer-text-secondary)', fontSize: '0.9rem', lineHeight: '1.6' }}>
             Uniqix is a leading B2B procurement services and global physical trade company. We streamline international supply chains with direct-from-manufacturer sourcing and compliant industrial solutions.
@@ -117,7 +120,7 @@ const Footer = ({ setCurrentPage, setActiveProductTab }) => {
             <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
               <Phone style={{ width: '18px', height: '18px', color: 'var(--footer-text-primary)' }} />
               <div>
-                <div>Tel: <a href="tel:+6562821436" style={{ color: 'inherit', textDecoration: 'none' }}>+65 6282 1436</a></div>
+                <div>Tel: <a href="tel:+6562821436" style={{ color: 'inherit', textDecoration: 'none' }}>+65 8399 5062</a></div>
               </div>
             </li>
             <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>

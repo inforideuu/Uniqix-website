@@ -43,7 +43,7 @@ const ContactPage = () => {
                 </div>
                 <div>
                   <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Telephone Support</div>
-                  <a href="tel:+6562821436" style={{ color: 'var(--text-primary)', fontWeight: 700, textDecoration: 'none' }}>+65 6282 1436</a>
+                  <a href="tel:+6562821436" style={{ color: 'var(--text-primary)', fontWeight: 700, textDecoration: 'none' }}>+65 8399 5062</a>
                 </div>
               </div>
 
