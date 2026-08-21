@@ -58,7 +58,7 @@ const Footer = ({ setCurrentPage, setActiveProductTab }) => {
             }}
             onClick={() => handleNavClick('home')}
           >
-            <img src="/logo.png" alt="Uniqix Logo" style={{ height: '32px', objectFit: 'contain' }} />
+            <img src="/logo.png" alt="Uniqix Logo" style={{ height: '52px', objectFit: 'contain' }} />
           </div>
           <p style={{ color: 'var(--footer-text-secondary)', fontSize: '0.9rem', lineHeight: '1.6' }}>
             Uniqix is a leading B2B procurement services and global physical trade company. We streamline international supply chains with direct-from-manufacturer sourcing and compliant industrial solutions.

@@ -21,9 +21,9 @@ import bubbleWrapImg from '../assets/bubble_wrap.jpg';
 import oppTapeImg from '../assets/opp_tape.jpg';
 
 import eggCartonImg from '../assets/egg_carton.jpeg';
-import rectangularTubsImg from '../assets/rectangular_tubs.jpg';
+import roundReheatingTubsImg from '../assets/round_reheating_tubs.jpg';
 import dividedContainerImg from '../assets/divided_container.jpg';
-import rectContainerImg from '../assets/rect_container.jpg';
+import rectangularReheatingTubsImg from '../assets/rectangular_reheating_tubs.jpg';
 
 const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab }) => {
   const [showTechDetails, setShowTechDetails] = useState(true);
@@ -328,7 +328,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
               </div>
 
               {/* Card 4: AI Vector Control Robot */}
-              <div 
+              {/* <div 
                 className="glass-panel"
                 style={{
                   padding: '12px',
@@ -348,7 +348,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                 <div style={{ padding: '1rem 0.5rem 0.5rem 0.5rem', fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: 700, textAlign: 'center', transform: 'translateZ(15px)' }}>
                   Co-branded AI Vector Control Autonomous Unit
                 </div>
-              </div>
+              </div> */}
 
             </div>
           </div>
@@ -620,11 +620,11 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                   image: eggCartonImg
                 },
                 {
-                  id: 'inv-rectangular-tubs',
-                  title: 'Rectangular Microwave Safe Tubs',
-                  specs: 'BPA-free transparent rectangular plastic containers with leak-resistant lids.',
-                  features: ['Microwave safe reheating', 'BPA-free formulation', 'Tight liquid-safe seals'],
-                  image: rectangularTubsImg
+                  id: 'inv-soup-bowls',
+                  title: 'Round Soup Bowls',
+                  specs: 'High-temperature resistant transparent round bowls with secure leak-proof lids.',
+                  features: ['High-heat soup resilient', 'Leak-proof liquid seal', 'Freezer & microwave safe'],
+                  image: roundReheatingTubsImg
                 },
                 {
                   id: 'inv-divided',
@@ -638,7 +638,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                   title: 'Rectangular Reheating Tubs',
                   specs: 'BPA-free transparent rectangular containers for bulk catering and meal prep.',
                   features: ['Space-saving stack design', 'Microwave safe body', 'Flexible plastic resilience'],
-                  image: rectContainerImg
+                  image: rectangularReheatingTubsImg
                 }
               ].map((item) => (
                 <div
@@ -691,7 +691,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
 
         {/* Physical Compression Table */}
         <section style={{ padding: '2rem 0' }}>
-          <div className="container" style={{ maxWidth: '900px' }}>
+          <div className="container">
             <div className="glass-panel" style={{ padding: '3.5rem', borderRadius: '2rem', background: 'var(--bg-glass)', border: '1px solid var(--border-glass)', boxShadow: 'var(--shadow-glass)' }}>
               <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                 <span style={{ fontSize: '0.8rem', fontWeight: 750, color: 'var(--primary)', letterSpacing: '0.12em', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>
@@ -705,15 +705,15 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                 </p>
               </div>
 
-              <div style={{ overflowX: 'auto', marginTop: '1.5rem' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '680px' }}>
+              <div style={{ marginTop: '1.5rem', padding: '0.5rem' }}>
+                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 10px', textAlign: 'left' }}>
                   <thead>
-                    <tr style={{ borderBottom: '2px solid rgba(197, 160, 89, 0.15)' }}>
-                      <th style={{ padding: '16px 12px', fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Sample / Sector Case</th>
-                      <th style={{ padding: '16px 12px', fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Weight (B vs S)</th>
-                      <th style={{ padding: '16px 12px', fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Load Limit (B vs S)</th>
-                      <th style={{ padding: '16px 12px', fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Edge Crush (ECT)</th>
-                      <th style={{ padding: '16px 12px', fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Bursting Strength</th>
+                    <tr>
+                      <th style={{ padding: '16px', fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', background: 'rgba(197, 160, 89, 0.04)', borderTopLeftRadius: '8px', borderBottomLeftRadius: '8px' }}>Sample / Sector Case</th>
+                      <th style={{ padding: '16px', fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', background: 'rgba(197, 160, 89, 0.04)' }}>Weight (B vs S)</th>
+                      <th style={{ padding: '16px', fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', background: 'rgba(197, 160, 89, 0.04)' }}>Load Limit (B vs S)</th>
+                      <th style={{ padding: '16px', fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', background: 'rgba(197, 160, 89, 0.04)' }}>Edge Crush (ECT)</th>
+                      <th style={{ padding: '16px', fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', background: 'rgba(197, 160, 89, 0.04)', borderTopRightRadius: '8px', borderBottomRightRadius: '8px' }}>Bursting Strength</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -721,34 +721,68 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                       <tr 
                         key={idx} 
                         style={{ 
-                          borderBottom: '1px solid var(--border-glass)',
-                          transition: 'background-color 0.2s'
+                          background: 'rgba(255, 255, 255, 0.015)',
+                          boxShadow: '0 4px 15px rgba(0, 0, 0, 0.05)',
+                          transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                          cursor: 'pointer'
                         }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(197, 160, 89, 0.03)'}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = 'rgba(197, 160, 89, 0.04)';
+                          e.currentTarget.style.transform = 'translateY(-2px)';
+                          e.currentTarget.style.boxShadow = '0 6px 20px rgba(197, 160, 89, 0.08)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.015)';
+                          e.currentTarget.style.transform = 'translateY(0)';
+                          e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.05)';
+                        }}
                       >
-                        <td style={{ padding: '20px 12px', fontWeight: 700, fontSize: '0.98rem', color: 'var(--text-primary)' }}>
+                        <td style={{ padding: '20px 16px', fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-primary)', borderTopLeftRadius: '12px', borderBottomLeftRadius: '12px', border: '1px solid var(--border-glass)', borderRight: 'none' }}>
                           {row.case}
                         </td>
-                        <td style={{ padding: '20px 12px', fontSize: '0.9rem' }}>
-                          <span style={{ color: 'var(--text-muted)', marginRight: '6px' }}>{row.wB}</span>
-                          <span style={{ color: '#c5a059', marginRight: '6px', fontWeight: 700 }}>→</span>
-                          <span style={{ fontWeight: 700, color: '#10b981', background: 'rgba(16, 185, 129, 0.08)', padding: '4px 8px', borderRadius: '6px' }}>{row.wS}</span>
+                        <td style={{ padding: '20px 16px', borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-glass)', padding: '4px 10px', borderRadius: '12px', minWidth: '65px', textAlign: 'center' }}>
+                              {row.wB}
+                            </span>
+                            <span style={{ color: '#c5a059', fontWeight: 800, fontSize: '0.95rem' }}>→</span>
+                            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#10b981', background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.12) 100%)', border: '1px solid rgba(16, 185, 129, 0.25)', padding: '4px 10px', borderRadius: '12px', minWidth: '65px', textAlign: 'center', boxShadow: '0 2px 8px rgba(16, 185, 129, 0.05)' }}>
+                              {row.wS}
+                            </span>
+                          </div>
                         </td>
-                        <td style={{ padding: '20px 12px', fontSize: '0.9rem' }}>
-                          <span style={{ color: 'var(--text-muted)', marginRight: '6px' }}>{row.lB}</span>
-                          <span style={{ color: '#c5a059', marginRight: '6px', fontWeight: 700 }}>→</span>
-                          <span style={{ fontWeight: 700, color: '#10b981', background: 'rgba(16, 185, 129, 0.08)', padding: '4px 8px', borderRadius: '6px' }}>{row.lS}</span>
+                        <td style={{ padding: '20px 16px', borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-glass)', padding: '4px 10px', borderRadius: '12px', minWidth: '65px', textAlign: 'center' }}>
+                              {row.lB}
+                            </span>
+                            <span style={{ color: '#c5a059', fontWeight: 800, fontSize: '0.95rem' }}>→</span>
+                            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#10b981', background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.12) 100%)', border: '1px solid rgba(16, 185, 129, 0.25)', padding: '4px 10px', borderRadius: '12px', minWidth: '65px', textAlign: 'center', boxShadow: '0 2px 8px rgba(16, 185, 129, 0.05)' }}>
+                              {row.lS}
+                            </span>
+                          </div>
                         </td>
-                        <td style={{ padding: '20px 12px', fontSize: '0.9rem' }}>
-                          <span style={{ color: 'var(--text-muted)', marginRight: '6px' }}>{row.eB}</span>
-                          <span style={{ color: '#c5a059', marginRight: '6px', fontWeight: 700 }}>→</span>
-                          <span style={{ fontWeight: 700, color: '#10b981', background: 'rgba(16, 185, 129, 0.08)', padding: '4px 8px', borderRadius: '6px' }}>{row.eS}</span>
+                        <td style={{ padding: '20px 16px', borderTop: '1px solid var(--border-glass)', borderBottom: '1px solid var(--border-glass)' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-glass)', padding: '4px 10px', borderRadius: '12px', minWidth: '78px', textAlign: 'center' }}>
+                              {row.eB}
+                            </span>
+                            <span style={{ color: '#c5a059', fontWeight: 800, fontSize: '0.95rem' }}>→</span>
+                            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#10b981', background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.12) 100%)', border: '1px solid rgba(16, 185, 129, 0.25)', padding: '4px 10px', borderRadius: '12px', minWidth: '78px', textAlign: 'center', boxShadow: '0 2px 8px rgba(16, 185, 129, 0.05)' }}>
+                              {row.eS}
+                            </span>
+                          </div>
                         </td>
-                        <td style={{ padding: '20px 12px', fontSize: '0.9rem' }}>
-                          <span style={{ color: 'var(--text-muted)', marginRight: '6px' }}>{row.bB}</span>
-                          <span style={{ color: '#c5a059', marginRight: '6px', fontWeight: 700 }}>→</span>
-                          <span style={{ fontWeight: 700, color: '#10b981', background: 'rgba(16, 185, 129, 0.08)', padding: '4px 8px', borderRadius: '6px' }}>{row.bS}</span>
+                        <td style={{ padding: '20px 16px', borderTopRightRadius: '12px', borderBottomRightRadius: '12px', border: '1px solid var(--border-glass)', borderLeft: 'none' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border-glass)', padding: '4px 10px', borderRadius: '12px', minWidth: '72px', textAlign: 'center' }}>
+                              {row.bB}
+                            </span>
+                            <span style={{ color: '#c5a059', fontWeight: 800, fontSize: '0.95rem' }}>→</span>
+                            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#10b981', background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.12) 100%)', border: '1px solid rgba(16, 185, 129, 0.25)', padding: '4px 10px', borderRadius: '12px', minWidth: '72px', textAlign: 'center', boxShadow: '0 2px 8px rgba(16, 185, 129, 0.05)' }}>
+                              {row.bS}
+                            </span>
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -761,7 +795,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
 
         {/* Technical Data Suite Toggle */}
         <section style={{ padding: '2rem 0' }}>
-          <div className="container" style={{ maxWidth: '900px' }}>
+          <div className="container">
             <div className="glass-panel" style={{ padding: '3.5rem', borderRadius: '2rem', background: 'var(--bg-glass)', border: '1px solid var(--border-glass)', boxShadow: 'var(--shadow-glass)' }}>
               
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
