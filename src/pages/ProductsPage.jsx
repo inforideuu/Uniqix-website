@@ -22,7 +22,7 @@ import oppTapeImg from '../assets/opp_tape.jpg';
 
 import eggCartonImg from '../assets/egg_carton.jpeg';
 import roundReheatingTubsImg from '../assets/round_reheating_tubs.jpg';
-import dividedContainerImg from '../assets/divided_container.jpg';
+import dividedContainerImg from '../assets/divided_container.jpeg';
 import rectangularReheatingTubsImg from '../assets/rectangular_reheating_tubs.jpg';
 
 const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab }) => {
@@ -621,9 +621,9 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                 },
                 {
                   id: 'inv-soup-bowls',
-                  title: 'Round Soup Bowls',
+                  title: 'Round Bowls Containers',
                   specs: 'High-temperature resistant transparent round bowls with secure leak-proof lids.',
-                  features: ['High-heat soup resilient', 'Leak-proof liquid seal', 'Freezer & microwave safe'],
+                  features: ['High-heat resilient', 'Leak-proof liquid seal', 'Freezer & microwave safe'],
                   image: roundReheatingTubsImg
                 },
                 {
