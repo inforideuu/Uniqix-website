@@ -2,3 +2,4 @@ Django>=5.0
 pymysql>=1.1.0
 django-cors-headers>=4.3.0
 cryptography
+gunicorn>=21.2.0
