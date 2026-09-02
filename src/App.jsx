@@ -13,12 +13,38 @@ import PartnershipPage from './pages/PartnershipPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import CaseStudiesPage from './pages/CaseStudiesPage';
+import AdminPage from './pages/AdminPage';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('home');
+  const [currentPage, setCurrentPage] = useState(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash) return hash;
+    return localStorage.getItem('uniqix_current_page') || 'home';
+  });
+
   const [theme, setTheme] = useState('light');
   const [activeProductTab, setActiveProductTab] = useState(0);
   const [activeTradeSector, setActiveTradeSector] = useState(null);
+
+  useEffect(() => {
+    if (currentPage) {
+      localStorage.setItem('uniqix_current_page', currentPage);
+      if (window.location.hash.replace('#', '') !== currentPage) {
+        window.location.hash = currentPage;
+      }
+    }
+  }, [currentPage]);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash && hash !== currentPage) {
+        setCurrentPage(hash);
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [currentPage]);
 
   useEffect(() => {
     // Set theme attribute on root html tag
@@ -26,10 +52,12 @@ function App() {
   }, [theme]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     const observerOptions = {
       root: null,
-      rootMargin: '0px 0px -60px 0px',
-      threshold: 0.05
+      rootMargin: '0px 0px -40px 0px',
+      threshold: 0.02
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -41,15 +69,33 @@ function App() {
       });
     }, observerOptions);
 
-    const sections = document.querySelectorAll('section, .container > div');
-    sections.forEach((sec) => {
-      sec.classList.add('reveal-section');
-      observer.observe(sec);
-    });
+    const initReveal = () => {
+      const selectors = 'section, .container, .container > div, .reveal-on-scroll, [data-reveal]';
+      const elements = document.querySelectorAll(selectors);
+      elements.forEach((el, idx) => {
+        // Skip elements that are nested inside another reveal container to avoid double transform
+        if (el.parentElement && el.parentElement.classList.contains('reveal-section')) {
+          return;
+        }
+        el.classList.add('reveal-section');
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+          setTimeout(() => {
+            el.classList.add('revealed');
+          }, idx * 60);
+        } else {
+          observer.observe(el);
+        }
+      });
+    };
+
+    const timer = setTimeout(initReveal, 100);
 
     return () => {
-      sections.forEach((sec) => {
-        observer.unobserve(sec);
+      clearTimeout(timer);
+      const elements = document.querySelectorAll('.reveal-section');
+      elements.forEach((el) => {
+        observer.unobserve(el);
       });
     };
   }, [currentPage]);
@@ -81,42 +127,50 @@ function App() {
           />
         );
       case 'dormitories':
-        return <DormitoriesPage />;
+        return <DormitoriesPage setCurrentPage={setCurrentPage} />;
       case 'partnership':
         return <PartnershipPage setCurrentPage={setCurrentPage} />;
       case 'about':
-        return <AboutPage />;
+        return <AboutPage setCurrentPage={setCurrentPage} />;
       case 'contact':
         return <ContactPage />;
       case 'case-studies':
         return <CaseStudiesPage setCurrentPage={setCurrentPage} />;
+      case 'admin':
+        return <AdminPage setCurrentPage={setCurrentPage} />;
       default:
         return <HomePage setCurrentPage={setCurrentPage} />;
     }
   };
 
+  const isAdminPage = currentPage === 'admin';
+
   return (
     <div className="app-container">
       {/* 3D Interactive Canvas Background */}
-      <ThreeDCanvas />
+      {!isAdminPage && <ThreeDCanvas />}
 
       {/* Floating Header Navbar */}
-      <Navbar 
-        currentPage={currentPage} 
-        setCurrentPage={setCurrentPage} 
-        theme={theme} 
-        toggleTheme={toggleTheme} 
-        setActiveProductTab={setActiveProductTab}
-        setActiveTradeSector={setActiveTradeSector}
-      />
+      {!isAdminPage && (
+        <Navbar 
+          currentPage={currentPage} 
+          setCurrentPage={setCurrentPage} 
+          theme={theme} 
+          toggleTheme={toggleTheme} 
+          setActiveProductTab={setActiveProductTab}
+          setActiveTradeSector={setActiveTradeSector}
+        />
+      )}
 
       {/* Core Dynamic Content Wrapper */}
-      <main className="content-wrapper">
+      <main className={isAdminPage ? "admin-content-wrapper" : "content-wrapper"}>
         {renderPage()}
       </main>
 
       {/* Corporate Footer */}
-      <Footer setCurrentPage={setCurrentPage} setActiveProductTab={setActiveProductTab} />
+      {!isAdminPage && (
+        <Footer setCurrentPage={setCurrentPage} setActiveProductTab={setActiveProductTab} />
+      )}
     </div>
   );
 }

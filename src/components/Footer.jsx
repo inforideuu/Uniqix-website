@@ -43,7 +43,7 @@ const Footer = ({ setCurrentPage, setActiveProductTab }) => {
       }}
     >
       {/* Top Footer contents */}
-      <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '3rem', marginBottom: '4rem' }}>
+      <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '3rem', marginBottom: '2rem' }}>
         {/* Brand Info */}
         <div style={{ textAlign: 'left' }}>
           <div
@@ -60,7 +60,7 @@ const Footer = ({ setCurrentPage, setActiveProductTab }) => {
           >
             <img src="/logo.png" alt="Uniqix Logo" style={{ height: '52px', objectFit: 'contain' }} />
           </div>
-          <p style={{ color: 'var(--footer-text-secondary)', fontSize: '0.9rem', lineHeight: '1.6' }}>
+          <p style={{ color: 'var(--footer-text-secondary)', fontSize: '0.9rem', lineHeight: '1.6', textAlign: 'justify' }}>
             Uniqix is a leading B2B procurement services and global physical trade company. We streamline international supply chains with direct-from-manufacturer sourcing and compliant industrial solutions.
           </p>
         </div>
@@ -106,28 +106,57 @@ const Footer = ({ setCurrentPage, setActiveProductTab }) => {
             <button onClick={() => handleNavClick('services')} style={linkStyle}>
               Global Supplier Portal
             </button>
+            <button onClick={() => handleNavClick('admin')} style={{ ...linkStyle, color: 'var(--primary)', fontWeight: 700 }}>
+              Admin Console
+            </button>
           </div>
         </div>
 
         {/* Office Contact Info */}
         <div style={{ textAlign: 'left' }}>
           <h4 style={{ color: 'var(--footer-text-primary)', marginBottom: '1.25rem', fontSize: '1.1rem', fontWeight: 700 }}>Global Headquarters</h4>
-          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem', color: 'var(--footer-text-secondary)', fontSize: '0.9rem' }}>
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem', color: 'var(--footer-text-secondary)', fontSize: '0.9rem', padding: 0, margin: '0 0 1.75rem 0' }}>
             <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
               <MapPin style={{ width: '18px', height: '18px', color: 'var(--footer-text-primary)', flexShrink: 0, marginTop: '2px' }} />
               <span>8 Burn Road, Trivex #04-08, Singapore 369977.</span>
             </li>
             <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-              <Phone style={{ width: '18px', height: '18px', color: 'var(--footer-text-primary)' }} />
+              <Phone style={{ width: '18px', height: '18px', color: 'var(--footer-text-primary)', flexShrink: 0 }} />
               <div>
                 <div>Tel: <a href="tel:+6562821436" style={{ color: 'inherit', textDecoration: 'none' }}>+65 8399 5062</a></div>
               </div>
             </li>
             <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-              <Mail style={{ width: '18px', height: '18px', color: 'var(--footer-text-primary)' }} />
+              <Mail style={{ width: '18px', height: '18px', color: 'var(--footer-text-primary)', flexShrink: 0 }} />
               <a href="mailto:francislim@uniqix.com" style={{ color: 'inherit', textDecoration: 'none' }}>francislim@uniqix.com</a>
             </li>
           </ul>
+
+          {/* Powered By Info (Placed directly under Global Headquarters) */}
+          <div>
+            <div style={{ color: 'var(--footer-text-primary)', fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.65rem' }}>Powered By</div>
+            <a
+              href="https://zenelaitinfotech.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ display: 'inline-block', transition: 'transform 0.25s ease' }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+            >
+              <img
+                src="/zenelaitinfotech_logo.png"
+                alt="Zenelait Infotech"
+                style={{
+                  height: '42px',
+                  borderRadius: '8px',
+                  background: '#ffffff',
+                  padding: '4px 10px',
+                  boxShadow: '0 4px 14px rgba(0, 0, 0, 0.12)',
+                  objectFit: 'contain'
+                }}
+              />
+            </a>
+          </div>
         </div>
       </div>
 
@@ -137,14 +166,13 @@ const Footer = ({ setCurrentPage, setActiveProductTab }) => {
       style={{
         background: 'var(--footer-socket-bg)',
         borderTop: '1px solid var(--border-glass)',
-        padding: '1.5rem 0',
+        padding: '1.25rem 0',
         transition: 'background-color 0.4s ease',
         position: 'relative',
-        zIndex: 10,
-        height:'80px'
+        zIndex: 10
       }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
+      <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
         {/* Copyright Info */}
         <div style={{ color: 'var(--footer-text-secondary)', fontSize: '0.85rem' }}>
           © 2026 Uniqix Global Platform. All rights reserved.
@@ -155,6 +183,31 @@ const Footer = ({ setCurrentPage, setActiveProductTab }) => {
           <a href="#privacy" onClick={(e) => { e.preventDefault(); }} style={{ color: 'var(--footer-text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#ffffff'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--footer-text-secondary)'}>Privacy Policy</a>
           <span style={{ color: 'rgba(255,255,255,0.15)' }}>|</span>
           <a href="#terms" onClick={(e) => { e.preventDefault(); }} style={{ color: 'var(--footer-text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#ffffff'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--footer-text-secondary)'}>Terms of Service</a>
+        </div>
+
+        {/* Powered By Socket Attribution */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.82rem', color: 'var(--footer-text-secondary)' }}>
+          <span>Powered By</span>
+          <a
+            href="https://zenelaitinfotech.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ display: 'inline-flex', alignItems: 'center', transition: 'transform 0.2s ease' }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            <img
+              src="/zenelaitinfotech_logo.png"
+              alt="Zenelait Infotech"
+              style={{
+                height: '28px',
+                borderRadius: '6px',
+                background: '#ffffff',
+                padding: '2px 6px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+              }}
+            />
+          </a>
         </div>
 
         {/* Social Icons */}

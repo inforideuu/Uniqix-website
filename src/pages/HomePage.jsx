@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  ArrowRight, Star, Shield, Cpu, RefreshCw, BarChart2, Users, CheckCircle, 
-  Quote, Activity, Sparkles, Lightbulb, Building, Home, ShieldCheck, Layers, 
-  Globe, Coins, TrendingUp, UserCheck, FileText, Search, Box, Truck, Clock, 
-  Target, ChevronRight, ChevronLeft 
+import {
+  ArrowRight, Star, Shield, Cpu, RefreshCw, BarChart2, Users, CheckCircle,
+  Quote, Activity, Sparkles, Lightbulb, Building, Home, ShieldCheck, Layers,
+  Globe, Coins, TrendingUp, UserCheck, FileText, Search, Box, Truck, Clock,
+  Target, ChevronRight, ChevronLeft
 } from 'lucide-react';
 import Counter from '../components/Counter';
 import heroImage from '../assets/uniqix_hero_logistics.png';
@@ -19,19 +19,70 @@ const HomePage = ({ setCurrentPage }) => {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [isWhyHovered1, setIsWhyHovered1] = useState(false);
   const [isWhyHovered2, setIsWhyHovered2] = useState(false);
+
+  // Home Page CMS Dynamic States
+  const [introSettings, setIntroSettings] = useState({
+    intro_title: "What Defines Uniqix ?",
+    intro_text_1: "Uniqix Pte Ltd is a Singapore-based company specializing in aggregating the procurement of products and services for more than 23 industries, focusing on cost savings and technology transformation for our clients.",
+    intro_text_2: "By integrating physical shipping operations, rigid compliance, and direct-from-manufacturer pricing structures, we eliminate high-margin intermediaries and supply chain vulnerabilities.",
+    stat1_target: "$580M+",
+    stat1_label: "Commodities Traded",
+    stat2_target: "40+",
+    stat2_label: "Dormitory Hubs",
+    stat3_target: "100%",
+    stat3_label: "Assay Traceability",
+    stat4_target: "80k+",
+    stat4_label: "Workers Housed"
+  });
+  const [testimonials, setTestimonials] = useState([]);
+  const [divisions, setDivisions] = useState([]);
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/api/home-settings/')
+      .then(res => res.json())
+      .then(data => {
+        if (data) {
+          if (data.settings) setIntroSettings(data.settings);
+          if (data.testimonials) setTestimonials(data.testimonials);
+          if (data.divisions) setDivisions(data.divisions);
+        }
+      })
+      .catch(err => console.error("Error loading home settings:", err));
+  }, []);
+
+  const getFeatureIcon = (text, divisionColor) => {
+    const style = { width: '16px', height: '16px', color: divisionColor };
+    if (text.includes('FEDA') || text.includes('Verified') || text.includes('Compliant')) return <ShieldCheck style={style} />;
+    if (text.includes('Safe') || text.includes('Living') || text.includes('Users')) return <Users style={style} />;
+    if (text.includes('End-to-End') || text.includes('Accommodation') || text.includes('Management')) return <Home style={style} />;
+    if (text.includes('Robotics') || text.includes('Advanced') || text.includes('Solutions')) return <Cpu style={style} />;
+    if (text.includes('High-Quality') || text.includes('Products')) return <Layers style={style} />;
+    if (text.includes('Smart') || text.includes('Energy') || text.includes('IoT') || text.includes('Innovations')) return <Lightbulb style={style} />;
+    if (text.includes('Gold') || text.includes('Trading') || text.includes('Metals')) return <Coins style={style} />;
+    if (text.includes('Network') || text.includes('Global')) return <Globe style={style} />;
+    return <CheckCircle style={style} />;
+  };
+
+  const getDivisionIcon = (title) => {
+    const style = { width: '24px', height: '24px', color: '#ffffff' };
+    if (title.includes('Dormitory') || title.includes('Housing')) return <Building style={style} />;
+    if (title.includes('Industrial') || title.includes('Products') || title.includes('Robotics')) return <Cpu style={style} />;
+    return <Globe style={style} />;
+  };
+
   const heroSlides = [
     {
-      title: <>Foreign Worker<br/><span className="gradient-text">Dormitory Housing</span></>,
+      title: <>Foreign Worker<br /><span className="gradient-text">Dormitory Housing</span></>,
       content: "FEDA-compliant, fully-managed, secure accommodation hubs positioned near major industrial zones to ensure safety and comfort.",
       tagline: "Workforce Lodging Solutions"
     },
     {
-      title: <>Advanced Specialized<br/><span className="gradient-text">Enterprise Products</span></>,
+      title: <>Advanced Specialized<br /><span className="gradient-text">Enterprise Products</span></>,
       content: "Leasing autonomous mosquito robots, sourcing bulk packaging materials, and retrofitting smart lighting for energy efficiency.",
       tagline: "Industrial Product Suite"
     },
     {
-      title: <>Physical Commodity<br/><span className="gradient-text">International Trade</span></>,
+      title: <>Physical Commodity<br /><span className="gradient-text">International Trade</span></>,
       content: "Secure, regulatory-compliant trade operations spanning physical gold bullion, crude/refined oil & gas, and industrial metals.",
       tagline: "Global Trading Corridor"
     }
@@ -107,14 +158,14 @@ const HomePage = ({ setCurrentPage }) => {
   return (
     <div style={{ color: 'var(--text-primary)' }}>
       {/* 1. Centered Hero Section with Background Video */}
-      <section style={{ 
-        position: 'relative', 
-        minHeight: '100vh', 
-        marginTop: '-90px', 
-        display: 'flex', 
-        alignItems: 'center', 
+      <section style={{
+        position: 'relative',
+        minHeight: '100vh',
+        marginTop: '-90px',
+        display: 'flex',
+        alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: '130px', 
+        paddingTop: '130px',
         textAlign: 'center',
         overflow: 'hidden',
         color: '#ffffff'
@@ -152,39 +203,39 @@ const HomePage = ({ setCurrentPage }) => {
 
         {/* Content overlay */}
         <div className="container" style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 3 }}>
-          <div style={{ 
-            display: 'inline-flex', 
-            alignItems: 'center', 
-            gap: '8px', 
-            padding: '6px 16px', 
-            background: 'rgba(99, 102, 241, 0.15)', 
-            borderRadius: '50px', 
-            border: '1px solid rgba(99, 102, 241, 0.3)', 
-            marginBottom: '2rem' 
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '6px 16px',
+            background: 'rgba(99, 102, 241, 0.15)',
+            borderRadius: '50px',
+            border: '1px solid rgba(99, 102, 241, 0.3)',
+            marginBottom: '2rem'
           }}>
             <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#6366f1', display: 'inline-block' }}></span>
             <span style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.05em', color: '#6366f1' }}>
               {heroSlides[currentSlideIdx].tagline}
             </span>
           </div>
-          <h1 style={{ 
-            fontSize: '4rem', 
-            fontWeight: 800, 
-            lineHeight: '1.2', 
-            marginBottom: '1.5rem', 
-            letterSpacing: '-0.03em', 
+          <h1 style={{
+            fontSize: '4rem',
+            fontWeight: 800,
+            lineHeight: '1.2',
+            marginBottom: '1.5rem',
+            letterSpacing: '-0.03em',
             color: '#ffffff',
             minHeight: '9.6rem',
             textAlign: 'center'
           }}>
             {heroSlides[currentSlideIdx].title}
           </h1>
-          <p style={{ 
-            color: 'rgba(255, 255, 255, 0.85)', 
-            fontSize: '1.25rem', 
-            marginBottom: '3rem', 
-            lineHeight: '1.7', 
-            maxWidth: '650px', 
+          <p style={{
+            color: 'rgba(255, 255, 255, 0.85)',
+            fontSize: '1.25rem',
+            marginBottom: '3rem',
+            lineHeight: '1.7',
+            maxWidth: '650px',
             margin: '0 auto 3rem auto',
             minHeight: '4.5rem'
           }}>
@@ -194,14 +245,14 @@ const HomePage = ({ setCurrentPage }) => {
             <button onClick={() => setCurrentPage('services')} className="btn btn-primary" style={{ padding: '0.85rem 2rem' }}>
               Explore Services <ArrowRight style={{ width: '18px', height: '18px' }} />
             </button>
-            <button 
-              onClick={() => setCurrentPage('contact')} 
-              className="btn btn-secondary" 
-              style={{ 
-                padding: '0.85rem 2rem', 
-                background: 'rgba(255,255,255,0.1)', 
-                border: '1px solid rgba(255,255,255,0.2)', 
-                color: '#ffffff' 
+            <button
+              onClick={() => setCurrentPage('contact')}
+              className="btn btn-secondary"
+              style={{
+                padding: '0.85rem 2rem',
+                background: 'rgba(255,255,255,0.1)',
+                border: '1px solid rgba(255,255,255,0.2)',
+                color: '#ffffff'
               }}
             >
               Request Quote
@@ -212,12 +263,12 @@ const HomePage = ({ setCurrentPage }) => {
 
       {/* 2. Company Introduction */}
       <section>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem', alignItems: 'center' }}>
-          <div 
-            className="glass-panel" 
-            style={{ 
-              padding: '2.5rem', 
-              borderRadius: '1.5rem', 
+        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem', alignItems: 'stretch' }}>
+          <div
+            className="glass-panel"
+            style={{
+              padding: '2.5rem',
+              borderRadius: '1.5rem',
               boxShadow: isIntroHovered ? 'var(--card-hover-shadow)' : 'var(--shadow-glass)',
               border: '1px solid var(--border-glass)',
               transformStyle: 'preserve-3d',
@@ -232,23 +283,24 @@ const HomePage = ({ setCurrentPage }) => {
               setIsIntroHovered(false);
             }}
           >
-            <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '2rem', color: 'var(--text-primary)', fontFamily: "'Playfair Display', Georgia, serif" }}>What Defines Uniqix ?</h2>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: '1.8', marginBottom: '1.5rem',textAlign:'justify' }}>
-              Uniqix Pte Ltd is a Singapore-based company specializing in aggregating the procurement of products and services for more than 23 industries, focusing on cost savings and technology transformation for our clients.
+            <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '2rem', color: 'var(--text-primary)', fontFamily: "'Playfair Display', Georgia, serif" }}>{introSettings.intro_title}</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: '1.8', marginBottom: '1.5rem', textAlign: 'justify' }}>
+              {introSettings.intro_text_1}
             </p>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: '1.8',textAlign:'justify' }}>
-              By integrating physical shipping operations, rigid compliance, and direct-from-manufacturer pricing structures, we eliminate high-margin intermediaries and supply chain vulnerabilities.
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: '1.8', textAlign: 'justify' }}>
+              {introSettings.intro_text_2}
             </p>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div className="glass-panel floating-shadow-card" style={{ padding: '1rem', borderRadius: '1.5rem', overflow: 'hidden', boxShadow: '0 20px 50px rgba(0,0,0,0.06)' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', height: '100%' }}>
+            <div className="glass-panel floating-shadow-card" style={{ padding: '1rem', borderRadius: '1.5rem', overflow: 'hidden', boxShadow: '0 20px 50px rgba(0,0,0,0.06)', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
               <img
                 src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80"
                 alt="Uniqix Headquarters Building"
                 style={{
                   width: '100%',
-                  maxWidth: '430px',
-                  height: 'auto',
+                  height: '100%',
+                  minHeight: '300px',
+                  objectFit: 'cover',
                   borderRadius: '1rem',
                   display: 'block',
                 }}
@@ -279,9 +331,9 @@ const HomePage = ({ setCurrentPage }) => {
                 desc: "Optimized freight routing models and direct factory-to-port transmissions ensure minimal port delays and competitive transport costs."
               }
             ].map((badge, idx) => (
-              <div 
+              <div
                 key={idx}
-                className="intro-badge-card" 
+                className="intro-badge-card"
                 style={hoveredCardIdx === idx ? badgeTiltStyle : {}}
                 onMouseMove={(e) => handleBadgeMouseMove(e, idx)}
                 onMouseLeave={handleBadgeMouseLeave}
@@ -309,7 +361,7 @@ const HomePage = ({ setCurrentPage }) => {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem', marginBottom: '4rem' }}>
-            {[
+            {(divisions.length > 0 ? divisions : [
               {
                 tag: 'WORKFORCE INFRASTRUCTURE',
                 title: 'Dormitory Housing',
@@ -318,11 +370,10 @@ const HomePage = ({ setCurrentPage }) => {
                 target: 'services',
                 color: '#2563eb',
                 img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80',
-                icon: <Building style={{ width: '24px', height: '24px', color: '#ffffff' }} />,
                 features: [
-                  { text: 'FEDA Compliant Facilities', icon: <ShieldCheck style={{ width: '16px', height: '16px', color: '#2563eb' }} /> },
-                  { text: 'Safe, Secure & Comfortable Living', icon: <Users style={{ width: '16px', height: '16px', color: '#2563eb' }} /> },
-                  { text: 'End-to-End Accommodation Management', icon: <Home style={{ width: '16px', height: '16px', color: '#2563eb' }} /> }
+                  { text: 'FEDA Compliant Facilities' },
+                  { text: 'Safe, Secure & Comfortable Living' },
+                  { text: 'End-to-End Accommodation Management' }
                 ]
               },
               {
@@ -333,11 +384,10 @@ const HomePage = ({ setCurrentPage }) => {
                 target: 'products',
                 color: '#0d9488',
                 img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80',
-                icon: <Cpu style={{ width: '24px', height: '24px', color: '#ffffff' }} />,
                 features: [
-                  { text: 'Advanced Robotics Solutions', icon: <Cpu style={{ width: '16px', height: '16px', color: '#0d9488' }} /> },
-                  { text: 'High-Quality Industrial Products', icon: <Layers style={{ width: '16px', height: '16px', color: '#0d9488' }} /> },
-                  { text: 'Smart Energy & IoT Innovations', icon: <Lightbulb style={{ width: '16px', height: '16px', color: '#0d9488' }} /> }
+                  { text: 'Advanced Robotics Solutions' },
+                  { text: 'High-Quality Industrial Products' },
+                  { text: 'Smart Energy & IoT Innovations' }
                 ]
               },
               {
@@ -348,21 +398,20 @@ const HomePage = ({ setCurrentPage }) => {
                 target: 'trade',
                 color: '#f59e0b',
                 img: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80',
-                icon: <Globe style={{ width: '24px', height: '24px', color: '#ffffff' }} />,
                 features: [
-                  { text: 'Gold, Oil & Gas, Metals Trading', icon: <Coins style={{ width: '16px', height: '16px', color: '#f59e0b' }} /> },
-                  { text: 'Verified & Compliant Trade Channels', icon: <ShieldCheck style={{ width: '16px', height: '16px', color: '#f59e0b' }} /> },
-                  { text: 'Global Network, Local Expertise', icon: <Globe style={{ width: '16px', height: '16px', color: '#f59e0b' }} /> }
+                  { text: 'Gold, Oil & Gas, Metals Trading' },
+                  { text: 'Verified & Compliant Trade Channels' },
+                  { text: 'Global Network, Local Expertise' }
                 ]
               }
-            ].map((div, i) => (
-              <div 
-                key={i} 
-                className="glass-panel" 
-                style={{ 
-                  display: 'flex', 
-                  flexDirection: 'column', 
-                  justifyContent: 'space-between', 
+            ]).map((div, i) => (
+              <div
+                key={i}
+                className="glass-panel"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
                   borderRadius: '24px',
                   border: '1px solid var(--border-glass)',
                   background: 'var(--bg-glass)',
@@ -379,10 +428,10 @@ const HomePage = ({ setCurrentPage }) => {
                 <div>
                   {/* Image container with SVG curve cut at bottom */}
                   <div style={{ height: '200px', position: 'relative', overflow: 'hidden' }}>
-                    <img 
-                      src={div.img} 
-                      alt={div.title} 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    <img
+                      src={div.img}
+                      alt={div.title}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
                     {/* Curve background cut */}
                     <svg viewBox="0 0 1440 320" style={{ position: 'absolute', bottom: -1, left: 0, width: '100%', fill: 'var(--bg-glass)', stroke: 'none' }}>
@@ -407,7 +456,7 @@ const HomePage = ({ setCurrentPage }) => {
                       boxShadow: '0 8px 20px rgba(0,0,0,0.15)',
                       zIndex: 10
                     }}>
-                      {div.icon}
+                      {getDivisionIcon(div.title)}
                     </div>
                   </div>
 
@@ -416,10 +465,10 @@ const HomePage = ({ setCurrentPage }) => {
                     <span style={{ fontSize: '0.75rem', fontWeight: 800, color: div.color, textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '0.5rem' }}>{div.tag}</span>
                     <h3 style={{ fontSize: '1.65rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '1rem', letterSpacing: '-0.02em' }}>{div.title}</h3>
                     <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: '1.6', marginBottom: '2rem' }}>{div.desc}</p>
-                    
+
                     {/* Bullet features list */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', borderTop: '1px solid var(--border-glass)', paddingTop: '1.5rem' }}>
-                      {div.features.map((feat, fIdx) => (
+                      {div.features && div.features.map((feat, fIdx) => (
                         <div key={fIdx} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                           <div style={{
                             width: '28px',
@@ -431,7 +480,7 @@ const HomePage = ({ setCurrentPage }) => {
                             justifyContent: 'center',
                             flexShrink: 0
                           }}>
-                            {React.cloneElement(feat.icon, { style: { width: '14px', height: '14px', color: div.color } })}
+                            {getFeatureIcon(feat.text, div.color)}
                           </div>
                           <span style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', fontWeight: 500 }}>{feat.text}</span>
                         </div>
@@ -442,19 +491,19 @@ const HomePage = ({ setCurrentPage }) => {
 
                 {/* Bottom link button */}
                 <div style={{ padding: '0 2rem 2.5rem 2rem' }}>
-                  <button 
-                    onClick={() => setCurrentPage(div.target)} 
-                    style={{ 
-                      background: 'none', 
-                      border: 'none', 
-                      color: div.color, 
-                      fontWeight: 700, 
-                      fontSize: '0.9rem', 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      gap: '6px', 
-                      padding: 0, 
-                      cursor: 'pointer' 
+                  <button
+                    onClick={() => setCurrentPage(div.target)}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: div.color,
+                      fontWeight: 700,
+                      fontSize: '0.9rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: 0,
+                      cursor: 'pointer'
                     }}
                   >
                     {div.action} <ArrowRight style={{ width: '16px', height: '16px' }} />
@@ -465,19 +514,19 @@ const HomePage = ({ setCurrentPage }) => {
           </div>
 
           {/* Bottom horizontal highlights bar */}
-          <div 
-            className="glass-panel" 
-            style={{ 
-              padding: '1.25rem 2rem', 
-              borderRadius: '16px', 
-              border: '1px solid var(--border-glass)', 
-              background: 'var(--bg-glass)', 
+          <div
+            className="glass-panel"
+            style={{
+              padding: '1.25rem 2rem',
+              borderRadius: '16px',
+              border: '1px solid var(--border-glass)',
+              background: 'var(--bg-glass)',
               boxShadow: 'var(--shadow-glass)',
-              display: 'flex', 
-              justifyContent: 'space-around', 
-              flexWrap: 'wrap', 
+              display: 'flex',
+              justifyContent: 'space-around',
+              flexWrap: 'wrap',
               gap: '1.5rem',
-              alignItems: 'center' 
+              alignItems: 'center'
             }}
           >
             {[
@@ -505,7 +554,7 @@ const HomePage = ({ setCurrentPage }) => {
               { title: 'Manufacturing & Automation', desc: 'Providing packaging materials, smart lighting setups, and automated robotics to streamline manufacturing assembly lines.', img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80' },
               { title: 'Logistics & Warehousing', desc: 'Supplying bulk pallet wraps, corrugated materials, and retrofitting smart light energy systems in major cargo terminals.', img: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80' },
               { title: 'Pest Management & Facilities', desc: 'Deploying the world\'s first autonomous vector control robots in large-scale residential and commercial areas.', img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80' },
-              { title: 'Mining & Metals Trading', desc: 'Managing raw ore transportation, metals trading contracts, and bullion logistics securely.', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80' },
+              { title: 'Mining & Metals Trading', desc: 'Managing raw ore transportation, precious metals trading contracts, and bullion logistics securely.', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80' },
               { title: 'Energy & Refining', desc: 'Facilitating heavy physical oil products trade, LNG supply, and maritime fuel distribution networks.', img: 'https://images.unsplash.com/photo-1516937941344-00b4e0337589?auto=format&fit=crop&w=600&q=80' }
             ].map((industry, i) => (
               <div key={i} className="flip-card">
@@ -546,175 +595,175 @@ const HomePage = ({ setCurrentPage }) => {
           {/* Single Large Parent Card Wrapper */}
           <div className="glass-panel" style={{ padding: '3.5rem 2.5rem', borderRadius: '32px', border: '1px solid rgba(255, 255, 255, 0.05)', background: 'var(--footer-bg)', boxShadow: 'var(--shadow-glass)', marginBottom: '5rem' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '2.5rem', position: 'relative' }}>
-            {[
-              {
-                step: '01',
-                title: 'Specification & KYC',
-                desc: 'Client specifies material requirements or lodging needs and undergoes AML/KYC checks.',
-                color: '#2563eb',
-                icon: <FileText style={{ width: '32px', height: '32px', color: '#2563eb' }} />,
-                features: [
-                  { text: 'Requirement Analysis', icon: <FileText /> },
-                  { text: 'KYC Verification', icon: <UserCheck /> },
-                  { text: 'Compliance Check', icon: <ShieldCheck /> }
-                ]
-              },
-              {
-                step: '02',
-                title: 'Global Vetting & Sync',
-                desc: 'We source from LBMA/LME-grade miners, FEDA housing complexes, or advanced IoT factories.',
-                color: '#0d9488',
-                icon: <Globe style={{ width: '32px', height: '32px', color: '#0d9488' }} />,
-                features: [
-                  { text: 'Global Sourcing', icon: <Globe /> },
-                  { text: 'Supplier Vetting', icon: <ShieldCheck /> },
-                  { text: 'Real-time Sync & Updates', icon: <RefreshCw /> }
-                ]
-              },
-              {
-                step: '03',
-                title: 'Escrow & Trade Contract',
-                desc: 'Securing transaction funds through certified banking institutions and third-party inspectors.',
-                color: '#10b981',
-                icon: <FileText style={{ width: '32px', height: '32px', color: '#10b981' }} />,
-                features: [
-                  { text: 'Escrow Protection', icon: <ShieldCheck /> },
-                  { text: 'Trade Agreement', icon: <FileText /> },
-                  { text: 'Third-party Inspection', icon: <Search /> }
-                ]
-              },
-              {
-                step: '04',
-                title: 'Logistics & Delivery',
-                desc: 'Customs clearance, physical cargo monitoring, and compliant check-in onboarding.',
-                color: '#f59e0b',
-                icon: <Box style={{ width: '32px', height: '32px', color: '#f59e0b' }} />,
-                features: [
-                  { text: 'Customs Clearance', icon: <FileText /> },
-                  { text: 'Cargo Monitoring', icon: <Activity /> },
-                  { text: 'Delivery & Onboarding', icon: <Truck /> }
-                ]
-              }
-            ].map((stepObj, idx) => {
-              const isHovered = hoveredStep === idx;
-              return (
-                <div 
-                  key={idx} 
-                  className="glass-panel" 
-                  style={{ 
-                    padding: '3rem 2rem 2.5rem 2rem', 
-                    position: 'relative',
-                    borderRadius: '24px',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    background: isHovered ? '#ffffff' : '#c5a059',
-                    boxShadow: isHovered ? '0 20px 45px rgba(0, 0, 0, 0.15)' : '0 10px 25px rgba(197, 160, 89, 0.2)',
-                    borderColor: isHovered ? '#ffffff' : 'rgba(197, 160, 89, 0.3)',
-                    cursor: 'pointer',
-                    textAlign: 'center',
-                    transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
-                  }}
-                  onMouseEnter={() => setHoveredStep(idx)}
-                  onMouseLeave={() => setHoveredStep(null)}
-                >
-                  {/* Arrow connector */}
-                  {idx < 3 && (
-                    <div className="arrow-connector" style={{
-                      position: 'absolute',
-                      right: '-1.5rem',
-                      top: '35%',
-                      transform: 'translateY(-50%)',
-                      zIndex: 10,
-                      background: isHovered ? 'rgba(197, 160, 89, 0.2)' : 'rgba(255, 255, 255, 0.2)',
-                      width: '32px',
-                      height: '32px',
-                      borderRadius: '50%',
-                      boxShadow: '0 4px 10px rgba(0,0,0,0.06)',
+              {[
+                {
+                  step: '01',
+                  title: 'Specification & KYC',
+                  desc: 'Client specifies material requirements or lodging needs and undergoes AML/KYC checks.',
+                  color: '#2563eb',
+                  icon: <FileText style={{ width: '32px', height: '32px', color: '#2563eb' }} />,
+                  features: [
+                    { text: 'Requirement Analysis', icon: <FileText /> },
+                    { text: 'KYC Verification', icon: <UserCheck /> },
+                    { text: 'Compliance Check', icon: <ShieldCheck /> }
+                  ]
+                },
+                {
+                  step: '02',
+                  title: 'Global Vetting & Sync',
+                  desc: 'We source from LBMA/LME-grade miners, FEDA housing complexes, or advanced IoT factories.',
+                  color: '#0d9488',
+                  icon: <Globe style={{ width: '32px', height: '32px', color: '#0d9488' }} />,
+                  features: [
+                    { text: 'Global Sourcing', icon: <Globe /> },
+                    { text: 'Supplier Vetting', icon: <ShieldCheck /> },
+                    { text: 'Real-time Sync & Updates', icon: <RefreshCw /> }
+                  ]
+                },
+                {
+                  step: '03',
+                  title: 'Escrow & Trade Contract',
+                  desc: 'Securing transaction funds through certified banking institutions and third-party inspectors.',
+                  color: '#10b981',
+                  icon: <FileText style={{ width: '32px', height: '32px', color: '#10b981' }} />,
+                  features: [
+                    { text: 'Escrow Protection', icon: <ShieldCheck /> },
+                    { text: 'Trade Agreement', icon: <FileText /> },
+                    { text: 'Third-party Inspection', icon: <Search /> }
+                  ]
+                },
+                {
+                  step: '04',
+                  title: 'Logistics & Delivery',
+                  desc: 'Customs clearance, physical cargo monitoring, and compliant check-in onboarding.',
+                  color: '#f59e0b',
+                  icon: <Box style={{ width: '32px', height: '32px', color: '#f59e0b' }} />,
+                  features: [
+                    { text: 'Customs Clearance', icon: <FileText /> },
+                    { text: 'Cargo Monitoring', icon: <Activity /> },
+                    { text: 'Delivery & Onboarding', icon: <Truck /> }
+                  ]
+                }
+              ].map((stepObj, idx) => {
+                const isHovered = hoveredStep === idx;
+                return (
+                  <div
+                    key={idx}
+                    className="glass-panel"
+                    style={{
+                      padding: '3rem 2rem 2.5rem 2rem',
+                      position: 'relative',
+                      borderRadius: '24px',
                       border: '1px solid rgba(255, 255, 255, 0.1)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      background: isHovered ? '#D4A72C' : 'linear-gradient(180deg, #FFFDF8 0%, #8770dcff 100%)',
+                      boxShadow: isHovered ? '0 20px 45px rgba(0, 0, 0, 0.15)' : '0 10px 25px rgba(197, 160, 89, 0.2)',
+                      borderColor: isHovered ? '#ffffff' : 'rgba(197, 160, 89, 0.3)',
+                      cursor: 'pointer',
+                      textAlign: 'center',
+                      transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+                    }}
+                    onMouseEnter={() => setHoveredStep(idx)}
+                    onMouseLeave={() => setHoveredStep(null)}
+                  >
+                    {/* Arrow connector */}
+                    {idx < 3 && (
+                      <div className="arrow-connector" style={{
+                        position: 'absolute',
+                        right: '-1.5rem',
+                        top: '35%',
+                        transform: 'translateY(-50%)',
+                        zIndex: 10,
+                        background: isHovered ? 'rgba(197, 160, 89, 0.2)' : 'rgba(255, 255, 255, 0.2)',
+                        width: '32px',
+                        height: '32px',
+                        borderRadius: '50%',
+                        boxShadow: '0 4px 10px rgba(0,0,0,0.06)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'all 0.3s'
+                      }}>
+                        <ChevronRight style={{ width: '16px', height: '16px', color: '#06122c' }} />
+                      </div>
+                    )}
+
+                    {/* Bookmark/Ribbon */}
+                    <div style={{
+                      position: 'absolute',
+                      top: '-1px',
+                      left: '2rem',
+                      background: isHovered ? stepObj.color : '#06122c',
+                      color: '#ffffff',
+                      padding: '6px 14px 10px 14px',
+                      fontSize: '0.8rem',
+                      fontWeight: 800,
+                      clipPath: 'polygon(0% 0%, 100% 0%, 100% 85%, 50% 100%, 0% 85%)',
+                      boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                      fontFamily: 'monospace',
                       transition: 'all 0.3s'
                     }}>
-                      <ChevronRight style={{ width: '16px', height: '16px', color: '#06122c' }} />
+                      {stepObj.step}
                     </div>
-                  )}
 
-                  {/* Bookmark/Ribbon */}
-                  <div style={{
-                    position: 'absolute',
-                    top: '-1px',
-                    left: '2rem',
-                    background: isHovered ? stepObj.color : '#06122c',
-                    color: '#ffffff',
-                    padding: '6px 14px 10px 14px',
-                    fontSize: '0.8rem',
-                    fontWeight: 800,
-                    clipPath: 'polygon(0% 0%, 100% 0%, 100% 85%, 50% 100%, 0% 85%)',
-                    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                    fontFamily: 'monospace',
-                    transition: 'all 0.3s'
-                  }}>
-                    {stepObj.step}
-                  </div>
+                    {/* Large circular icon */}
+                    <div
+                      className="process-icon-container"
+                      style={{
+                        width: '88px',
+                        height: '88px',
+                        borderRadius: '50%',
+                        border: isHovered ? `2px solid ${stepObj.color}25` : '2px solid rgba(6, 18, 44, 0.1)',
+                        background: isHovered ? 'rgba(0, 0, 0, 0.02)' : 'rgba(255, 255, 255, 0.2)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        margin: '1.5rem auto 1.5rem auto',
+                        boxShadow: isHovered ? `0 8px 24px ${stepObj.color}15` : 'none',
+                        transition: 'all 0.3s'
+                      }}
+                    >
+                      {isHovered ? stepObj.icon : React.cloneElement(stepObj.icon, { style: { ...stepObj.icon.props.style, color: '#06122c' } })}
+                    </div>
 
-                  {/* Large circular icon */}
-                  <div 
-                    className="process-icon-container"
-                    style={{
-                      width: '88px',
-                      height: '88px',
-                      borderRadius: '50%',
-                      border: isHovered ? `2px solid ${stepObj.color}25` : '2px solid rgba(6, 18, 44, 0.1)',
-                      background: isHovered ? 'rgba(0, 0, 0, 0.02)' : 'rgba(255, 255, 255, 0.2)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      margin: '1.5rem auto 1.5rem auto',
-                      boxShadow: isHovered ? `0 8px 24px ${stepObj.color}15` : 'none',
-                      transition: 'all 0.3s'
-                    }}
-                  >
-                    {isHovered ? stepObj.icon : React.cloneElement(stepObj.icon, { style: { ...stepObj.icon.props.style, color: '#06122c' } })}
-                  </div>
+                    <h4 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#06122c', marginBottom: '0.75rem', letterSpacing: '-0.01em', transition: 'color 0.4s' }}>
+                      {stepObj.title}
+                    </h4>
+                    <p style={{ color: isHovered ? '#475569' : 'rgba(6, 18, 44, 0.8)', fontSize: '0.88rem', lineHeight: '1.5', marginBottom: '1.5rem', transition: 'color 0.4s' }}>
+                      {stepObj.desc}
+                    </p>
 
-                  <h4 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#06122c', marginBottom: '0.75rem', letterSpacing: '-0.01em', transition: 'color 0.4s' }}>
-                    {stepObj.title}
-                  </h4>
-                  <p style={{ color: isHovered ? '#475569' : 'rgba(6, 18, 44, 0.8)', fontSize: '0.88rem', lineHeight: '1.5', marginBottom: '1.5rem', transition: 'color 0.4s' }}>
-                    {stepObj.desc}
-                  </p>
-                  
-                  {/* Feature checklist */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', borderTop: isHovered ? '1px solid rgba(0, 0, 0, 0.08)' : '1px solid rgba(6, 18, 44, 0.15)', paddingTop: '1.25rem', textAlign: 'left', transition: 'all 0.3s' }}>
-                    {stepObj.features.map((feat, fIdx) => (
-                      <div key={fIdx} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        {React.cloneElement(feat.icon, { style: { width: '14px', height: '14px', color: isHovered ? stepObj.color : '#06122c' } })}
-                        <span style={{ fontSize: '0.85rem', color: isHovered ? '#475569' : 'rgba(6, 18, 44, 0.8)', fontWeight: 500, transition: 'color 0.4s' }}>
-                          {feat.text}
-                        </span>
-                      </div>
-                    ))}
+                    {/* Feature checklist */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', borderTop: isHovered ? '1px solid rgba(0, 0, 0, 0.08)' : '1px solid rgba(6, 18, 44, 0.15)', paddingTop: '1.25rem', textAlign: 'left', transition: 'all 0.3s' }}>
+                      {stepObj.features.map((feat, fIdx) => (
+                        <div key={fIdx} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          {React.cloneElement(feat.icon, { style: { width: '14px', height: '14px', color: isHovered ? stepObj.color : '#06122c' } })}
+                          <span style={{ fontSize: '0.85rem', color: isHovered ? '#475569' : 'rgba(6, 18, 44, 0.8)', fontWeight: 500, transition: 'color 0.4s' }}>
+                            {feat.text}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
             </div>
           </div>
 
           {/* Bottom horizontal highlights bar */}
-          <div 
-            className="glass-panel" 
-            style={{ 
-              padding: '1.5rem 2.5rem', 
-              borderRadius: '20px', 
-              border: '1px solid var(--border-glass)', 
-              background: 'var(--bg-glass)', 
+          <div
+            className="glass-panel"
+            style={{
+              padding: '1.5rem 2.5rem',
+              borderRadius: '20px',
+              border: '1px solid var(--border-glass)',
+              background: 'var(--bg-glass)',
               boxShadow: 'var(--shadow-glass)',
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              flexWrap: 'wrap', 
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
               gap: '2rem',
-              alignItems: 'center' 
+              alignItems: 'center'
             }}
           >
             {[
@@ -735,7 +784,7 @@ const HomePage = ({ setCurrentPage }) => {
             ))}
           </div>
         </div>
-        
+
         <style>{`
           @media (max-width: 991px) {
             .arrow-connector {
@@ -750,10 +799,10 @@ const HomePage = ({ setCurrentPage }) => {
         <div className="container" >
           <h2 className="section-title">Why Choose Uniqix</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
-            <div 
-              style={{ 
-                padding: '2.5rem', 
-                borderRadius: '1.5rem', 
+            <div
+              style={{
+                padding: '2.5rem',
+                borderRadius: '1.5rem',
                 boxShadow: isWhyHovered1 ? 'var(--card-hover-shadow)' : 'var(--shadow-glass)',
                 border: '1px solid var(--border-glass)',
                 borderColor: isWhyHovered1 ? 'var(--card-hover-border)' : 'var(--border-glass)',
@@ -767,13 +816,13 @@ const HomePage = ({ setCurrentPage }) => {
               onMouseLeave={(e) => {
                 handleMouseLeave(e);
                 setIsWhyHovered1(false);
-              }} 
+              }}
               className="glass-panel"
             >
               <h3 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '1.5rem', lineHeight: '1.2', color: 'var(--text-primary)' }}>
                 Powering Enterprise Supply Chains with Total Integrity
               </h3>
-              <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
+              <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem',textAlign:'justify' }}>
                 We bridge international sourcing channels, technology production, and service compliance. Under one unified operational roof, client enterprises secure raw resources and workforce lodging seamlessly.
               </p>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -791,13 +840,13 @@ const HomePage = ({ setCurrentPage }) => {
                 </li>
               </ul>
             </div>
-            <div 
-              className="glass-panel" 
-              style={{ 
-                padding: '3rem', 
-                display: 'flex', 
-                flexDirection: 'column', 
-                gap: '1.5rem', 
+            <div
+              className="glass-panel"
+              style={{
+                padding: '3rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.5rem',
                 justifyContent: 'center',
                 borderRadius: '1.5rem',
                 border: '1px solid var(--border-glass)',
@@ -832,10 +881,10 @@ const HomePage = ({ setCurrentPage }) => {
       <section style={{ padding: '5rem 0' }}>
         <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '2.5rem', textAlign: 'center' }}>
           {[
-            { target: '$580M+', label: 'Commodities Traded' },
-            { target: '40+', label: 'Dormitory Hubs' },
-            { target: '100%', label: 'Assay Traceability' },
-            { target: '80k+', label: 'Workers Housed' }
+            { target: introSettings.stat1_target, label: introSettings.stat1_label },
+            { target: introSettings.stat2_target, label: introSettings.stat2_label },
+            { target: introSettings.stat3_target, label: introSettings.stat3_label },
+            { target: introSettings.stat4_target, label: introSettings.stat4_label }
           ].map((stat, idx) => {
             const [hovered, setHovered] = useState(false);
             return (
@@ -872,7 +921,7 @@ const HomePage = ({ setCurrentPage }) => {
                   left: 0,
                   width: '30px',
                   height: '30px',
-                  background: 'linear-gradient(135deg, #c5a059 25%, transparent 25%)',
+                  background: 'linear-gradient(135deg, #D4A72C 25%, transparent 25%)',
                   opacity: hovered ? 0.6 : 0.3,
                   transition: 'opacity 0.3s'
                 }} />
@@ -882,12 +931,12 @@ const HomePage = ({ setCurrentPage }) => {
                   right: 0,
                   width: '30px',
                   height: '30px',
-                  background: 'linear-gradient(315deg, #c5a059 25%, transparent 25%)',
+                  background: 'linear-gradient(315deg, #D4A72C 25%, transparent 25%)',
                   opacity: hovered ? 0.6 : 0.3,
                   transition: 'opacity 0.3s'
                 }} />
 
-                <span className="stat-number" style={{ fontSize: '3.2rem', fontWeight: 900, color: '#c5a059', display: 'block', marginBottom: '0.75rem', letterSpacing: '-0.03em' }}>
+                <span className="stat-number" style={{ fontSize: '3.2rem', fontWeight: 900, color: '#D4A72C', display: 'block', marginBottom: '0.75rem', letterSpacing: '-0.03em' }}>
                   <Counter target={stat.target} trigger={hovered} />
                 </span>
                 <span style={{ color: '#ffffff', opacity: 0.85, fontSize: '0.98rem', fontWeight: 700, letterSpacing: '0.01em' }}>{stat.label}</span>
@@ -901,11 +950,14 @@ const HomePage = ({ setCurrentPage }) => {
       <section style={{ padding: '6rem 0', overflow: 'hidden', position: 'relative' }}>
         <div className="container">
           <h2 className="section-title" style={{ textAlign: 'center', marginBottom: '3.5rem' }}>Corporate Feedback</h2>
-          
+
           <div style={{ position: 'relative', width: '100%', maxWidth: '1120px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             {/* Left Button */}
-            <button 
-              onClick={() => setActiveTestimonial(prev => (prev - 1 + 4) % 4)}
+            <button
+              onClick={() => {
+                const len = testimonials.length > 0 ? testimonials.length : 4;
+                setActiveTestimonial(prev => (prev - 1 + len) % len);
+              }}
               style={{
                 position: 'absolute',
                 left: '0',
@@ -942,7 +994,7 @@ const HomePage = ({ setCurrentPage }) => {
               alignItems: 'center',
               justifyContent: 'center'
             }}>
-              {[
+              {(testimonials.length > 0 ? testimonials : [
                 {
                   quote: "Deploying the Uniqix mosquito control robots in our construction staging grounds significantly decreased our vector counts and ensured local environmental safety compliance.",
                   name: "Director of Operations",
@@ -971,18 +1023,18 @@ const HomePage = ({ setCurrentPage }) => {
                   initials: "BA",
                   color: "#ec4899"
                 }
-              ].map((t, idx) => {
-                const len = 4;
+              ]).map((t, idx) => {
+                const len = (testimonials.length > 0 ? testimonials.length : 4);
                 const offset = (idx - activeTestimonial + len) % len;
                 const isActive = offset === 0;
                 const isNext = offset === 1;
                 const isPrev = offset === len - 1;
-                
+
                 let transformStyle = 'translate3d(0, 100px, -200px) scale(0.8)';
                 let opacityVal = 0;
                 let zIndexVal = 1;
                 let pointerEventsStyle = 'none';
-                
+
                 if (isActive) {
                   transformStyle = 'translate3d(0, 0, 0) scale(1)';
                   opacityVal = 1;
@@ -997,30 +1049,30 @@ const HomePage = ({ setCurrentPage }) => {
                   opacityVal = 0.55;
                   zIndexVal = 2;
                 }
-                
+
                 return (
-                  <div 
-                    key={idx} 
-                    className="glass-panel" 
-                    style={{ 
-                       padding: '2.5rem', 
-                       width: '100%',
-                       maxWidth: '460px',
-                       height: '280px',
-                       position: 'absolute',
-                       display: 'flex',
-                       flexDirection: 'column',
-                       justifyContent: 'space-between',
-                       borderRadius: '24px',
-                       border: '1px solid var(--border-glass)',
-                       borderLeft: `4px solid ${t.color}`,
-                       background: 'var(--bg-glass)',
-                       boxShadow: isActive ? 'var(--card-hover-shadow)' : 'var(--shadow-glass)',
-                       transform: transformStyle,
-                       opacity: opacityVal,
-                       zIndex: zIndexVal,
-                       pointerEvents: pointerEventsStyle,
-                       transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+                  <div
+                    key={idx}
+                    className="glass-panel"
+                    style={{
+                      padding: '2.5rem',
+                      width: '100%',
+                      maxWidth: '460px',
+                      height: '280px',
+                      position: 'absolute',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      borderRadius: '24px',
+                      border: '1px solid var(--border-glass)',
+                      borderLeft: `4px solid ${t.color}`,
+                      background: 'var(--bg-glass)',
+                      boxShadow: isActive ? 'var(--card-hover-shadow)' : 'var(--shadow-glass)',
+                      transform: transformStyle,
+                      opacity: opacityVal,
+                      zIndex: zIndexVal,
+                      pointerEvents: pointerEventsStyle,
+                      transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
                     }}
                   >
                     <Quote style={{ width: '32px', height: '32px', color: 'rgba(65, 164, 222, 0.08)', position: 'absolute', top: '20px', right: '20px' }} />
@@ -1054,8 +1106,11 @@ const HomePage = ({ setCurrentPage }) => {
             </div>
 
             {/* Right Button */}
-            <button 
-              onClick={() => setActiveTestimonial(prev => (prev + 1) % 4)}
+            <button
+              onClick={() => {
+                const len = testimonials.length > 0 ? testimonials.length : 4;
+                setActiveTestimonial(prev => (prev + 1) % len);
+              }}
               style={{
                 position: 'absolute',
                 right: '0',
@@ -1084,8 +1139,8 @@ const HomePage = ({ setCurrentPage }) => {
 
           {/* Dots Indicator (Centered Underneath) */}
           <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '2.5rem' }}>
-            {[0, 1, 2, 3].map((dotIdx) => (
-              <span 
+            {Array.from({ length: testimonials.length > 0 ? testimonials.length : 4 }).map((_, dotIdx) => (
+              <span
                 key={dotIdx}
                 onClick={() => setActiveTestimonial(dotIdx)}
                 style={{
@@ -1126,7 +1181,9 @@ const HomePage = ({ setCurrentPage }) => {
             <p style={{ color: 'rgba(255, 255, 255, 0.7)', maxWidth: '600px', margin: '0 auto 2.5rem auto', fontSize: '1.05rem' }}>
               Connect with our trade coordinators and facilities managers to initiate custom sourcing plans, query dormitory bed availability, or lease robotics.
             </p>
-            <button onClick={() => setCurrentPage('contact')} className="btn btn-primary" style={{ padding: '1rem 2.5rem' }}>
+            <button onClick={() =>{ setCurrentPage('contact');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }} className="btn btn-primary" style={{ padding: '1rem 2.5rem' }}>
               Contact Global Team
             </button>
           </div>

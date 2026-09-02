@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Home, ShieldCheck, Box, HardHat, Cpu, Globe, Check, HelpCircle, ArrowRight } from 'lucide-react';
 
 const ServicesPage = ({ setCurrentPage }) => {
@@ -6,11 +6,31 @@ const ServicesPage = ({ setCurrentPage }) => {
   const [isTradeHovered, setIsTradeHovered] = useState(false);
   const [isSupportHovered, setIsSupportHovered] = useState(false);
 
+  const [dbServices, setDbServices] = useState([]);
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/api/services/')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.length > 0) setDbServices(data);
+      })
+      .catch(err => console.error("Error loading services:", err));
+  }, []);
+
+  const getServiceIcon = (num, color) => {
+    const style = { width: '28px', height: '28px', color: color };
+    if (num === '01') return <Home style={style} />;
+    if (num === '02') return <Box style={style} />;
+    if (num === '03') return <HardHat style={style} />;
+    if (num === '04') return <Cpu style={style} />;
+    return <Globe style={style} />;
+  };
+
   const servicesList = [
     {
       num: '01',
       title: 'Supply of Dormitory Accommodation',
-      icon: <Home style={{ width: '28px', height: '28px', color: '#c5a059' }} />,
+      icon: <Home style={{ width: '28px', height: '28px', color: '#D4A72C' }} />,
       desc: 'Providing dormitory accommodation for clients to house their workers.',
       bullets: [
         'Access to 40+ dormitories islandwide in Singapore.',
@@ -19,7 +39,7 @@ const ServicesPage = ({ setCurrentPage }) => {
       ],
       action: 'dormitories',
       actionText: 'Search Accommodation Hub',
-      themeColor: '#c5a059',
+      themeColor: '#D4A72C',
       badgeBg: 'rgba(197, 160, 89, 0.1)'
     },
     {
@@ -70,15 +90,15 @@ const ServicesPage = ({ setCurrentPage }) => {
 
   return (
     <div style={{ color: 'var(--text-primary)', paddingBottom: '6rem' }}>
-      
+
       {/* Header */}
       <section style={{ padding: '4.5rem 0 3rem 0' }}>
         <div className="container" style={{ textAlign: 'center' }}>
-          <span style={{ 
-            fontSize: '0.8rem', 
-            fontWeight: 800, 
-            color: 'var(--primary)', 
-            letterSpacing: '0.2em', 
+          <span style={{
+            fontSize: '0.8rem',
+            fontWeight: 800,
+            color: 'var(--primary)',
+            letterSpacing: '0.2em',
             textTransform: 'uppercase',
             display: 'inline-flex',
             alignItems: 'center',
@@ -101,7 +121,7 @@ const ServicesPage = ({ setCurrentPage }) => {
       {/* Services Grid (Dorms, Packaging, Materials, Dragonfly) */}
       <section style={{ padding: '0 0 5rem 0' }}>
         <div className="container services-grid">
-          {servicesList.map((service, idx) => {
+          {(dbServices.length > 0 ? dbServices : servicesList).map((service, idx) => {
             const isHovered = hoveredCard === idx;
             return (
               <div
@@ -143,25 +163,25 @@ const ServicesPage = ({ setCurrentPage }) => {
                   </span>
 
                   {/* Circular Icon Wrapper */}
-                  <div style={{ 
-                    width: '56px', 
-                    height: '56px', 
-                    borderRadius: '50%', 
+                  <div style={{
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '50%',
                     background: '#ffffff',
-                    border: '1px solid rgba(197, 160, 89, 0.15)', 
+                    border: '1px solid rgba(197, 160, 89, 0.15)',
                     boxShadow: '0 6px 16px rgba(197, 160, 89, 0.08)',
-                    display: 'flex', 
-                    alignItems: 'center', 
+                    display: 'flex',
+                    alignItems: 'center',
                     justifyContent: 'center',
                     marginBottom: '2rem'
                   }}>
-                    {service.icon}
+                    {getServiceIcon(service.num, service.themeColor)}
                   </div>
 
                   <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '1rem', fontFamily: "'Times New Roman', Georgia, serif", minHeight: '3.2rem', display: 'flex', alignItems: 'center' }}>
                     {service.title}
                   </h3>
-                  
+
                   <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: '1.6', marginBottom: '1.5rem', minHeight: '4.8rem' }}>
                     {service.desc}
                   </p>
@@ -172,13 +192,13 @@ const ServicesPage = ({ setCurrentPage }) => {
                   <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 2rem 0', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                     {service.bullets.map((bullet, bIdx) => (
                       <li key={bIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
-                        <div style={{ 
-                          width: '18px', 
-                          height: '18px', 
-                          borderRadius: '50%', 
-                          background: '#c5a059', 
-                          display: 'flex', 
-                          alignItems: 'center', 
+                        <div style={{
+                          width: '18px',
+                          height: '18px',
+                          borderRadius: '50%',
+                          background: '#D4A72C',
+                          display: 'flex',
+                          alignItems: 'center',
                           justifyContent: 'center',
                           flexShrink: 0,
                           marginTop: '2px'
@@ -190,16 +210,16 @@ const ServicesPage = ({ setCurrentPage }) => {
                     ))}
                   </ul>
                 </div>
-                
+
                 {/* Arrow Action Link */}
-                <div 
+                <div
                   onClick={() => setCurrentPage(service.action)}
-                  style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: '6px', 
-                    color: 'var(--primary)', 
-                    fontWeight: 700, 
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    color: 'var(--primary)',
+                    fontWeight: 700,
                     fontSize: '0.88rem',
                     transition: 'gap 0.2s',
                     cursor: 'pointer'
@@ -219,14 +239,14 @@ const ServicesPage = ({ setCurrentPage }) => {
       {/* International Trade Deep-Dive Card */}
       <section style={{ padding: '0 0 5rem 0' }}>
         <div className="container">
-          <div 
-            className="glass-panel" 
-            style={{ 
-              padding: '4rem', 
-              borderRadius: '2rem', 
-              background: 'var(--footer-bg)', 
-              border: '1px solid rgba(255, 255, 255, 0.05)', 
-              borderTop: '4px solid var(--primary)', 
+          <div
+            className="glass-panel"
+            style={{
+              padding: '4rem',
+              borderRadius: '2rem',
+              background: 'var(--footer-bg)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              borderTop: '4px solid var(--primary)',
               boxShadow: isTradeHovered ? 'var(--card-hover-shadow)' : 'var(--shadow-glass)',
               borderColor: isTradeHovered ? 'var(--card-hover-border)' : 'rgba(255, 255, 255, 0.05)',
               transform: isTradeHovered ? 'translateY(-6px)' : 'none',
@@ -237,7 +257,7 @@ const ServicesPage = ({ setCurrentPage }) => {
             onMouseLeave={() => setIsTradeHovered(false)}
           >
             <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.8fr', gap: '4rem' }} className="bridge-layout">
-              
+
               {/* Left Column: Heading */}
               <div>
                 <div style={{ background: 'rgba(255, 255, 255, 0.08)', padding: '12px', borderRadius: '12px', width: 'fit-content', marginBottom: '1.5rem' }}>
@@ -256,7 +276,7 @@ const ServicesPage = ({ setCurrentPage }) => {
 
               {/* Right Column: Detailed Commodities List */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }} className="bridge-layout">
-                
+
                 {/* Sector 1 */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                   <div style={{ borderLeft: '3px solid var(--primary)', paddingLeft: '1rem' }}>
@@ -310,16 +330,16 @@ const ServicesPage = ({ setCurrentPage }) => {
 
       {/* Support Info Box */}
       <div className="container">
-        <div 
-          className="glass-panel" 
-          style={{ 
-            padding: '3.5rem', 
-            display: 'flex', 
-            flexWrap: 'wrap', 
-            justifyContent: 'space-between', 
-            alignItems: 'center', 
-            gap: '2rem', 
-            border: '1px solid var(--border-glass)', 
+        <div
+          className="glass-panel"
+          style={{
+            padding: '3.5rem',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '2rem',
+            border: '1px solid var(--border-glass)',
             background: 'var(--bg-glass)',
             boxShadow: isSupportHovered ? 'var(--card-hover-shadow)' : 'var(--shadow-glass)',
             borderColor: isSupportHovered ? 'var(--card-hover-border)' : 'var(--border-glass)',
@@ -337,7 +357,7 @@ const ServicesPage = ({ setCurrentPage }) => {
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', margin: 0 }}>Our procurement specialists negotiate directly with mines, factories, and operators.</p>
             </div>
           </div>
-          <button onClick={() => setCurrentPage('contact')} className="btn btn-primary">
+          <button onClick={() => { setCurrentPage('contact'); scrollTo(0, { top: 0, behavior: 'smooth' }); }} className="btn btn-primary">
             Connect Sourcing Specialist
           </button>
         </div>

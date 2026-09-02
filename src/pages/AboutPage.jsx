@@ -1,77 +1,106 @@
-import React, { useState } from 'react';
-import { 
-  Building, HardHat, Factory, Compass, Truck, Flame, Home, Cpu, 
-  Layers, Users, ShieldAlert, Award, Target, Eye, Sparkles, 
+import React, { useState, useEffect } from 'react';
+import {
+  Building, HardHat, Factory, Compass, Truck, Flame, Home, Cpu,
+  Layers, Users, ShieldAlert, Award, Target, Eye, Sparkles,
   Lightbulb, Briefcase, RefreshCw, Box, ShieldCheck, HeartHandshake,
   TrendingUp, Users2, Shield, Heart, Globe, Calendar, FileText, Leaf
 } from 'lucide-react';
 import aboutOfficeImage from '../assets/uniqix_hero_logistics.png'; // Fallback / existing asset
 
 const AboutPage = () => {
+  const [settings, setSettings] = useState({
+    who_we_are_title: "Welcome to Uniqix Pte Ltd",
+    who_we_are_text: "Uniqix Pte Ltd is a Singapore-based company specializing in aggregating the procurement of products and services for more than 23 industries, fostering a merit savings and technology transformation for our clients.",
+    stat_industries: "23+",
+    stat_partners: "100+",
+    stat_headquarters: "Singapore",
+    stat_global_network: "50+ Countries",
+    stat_trusted_partners: "500+",
+    stat_solutions_delivered: "10K+",
+    stat_years_excellence: "7+",
+    vision_text: "To become the biggest B2B Procurement Aggregation Platform in Asia Pacific.",
+    mission_text: "To continuously identify our clients’ procurement needs and source for the best quality and most value-for-money products and services to match those needs.",
+    incorporation_date: "26 July 2016 in Singapore",
+    uen_number: "201620244N",
+    registration_type: "Exempt Private Company Limited by Shares",
+    principal_activity: "Retail sale of other household utensils and equipment n.e.c.",
+  });
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/api/about-settings/')
+      .then(res => res.json())
+      .then(data => {
+        if (data && !data.error) {
+          setSettings(data);
+        }
+      })
+      .catch(err => console.error("Error loading about settings:", err));
+  }, []);
+
   const corporateConsumers = [
-    { name: 'Construction', icon: <HardHat style={{ width: '16px', height: '16px', color: '#c5a059' }} /> },
-    { name: 'Manufacturing', icon: <Factory style={{ width: '16px', height: '16px', color: '#c5a059' }} /> },
-    { name: 'Engineering', icon: <Compass style={{ width: '16px', height: '16px', color: '#c5a059' }} /> },
-    { name: 'Logistics', icon: <Truck style={{ width: '16px', height: '16px', color: '#c5a059' }} /> },
-    { name: 'Energy', icon: <Flame style={{ width: '16px', height: '16px', color: '#c5a059' }} /> },
-    { name: 'Facility Management', icon: <Home style={{ width: '16px', height: '16px', color: '#c5a059' }} /> },
-    { name: 'Industrial Operations', icon: <Cpu style={{ width: '16px', height: '16px', color: '#c5a059' }} /> },
+    { name: 'Construction', icon: <HardHat style={{ width: '16px', height: '16px', color: '#D4A72C' }} /> },
+    { name: 'Manufacturing', icon: <Factory style={{ width: '16px', height: '16px', color: '#D4A72C' }} /> },
+    { name: 'Engineering', icon: <Compass style={{ width: '16px', height: '16px', color: '#D4A72C' }} /> },
+    { name: 'Logistics', icon: <Truck style={{ width: '16px', height: '16px', color: '#D4A72C' }} /> },
+    { name: 'Energy', icon: <Flame style={{ width: '16px', height: '16px', color: '#D4A72C' }} /> },
+    { name: 'Facility Management', icon: <Home style={{ width: '16px', height: '16px', color: '#D4A72C' }} /> },
+    { name: 'Industrial Operations', icon: <Cpu style={{ width: '16px', height: '16px', color: '#D4A72C' }} /> },
   ];
 
   const tradePartners = [
-    { name: 'Suppliers', icon: <Layers style={{ width: '16px', height: '16px', color: '#c5a059' }} /> },
-    { name: 'Manufacturers', icon: <Factory style={{ width: '16px', height: '16px', color: '#c5a059' }} /> },
-    { name: 'Service Providers', icon: <Users style={{ width: '16px', height: '16px', color: '#c5a059' }} /> },
-    { name: 'Technology Partners', icon: <Cpu style={{ width: '16px', height: '16px', color: '#c5a059' }} /> },
-    { name: 'Global Sources', icon: <Globe style={{ width: '16px', height: '16px', color: '#c5a059' }} /> },
-    { name: 'Logistics Partners', icon: <Truck style={{ width: '16px', height: '16px', color: '#c5a059' }} /> },
-    { name: 'Industry Experts', icon: <Award style={{ width: '16px', height: '16px', color: '#c5a059' }} /> },
+    { name: 'Suppliers', icon: <Layers style={{ width: '16px', height: '16px', color: '#D4A72C' }} /> },
+    { name: 'Manufacturers', icon: <Factory style={{ width: '16px', height: '16px', color: '#D4A72C' }} /> },
+    { name: 'Service Providers', icon: <Users style={{ width: '16px', height: '16px', color: '#D4A72C' }} /> },
+    { name: 'Technology Partners', icon: <Cpu style={{ width: '16px', height: '16px', color: '#D4A72C' }} /> },
+    { name: 'Global Sources', icon: <Globe style={{ width: '16px', height: '16px', color: '#D4A72C' }} /> },
+    { name: 'Logistics Partners', icon: <Truck style={{ width: '16px', height: '16px', color: '#D4A72C' }} /> },
+    { name: 'Industry Experts', icon: <Award style={{ width: '16px', height: '16px', color: '#D4A72C' }} /> },
   ];
 
   const bridgeSolutions = [
-    { name: 'Procurement Services', icon: <Briefcase style={{ width: '24px', height: '24px', color: '#c5a059' }} /> },
-    { name: 'AI Robotics', icon: <Cpu style={{ width: '24px', height: '24px', color: '#c5a059' }} /> },
-    { name: 'Smart Energy Solutions', icon: <Lightbulb style={{ width: '24px', height: '24px', color: '#c5a059' }} /> },
-    { name: 'Sustainable Packaging', icon: <Box style={{ width: '24px', height: '24px', color: '#c5a059' }} /> },
-    { name: 'International Trade', icon: <Globe style={{ width: '24px', height: '24px', color: '#c5a059' }} /> },
+    { name: 'Procurement Services', icon: <Briefcase style={{ width: '24px', height: '24px', color: '#D4A72C' }} /> },
+    { name: 'AI Robotics', icon: <Cpu style={{ width: '24px', height: '24px', color: '#D4A72C' }} /> },
+    { name: 'Smart Energy Solutions', icon: <Lightbulb style={{ width: '24px', height: '24px', color: '#D4A72C' }} /> },
+    { name: 'Sustainable Packaging', icon: <Box style={{ width: '24px', height: '24px', color: '#D4A72C' }} /> },
+    { name: 'International Trade', icon: <Globe style={{ width: '24px', height: '24px', color: '#D4A72C' }} /> },
   ];
 
   const coreValues = [
-    { 
-      name: 'Integrity', 
-      desc: 'We act with honesty, transparency, and strong ethical standards in everything we do.', 
+    {
+      name: 'Integrity',
+      desc: 'We act with honesty, transparency, and strong ethical standards in everything we do.',
       color: '#2563eb',
-      icon: <ShieldCheck style={{ width: '24px', height: '24px', color: '#2563eb' }} /> 
+      icon: <ShieldCheck style={{ width: '24px', height: '24px', color: '#2563eb' }} />
     },
-    { 
-      name: 'Innovation', 
-      desc: 'We embrace new ideas and technologies to deliver smarter, more effective solutions.', 
+    {
+      name: 'Innovation',
+      desc: 'We embrace new ideas and technologies to deliver smarter, more effective solutions.',
       color: '#06b6d4',
-      icon: <Lightbulb style={{ width: '24px', height: '24px', color: '#06b6d4' }} /> 
+      icon: <Lightbulb style={{ width: '24px', height: '24px', color: '#06b6d4' }} />
     },
-    { 
-      name: 'Collaboration', 
-      desc: 'We believe in the power of partnerships and teamwork to achieve shared success.', 
+    {
+      name: 'Collaboration',
+      desc: 'We believe in the power of partnerships and teamwork to achieve shared success.',
       color: '#10b981',
-      icon: <HeartHandshake style={{ width: '24px', height: '24px', color: '#10b981' }} /> 
+      icon: <HeartHandshake style={{ width: '24px', height: '24px', color: '#10b981' }} />
     },
-    { 
-      name: 'Sustainability', 
-      desc: 'We are committed to responsible practices that protect the planet and support communities.', 
+    {
+      name: 'Sustainability',
+      desc: 'We are committed to responsible practices that protect the planet and support communities.',
       color: '#84cc16',
-      icon: <Leaf style={{ width: '24px', height: '24px', color: '#84cc16' }} /> 
+      icon: <Leaf style={{ width: '24px', height: '24px', color: '#84cc16' }} />
     },
-    { 
-      name: 'Excellence', 
-      desc: 'We strive for the highest quality in our products, services, and relationships every single day.', 
+    {
+      name: 'Excellence',
+      desc: 'We strive for the highest quality in our products, services, and relationships every single day.',
       color: '#f59e0b',
-      icon: <Award style={{ width: '24px', height: '24px', color: '#f59e0b' }} /> 
+      icon: <Award style={{ width: '24px', height: '24px', color: '#f59e0b' }} />
     },
-    { 
-      name: 'Customer Focus', 
-      desc: 'We listen, understand, and deliver value that helps our clients grow and succeed.', 
+    {
+      name: 'Customer Focus',
+      desc: 'We listen, understand, and deliver value that helps our clients grow and succeed.',
       color: '#8b5cf6',
-      icon: <Users2 style={{ width: '24px', height: '24px', color: '#8b5cf6' }} /> 
+      icon: <Users2 style={{ width: '24px', height: '24px', color: '#8b5cf6' }} />
     },
   ];
 
@@ -203,86 +232,85 @@ const AboutPage = () => {
 
   return (
     <div style={{ color: 'var(--text-primary)', background: 'var(--bg-primary)', minHeight: '100vh' }}>
-      
+
       {/* 1. WHO WE ARE Section */}
       <section style={{ padding: '6rem 0 4rem 0' }}>
         <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '4rem', alignItems: 'center' }}>
-          
+
           {/* Left Text Block */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
-              <div style={{ width: '40px', height: '1px', background: '#c5a059' }} />
-              <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#c5a059', letterSpacing: '0.15em', textTransform: 'uppercase' }}>WHO WE ARE</span>
-              <div style={{ width: '40px', height: '1px', background: '#c5a059' }} />
+              <div style={{ width: '40px', height: '1px', background: '#D4A72C' }} />
+              <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#D4A72C', letterSpacing: '0.15em', textTransform: 'uppercase' }}>WHO WE ARE</span>
+              <div style={{ width: '40px', height: '1px', background: '#D4A72C' }} />
             </div>
-            
+
             <h1 style={{ fontSize: '3rem', fontWeight: 850, lineHeight: '1.15', color: 'var(--text-primary)', marginBottom: '2rem', fontFamily: '"Times New Roman", Times, serif' }}>
-              Welcome to <br />
-              <span style={{ color: '#c5a059' }}>Uniqix</span> Pte Ltd
+              {settings.who_we_are_title}
             </h1>
-            
+
             <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: '1.8', marginBottom: '2.5rem', textAlign: 'justify', maxWidth: '480px' }}>
-              Uniqix Pte Ltd is a Singapore-based company specializing in aggregating the procurement of products and services for more than 23 industries, fostering a merit savings and technology transformation for our clients.
+              {settings.who_we_are_text}
             </p>
 
             {/* Stats Row */}
             <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
               {/* Stat 1 */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{ 
-                  width: '46px', 
-                  height: '46px', 
-                  borderRadius: '50%', 
-                  background: 'rgba(197, 160, 89, 0.08)', 
-                  border: '1px solid rgba(197, 160, 89, 0.25)', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center' 
+                <div style={{
+                  width: '46px',
+                  height: '46px',
+                  borderRadius: '50%',
+                  background: 'rgba(197, 160, 89, 0.08)',
+                  border: '1px solid rgba(197, 160, 89, 0.25)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}>
-                  <Users style={{ width: '20px', height: '20px', color: '#c5a059' }} />
+                  <Users style={{ width: '20px', height: '20px', color: '#D4A72C' }} />
                 </div>
                 <div>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>23+</div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>{settings.stat_industries}</div>
                   <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>Industries</div>
                 </div>
               </div>
 
               {/* Stat 2 */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{ 
-                  width: '46px', 
-                  height: '46px', 
-                  borderRadius: '50%', 
-                  background: 'rgba(197, 160, 89, 0.08)', 
-                  border: '1px solid rgba(197, 160, 89, 0.25)', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center' 
+                <div style={{
+                  width: '46px',
+                  height: '46px',
+                  borderRadius: '50%',
+                  background: 'rgba(197, 160, 89, 0.08)',
+                  border: '1px solid rgba(197, 160, 89, 0.25)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}>
-                  <Award style={{ width: '20px', height: '20px', color: '#c5a059' }} />
+                  <Award style={{ width: '20px', height: '20px', color: '#D4A72C' }} />
                 </div>
                 <div>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>100+</div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>{settings.stat_partners}</div>
                   <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>Global Partners</div>
                 </div>
               </div>
 
               {/* Stat 3 */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{ 
-                  width: '46px', 
-                  height: '46px', 
-                  borderRadius: '50%', 
-                  background: 'rgba(197, 160, 89, 0.08)', 
-                  border: '1px solid rgba(197, 160, 89, 0.25)', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center' 
+                <div style={{
+                  width: '46px',
+                  height: '46px',
+                  borderRadius: '50%',
+                  background: 'rgba(197, 160, 89, 0.08)',
+                  border: '1px solid rgba(197, 160, 89, 0.25)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}>
-                  <Globe style={{ width: '20px', height: '20px', color: '#c5a059' }} />
+                  <Globe style={{ width: '20px', height: '20px', color: '#D4A72C' }} />
                 </div>
                 <div>
-                  <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)' }}>Singapore</div>
+                  <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)' }}>{settings.stat_headquarters}</div>
                   <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>Headquartered</div>
                 </div>
               </div>
@@ -299,25 +327,25 @@ const AboutPage = () => {
               width: '100%',
               maxWidth: '480px',
               height: '92%',
-              border: '2px solid #c5a059',
+              border: '2px solid #D4A72C',
               borderRadius: '2rem 6rem 2rem 6rem',
               zIndex: 1,
               transform: 'translate(12px, 12px)'
             }} />
-            
+
             {/* Image Container */}
-            <div style={{ 
-              borderRadius: '2rem 6rem 2rem 6rem', 
-              overflow: 'hidden', 
-              width: '100%', 
-              maxWidth: '480px', 
-              position: 'relative', 
-              zIndex: 2, 
-              boxShadow: '0 20px 40px rgba(0,0,0,0.1)' 
+            <div style={{
+              borderRadius: '2rem 6rem 2rem 6rem',
+              overflow: 'hidden',
+              width: '100%',
+              maxWidth: '480px',
+              position: 'relative',
+              zIndex: 2,
+              boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
             }}>
-              <img 
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" 
-                alt="Uniqix Corporate Office" 
+              <img
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80"
+                alt="Uniqix Corporate Office"
                 style={{ width: '100%', height: '340px', objectFit: 'cover', display: 'block' }}
               />
             </div>
@@ -326,8 +354,8 @@ const AboutPage = () => {
       </section>
 
       {/* 2. OUR BUSINESS MODEL Section */}
-      <section style={{ 
-        padding: '6rem 0', 
+      <section style={{
+        padding: '6rem 0',
         borderTop: '1px solid var(--border-glass)',
         background: 'var(--bg-secondary)',
         position: 'relative',
@@ -354,23 +382,23 @@ const AboutPage = () => {
         }} />
 
         <div className="container" style={{ maxWidth: '1200px' }}>
-          
+
           {/* Header */}
           <div style={{ textAlign: 'center', marginBottom: '4.5rem' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#c5a059', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+            <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#D4A72C', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
               OUR BUSINESS MODEL
             </span>
-            <h2 style={{ 
-              fontSize: '2.8rem', 
-              fontWeight: 850, 
-              color: 'var(--text-primary)', 
-              marginTop: '0.5rem', 
+            <h2 style={{
+              fontSize: '2.8rem',
+              fontWeight: 850,
+              color: 'var(--text-primary)',
+              marginTop: '0.5rem',
               marginBottom: '0.75rem',
               fontFamily: '"Times New Roman", Times, serif'
             }}>
               Bridging Possibilities. Delivering Value.
             </h2>
-            <div style={{ width: '80px', height: '3px', background: '#c5a059', margin: '0.5rem auto 1.5rem auto', borderRadius: '2px' }} />
+            <div style={{ width: '80px', height: '3px', background: '#D4A72C', margin: '0.5rem auto 1.5rem auto', borderRadius: '2px' }} />
             <p style={{ fontSize: '1.1rem', fontWeight: 500, color: 'var(--text-secondary)', maxWidth: '700px', margin: '0 auto', lineHeight: '1.6' }}>
               Uniqix connects corporate consumers with trusted trade partners to create a seamless ecosystem of supply, solutions, and growth.
             </p>
@@ -378,11 +406,11 @@ const AboutPage = () => {
 
           {/* Bridge Interaction Grid */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr 1fr', gap: '2rem', alignItems: 'center', maxWidth: '1200px', margin: '0 auto', position: 'relative' }} className="bridge-layout">
-            
+
             {/* Left Box: Corporate Consumers */}
-            <div 
-              className="glass-panel" 
-              style={{ 
+            <div
+              className="glass-panel"
+              style={{
                 background: 'var(--bg-glass)',
                 borderRadius: '1.5rem',
                 boxShadow: 'var(--shadow-glass)',
@@ -393,13 +421,13 @@ const AboutPage = () => {
                 transition: 'all 0.3s ease'
               }}
             >
-              <div style={{ 
-                background: 'var(--footer-bg)', 
-                color: '#ffffff', 
-                padding: '1.5rem 1.25rem', 
-                textAlign: 'center', 
-                fontWeight: 800, 
-                fontSize: '0.95rem', 
+              <div style={{
+                background: 'var(--footer-bg)',
+                color: '#ffffff',
+                padding: '1.5rem 1.25rem',
+                textAlign: 'center',
+                fontWeight: 800,
+                fontSize: '0.95rem',
                 letterSpacing: '0.05em',
                 display: 'flex',
                 alignItems: 'center',
@@ -408,31 +436,31 @@ const AboutPage = () => {
               }}>
                 <Users style={{ width: '18px', height: '18px', color: '#ffffff' }} />
                 <div style={{ textAlign: 'left', lineHeight: '1.2' }}>
-                  <div style={{ fontSize: '0.7rem', opacity: 0.7, color:'#ffffff' }}>CORPORATE</div>
-                  <div style={{color:'#ffffff'}}>CONSUMERS</div>
+                  <div style={{ fontSize: '0.7rem', opacity: 0.7, color: '#ffffff' }}>CORPORATE</div>
+                  <div style={{ color: '#ffffff' }}>CONSUMERS</div>
                 </div>
               </div>
               <div style={{ padding: '1.75rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
                 {corporateConsumers.map((item, idx) => (
-                  <div key={idx} style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: '12px', 
-                    fontSize: '0.92rem', 
-                    color: 'var(--text-secondary)', 
+                  <div key={idx} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    fontSize: '0.92rem',
+                    color: 'var(--text-secondary)',
                     fontWeight: 600
                   }}>
-                    <div style={{ 
-                      width: '26px', 
-                      height: '26px', 
-                      borderRadius: '50%', 
-                      background: 'rgba(197, 160, 89, 0.06)', 
+                    <div style={{
+                      width: '26px',
+                      height: '26px',
+                      borderRadius: '50%',
+                      background: 'rgba(197, 160, 89, 0.06)',
                       border: '1px solid rgba(197, 160, 89, 0.15)',
-                      display: 'flex', 
-                      alignItems: 'center', 
+                      display: 'flex',
+                      alignItems: 'center',
                       justifyContent: 'center'
                     }}>
-                      {React.cloneElement(item.icon, { style: { width: '13px', height: '13px', color: '#c5a059' } })}
+                      {React.cloneElement(item.icon, { style: { width: '13px', height: '13px', color: '#D4A72C' } })}
                     </div>
                     <span>{item.name}</span>
                   </div>
@@ -442,7 +470,7 @@ const AboutPage = () => {
 
             {/* Middle: Bridge Illustration */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '1rem', position: 'relative' }}>
-              
+
               {/* UNIQIX Logo Text Above Bridge */}
               <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
                 <div style={{ fontSize: '1.8rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '0.08em', marginBottom: '2px' }}>UNIQIX</div>
@@ -450,33 +478,33 @@ const AboutPage = () => {
               </div>
 
               <div style={{ width: '100%', position: 'relative' }}>
-                
+
                 {/* Gold bridge graphic matching image */}
                 <svg viewBox="0 0 500 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: 'auto', overflow: 'visible' }}>
                   {/* Gold Dotted Arch Connections */}
-                  <path d="M 10 120 C 120 70, 220 70, 250 120" stroke="#c5a059" strokeWidth="2.5" strokeDasharray="3 4" opacity="0.7" />
-                  <path d="M 250 120 C 280 70, 380 70, 490 120" stroke="#c5a059" strokeWidth="2.5" strokeDasharray="3 4" opacity="0.7" />
-                  <path d="M 10 130 C 120 85, 220 85, 250 120" stroke="#c5a059" strokeWidth="1.5" strokeDasharray="1 3" opacity="0.4" />
-                  <path d="M 250 120 C 280 85, 380 85, 490 130" stroke="#c5a059" strokeWidth="1.5" strokeDasharray="1 3" opacity="0.4" />
+                  <path d="M 10 120 C 120 70, 220 70, 250 120" stroke="#D4A72C" strokeWidth="2.5" strokeDasharray="3 4" opacity="0.7" />
+                  <path d="M 250 120 C 280 70, 380 70, 490 120" stroke="#D4A72C" strokeWidth="2.5" strokeDasharray="3 4" opacity="0.7" />
+                  <path d="M 10 130 C 120 85, 220 85, 250 120" stroke="#D4A72C" strokeWidth="1.5" strokeDasharray="1 3" opacity="0.4" />
+                  <path d="M 250 120 C 280 85, 380 85, 490 130" stroke="#D4A72C" strokeWidth="1.5" strokeDasharray="1 3" opacity="0.4" />
 
                   {/* Arches of the bridge */}
-                  <path d="M 20 180 Q 135 110 250 180" stroke="#c5a059" strokeWidth="4.5" fill="none" opacity="0.9" />
-                  <path d="M 250 180 Q 365 110 480 180" stroke="#c5a059" strokeWidth="4.5" fill="none" opacity="0.9" />
-                  <path d="M 20 180 Q 135 125 250 180" stroke="#c5a059" strokeWidth="1.5" fill="none" opacity="0.6" />
-                  <path d="M 250 180 Q 365 125 480 180" stroke="#c5a059" strokeWidth="1.5" fill="none" opacity="0.6" />
+                  <path d="M 20 180 Q 135 110 250 180" stroke="#D4A72C" strokeWidth="4.5" fill="none" opacity="0.9" />
+                  <path d="M 250 180 Q 365 110 480 180" stroke="#D4A72C" strokeWidth="4.5" fill="none" opacity="0.9" />
+                  <path d="M 20 180 Q 135 125 250 180" stroke="#D4A72C" strokeWidth="1.5" fill="none" opacity="0.6" />
+                  <path d="M 250 180 Q 365 125 480 180" stroke="#D4A72C" strokeWidth="1.5" fill="none" opacity="0.6" />
 
                   {/* Vertical pillars */}
-                  <line x1="80" y1="140" x2="80" y2="160" stroke="#c5a059" strokeWidth="2.5" />
-                  <line x1="135" y1="140" x2="135" y2="150" stroke="#c5a059" strokeWidth="2.5" />
-                  <line x1="190" y1="140" x2="190" y2="160" stroke="#c5a059" strokeWidth="2.5" />
-                  
-                  <line x1="310" y1="140" x2="310" y2="160" stroke="#c5a059" strokeWidth="2.5" />
-                  <line x1="365" y1="140" x2="365" y2="150" stroke="#c5a059" strokeWidth="2.5" />
-                  <line x1="420" y1="140" x2="420" y2="160" stroke="#c5a059" strokeWidth="2.5" />
+                  <line x1="80" y1="140" x2="80" y2="160" stroke="#D4A72C" strokeWidth="2.5" />
+                  <line x1="135" y1="140" x2="135" y2="150" stroke="#D4A72C" strokeWidth="2.5" />
+                  <line x1="190" y1="140" x2="190" y2="160" stroke="#D4A72C" strokeWidth="2.5" />
+
+                  <line x1="310" y1="140" x2="310" y2="160" stroke="#D4A72C" strokeWidth="2.5" />
+                  <line x1="365" y1="140" x2="365" y2="150" stroke="#D4A72C" strokeWidth="2.5" />
+                  <line x1="420" y1="140" x2="420" y2="160" stroke="#D4A72C" strokeWidth="2.5" />
 
                   {/* Bridge Deck */}
                   <line x1="10" y1="140" x2="490" y2="140" stroke="#06122c" strokeWidth="6.5" strokeLinecap="round" />
-                  <line x1="10" y1="145" x2="490" y2="145" stroke="#c5a059" strokeWidth="2" strokeLinecap="round" />
+                  <line x1="10" y1="145" x2="490" y2="145" stroke="#D4A72C" strokeWidth="2" strokeLinecap="round" />
 
                   {/* Water Reflection */}
                   <path d="M 10 195 Q 125 190 250 195 T 490 195" stroke="rgba(197, 160, 89, 0.25)" strokeWidth="2.5" />
@@ -493,7 +521,7 @@ const AboutPage = () => {
                   height: '64px',
                   borderRadius: '50%',
                   background: '#06122c',
-                  border: '4px solid #c5a059',
+                  border: '4px solid #D4A72C',
                   boxShadow: '0 4px 15px rgba(197, 160, 89, 0.4)',
                   display: 'flex',
                   alignItems: 'center',
@@ -508,22 +536,22 @@ const AboutPage = () => {
               {/* Three inline badges underneath the bridge */}
               <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginTop: '2rem', width: '100%' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', color: 'var(--text-primary)', fontWeight: 700 }}>
-                  <Briefcase style={{ width: '15px', height: '15px', color: '#c5a059' }} /> Streamlined Procurement
+                  <Briefcase style={{ width: '15px', height: '15px', color: '#D4A72C' }} /> Streamlined Procurement
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', color: 'var(--text-primary)', fontWeight: 700 }}>
-                  <Users style={{ width: '15px', height: '15px', color: '#c5a059' }} /> Trusted Partnerships
+                  <Users style={{ width: '15px', height: '15px', color: '#D4A72C' }} /> Trusted Partnerships
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', color: '#c5a059', fontWeight: 700 }}>
-                  <TrendingUp style={{ width: '15px', height: '15px', color: '#c5a059' }} /> Sustainable Growth
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', color: '#D4A72C', fontWeight: 700 }}>
+                  <TrendingUp style={{ width: '15px', height: '15px', color: '#D4A72C' }} /> Sustainable Growth
                 </div>
               </div>
 
             </div>
 
             {/* Right Box: Trade Partners */}
-            <div 
-              className="glass-panel" 
-              style={{ 
+            <div
+              className="glass-panel"
+              style={{
                 background: 'var(--bg-glass)',
                 borderRadius: '1.5rem',
                 boxShadow: 'var(--shadow-glass)',
@@ -534,13 +562,13 @@ const AboutPage = () => {
                 transition: 'all 0.3s ease'
               }}
             >
-              <div style={{ 
-                background: 'var(--footer-bg)', 
-                color: '#ffffff', 
-                padding: '1.5rem 1.25rem', 
-                textAlign: 'center', 
-                fontWeight: 800, 
-                fontSize: '0.95rem', 
+              <div style={{
+                background: 'var(--footer-bg)',
+                color: '#ffffff',
+                padding: '1.5rem 1.25rem',
+                textAlign: 'center',
+                fontWeight: 800,
+                fontSize: '0.95rem',
                 letterSpacing: '0.05em',
                 display: 'flex',
                 alignItems: 'center',
@@ -549,31 +577,31 @@ const AboutPage = () => {
               }}>
                 <HeartHandshake style={{ width: '18px', height: '18px', color: '#ffffff' }} />
                 <div style={{ textAlign: 'left', lineHeight: '1.2' }}>
-                  <div style={{ fontSize: '0.7rem', opacity: 0.7,color:'#ffffff' }}>TRADE</div>
-                  <div style={{color:'#ffffff'}}>PARTNERS</div>
+                  <div style={{ fontSize: '0.7rem', opacity: 0.7, color: '#ffffff' }}>TRADE</div>
+                  <div style={{ color: '#ffffff' }}>PARTNERS</div>
                 </div>
               </div>
               <div style={{ padding: '1.75rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
                 {tradePartners.map((item, idx) => (
-                  <div key={idx} style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: '12px', 
-                    fontSize: '0.92rem', 
-                    color: 'var(--text-secondary)', 
+                  <div key={idx} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    fontSize: '0.92rem',
+                    color: 'var(--text-secondary)',
                     fontWeight: 600
                   }}>
-                    <div style={{ 
-                      width: '26px', 
-                      height: '26px', 
-                      borderRadius: '50%', 
-                      background: 'rgba(197, 160, 89, 0.06)', 
+                    <div style={{
+                      width: '26px',
+                      height: '26px',
+                      borderRadius: '50%',
+                      background: 'rgba(197, 160, 89, 0.06)',
                       border: '1px solid rgba(197, 160, 89, 0.15)',
-                      display: 'flex', 
-                      alignItems: 'center', 
+                      display: 'flex',
+                      alignItems: 'center',
                       justifyContent: 'center'
                     }}>
-                      {React.cloneElement(item.icon, { style: { width: '13px', height: '13px', color: '#c5a059' } })}
+                      {React.cloneElement(item.icon, { style: { width: '13px', height: '13px', color: '#D4A72C' } })}
                     </div>
                     <span>{item.name}</span>
                   </div>
@@ -584,11 +612,11 @@ const AboutPage = () => {
           </div>
 
           {/* Bottom Grid: 5 Solutions Cards */}
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(5, 1fr)', 
-            gap: '1.25rem', 
-            marginTop: '5rem' 
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(5, 1fr)',
+            gap: '1.25rem',
+            marginTop: '5rem'
           }} className="bridge-solutions-grid">
             {[
               {
@@ -598,17 +626,17 @@ const AboutPage = () => {
               },
               {
                 name: 'AI Robotics',
-                desc: 'Autonomous solutions powered by AI for a smarter tomorrow.',
+                desc: 'Autonomous solutions powered by advanced AI for a smarter tomorrow.',
                 icon: <Cpu style={{ width: '22px', height: '22px' }} />
               },
               {
                 name: 'Smart Energy Solutions',
-                desc: 'Energy-efficient systems designed for a sustainable future.',
+                desc: 'Energy-efficient systems innovatively designed for a sustainable future.',
                 icon: <Lightbulb style={{ width: '22px', height: '22px' }} />
               },
               {
                 name: 'Sustainable Packaging',
-                desc: 'Eco-friendly packaging solutions for a greener planet.',
+                desc: 'Eco-friendly packaging solutions innovative for a greener planet.',
                 icon: <Box style={{ width: '22px', height: '22px' }} />
               },
               {
@@ -618,16 +646,16 @@ const AboutPage = () => {
               }
             ].map((sol, idx) => {
               return (
-                <div 
-                  key={idx} 
-                  className="glass-panel" 
-                  style={{ 
-                    padding: '2.25rem 1.25rem', 
-                    borderRadius: '1.25rem', 
-                    textAlign: 'center', 
-                    display: 'flex', 
-                    flexDirection: 'column', 
-                    alignItems: 'center', 
+                <div
+                  key={idx}
+                  className="glass-panel"
+                  style={{
+                    padding: '2.25rem 1.25rem',
+                    borderRadius: '1.25rem',
+                    textAlign: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
                     background: 'var(--bg-glass)',
                     border: '1px solid var(--border-glass)',
                     boxShadow: 'var(--shadow-glass)',
@@ -636,7 +664,7 @@ const AboutPage = () => {
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-6px)';
-                    e.currentTarget.style.borderColor = '#c5a059';
+                    e.currentTarget.style.borderColor = '#D4A72C';
                     e.currentTarget.style.boxShadow = 'var(--card-hover-shadow)';
                     e.currentTarget.style.background = 'var(--bg-primary)';
                   }}
@@ -647,36 +675,36 @@ const AboutPage = () => {
                     e.currentTarget.style.background = 'var(--bg-glass)';
                   }}
                 >
-                  <div style={{ 
-                    background: 'rgba(197, 160, 89, 0.05)', 
-                    border: '2px solid #c5a059',
-                    width: '52px', 
-                    height: '52px', 
+                  <div style={{
+                    background: 'rgba(197, 160, 89, 0.05)',
+                    border: '2px solid #D4A72C',
+                    width: '52px',
+                    height: '52px',
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     marginBottom: '1rem'
                   }}>
-                    {React.cloneElement(sol.icon, { style: { ...sol.icon.props.style, color: '#c5a059' } })}
+                    {React.cloneElement(sol.icon, { style: { ...sol.icon.props.style, color: '#D4A72C' } })}
                   </div>
-                  <div style={{ 
-                    fontSize: '0.95rem', 
-                    fontWeight: 800, 
+                  <div style={{
+                    fontSize: '0.95rem',
+                    fontWeight: 800,
                     color: 'var(--text-primary)',
                     lineHeight: '1.3',
                     marginBottom: '0.5rem'
                   }}>
                     {sol.name}
                   </div>
-                  <div style={{ 
-                    fontSize: '0.8rem', 
+                  <div style={{
+                    fontSize: '0.8rem',
                     color: 'var(--text-secondary)',
                     lineHeight: '1.4'
                   }}>
                     {sol.desc}
                   </div>
-                  <div style={{ width: '36px', height: '2px', background: '#c5a059', margin: '0.75rem auto 0 auto', borderRadius: '1px' }} />
+                  <div style={{ width: '36px', height: '2px', background: '#D4A72C', margin: '0.75rem auto 0 auto', borderRadius: '1px' }} />
                 </div>
               );
             })}
@@ -693,13 +721,13 @@ const AboutPage = () => {
             alignItems: 'center',
             boxShadow: 'var(--shadow-glass)'
           }} className="bridge-stats-bar">
-            
+
             {/* Stat 1 */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <Globe style={{ width: '28px', height: '28px', color: '#c5a059' }} />
+              <Globe style={{ width: '28px', height: '28px', color: '#D4A72C' }} />
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.6)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Global Network</span>
-                <span style={{ fontSize: '1.25rem', color: '#ffffff', fontWeight: 800 }}>50+ Countries</span>
+                <span style={{ fontSize: '1.25rem', color: '#ffffff', fontWeight: 800 }}>{settings.stat_global_network}</span>
               </div>
             </div>
 
@@ -707,10 +735,10 @@ const AboutPage = () => {
 
             {/* Stat 2 */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <Users style={{ width: '28px', height: '28px', color: '#c5a059' }} />
+              <Users style={{ width: '28px', height: '28px', color: '#D4A72C' }} />
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.6)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Trusted Partners</span>
-                <span style={{ fontSize: '1.25rem', color: '#ffffff', fontWeight: 800 }}>500+</span>
+                <span style={{ fontSize: '1.25rem', color: '#ffffff', fontWeight: 800 }}>{settings.stat_trusted_partners}</span>
               </div>
             </div>
 
@@ -718,10 +746,10 @@ const AboutPage = () => {
 
             {/* Stat 3 */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <TrendingUp style={{ width: '28px', height: '28px', color: '#c5a059' }} />
+              <TrendingUp style={{ width: '28px', height: '28px', color: '#D4A72C' }} />
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.6)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Solutions Delivered</span>
-                <span style={{ fontSize: '1.25rem', color: '#ffffff', fontWeight: 800 }}>10K+</span>
+                <span style={{ fontSize: '1.25rem', color: '#ffffff', fontWeight: 800 }}>{settings.stat_solutions_delivered}</span>
               </div>
             </div>
 
@@ -729,10 +757,10 @@ const AboutPage = () => {
 
             {/* Stat 4 */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <Award style={{ width: '28px', height: '28px', color: '#c5a059' }} />
+              <Award style={{ width: '28px', height: '28px', color: '#D4A72C' }} />
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.6)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Years of Excellence</span>
-                <span style={{ fontSize: '1.25rem', color: '#ffffff', fontWeight: 800 }}>7+</span>
+                <span style={{ fontSize: '1.25rem', color: '#ffffff', fontWeight: 800 }}>{settings.stat_years_excellence}</span>
               </div>
             </div>
 
@@ -744,7 +772,7 @@ const AboutPage = () => {
       {/* 3. VISION & MISSION Section */}
       <section style={{ padding: 0, overflow: 'hidden' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
-          
+
           {/* Vision Column */}
           <div style={{
             position: 'relative',
@@ -763,7 +791,7 @@ const AboutPage = () => {
             <div style={{ position: 'relative', zIndex: 2, color: '#ffffff', maxWidth: '500px' }}>
               <h3 style={{ fontSize: '2.5rem', fontWeight: 800, color: '#ffffff', marginBottom: '1.5rem', fontFamily: "'Playfair Display', Georgia, serif" }}>Our Vision</h3>
               <p style={{ fontSize: '1.25rem', lineHeight: '1.6', color: 'rgba(255, 255, 255, 0.95)' }}>
-                To become the biggest B2B Procurement Aggregation Platform in Asia Pacific.
+                {settings.vision_text}
               </p>
             </div>
           </div>
@@ -786,7 +814,7 @@ const AboutPage = () => {
             <div style={{ position: 'relative', zIndex: 2, color: '#ffffff', maxWidth: '500px' }}>
               <h3 style={{ fontSize: '2.5rem', fontWeight: 800, color: '#ffffff', marginBottom: '1.5rem', fontFamily: "'Playfair Display', Georgia, serif" }}>Our Mission</h3>
               <p style={{ fontSize: '1.25rem', lineHeight: '1.6', color: 'rgba(255, 255, 255, 0.95)' }}>
-                To continuously identify our clients’ procurement needs and source for the best quality and most value-for-money products and services to match those needs.
+                {settings.mission_text}
               </p>
             </div>
           </div>
@@ -795,8 +823,8 @@ const AboutPage = () => {
       </section>
 
       {/* 4. CORPORATE HISTORY / Company Profile */}
-      <section style={{ 
-        padding: '6rem 0', 
+      <section style={{
+        padding: '6rem 0',
         borderTop: '1px solid var(--border-glass)',
         position: 'relative',
         overflow: 'hidden'
@@ -812,12 +840,12 @@ const AboutPage = () => {
           zIndex: 1,
           pointerEvents: 'none'
         }} />
-        
+
         <div className="container" style={{ maxWidth: '900px', position: 'relative', zIndex: 2 }}>
-          
-          <div 
+
+          <div
             className="profile-card"
-            style={{ 
+            style={{
               position: 'relative',
               background: 'var(--footer-bg)',
               border: '1px solid rgba(255,255,255,0.05)',
@@ -838,7 +866,7 @@ const AboutPage = () => {
               left: 0,
               width: '60px',
               height: '60px',
-              background: 'linear-gradient(135deg, #c5a059 25%, transparent 25%)',
+              background: 'linear-gradient(135deg, #D4A72C 25%, transparent 25%)',
               opacity: 0.35
             }} />
             <div style={{
@@ -847,70 +875,70 @@ const AboutPage = () => {
               right: 0,
               width: '60px',
               height: '60px',
-              background: 'linear-gradient(315deg, #c5a059 25%, transparent 25%)',
+              background: 'linear-gradient(315deg, #D4A72C 25%, transparent 25%)',
               opacity: 0.35
             }} />
 
             <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-              <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#c5a059', letterSpacing: '0.15em', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>
+              <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#D4A72C', letterSpacing: '0.15em', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>
                 CORPORATE HISTORY
               </span>
               <h2 style={{ fontSize: '2.5rem', fontWeight: 850, color: '#ffffff', margin: 0, fontFamily: '"Times New Roman", Times, serif' }}>
                 Company Profile
               </h2>
-              <div style={{ width: '50px', height: '2px', background: '#c5a059', margin: '0.75rem auto 0 auto', borderRadius: '2px' }} />
+              <div style={{ width: '50px', height: '2px', background: '#D4A72C', margin: '0.75rem auto 0 auto', borderRadius: '2px' }} />
             </div>
-            
+
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem' }} className="bridge-layout">
               {/* Left Column stats */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                
+
                 {/* Stat 1 */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={{ 
-                    width: '46px', 
-                    height: '46px', 
-                    borderRadius: '10px', 
-                    background: 'rgba(255, 255, 255, 0.08)', 
+                  <div style={{
+                    width: '46px',
+                    height: '46px',
+                    borderRadius: '10px',
+                    background: 'rgba(255, 255, 255, 0.08)',
                     border: '1px solid rgba(255, 255, 255, 0.05)',
-                    display: 'flex', 
-                    alignItems: 'center', 
+                    display: 'flex',
+                    alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0
                   }}>
-                    <Calendar style={{ width: '20px', height: '20px', color: '#c5a059' }} />
+                    <Calendar style={{ width: '20px', height: '20px', color: '#D4A72C' }} />
                   </div>
                   <div>
                     <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'rgba(255, 255, 255, 0.45)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       Incorporation Details
                     </div>
                     <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#ffffff', marginTop: '0.25rem' }}>
-                      26 July 2016 in Singapore
+                      {settings.incorporation_date}
                     </div>
                   </div>
                 </div>
 
                 {/* Stat 2 */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={{ 
-                    width: '46px', 
-                    height: '46px', 
-                    borderRadius: '10px', 
-                    background: 'rgba(255, 255, 255, 0.08)', 
+                  <div style={{
+                    width: '46px',
+                    height: '46px',
+                    borderRadius: '10px',
+                    background: 'rgba(255, 255, 255, 0.08)',
                     border: '1px solid rgba(255, 255, 255, 0.05)',
-                    display: 'flex', 
-                    alignItems: 'center', 
+                    display: 'flex',
+                    alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0
                   }}>
-                    <FileText style={{ width: '20px', height: '20px', color: '#c5a059' }} />
+                    <FileText style={{ width: '20px', height: '20px', color: '#D4A72C' }} />
                   </div>
                   <div>
                     <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'rgba(255, 255, 255, 0.45)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       Unique Entity Number (UEN)
                     </div>
                     <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#ffffff', marginTop: '0.25rem' }}>
-                      201620397R
+                      {settings.uen_number}
                     </div>
                   </div>
                 </div>
@@ -919,21 +947,21 @@ const AboutPage = () => {
 
               {/* Right Column stats */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', borderLeft: '1px solid rgba(255, 255, 255, 0.1)', paddingLeft: '3rem' }} className="no-border-mobile">
-                
+
                 {/* Stat 3 */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={{ 
-                    width: '46px', 
-                    height: '46px', 
-                    borderRadius: '10px', 
-                    background: 'rgba(255, 255, 255, 0.08)', 
+                  <div style={{
+                    width: '46px',
+                    height: '46px',
+                    borderRadius: '10px',
+                    background: 'rgba(255, 255, 255, 0.08)',
                     border: '1px solid rgba(255, 255, 255, 0.05)',
-                    display: 'flex', 
-                    alignItems: 'center', 
+                    display: 'flex',
+                    alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0
                   }}>
-                    <Building style={{ width: '20px', height: '20px', color: '#c5a059' }} />
+                    <Building style={{ width: '20px', height: '20px', color: '#D4A72C' }} />
                   </div>
                   <div>
                     <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'rgba(255, 255, 255, 0.45)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -948,25 +976,25 @@ const AboutPage = () => {
 
                 {/* Stat 4 */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={{ 
-                    width: '46px', 
-                    height: '46px', 
-                    borderRadius: '10px', 
-                    background: 'rgba(255, 255, 255, 0.08)', 
+                  <div style={{
+                    width: '46px',
+                    height: '46px',
+                    borderRadius: '10px',
+                    background: 'rgba(255, 255, 255, 0.08)',
                     border: '1px solid rgba(255, 255, 255, 0.05)',
-                    display: 'flex', 
-                    alignItems: 'center', 
+                    display: 'flex',
+                    alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0
                   }}>
-                    <Layers style={{ width: '20px', height: '20px', color: '#c5a059' }} />
+                    <Layers style={{ width: '20px', height: '20px', color: '#D4A72C' }} />
                   </div>
                   <div>
                     <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'rgba(255, 255, 255, 0.45)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       Company Type
                     </div>
                     <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#ffffff', marginTop: '0.25rem' }}>
-                      Private Company Limited by Shares
+                      {settings.registration_type}
                     </div>
                   </div>
                 </div>
@@ -981,14 +1009,14 @@ const AboutPage = () => {
       <section style={{ padding: '6rem 0', borderTop: '1px solid var(--border-glass)' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '4.5rem' }}>
-            <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#c5a059', textTransform: 'uppercase', letterSpacing: '0.15em', display: 'block', marginBottom: '0.5rem' }}>
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#D4A72C', textTransform: 'uppercase', letterSpacing: '0.15em', display: 'block', marginBottom: '0.5rem' }}>
               OUR FOUNDATION
             </span>
-            <h2 style={{ 
-              fontSize: '2.8rem', 
-              fontWeight: 850, 
-              color: 'var(--text-primary)', 
-              marginTop: '0.5rem', 
+            <h2 style={{
+              fontSize: '2.8rem',
+              fontWeight: 850,
+              color: 'var(--text-primary)',
+              marginTop: '0.5rem',
               marginBottom: '1.25rem',
               fontFamily: '"Times New Roman", Times, serif'
             }}>
@@ -998,25 +1026,25 @@ const AboutPage = () => {
               These values guide our decisions, shape our culture, and define how we create value for our partners and communities.
             </p>
           </div>
-          
+
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '1.5rem', marginBottom: '5rem' }}>
             {coreValues.map((val, idx) => {
               const isHovered = hoveredValueIdx === idx;
               return (
-                <div 
-                  key={idx} 
+                <div
+                  key={idx}
                   className="value-card"
-                  style={{ 
-                    textAlign: 'center', 
-                    display: 'flex', 
-                    flexDirection: 'column', 
-                    alignItems: 'center', 
+                  style={{
+                    textAlign: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
                     padding: '2.5rem 1.25rem 2rem 1.25rem',
-                    borderRadius: '16px', 
-                    border: '1px solid var(--border-glass)', 
+                    borderRadius: '16px',
+                    border: '1px solid var(--border-glass)',
                     borderBottom: `4px solid ${val.color}`,
                     borderTop: `4px solid ${val.color}`,
-                    background: isHovered ? 'var(--card-hover-bg-white)' : 'var(--bg-glass)', 
+                    background: isHovered ? 'var(--card-hover-bg-white)' : 'var(--bg-glass)',
                     boxShadow: 'var(--shadow-glass)',
                     cursor: 'pointer',
                     transformStyle: 'preserve-3d',
@@ -1027,14 +1055,14 @@ const AboutPage = () => {
                   onMouseLeave={handleValueMouseLeave}
                 >
                   {/* Top circular icon backdrop */}
-                  <div style={{ 
+                  <div style={{
                     width: '56px',
                     height: '56px',
-                    borderRadius: '50%', 
-                    background: 'linear-gradient(135deg, var(--bg-glass), var(--bg-secondary))', 
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, var(--bg-glass), var(--bg-secondary))',
                     border: `1px solid ${val.color}35`,
-                    display: 'flex', 
-                    justifyContent: 'center', 
+                    display: 'flex',
+                    justifyContent: 'center',
                     alignItems: 'center',
                     marginBottom: '1.5rem',
                     boxShadow: '0 6px 16px rgba(0, 0, 0, 0.05)',
@@ -1043,14 +1071,14 @@ const AboutPage = () => {
                   }}>
                     {val.icon}
                   </div>
-                  
+
                   <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0, transform: 'translateZ(15px)' }}>
                     {val.name}
                   </h3>
-                  
+
                   {/* Horizontal line segment */}
                   <div style={{ width: '25px', height: '2px', background: val.color, margin: '0.75rem auto 1rem auto', borderRadius: '2px' }} />
-                  
+
                   <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.6', margin: 0 }}>
                     {val.desc}
                   </p>
@@ -1060,15 +1088,15 @@ const AboutPage = () => {
           </div>
 
           {/* Bottom horizontal highlight bar */}
-          <div 
-            className="glass-panel" 
-            style={{ 
-              padding: '2.5rem 3rem', 
-              borderRadius: '1.5rem', 
-              border: '1px solid rgba(255,255,255,0.05)', 
-              background: 'var(--footer-bg)', 
-              display: 'flex', 
-              alignItems: 'center', 
+          <div
+            className="glass-panel"
+            style={{
+              padding: '2.5rem 3rem',
+              borderRadius: '1.5rem',
+              border: '1px solid rgba(255,255,255,0.05)',
+              background: 'var(--footer-bg)',
+              display: 'flex',
+              alignItems: 'center',
               gap: '2.5rem',
               flexWrap: 'wrap',
               boxShadow: 'var(--shadow-glass)',
@@ -1091,32 +1119,32 @@ const AboutPage = () => {
               pointerEvents: 'none',
               zIndex: 1
             }}>
-              <Globe style={{ width: '260px', height: '260px', color: '#c5a059' }} />
+              <Globe style={{ width: '260px', height: '260px', color: '#D4A72C' }} />
             </div>
 
-            <div style={{ 
-              width: '68px', 
-              height: '68px', 
-              borderRadius: '50%', 
-              background: 'rgba(255, 255, 255, 0.08)', 
-              display: 'flex', 
-              alignItems: 'center', 
+            <div style={{
+              width: '68px',
+              height: '68px',
+              borderRadius: '50%',
+              background: 'rgba(255, 255, 255, 0.08)',
+              display: 'flex',
+              alignItems: 'center',
               justifyContent: 'center',
               flexShrink: 0,
               boxShadow: '0 8px 24px rgba(6, 18, 44, 0.15)',
               transform: 'translateZ(10px)',
               zIndex: 2
             }}>
-              <Target style={{ width: '30px', height: '30px', color: '#c5a059' }} />
+              <Target style={{ width: '30px', height: '30px', color: '#D4A72C' }} />
             </div>
-            
+
             <div style={{ flex: 1, minWidth: '280px', transform: 'translateZ(15px)', zIndex: 2 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
                 <h4 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff' }}>
                   Committed to Creating Lasting Impact
                 </h4>
               </div>
-              <div style={{ width: '40px', height: '2px', background: '#c5a059', marginBottom: '0.75rem', borderRadius: '1px' }} />
+              <div style={{ width: '40px', height: '2px', background: '#D4A72C', marginBottom: '0.75rem', borderRadius: '1px' }} />
               <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>
                 Our core values are more than words — they are the principles that inspire our people, strengthen our partnerships, and drive sustainable growth worldwide.
               </p>

@@ -13,9 +13,30 @@ const SuppliersPage = () => {
 
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    try {
+      const res = await fetch('http://127.0.0.1:8000/api/partnerships/submit/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          company_name: formData.companyName,
+          contact_name: formData.contactPerson,
+          email: formData.email,
+          phone: formData.phone,
+          interest_area: formData.category,
+          message: formData.message
+        })
+      });
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        alert("Failed to submit application.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error contacting the backend server.");
+    }
   };
 
   const categories = [

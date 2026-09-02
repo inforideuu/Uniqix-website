@@ -301,6 +301,12 @@ const Navbar = ({ currentPage, setCurrentPage, theme, toggleTheme, setActiveProd
         }
         @media (max-width: 989px) {
           .mobile-toggle-group { display: flex !important; }
+          nav.glass-panel {
+            width: 92% !important;
+            padding: 0 1.25rem !important;
+            top: 0.75rem !important;
+            height: 60px !important;
+          }
         }
         .nav-dropdown-menu {
           position: absolute;
