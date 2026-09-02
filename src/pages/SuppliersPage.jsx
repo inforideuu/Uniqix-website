@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Package, Award, ShieldCheck, HelpCircle, CheckCircle, Globe, Send } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const SuppliersPage = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +17,7 @@ const SuppliersPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/partnerships/submit/', {
+      const res = await fetch(`${API_BASE_URL}/api/partnerships/submit/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

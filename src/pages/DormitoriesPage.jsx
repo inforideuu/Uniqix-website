@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, MapPin, Calendar, Users, Home, Shield, Percent, Sparkles, Check, ShieldAlert, CheckCircle, RefreshCw } from 'lucide-react';
 import dormImage from '../assets/uniqix_dormitory.png';
+import { API_BASE_URL } from '../config';
 
 const DormitoriesPage = ({ setCurrentPage }) => {
   const [searchParams, setSearchParams] = useState({
@@ -16,7 +17,7 @@ const DormitoriesPage = ({ setCurrentPage }) => {
   const [dbDormitories, setDbDormitories] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/dormitories/')
+    fetch(`${API_BASE_URL}/api/dormitories/`)
       .then(res => res.json())
       .then(data => {
         if (data && data.length > 0) {
@@ -83,7 +84,7 @@ const DormitoriesPage = ({ setCurrentPage }) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await fetch('http://127.0.0.1:8000/api/dormitories/search/', {
+      await fetch(`${API_BASE_URL}/api/dormitories/search/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(searchParams)

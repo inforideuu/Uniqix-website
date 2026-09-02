@@ -9,6 +9,7 @@ import fu from '../assets/fieldunit.png';
 import dash from '../assets/dashboard.png';
 import school from '../assets/school.png';
 import dragonflyConcept from '../assets/dragonfly_concept.jpg';
+import { API_BASE_URL } from '../config';
 
 const getTelemetryImage = (key) => {
   const map = {
@@ -208,7 +209,7 @@ const AdminPage = ({ setCurrentPage }) => {
     if (!token) return;
     const headers = { 'Authorization': `Bearer ${token}` };
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/admin/notifications/', { headers });
+      const res = await fetch(`${API_BASE_URL}/api/admin/notifications/`, { headers });
       if (res.ok) {
         const data = await res.json();
         setNotifications(data);
@@ -234,7 +235,7 @@ const AdminPage = ({ setCurrentPage }) => {
   const handleMarkNotificationsRead = async () => {
     const headers = { 'Authorization': `Bearer ${token}` };
     try {
-      await fetch('http://127.0.0.1:8000/api/admin/notifications/', {
+      await fetch(`${API_BASE_URL}/api/admin/notifications/`, {
         method: 'PATCH',
         headers
       });
@@ -247,7 +248,7 @@ const AdminPage = ({ setCurrentPage }) => {
   const handleClearAllNotifications = async () => {
     const headers = { 'Authorization': `Bearer ${token}` };
     try {
-      await fetch('http://127.0.0.1:8000/api/admin/notifications/', {
+      await fetch(`${API_BASE_URL}/api/admin/notifications/`, {
         method: 'DELETE',
         headers
       });
@@ -261,7 +262,7 @@ const AdminPage = ({ setCurrentPage }) => {
     e.stopPropagation();
     const headers = { 'Authorization': `Bearer ${token}` };
     try {
-      await fetch(`http://127.0.0.1:8000/api/admin/notifications/${id}/`, {
+      await fetch(`${API_BASE_URL}/api/admin/notifications/${id}/`, {
         method: 'DELETE',
         headers
       });
@@ -278,7 +279,7 @@ const AdminPage = ({ setCurrentPage }) => {
       'Content-Type': 'application/json'
     };
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/admin/accommodation-searches/${id}/`, {
+      const res = await fetch(`${API_BASE_URL}/api/admin/accommodation-searches/${id}/`, {
         method: 'DELETE',
         headers
       });
@@ -297,7 +298,7 @@ const AdminPage = ({ setCurrentPage }) => {
       'Content-Type': 'application/json'
     };
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/admin/about-settings/', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/about-settings/`, {
         method: 'POST',
         headers,
         body: JSON.stringify(aboutSettings)
@@ -321,7 +322,7 @@ const AdminPage = ({ setCurrentPage }) => {
       'Content-Type': 'application/json'
     };
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/admin/home-settings/', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/home-settings/`, {
         method: 'POST',
         headers,
         body: JSON.stringify(homeSettings)
@@ -343,47 +344,47 @@ const AdminPage = ({ setCurrentPage }) => {
     const headers = { 'Authorization': `Bearer ${token}` };
     try {
       if (activeTab === 'products' || activeTab === 'industrial_supply' || activeTab === 'eco_food_service') {
-        const res = await fetch('http://127.0.0.1:8000/api/products/');
+        const res = await fetch(`${API_BASE_URL}/api/products/`);
         const data = await res.json();
         setProducts(data);
       } else if (activeTab === 'dormitories') {
-        const res = await fetch('http://127.0.0.1:8000/api/dormitories/');
+        const res = await fetch(`${API_BASE_URL}/api/dormitories/`);
         const data = await res.json();
         setDormitories(data);
       } else if (activeTab === 'inquiries') {
-        const res = await fetch('http://127.0.0.1:8000/api/admin/inquiries/', { headers });
+        const res = await fetch(`${API_BASE_URL}/api/admin/inquiries/`, { headers });
         const data = await res.json();
         setInquiries(data);
       } else if (activeTab === 'partnerships') {
-        const res = await fetch('http://127.0.0.1:8000/api/admin/partnerships/', { headers });
+        const res = await fetch(`${API_BASE_URL}/api/admin/partnerships/`, { headers });
         const data = await res.json();
         setPartnerships(data);
       } else if (activeTab === 'casestudies') {
-        const res = await fetch('http://127.0.0.1:8000/api/case-studies/');
+        const res = await fetch(`${API_BASE_URL}/api/case-studies/`);
         const data = await res.json();
         setCaseStudies(data);
       } else if (activeTab === 'searches') {
-        const res = await fetch('http://127.0.0.1:8000/api/admin/accommodation-searches/', { headers });
+        const res = await fetch(`${API_BASE_URL}/api/admin/accommodation-searches/`, { headers });
         const data = await res.json();
         setAccommodationSearches(data);
       } else if (activeTab === 'about us') {
-        const res = await fetch('http://127.0.0.1:8000/api/about-settings/');
+        const res = await fetch(`${API_BASE_URL}/api/about-settings/`);
         const data = await res.json();
         setAboutSettings(data);
       } else if (activeTab === 'home') {
-        const res = await fetch('http://127.0.0.1:8000/api/home-settings/');
+        const res = await fetch(`${API_BASE_URL}/api/home-settings/`);
         const data = await res.json();
         if (data.settings) setHomeSettings(data.settings);
       } else if (activeTab === 'testimonials') {
-        const res = await fetch('http://127.0.0.1:8000/api/home-settings/');
+        const res = await fetch(`${API_BASE_URL}/api/home-settings/`);
         const data = await res.json();
         if (data.testimonials) setAdminTestimonials(data.testimonials);
       } else if (activeTab === 'services') {
-        const resServices = await fetch('http://127.0.0.1:8000/api/services/');
+        const resServices = await fetch(`${API_BASE_URL}/api/services/`);
         const dataServices = await resServices.json();
         setAdminServices(dataServices);
 
-        const resTelemetry = await fetch('http://127.0.0.1:8000/api/telemetry/');
+        const resTelemetry = await fetch(`${API_BASE_URL}/api/telemetry/`);
         const dataTelemetry = await resTelemetry.json();
         setAdminTelemetry(dataTelemetry);
       }
@@ -398,7 +399,7 @@ const AdminPage = ({ setCurrentPage }) => {
     e.preventDefault();
     setLoginError('');
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/auth/login/', {
+      const res = await fetch(`${API_BASE_URL}/api/auth/login/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(loginData),
@@ -444,7 +445,7 @@ const AdminPage = ({ setCurrentPage }) => {
       else if (type === 'telemetry') endpoint = `telemetry/${id}/`;
       else if (type === 'service') endpoint = `services/${id}/`;
 
-      const res = await fetch(`http://127.0.0.1:8000/api/admin/${endpoint}`, {
+      const res = await fetch(`${API_BASE_URL}/api/admin/${endpoint}`, {
         method: 'DELETE',
         headers
       });
@@ -463,7 +464,7 @@ const AdminPage = ({ setCurrentPage }) => {
       'Content-Type': 'application/json'
     };
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/admin/inquiries/${id}/`, {
+      const res = await fetch(`${API_BASE_URL}/api/admin/inquiries/${id}/`, {
         method: 'PATCH',
         headers,
         body: JSON.stringify({ status })
@@ -512,7 +513,7 @@ const AdminPage = ({ setCurrentPage }) => {
     }
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/admin/${endpoint}`, {
+      const res = await fetch(`${API_BASE_URL}/api/admin/${endpoint}`, {
         method,
         headers,
         body: JSON.stringify(body)

@@ -6,6 +6,7 @@ import {
   TrendingUp, Users2, Shield, Heart, Globe, Calendar, FileText, Leaf
 } from 'lucide-react';
 import aboutOfficeImage from '../assets/uniqix_hero_logistics.png'; // Fallback / existing asset
+import { API_BASE_URL } from '../config';
 
 const AboutPage = () => {
   const [settings, setSettings] = useState({
@@ -27,7 +28,7 @@ const AboutPage = () => {
   });
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/about-settings/')
+    fetch(`${API_BASE_URL}/api/about-settings/`)
       .then(res => res.json())
       .then(data => {
         if (data && !data.error) {

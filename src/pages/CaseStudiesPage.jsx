@@ -5,12 +5,14 @@ import {
   TrendingUp
 } from 'lucide-react';
 
+import { API_BASE_URL } from '../config';
+
 const CaseStudiesPage = ({ setCurrentPage }) => {
   const [activeCaseStudy, setActiveCaseStudy] = useState(0);
   const [dbCaseStudies, setDbCaseStudies] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/case-studies/')
+    fetch(`${API_BASE_URL}/api/case-studies/`)
       .then(res => res.json())
       .then(data => {
         if (data && data.length > 0) {

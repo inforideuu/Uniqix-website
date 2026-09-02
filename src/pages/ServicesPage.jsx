@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Home, ShieldCheck, Box, HardHat, Cpu, Globe, Check, HelpCircle, ArrowRight } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const ServicesPage = ({ setCurrentPage }) => {
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -9,7 +10,7 @@ const ServicesPage = ({ setCurrentPage }) => {
   const [dbServices, setDbServices] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/services/')
+    fetch(`${API_BASE_URL}/api/services/`)
       .then(res => res.json())
       .then(data => {
         if (data && data.length > 0) setDbServices(data);

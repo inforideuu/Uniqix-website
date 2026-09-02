@@ -12,6 +12,7 @@ import logoObayashi from '../assets/obayashi.png';
 import logoPdd from '../assets/pdd.png';
 import logoSp from '../assets/sp.png';
 import logoSutd from '../assets/sutd.png';
+import { API_BASE_URL } from '../config';
 
 const HomePage = ({ setCurrentPage }) => {
   const [hoveredStep, setHoveredStep] = useState(null);
@@ -38,7 +39,7 @@ const HomePage = ({ setCurrentPage }) => {
   const [divisions, setDivisions] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/home-settings/')
+    fetch(`${API_BASE_URL}/api/home-settings/`)
       .then(res => res.json())
       .then(data => {
         if (data) {

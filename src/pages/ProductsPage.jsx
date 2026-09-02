@@ -17,6 +17,7 @@ import dimmingImg from '../assets/stepless_dimming.png';
 import groupSensingImg from '../assets/group_sensing.png';
 
 import ecoPalletsImg from '../assets/eco_pallets.jpg';
+import { API_BASE_URL } from '../config';
 import stretchFilmImg from '../assets/stretch_film.jpg';
 import bubbleWrapImg from '../assets/bubble_wrap.jpg';
 import oppTapeImg from '../assets/opp_tape.jpg';
@@ -37,7 +38,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
   const [telemetry, setTelemetry] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/products/')
+    fetch(`${API_BASE_URL}/api/products/`)
       .then(res => res.json())
       .then(data => {
         if (data && data.length > 0) {
@@ -46,7 +47,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
       })
       .catch(err => console.error("Error loading products:", err));
 
-    fetch('http://127.0.0.1:8000/api/telemetry/')
+    fetch(`${API_BASE_URL}/api/telemetry/`)
       .then(res => res.json())
       .then(data => {
         if (data && data.length > 0) {
