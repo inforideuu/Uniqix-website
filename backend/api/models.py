@@ -80,6 +80,10 @@ class Notification(models.Model):
         return self.message
 
 class AccommodationSearch(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True, default='')
+    email = models.EmailField(blank=True, null=True, default='')
+    phone = models.CharField(max_length=50, blank=True, null=True, default='')
+    company = models.CharField(max_length=255, blank=True, null=True, default='')
     location = models.CharField(max_length=255, blank=True, null=True)
     move_in_date = models.DateField()
     workers = models.IntegerField()
@@ -87,7 +91,7 @@ class AccommodationSearch(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Search for {self.location or 'any'} on {self.move_in_date}"
+        return f"Search by {self.name or 'Guest'} for {self.location or 'any'} on {self.move_in_date}"
 
 class AboutPageSettings(models.Model):
     # Who We Are

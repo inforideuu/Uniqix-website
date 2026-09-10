@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Search, MapPin, Calendar, Users, Home, Shield, Percent, Sparkles, Check, ShieldAlert, CheckCircle, RefreshCw } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
+import { Search, MapPin, Calendar, Users, Home, Shield, Percent, Sparkles, Check, ShieldAlert, CheckCircle, RefreshCw, MessageSquare, X, Mail, User, Phone, Building } from 'lucide-react';
 import dormImage from '../assets/uniqix_dormitory.png';
 import { API_BASE_URL } from '../config';
 
 const DormitoriesPage = ({ setCurrentPage }) => {
+  const formRef = useRef(null);
   const [searchParams, setSearchParams] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
     location: '',
     moveInDate: '',
     workers: '',
@@ -15,6 +21,20 @@ const DormitoriesPage = ({ setCurrentPage }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [results, setResults] = useState([]);
   const [dbDormitories, setDbDormitories] = useState([]);
+
+  const [showModal, setShowModal] = useState(false);
+  const [lastSearchParams, setLastSearchParams] = useState(null);
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showModal]);
 
   useEffect(() => {
     fetch(`${API_BASE_URL}/api/dormitories/`)
@@ -102,7 +122,29 @@ const DormitoriesPage = ({ setCurrentPage }) => {
       return true;
     });
     setResults(filtered.length > 0 ? filtered : sourceList);
+    setLastSearchParams({ ...searchParams });
     setSearched(true);
+    setShowModal(true);
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleWhatsApp = () => {
+    if (!lastSearchParams) return;
+    const phone = '6596262970';
+    const text = `Hello, I queried dormitory spaces on Uniqix:\n\n*Full Name:* ${lastSearchParams.name || 'N/A'}\n*Company:* ${lastSearchParams.company || 'N/A'}\n*Phone:* ${lastSearchParams.phone || 'N/A'}\n*Email:* ${lastSearchParams.email || 'N/A'}\n*Preferred Location:* ${lastSearchParams.location || 'Any'}\n*Move-in Date:* ${lastSearchParams.moveInDate || 'N/A'}\n*Number of Workers:* ${lastSearchParams.workers || 'N/A'}\n*Accommodation Type:* ${lastSearchParams.type}`;
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
+  };
+
+  const handleEmail = () => {
+    if (!lastSearchParams) return;
+    const to = 'sam@aptiveight.com';
+    const subject = `Dormitory Space Inquiry: ${lastSearchParams.type} (${lastSearchParams.name || 'Guest'})`;
+    const body = `Full Name: ${lastSearchParams.name || 'N/A'}\nCompany: ${lastSearchParams.company || 'N/A'}\nPhone: ${lastSearchParams.phone || 'N/A'}\nEmail: ${lastSearchParams.email || 'N/A'}\nPreferred Location: ${lastSearchParams.location || 'Any'}\nMove-in Date: ${lastSearchParams.moveInDate || 'N/A'}\nNumber of Workers: ${lastSearchParams.workers || 'N/A'}\nAccommodation Type: ${lastSearchParams.type}`;
+    const mailtoUrl = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
   };
 
   const whyChooseCards = [
@@ -169,14 +211,89 @@ const DormitoriesPage = ({ setCurrentPage }) => {
       </div>
 
       {/* Main Layout Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem', marginBottom: '5rem', alignItems: 'center' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem', marginBottom: '5rem', alignItems: 'stretch' }}>
 
         {/* Search Dormitories Form */}
-        <div className="glass-panel" style={{ padding: '2.5rem', height: 'fit-content', border: '1px solid var(--border-glass)' }}>
+        <div ref={formRef} className="glass-panel" style={{ padding: '2.5rem', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', border: '1px solid var(--border-glass)' }}>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-primary)' }}>
             <Search style={{ color: 'var(--primary)' }} /> Search Accommodations
           </h2>
           <form onSubmit={handleSearchSubmit}>
+            <div style={{ padding: '0.85rem 1rem', background: 'rgba(197, 160, 89, 0.08)', borderRadius: '8px', border: '1px solid rgba(197, 160, 89, 0.2)', marginBottom: '1.25rem' }}>
+              <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                Contact Information (For Direct Admin Follow-up)
+              </span>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem', marginBottom: '1.25rem' }}>
+              <div className="form-group">
+                <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+                  <User style={{ width: '16px', height: '16px', color: 'var(--primary)' }} /> Full Name *
+                </label>
+                <input
+                  type="text"
+                  placeholder="John Doe"
+                  className="form-input"
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)' }}
+                  value={searchParams.name}
+                  onChange={(e) => setSearchParams({ ...searchParams, name: e.target.value })}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+                  <Phone style={{ width: '16px', height: '16px', color: 'var(--primary)' }} /> Phone / WhatsApp *
+                </label>
+                <input
+                  type="tel"
+                  placeholder="+65 9123 4567"
+                  className="form-input"
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)' }}
+                  value={searchParams.phone}
+                  onChange={(e) => setSearchParams({ ...searchParams, phone: e.target.value })}
+                  required
+                />
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem', marginBottom: '1.25rem' }}>
+              <div className="form-group">
+                <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+                  <Mail style={{ width: '16px', height: '16px', color: 'var(--primary)' }} /> Email Address *
+                </label>
+                <input
+                  type="email"
+                  placeholder="john@company.com"
+                  className="form-input"
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)' }}
+                  value={searchParams.email}
+                  onChange={(e) => setSearchParams({ ...searchParams, email: e.target.value })}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+                  <Building style={{ width: '16px', height: '16px', color: 'var(--primary)' }} /> Company (Optional)
+                </label>
+                <input
+                  type="text"
+                  placeholder="Acme Logistics"
+                  className="form-input"
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)' }}
+                  value={searchParams.company}
+                  onChange={(e) => setSearchParams({ ...searchParams, company: e.target.value })}
+                />
+              </div>
+            </div>
+
+            <div style={{ padding: '0.85rem 1rem', background: 'rgba(197, 160, 89, 0.08)', borderRadius: '8px', border: '1px solid rgba(197, 160, 89, 0.2)', marginBottom: '1.25rem' }}>
+              <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                Accommodation Search Criteria
+              </span>
+            </div>
+
             <div className="form-group" style={{ marginBottom: '1.25rem' }}>
               <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.5rem' }}>
                 <MapPin style={{ width: '16px', height: '16px', color: 'var(--primary)' }} /> Preferred Location
@@ -289,7 +406,7 @@ const DormitoriesPage = ({ setCurrentPage }) => {
                   type="button"
                   onClick={() => {
                     setSearched(false);
-                    setSearchParams({ location: '', moveInDate: '', workers: '', type: 'Standard Shared Space' });
+                    setSearchParams({ name: '', email: '', phone: '', company: '', location: '', moveInDate: '', workers: '', type: 'Standard Shared Space' });
                     setResults([]);
                   }}
                   style={{
@@ -315,16 +432,17 @@ const DormitoriesPage = ({ setCurrentPage }) => {
         </div>
 
         {/* Dynamic Architectural Render */}
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <div className="glass-panel" style={{ padding: '1rem', borderRadius: '1.5rem', overflow: 'hidden', boxShadow: 'var(--shadow-glass)', border: '1px solid var(--border-glass)' }}>
+        <div style={{ display: 'flex', height: '100%' }}>
+          <div className="glass-panel" style={{ padding: '0.75rem', borderRadius: '1.5rem', overflow: 'hidden', boxShadow: 'var(--shadow-glass)', border: '1px solid var(--border-glass)', width: '100%', height: '100%', minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <img
               src={dormImage}
               alt="Uniqix Modular Dormitories"
               style={{
                 width: '100%',
-                maxWidth: '450px',
-                height: 'auto',
-                borderRadius: '1rem',
+                height: '100%',
+                maxHeight: '100%',
+                objectFit: 'cover',
+                borderRadius: '1.1rem',
                 display: 'block',
               }}
             />
@@ -600,6 +718,171 @@ const DormitoriesPage = ({ setCurrentPage }) => {
           </button>
         </div>
       </section>
+
+      {/* FASTER REPLY DIALOG MODAL */}
+      {showModal && createPortal(
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: 'rgba(0, 0, 0, 0.75)',
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 999999,
+          padding: '1.5rem',
+          overflowY: 'auto'
+        }}>
+          <div style={{
+            background: 'var(--bg-primary, #ffffff)',
+            border: '1.5px solid var(--border-glass-hover, #D4A72C)',
+            borderRadius: '24px',
+            maxWidth: '500px',
+            width: '100%',
+            maxHeight: '90vh',
+            overflowY: 'auto',
+            padding: '2.25rem 2rem 2rem 2rem',
+            position: 'relative',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 35px rgba(212, 167, 44, 0.25)',
+            color: 'var(--text-primary, #0f172a)',
+            animation: 'fadeIn 0.25s ease-out',
+            margin: 'auto'
+          }}>
+            {/* Close Button */}
+            <button
+              onClick={() => setShowModal(false)}
+              aria-label="Close dialog"
+              style={{
+                position: 'absolute',
+                top: '1.25rem',
+                right: '1.25rem',
+                background: 'rgba(212, 167, 44, 0.12)',
+                border: '1.5px solid #D4A72C',
+                color: '#D4A72C',
+                borderRadius: '50%',
+                width: '40px',
+                height: '40px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                zIndex: 10
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.1)'; e.currentTarget.style.background = '#D4A72C'; e.currentTarget.style.color = '#ffffff'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.background = 'rgba(212, 167, 44, 0.12)'; e.currentTarget.style.color = '#D4A72C'; }}
+            >
+                X
+            </button>
+
+            {/* Modal Title */}
+            <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
+              <div style={{
+                width: '56px',
+                height: '56px',
+                borderRadius: '50%',
+                background: 'rgba(212, 167, 44, 0.12)',
+                border: '1.5px solid #D4A72C',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '1rem'
+              }}>
+                <MessageSquare style={{ width: '28px', height: '28px', color: '#D4A72C' }} />
+              </div>
+              <h3 style={{ fontSize: '1.6rem', fontWeight: 900, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: 'var(--text-primary)' }}>
+                Faster Reply Options
+              </h3>
+              <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', margin: 0, lineHeight: '1.55' }}>
+                Would you like to send your dormitory space query directly via WhatsApp or Email for instant priority dispatch?
+              </p>
+            </div>
+
+            {/* Actions Grid */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1rem' }}>
+              
+              {/* WhatsApp Button */}
+              <button
+                onClick={handleWhatsApp}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '12px',
+                  width: '100%',
+                  padding: '1rem 1.25rem',
+                  borderRadius: '14px',
+                  background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+                  color: '#ffffff',
+                  fontWeight: 800,
+                  fontSize: '1rem',
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 8px 20px rgba(37, 211, 102, 0.3)',
+                  transition: 'transform 0.2s, box-shadow 0.2s'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+              >
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                </svg>
+                Send via WhatsApp (+65 96262970)
+              </button>
+
+              {/* Email Button */}
+              <button
+                onClick={handleEmail}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '12px',
+                  width: '100%',
+                  padding: '1rem 1.25rem',
+                  borderRadius: '14px',
+                  background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+                  color: '#ffffff',
+                  fontWeight: 800,
+                  fontSize: '1rem',
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 8px 20px rgba(59, 130, 246, 0.3)',
+                  transition: 'transform 0.2s, box-shadow 0.2s'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+              >
+                <Mail style={{ width: '22px', height: '22px' }} />
+                Send via Email (sam@aptiveight.com)
+              </button>
+
+            </div>
+
+            {/* Modal Footer Note */}
+            <div style={{ textAlign: 'center', marginTop: '1.25rem' }}>
+              <button
+                onClick={() => setShowModal(false)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: 'var(--text-secondary)',
+                  fontSize: '0.88rem',
+                  cursor: 'pointer',
+                  textDecoration: 'underline'
+                }}
+              >
+                Close & Continue with Web Submission
+              </button>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
 
       <style>{`
         .gallery-grid {

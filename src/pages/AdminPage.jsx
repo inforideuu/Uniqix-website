@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   Lock, User, LogOut, Package, Building, MessageSquare, Briefcase,
   Plus, Edit, Trash2, CheckCircle, RefreshCw, FileText, X, Eye,
-  Bell, Search, Layers, Cpu, Users, ChevronDown, ChevronRight
+  Bell, Search, Layers, Cpu, Users, ChevronDown, ChevronRight,
+  Mail, Phone
 } from 'lucide-react';
 
 import fu from '../assets/fieldunit.png';
@@ -1416,36 +1417,81 @@ const AdminPage = ({ setCurrentPage }) => {
               <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                 <thead>
                   <tr style={{ borderBottom: '2px solid var(--border-glass)' }}>
+                    <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 700 }}>Contact User / Company</th>
+                    <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 700 }}>Contact Details</th>
                     <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 700 }}>Requested Location</th>
                     <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 700 }}>Move-in Date</th>
-                    <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 700 }}>Capacity / Workers</th>
+                    <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 700 }}>Capacity</th>
                     <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 700 }}>Accommodation Type</th>
-                    <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 700, textAlign: 'right' }}>Actions</th>
+                    <th style={{ padding: '12px 16px', color: 'var(--text-muted)', fontWeight: 700, textAlign: 'right' }}>Admin Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {accommodationSearches.map(q => (
-                    <tr key={q.id} style={{ borderBottom: '1px solid var(--border-glass)' }}>
-                      <td style={{ padding: '16px', fontWeight: 700, color: 'var(--text-primary)' }}>
-                        {q.location || 'Any Location'}
-                      </td>
-                      <td style={{ padding: '16px', color: 'var(--text-primary)' }}>
-                        {q.move_in_date || 'N/A'}
-                      </td>
-                      <td style={{ padding: '16px', color: 'var(--primary)', fontWeight: 700 }}>
-                        {q.workers} workers
-                      </td>
-                      <td style={{ padding: '16px', color: 'var(--text-secondary)', fontWeight: 600 }}>
-                        {q.accommodation_type}
-                      </td>
-                      <td style={{ padding: '16px', textAlign: 'right' }}>
-                        <button onClick={() => handleDeleteSearch(q.id)} style={{ background: 'rgba(239, 68, 68, 0.1)', border: 'none', color: '#ef4444', padding: '8px 12px', borderRadius: '6px', cursor: 'pointer', display: 'inline-flex', alignItems: 'center' }} title="Delete"><Trash2 size={14} /></button>
-                      </td>
-                    </tr>
-                  ))}
+                  {accommodationSearches.map(q => {
+                    const cleanPhone = q.phone ? q.phone.replace(/[^0-9]/g, '') : '';
+                    return (
+                      <tr key={q.id} style={{ borderBottom: '1px solid var(--border-glass)' }}>
+                        <td style={{ padding: '16px', color: 'var(--text-primary)' }}>
+                          <div style={{ fontWeight: 700 }}>{q.name || 'Anonymous User'}</div>
+                          {q.company && <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{q.company}</div>}
+                        </td>
+                        <td style={{ padding: '16px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                          {q.phone ? (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '2px' }}>
+                              <Phone size={13} style={{ color: 'var(--primary)' }} />
+                              <a href={`tel:${q.phone}`} style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 600 }}>{q.phone}</a>
+                            </div>
+                          ) : <span style={{ color: 'var(--text-muted)' }}>No phone</span>}
+                          {q.email ? (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                              <Mail size={13} style={{ color: 'var(--text-muted)' }} />
+                              <a href={`mailto:${q.email}`} style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>{q.email}</a>
+                            </div>
+                          ) : <span style={{ color: 'var(--text-muted)' }}>No email</span>}
+                        </td>
+                        <td style={{ padding: '16px', fontWeight: 600, color: 'var(--text-primary)' }}>
+                          {q.location || 'Any Location'}
+                        </td>
+                        <td style={{ padding: '16px', color: 'var(--text-primary)' }}>
+                          {q.move_in_date || 'N/A'}
+                        </td>
+                        <td style={{ padding: '16px', color: 'var(--primary)', fontWeight: 700 }}>
+                          {q.workers} workers
+                        </td>
+                        <td style={{ padding: '16px', color: 'var(--text-secondary)', fontWeight: 600 }}>
+                          {q.accommodation_type}
+                        </td>
+                        <td style={{ padding: '16px', textAlign: 'right' }}>
+                          <div style={{ display: 'flex', gap: '6px', justifyContent: 'flex-end' }}>
+                            {cleanPhone && (
+                              <a
+                                href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Hi ${q.name || 'there'}, regarding your accommodation search for ${q.workers} workers on Uniqix...`)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#10b981', padding: '6px 10px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                                title="WhatsApp User"
+                              >
+                                <MessageSquare size={13} /> WhatsApp
+                              </a>
+                            )}
+                            {q.email && (
+                              <a
+                                href={`mailto:${q.email}?subject=${encodeURIComponent(`Uniqix Accommodation Inquiry - ${q.accommodation_type}`)}`}
+                                style={{ background: 'rgba(197, 160, 89, 0.15)', color: 'var(--primary)', padding: '6px 10px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                                title="Email User"
+                              >
+                                <Mail size={13} /> Email
+                              </a>
+                            )}
+                            <button onClick={() => handleDeleteSearch(q.id)} style={{ background: 'rgba(239, 68, 68, 0.1)', border: 'none', color: '#ef4444', padding: '8px 10px', borderRadius: '6px', cursor: 'pointer', display: 'inline-flex', alignItems: 'center' }} title="Delete"><Trash2 size={14} /></button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
                   {accommodationSearches.length === 0 && (
                     <tr>
-                      <td colSpan="5" style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--text-muted)' }}>No search query entries logged in database.</td>
+                      <td colSpan="7" style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--text-muted)' }}>No search query entries logged in database.</td>
                     </tr>
                   )}
                 </tbody>

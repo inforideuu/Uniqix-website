@@ -354,6 +354,10 @@
   "model": "api.accommodationsearch",
   "pk": 3,
   "fields": {
+    "name": "Tan Ah Kow",
+    "email": "tan@singaporelogistics.com",
+    "phone": "+65 9123 4567",
+    "company": "Singapore Logistics Hub",
     "location": "singapore",
     "move_in_date": "2026-09-04",
     "workers": 10,

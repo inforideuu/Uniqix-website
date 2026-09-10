@@ -1,7 +1,10 @@
-import React from 'react';
-import { Globe, Mail, Phone, MapPin, Shield, RefreshCw } from 'lucide-react';
+import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
+import { Globe, Mail, Phone, MapPin, Shield, RefreshCw, FileText, Lock, X } from 'lucide-react';
 
 const Footer = ({ setCurrentPage, setActiveProductTab }) => {
+  const [legalModal, setLegalModal] = useState(null); // 'terms' | 'privacy' | null
+
   const handleNavClick = (id, tab = null) => {
     if (tab !== null && setActiveProductTab) {
       setActiveProductTab(tab);
@@ -106,6 +109,7 @@ const Footer = ({ setCurrentPage, setActiveProductTab }) => {
             <button onClick={() => handleNavClick('services')} style={linkStyle}>
               Global Supplier Portal
             </button>
+            
             <button onClick={() => handleNavClick('admin')} style={{ ...linkStyle, color: 'var(--primary)', fontWeight: 700 }}>
               Admin Console
             </button>
@@ -126,10 +130,10 @@ const Footer = ({ setCurrentPage, setActiveProductTab }) => {
                 <div>Tel: <a href="tel:+6562821436" style={{ color: 'inherit', textDecoration: 'none' }}>+65 8399 5062</a></div>
               </div>
             </li>
-            <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+            {/* <li style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
               <Mail style={{ width: '18px', height: '18px', color: 'var(--footer-text-primary)', flexShrink: 0 }} />
               <a href="mailto:francislim@uniqix.com" style={{ color: 'inherit', textDecoration: 'none' }}>francislim@uniqix.com</a>
-            </li>
+            </li> */}
           </ul>
 
           {/* Powered By Info (Placed directly under Global Headquarters) */}
@@ -179,36 +183,27 @@ const Footer = ({ setCurrentPage, setActiveProductTab }) => {
         </div>
 
         {/* Center Links (Privacy & Terms) */}
-        <div style={{ display: 'flex', gap: '1.25rem', fontSize: '0.85rem' }}>
-          <a href="#privacy" onClick={(e) => { e.preventDefault(); }} style={{ color: 'var(--footer-text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#ffffff'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--footer-text-secondary)'}>Privacy Policy</a>
-          <span style={{ color: 'rgba(255,255,255,0.15)' }}>|</span>
-          <a href="#terms" onClick={(e) => { e.preventDefault(); }} style={{ color: 'var(--footer-text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#ffffff'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--footer-text-secondary)'}>Terms of Service</a>
+        <div style={{ display: 'flex', gap: '1.25rem', fontSize: '0.85rem', alignItems: 'center' }}>
+          <button
+            onClick={() => setLegalModal('privacy')}
+            style={{ background: 'none', border: 'none', color: '#ffffff', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600, padding: 0, textDecoration: 'none' }}
+            onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary)'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#ffffff'}
+          >
+            Privacy Policy
+          </button>
+          <span style={{ color: 'rgba(255,255,255,0.3)' }}>|</span>
+          <button
+            onClick={() => setLegalModal('terms')}
+            style={{ background: 'none', border: 'none', color: '#ffffff', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600, padding: 0, textDecoration: 'none' }}
+            onMouseEnter={(e) => e.currentTarget.style.color = 'var(--primary)'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#ffffff'}
+          >
+            Terms &amp; Conditions
+          </button>
         </div>
 
-        {/* Powered By Socket Attribution */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.82rem', color: 'var(--footer-text-secondary)' }}>
-          <span>Powered By</span>
-          <a
-            href="https://zenelaitinfotech.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ display: 'inline-flex', alignItems: 'center', transition: 'transform 0.2s ease' }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-          >
-            <img
-              src="/zenelaitinfotech_logo.png"
-              alt="Zenelait Infotech"
-              style={{
-                height: '28px',
-                borderRadius: '6px',
-                background: '#ffffff',
-                padding: '2px 6px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-              }}
-            />
-          </a>
-        </div>
+        
 
         {/* Social Icons */}
         <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
@@ -239,6 +234,130 @@ const Footer = ({ setCurrentPage, setActiveProductTab }) => {
         </div>
       </div>
     </div>
+
+    {/* LEGAL & POLICIES MODAL DIALOG */}
+    {legalModal && createPortal(
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 999999,
+        padding: '1.5rem',
+        overflowY: 'auto'
+      }}>
+        <div style={{
+          background: 'var(--bg-primary, #ffffff)',
+          border: '1.5px solid var(--border-glass-hover, #D4A72C)',
+          borderRadius: '24px',
+          maxWidth: '680px',
+          width: '100%',
+          maxHeight: '85vh',
+          overflowY: 'auto',
+          padding: '2.5rem 2rem 2rem 2rem',
+          position: 'relative',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 35px rgba(212, 167, 44, 0.25)',
+          color: 'var(--text-primary, #0f172a)',
+          animation: 'fadeIn 0.25s ease-out',
+          margin: 'auto'
+        }}>
+          {/* Close Button */}
+          <button
+            onClick={() => setLegalModal(null)}
+            aria-label="Close legal modal"
+            style={{
+              position: 'absolute',
+              top: '1.25rem',
+              right: '1.25rem',
+              background: 'rgba(212, 167, 44, 0.12)',
+              border: '1.5px solid #D4A72C',
+              color: '#D4A72C',
+              borderRadius: '50%',
+              width: '40px',
+              height: '40px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              fontWeight: 'bold',
+              zIndex: 10
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.1)'; e.currentTarget.style.background = '#D4A72C'; e.currentTarget.style.color = '#ffffff'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.background = 'rgba(212, 167, 44, 0.12)'; e.currentTarget.style.color = '#D4A72C'; }}
+          >
+            <X size={20} stroke="currentColor" strokeWidth={2.5} />
+          </button>
+
+          {/* Modal Header */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--border-glass)', paddingBottom: '1rem' }}>
+            <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(212, 167, 44, 0.12)', border: '1px solid #D4A72C', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              {legalModal === 'terms' ? <FileText style={{ color: '#D4A72C', width: '24px', height: '24px' }} /> : <Lock style={{ color: '#D4A72C', width: '24px', height: '24px' }} />}
+            </div>
+            <div>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, margin: 0, color: 'var(--text-primary)' }}>
+                {legalModal === 'terms' ? 'Terms & Conditions' : 'Privacy & Data Protection Policy'}
+              </h3>
+              <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '2px' }}>
+                Uniqix Pte Ltd • Effective Date: January 2026 • Singapore Jurisdiction
+              </div>
+            </div>
+          </div>
+
+          {/* Content Text Body */}
+          <div style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: '1.7', textAlign: 'justify' }}>
+            {legalModal === 'terms' ? (
+              <>
+                <h4 style={{ color: 'var(--text-primary)', margin: '1rem 0 0.4rem 0', fontSize: '1.05rem', fontWeight: 700 }}>1. Acceptance &amp; Platform Scope</h4>
+                <p>Welcome to Uniqix Pte Ltd. By accessing our web application, submitting procurement inquiries, or querying dormitory accommodation listings, you agree to be bound by these Terms and Conditions and our Privacy Policy. Uniqix aggregates industrial procurement and workforce housing solutions across Singapore and Asia-Pacific.</p>
+
+                <h4 style={{ color: 'var(--text-primary)', margin: '1rem 0 0.4rem 0', fontSize: '1.05rem', fontWeight: 700 }}>2. Dormitory &amp; Accommodation Services</h4>
+                <p>All dormitory housing arrangements, worker placement queries, and capacity searches conducted through Uniqix comply with Singapore's Foreign Employee Dormitories Act (FEDA). Uniqix acts as a managed procurement interface connecting verified enterprise clients with licensed accommodation operators.</p>
+
+                <h4 style={{ color: 'var(--text-primary)', margin: '1rem 0 0.4rem 0', fontSize: '1.05rem', fontWeight: 700 }}>3. User Conduct &amp; Contact Verification</h4>
+                <p>Users submitting inquiries agree to provide authentic company credentials, contact numbers, and capacity requirements. Uniqix reserves the right to verify user identity before processing high-capacity lodging reservations or physical trade contracts.</p>
+
+                <h4 style={{ color: 'var(--text-primary)', margin: '1rem 0 0.4rem 0', fontSize: '1.05rem', fontWeight: 700 }}>4. Intellectual Property &amp; Governing Law</h4>
+                <p>All trademarks, platform technology, proprietary database schemas, and media assets belong to Uniqix Pte Ltd. These Terms shall be governed by and construed in accordance with the laws of the Republic of Singapore.</p>
+              </>
+            ) : (
+              <>
+                <h4 style={{ color: 'var(--text-primary)', margin: '1rem 0 0.4rem 0', fontSize: '1.05rem', fontWeight: 700 }}>1. Data Collection &amp; PDPA Compliance</h4>
+                <p>Uniqix Pte Ltd respects user privacy and complies fully with Singapore's Personal Data Protection Act (PDPA). We collect contact names, email addresses, phone/WhatsApp numbers, and corporate designations submitted via our inquiry forms.</p>
+
+                <h4 style={{ color: 'var(--text-primary)', margin: '1rem 0 0.4rem 0', fontSize: '1.05rem', fontWeight: 700 }}>2. Purpose of Processing</h4>
+                <p>Collected personal and business data is exclusively used for fulfilling procurement requests, facilitating dormitory placement follow-ups by Uniqix administrators, and maintaining enterprise service records.</p>
+
+                <h4 style={{ color: 'var(--text-primary)', margin: '1rem 0 0.4rem 0', fontSize: '1.05rem', fontWeight: 700 }}>3. Data Security &amp; Third-Party Non-Disclosure</h4>
+                <p>We implement technical and organizational security controls to protect user records against unauthorized access. Personal data is never sold, rented, or commercialized to third parties without explicit consent.</p>
+
+                <h4 style={{ color: 'var(--text-primary)', margin: '1rem 0 0.4rem 0', fontSize: '1.05rem', fontWeight: 700 }}>4. Contact Our Data Officer</h4>
+                <p>For data access requests, corrections, or privacy inquiries, please contact our Data Protection Officer at 8 Burn Road, Trivex #04-08, Singapore 369977 or email <strong>sam@aptiveight.com</strong>.</p>
+              </>
+            )}
+          </div>
+
+          {/* Modal Footer Actions */}
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1.75rem', paddingTop: '1rem', borderTop: '1px solid var(--border-glass)' }}>
+            <button
+              onClick={() => setLegalModal(null)}
+              className="btn btn-primary"
+              style={{ padding: '0.65rem 1.75rem', borderRadius: '10px', fontWeight: 700 }}
+            >
+              I Understand &amp; Agree
+            </button>
+          </div>
+        </div>
+      </div>,
+      document.body
+    )}
   </div>
   );
 };

@@ -325,14 +325,19 @@ def api_submit_dormitory_search(request):
     try:
         data = json.loads(request.body)
         search_query = AccommodationSearch.objects.create(
+            name=data.get('name', ''),
+            email=data.get('email', ''),
+            phone=data.get('phone', ''),
+            company=data.get('company', ''),
             location=data.get('location', ''),
             move_in_date=data.get('moveInDate'),
             workers=int(data.get('workers', 0)),
             accommodation_type=data.get('type', 'Standard Shared Space'),
         )
         # Create notification for admin
+        contact_str = f" by {search_query.name}" if search_query.name else ""
         Notification.objects.create(
-            message=f"New Accommodation Search: {search_query.workers} workers for {search_query.location or 'Any Location'}"
+            message=f"New Accommodation Search{contact_str}: {search_query.workers} workers for {search_query.location or 'Any Location'}"
         )
         return JsonResponse({'success': True, 'id': search_query.id})
     except Exception as e:
@@ -600,6 +605,10 @@ def admin_accommodation_searches(request, search_id=None):
         queries = AccommodationSearch.objects.all().order_by('-created_at')
         data = [{
             'id': q.id,
+            'name': q.name or '',
+            'email': q.email or '',
+            'phone': q.phone or '',
+            'company': q.company or '',
             'location': q.location,
             'move_in_date': q.move_in_date.isoformat() if q.move_in_date else None,
             'workers': q.workers,

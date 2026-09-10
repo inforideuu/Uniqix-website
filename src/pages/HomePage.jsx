@@ -73,7 +73,7 @@ const HomePage = ({ setCurrentPage }) => {
 
   const heroSlides = [
     {
-      title: <>Foreign Worker<br /><span className="gradient-text">Dormitory Housing</span></>,
+      title: <>Uniqix B2B Procurement <br /><span className="gradient-text">Dormitory Housing</span></>,
       content: "FEDA-compliant, fully-managed, secure accommodation hubs positioned near major industrial zones to ensure safety and comfort.",
       tagline: "Workforce Lodging Solutions"
     },
