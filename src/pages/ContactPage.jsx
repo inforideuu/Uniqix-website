@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Phone, Mail, MapPin, Send, CheckCircle, MessageSquare, X } from 'lucide-react';
 import { API_BASE_URL } from '../config';
 
@@ -13,6 +14,17 @@ const ContactPage = () => {
   const [submitted, setSubmitted] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [lastSubmittedData, setLastSubmittedData] = useState(null);
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showModal]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -547,7 +559,7 @@ const ContactPage = () => {
       </div>
 
       {/* FASTER REPLY DIALOG MODAL */}
-      {showModal && (
+      {showModal && createPortal(
         <div style={{
           position: 'fixed',
           top: 0,
@@ -568,13 +580,16 @@ const ContactPage = () => {
             background: 'var(--bg-primary, #ffffff)',
             border: '1.5px solid var(--border-glass-hover, #D4A72C)',
             borderRadius: '24px',
-            maxWidth: '480px',
+            maxWidth: '500px',
             width: '100%',
+            maxHeight: '90vh',
+            overflowY: 'auto',
             padding: '2.25rem 2rem 2rem 2rem',
             position: 'relative',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.35), 0 0 25px rgba(212, 167, 44, 0.2)',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 35px rgba(212, 167, 44, 0.25)',
             color: 'var(--text-primary, #0f172a)',
-            animation: 'fadeIn 0.2s ease-out'
+            animation: 'fadeIn 0.25s ease-out',
+            margin: 'auto'
           }}>
             {/* Close Button */}
             <button
@@ -582,14 +597,14 @@ const ContactPage = () => {
               aria-label="Close dialog"
               style={{
                 position: 'absolute',
-                top: '1rem',
-                right: '1rem',
-                background: 'var(--bg-secondary, rgba(0, 0, 0, 0.06))',
-                border: '1px solid var(--border-glass, rgba(0, 0, 0, 0.1))',
-                color: 'var(--text-primary, #0f172a)',
+                top: '1.25rem',
+                right: '1.25rem',
+                background: 'rgba(212, 167, 44, 0.12)',
+                border: '1.5px solid #D4A72C',
+                color: '#D4A72C',
                 borderRadius: '50%',
-                width: '38px',
-                height: '38px',
+                width: '40px',
+                height: '40px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -597,13 +612,13 @@ const ContactPage = () => {
                 transition: 'all 0.2s ease',
                 zIndex: 10
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.08)'; e.currentTarget.style.borderColor = '#D4A72C'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.borderColor = 'var(--border-glass, rgba(0, 0, 0, 0.1))'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.1)'; e.currentTarget.style.background = '#D4A72C'; e.currentTarget.style.color = '#ffffff'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.background = 'rgba(212, 167, 44, 0.12)'; e.currentTarget.style.color = '#D4A72C'; }}
             >
               X
             </button>
 
-            {/* Modal Title */}
+            {/* Modal Title */} 
             <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
               <div style={{
                 width: '56px',
@@ -704,7 +719,8 @@ const ContactPage = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Media Query for responsive grid */}
