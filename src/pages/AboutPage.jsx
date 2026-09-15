@@ -354,6 +354,159 @@ const AboutPage = () => {
         </div>
       </section>
 
+      {/* 1.5 FOUNDER & LEADERSHIP SPOTLIGHT */}
+      <section style={{ padding: '2rem 0 5rem 0', position: 'relative' }}>
+        <div className="container">
+          <div
+            className="glass-panel"
+            style={{
+              borderRadius: '2.5rem',
+              background: 'linear-gradient(135deg, rgba(2, 11, 30, 0.97) 0%, rgba(10, 18, 36, 0.93) 100%)',
+              border: '2px solid #D4A72C',
+              padding: '4.5rem 4rem',
+              boxShadow: '0 25px 60px rgba(212, 167, 44, 0.25)',
+              color: '#ffffff',
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+          >
+            {/* Background Ambient Glow */}
+            <div style={{
+              position: 'absolute',
+              top: '-10%',
+              right: '-10%',
+              width: '450px',
+              height: '450px',
+              background: 'radial-gradient(circle, rgba(212, 167, 44, 0.15) 0%, transparent 70%)',
+              pointerEvents: 'none'
+            }} />
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.35fr', gap: '4rem', alignItems: 'center' }} className="bridge-layout">
+
+              {/* LEFT: FOUNDER PORTRAIT CARD (founder.png) */}
+              <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
+                {/* Gold Outer Dashed Frame */}
+                <div style={{
+                  position: 'absolute',
+                  inset: '-12px',
+                  borderRadius: '2.4rem',
+                  border: '1.5px dashed rgba(212, 167, 44, 0.6)',
+                  pointerEvents: 'none'
+                }} />
+
+                <div style={{
+                  position: 'relative',
+                  borderRadius: '2rem',
+                  overflow: 'hidden',
+                  width: '100%',
+                  maxWidth: '420px',
+                  boxShadow: '0 25px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 167, 44, 0.2)',
+                  border: '2.5px solid #D4A72C',
+                  background: '#020b1e'
+                }}>
+                  <img
+                    src="/founder.png"
+                    alt="Sam Tay - Founder & Managing Director"
+                    style={{
+                      width: '100%',
+                      height: '480px',
+                      objectFit: 'cover',
+                      objectPosition: 'top center',
+                      display: 'block'
+                    }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(to top, rgba(2, 11, 30, 0.95) 0%, rgba(2, 11, 30, 0.2) 50%, transparent 100%)'
+                  }} />
+
+                  {/* Founder Nameplate Overlay */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '1.75rem',
+                    left: '1.75rem',
+                    right: '1.75rem',
+                    background: 'rgba(2, 11, 30, 0.88)',
+                    border: '1.5px solid rgba(212, 167, 44, 0.7)',
+                    borderRadius: '1.25rem',
+                    padding: '1.25rem 1.5rem',
+                    backdropFilter: 'blur(12px)',
+                    boxShadow: '0 8px 25px rgba(0,0,0,0.4)'
+                  }}>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#D4A72C', letterSpacing: '0.15em', textTransform: 'uppercase', display: 'block', marginBottom: '0.2rem' }}>
+                      UNIQIX LEADERSHIP
+                    </span>
+                    <h3 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#ffffff', margin: '0 0 0.2rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
+                      Sam Tay
+                    </h3>
+                    <span style={{ fontSize: '0.88rem', color: 'rgba(255, 255, 255, 0.85)', fontWeight: 600 }}>
+                      Founder & Managing Director
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* RIGHT: FOUNDER'S MESSAGE & VISION */}
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+                  <Sparkles style={{ width: '18px', height: '18px', color: '#D4A72C' }} />
+                  <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#D4A72C', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+                    FOUNDER'S VISION & MESSAGE
+                  </span>
+                </div>
+
+                <h2 style={{
+                  fontSize: '2.8rem',
+                  fontWeight: 900,
+                  color: '#ffffff',
+                  fontFamily: "'Playfair Display', Georgia, serif",
+                  lineHeight: '1.2',
+                  marginBottom: '1.75rem'
+                }}>
+                  "Building bridges of trust across <em style={{ fontStyle: 'italic', color: '#D4A72C' }}>global trade</em>."
+                </h2>
+
+                <div style={{ width: '60px', height: '3px', background: '#D4A72C', borderRadius: '2px', marginBottom: '2rem' }} />
+
+                <p style={{ color: 'rgba(255, 255, 255, 0.95)', fontSize: '1.15rem', lineHeight: '1.85', marginBottom: '1.75rem', fontStyle: 'italic' }}>
+                  "Uniqix was established with a singular vision: to revolutionize B2B procurement and trade aggregation by connecting verified buyers and suppliers across 23+ industries with complete transparency and execution excellence."
+                </p>
+
+                <p style={{ color: 'rgba(255, 255, 255, 0.82)', fontSize: '1.02rem', lineHeight: '1.8', marginBottom: '2.5rem' }}>
+                  Under Sam Tay's leadership, Uniqix has grown from its Singapore headquarters into an international trade, energy mandate, precious metals trading, and AI-driven procurement power serving global corporate clients.
+                </p>
+
+                {/* Key Leadership Highlights Grid */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', borderTop: '1px solid rgba(212, 167, 44, 0.3)', paddingTop: '1.75rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ width: '46px', height: '46px', borderRadius: '12px', background: 'rgba(212, 167, 44, 0.15)', border: '1px solid #D4A72C', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <Globe style={{ width: '22px', height: '22px', color: '#D4A72C' }} />
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '0.72rem', color: '#D4A72C', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em' }}>GLOBAL NETWORK</div>
+                      <div style={{ fontSize: '1.05rem', color: '#ffffff', fontWeight: 800 }}>50+ Countries</div>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ width: '46px', height: '46px', borderRadius: '12px', background: 'rgba(212, 167, 44, 0.15)', border: '1px solid #D4A72C', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <ShieldCheck style={{ width: '22px', height: '22px', color: '#D4A72C' }} />
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '0.72rem', color: '#D4A72C', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em' }}>HEADQUARTERS</div>
+                      <div style={{ fontSize: '1.05rem', color: '#ffffff', fontWeight: 800 }}>Singapore UEN 201620244N</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 2. OUR BUSINESS MODEL Section */}
       <section style={{
         padding: '6rem 0',

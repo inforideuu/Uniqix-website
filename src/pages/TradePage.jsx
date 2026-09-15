@@ -1,12 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Coins, Flame, Layers, ShieldCheck, Globe, TrendingUp, HelpCircle,
   Search, FileText, Truck, Users, Check, ArrowRight, Shield, Database,
-  ArrowUpRight, Briefcase, BarChart2, ShieldAlert, Phone, Mail
+  ArrowUpRight, Briefcase, BarChart2, ShieldAlert, Phone, Mail, Play, Pause, Volume2, VolumeX, Maximize2, X, Sparkles, Eye
 } from 'lucide-react';
 
 const TradePage = ({ setCurrentPage }) => {
   const [activeServiceIdx, setActiveServiceIdx] = useState(0);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(true);
+  const [isVideoMuted, setIsVideoMuted] = useState(true);
+  const [activeModalMedia, setActiveModalMedia] = useState(null);
+  const videoRef = useRef(null);
+
+  const toggleVideoPlay = () => {
+    if (videoRef.current) {
+      if (isVideoPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsVideoPlaying(!isVideoPlaying);
+    }
+  };
+
+  const toggleVideoMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isVideoMuted;
+      setIsVideoMuted(!isVideoMuted);
+    }
+  };
 
   const tradeServices = [
     {
@@ -41,7 +63,7 @@ const TradePage = ({ setCurrentPage }) => {
         'Fire Assay & XRF 999.9 Certified'
       ],
       icon: <Coins style={{ width: '36px', height: '36px', color: 'var(--primary)' }} />,
-      bgImage: 'https://images.unsplash.com/photo-1618042164219-62c820f10723?auto=format&fit=crop&w=1200&q=80'
+      bgImage: '/gold1.png'
     },
     {
       id: 'sand',
@@ -457,11 +479,12 @@ const TradePage = ({ setCurrentPage }) => {
                 marginTop: '3rem',
                 height: '180px',
                 borderRadius: '1.25rem',
-                background: 'url("https://images.unsplash.com/photo-1618042164219-62c820f10723?auto=format&fit=crop&w=800&q=80") center/cover no-repeat',
+                background: 'url("/gold2.png") center/cover no-repeat',
                 position: 'relative',
-                border: '1px solid rgba(197, 160, 89, 0.3)',
-                boxShadow: 'inset 0 0 30px rgba(0,0,0,0.6)'
-              }}>
+                border: '1px solid rgba(197, 160, 89, 0.4)',
+                boxShadow: 'inset 0 0 30px rgba(0,0,0,0.6)',
+                cursor: 'pointer'
+              }} onClick={() => setActiveModalMedia({ type: 'image', src: '/gold2.png', title: 'Physical Gold Bullion & Vault Stock', sub: 'Assayed & Certified Institutional Stock' })}>
                 <div style={{
                   position: 'absolute',
                   inset: 0,
@@ -476,9 +499,12 @@ const TradePage = ({ setCurrentPage }) => {
                   fontWeight: 800,
                   color: '#D4A72C',
                   letterSpacing: '0.1em',
-                  textTransform: 'uppercase'
+                  textTransform: 'uppercase',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px'
                 }}>
-                  ✦ PHYSICAL GOLD BULLION & ORE BENCHMARKS
+                  <Sparkles style={{ width: '14px', height: '14px' }} /> PHYSICAL GOLD BULLION & ORE BENCHMARKS
                 </span>
               </div>
             </div>
@@ -576,6 +602,505 @@ const TradePage = ({ setCurrentPage }) => {
         </div>
       </section>
 
+      {/* 3.5 CREATIVE GOLD VAULT & REFINERY MEDIA SHOWCASE */}
+      {/* 3.5 CREATIVE GOLD VAULT & REFINERY MEDIA SHOWCASE */}
+      <section style={{ padding: '0 0 6rem 0' }}>
+        <div className="container">
+
+          {/* Section Header */}
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+              <span style={{ color: '#D4A72C', fontSize: '1rem' }}>✦</span>
+              <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#D4A72C', textTransform: 'uppercase', letterSpacing: '0.2em' }}>
+                PHYSICAL BULLION VERIFICATION & REFINERY MEDIA
+              </span>
+              <span style={{ color: '#D4A72C', fontSize: '1rem' }}>✦</span>
+            </div>
+            <h2 style={{
+              fontSize: '3.5rem',
+              fontWeight: 900,
+              fontFamily: "'Playfair Display', Georgia, serif",
+              color: 'var(--text-primary)',
+              margin: '0 0 1rem 0',
+              lineHeight: '1.2'
+            }}>
+              Gold Vault & Media <em style={{ fontStyle: 'italic', color: '#D4A72C' }}>Gallery</em>
+            </h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', maxWidth: '780px', margin: '0 auto' }}>
+              Authentic high-resolution visual inspection of our physical gold inventory, vaulted storage, fire-assay refining, and verification stream.
+            </p>
+            <div style={{ width: '80px', height: '3px', background: 'linear-gradient(90deg, #D4A72C 0%, #e0c080 100%)', margin: '1.25rem auto 0 auto', borderRadius: '2px' }} />
+          </div>
+
+          {/* 1. MASSIVE CINEMATIC VIDEO PLAYER (gold4.mp4) */}
+          <div
+            className="glass-panel"
+            style={{
+              borderRadius: '2.5rem',
+              border: '2px solid #D4A72C',
+              overflow: 'hidden',
+              position: 'relative',
+              background: '#020b1e',
+              boxShadow: '0 25px 50px rgba(212, 167, 44, 0.3)',
+              marginBottom: '3rem'
+            }}
+          >
+            <div style={{ position: 'relative', width: '100%', height: '500px', background: '#000000' }}>
+              <video
+                ref={videoRef}
+                src="/gold4.mp4"
+                autoPlay
+                loop
+                muted={isVideoMuted}
+                playsInline
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block'
+                }}
+              />
+
+              {/* Video Gradient Overlay */}
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(to top, rgba(2, 11, 30, 0.95) 0%, rgba(2, 11, 30, 0.15) 50%, rgba(2, 11, 30, 0.7) 100%)',
+                pointerEvents: 'none'
+              }} />
+
+              {/* Top Badges */}
+              <div style={{
+                position: 'absolute',
+                top: '2rem',
+                left: '2rem',
+                right: '2rem',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                zIndex: 2
+              }}>
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '0.66rem 1.25rem',
+                  borderRadius: '50px',
+                  background: 'rgba(2, 11, 30, 0.85)',
+                  border: '1.5px solid #D4A72C',
+                  backdropFilter: 'blur(12px)',
+                  color: '#ffffff',
+                  fontSize: '0.85rem',
+                  fontWeight: 800,
+                  letterSpacing: '0.12em'
+                }}>
+                  <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 12px #22c55e', display: 'inline-block' }} />
+                  LIVE VAULT & REFINERY REEL • 999.9 PURE AU
+                </div>
+
+                <button
+                  onClick={() => setActiveModalMedia({ type: 'video', src: '/gold4.mp4', title: 'Gold Vault Operations & Refining Video Stream', sub: 'High-purity 999.9 Fine Gold Bullion Processing & Inspection' })}
+                  style={{
+                    background: 'rgba(2, 11, 30, 0.85)',
+                    border: '1.5px solid #D4A72C',
+                    borderRadius: '50%',
+                    width: '48px',
+                    height: '48px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#D4A72C',
+                    cursor: 'pointer',
+                    backdropFilter: 'blur(12px)',
+                    transition: 'all 0.3s ease'
+                  }}
+                  title="Expand Fullscreen"
+                >
+                  <Maximize2 style={{ width: '22px', height: '22px' }} />
+                </button>
+              </div>
+
+              {/* Center Big Play Button (shows when paused) */}
+              {!isVideoPlaying && (
+                <button
+                  onClick={toggleVideoPlay}
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '84px',
+                    height: '84px',
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, #D4A72C 0%, #a8843f 100%)',
+                    border: '4px solid #ffffff',
+                    color: '#020b1e',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    boxShadow: '0 0 40px rgba(212, 167, 44, 0.9)',
+                    zIndex: 3
+                  }}
+                >
+                  <Play style={{ width: '38px', height: '38px', marginLeft: '5px', fill: '#020b1e' }} />
+                </button>
+              )}
+            </div>
+
+            {/* Bottom Controls Bar */}
+            <div style={{
+              padding: '1.75rem 2.5rem',
+              background: 'linear-gradient(180deg, rgba(2, 11, 30, 0.95) 0%, #020b1e 100%)',
+              borderTop: '1px solid rgba(212, 167, 44, 0.4)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              color: '#ffffff',
+              flexWrap: 'wrap',
+              gap: '1.5rem',
+              zIndex: 2
+            }}>
+              <div>
+                <h3 style={{ fontSize: '1.4rem', fontWeight: 900, margin: '0 0 0.3rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: '#ffffff' }}>
+                  Gold Vault Inspection & Live Refining Stream
+                </h3>
+                <p style={{ fontSize: '0.95rem', color: 'rgba(255, 255, 255, 0.8)', margin: 0 }}>
+                  Real-time high-definition video of 999.9 fine gold bar inspection & bullion vault operations.
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <button
+                  onClick={toggleVideoPlay}
+                  style={{
+                    background: 'linear-gradient(135deg, #D4A72C 0%, #b08d4a 100%)',
+                    border: 'none',
+                    borderRadius: '12px',
+                    padding: '0.75rem 1.5rem',
+                    color: '#020b1e',
+                    fontWeight: 900,
+                    fontSize: '0.92rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 15px rgba(212, 167, 44, 0.4)'
+                  }}
+                >
+                  {isVideoPlaying ? <Pause style={{ width: '18px', height: '18px' }} /> : <Play style={{ width: '18px', height: '18px' }} />}
+                  {isVideoPlaying ? 'Pause Video' : 'Play Video'}
+                </button>
+
+                <button
+                  onClick={toggleVideoMute}
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.12)',
+                    border: '1px solid rgba(255, 255, 255, 0.25)',
+                    borderRadius: '12px',
+                    padding: '0.75rem 1.25rem',
+                    color: '#ffffff',
+                    fontWeight: 700,
+                    fontSize: '0.9rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  {isVideoMuted ? <VolumeX style={{ width: '18px', height: '18px' }} /> : <Volume2 style={{ width: '18px', height: '18px' }} />}
+                  {isVideoMuted ? 'Unmute' : 'Mute'}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* 2. THREE LARGE HIGH-RESOLUTION GOLD IMAGE CARDS */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '2.5rem' }}>
+
+            {/* CARD 1: gold1.png (LARGE) */}
+            <div
+              onClick={() => setActiveModalMedia({ type: 'image', src: '/gold1.png', title: '999.9 Fine Gold Bars & Cast Bullion', sub: 'Fire Assayed & XRF Certified Pure Gold (AU 999.9)' })}
+              className="glass-panel"
+              style={{
+                borderRadius: '2rem',
+                border: '2px solid rgba(212, 167, 44, 0.5)',
+                overflow: 'hidden',
+                background: 'linear-gradient(180deg, #020b1e 0%, #081226 100%)',
+                cursor: 'pointer',
+                transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.3)',
+                display: 'flex',
+                flexDirection: 'column'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = '#D4A72C';
+                e.currentTarget.style.transform = 'translateY(-8px)';
+                e.currentTarget.style.boxShadow = '0 25px 50px rgba(212, 167, 44, 0.35)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(212, 167, 44, 0.5)';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 15px 35px rgba(0,0,0,0.3)';
+              }}
+            >
+              <div style={{ position: 'relative', width: '100%', height: '280px', overflow: 'hidden', background: '#000' }}>
+                <img
+                  src="/gold1.png"
+                  alt="999.9 Fine Gold Bars"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block',
+                    transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+                  }}
+                />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(2, 11, 30, 0.95) 0%, transparent 60%)' }} />
+                
+                <span style={{
+                  position: 'absolute',
+                  top: '1.25rem',
+                  left: '1.25rem',
+                  padding: '0.4rem 0.9rem',
+                  borderRadius: '50px',
+                  background: 'rgba(2, 11, 30, 0.85)',
+                  border: '1px solid #D4A72C',
+                  color: '#D4A72C',
+                  fontSize: '0.75rem',
+                  fontWeight: 800,
+                  letterSpacing: '0.1em'
+                }}>
+                  AU · 999.9 PURE GOLD
+                </span>
+
+                <div style={{
+                  position: 'absolute',
+                  top: '1.25rem',
+                  right: '1.25rem',
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '50%',
+                  background: 'rgba(2, 11, 30, 0.85)',
+                  border: '1px solid #D4A72C',
+                  color: '#D4A72C',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <Eye style={{ width: '18px', height: '18px' }} />
+                </div>
+              </div>
+
+              <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', color: '#ffffff' }}>
+                <div>
+                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: '#ffffff' }}>
+                    999.9 Fine Gold Bars
+                  </h3>
+                  <p style={{ fontSize: '0.95rem', color: 'rgba(255, 255, 255, 0.8)', lineHeight: '1.6', margin: 0 }}>
+                    Certified investment-grade 1g, 50g, 100g, 500g, and 1kg pure gold bullion bars with fire-assay credentials.
+                  </p>
+                </div>
+
+                <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(212, 167, 44, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#D4A72C', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                    ✦ CLICK TO VIEW HIGH-RES
+                  </span>
+                  <ArrowUpRight style={{ width: '18px', height: '18px', color: '#D4A72C' }} />
+                </div>
+              </div>
+            </div>
+
+            {/* CARD 2: gold2.png (LARGE) */}
+            <div
+              onClick={() => setActiveModalMedia({ type: 'image', src: '/gold2.png', title: 'Institutional Vaulted Bullion Reserves', sub: 'Audited Depository Reserves & Wholesale Trade Allocations' })}
+              className="glass-panel"
+              style={{
+                borderRadius: '2rem',
+                border: '2px solid rgba(212, 167, 44, 0.5)',
+                overflow: 'hidden',
+                background: 'linear-gradient(180deg, #020b1e 0%, #081226 100%)',
+                cursor: 'pointer',
+                transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.3)',
+                display: 'flex',
+                flexDirection: 'column'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = '#D4A72C';
+                e.currentTarget.style.transform = 'translateY(-8px)';
+                e.currentTarget.style.boxShadow = '0 25px 50px rgba(212, 167, 44, 0.35)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(212, 167, 44, 0.5)';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 15px 35px rgba(0,0,0,0.3)';
+              }}
+            >
+              <div style={{ position: 'relative', width: '100%', height: '280px', overflow: 'hidden', background: '#000' }}>
+                <img
+                  src="/gold2.png"
+                  alt="Vaulted Bullion Reserves"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block',
+                    transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+                  }}
+                />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(2, 11, 30, 0.95) 0%, transparent 60%)' }} />
+                
+                <span style={{
+                  position: 'absolute',
+                  top: '1.25rem',
+                  left: '1.25rem',
+                  padding: '0.4rem 0.9rem',
+                  borderRadius: '50px',
+                  background: 'rgba(2, 11, 30, 0.85)',
+                  border: '1px solid #D4A72C',
+                  color: '#D4A72C',
+                  fontSize: '0.75rem',
+                  fontWeight: 800,
+                  letterSpacing: '0.1em'
+                }}>
+                  VAULTED BULLION STOCK
+                </span>
+
+                <div style={{
+                  position: 'absolute',
+                  top: '1.25rem',
+                  right: '1.25rem',
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '50%',
+                  background: 'rgba(2, 11, 30, 0.85)',
+                  border: '1px solid #D4A72C',
+                  color: '#D4A72C',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <Eye style={{ width: '18px', height: '18px' }} />
+                </div>
+              </div>
+
+              <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', color: '#ffffff' }}>
+                <div>
+                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: '#ffffff' }}>
+                    Vault Storage & Reserves
+                  </h3>
+                  <p style={{ fontSize: '0.95rem', color: 'rgba(255, 255, 255, 0.8)', lineHeight: '1.6', margin: 0 }}>
+                    High-security depository reserves for institutional buyers, bulk off-takers, and trading mandates.
+                  </p>
+                </div>
+
+                <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(212, 167, 44, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#D4A72C', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                    ✦ CLICK TO VIEW HIGH-RES
+                  </span>
+                  <ArrowUpRight style={{ width: '18px', height: '18px', color: '#D4A72C' }} />
+                </div>
+              </div>
+            </div>
+
+            {/* CARD 3: gold3.png (LARGE) */}
+            <div
+              onClick={() => setActiveModalMedia({ type: 'image', src: '/gold3.png', title: 'Fire Assay & High Purity Gold Ingots', sub: 'XRF Spectrometry & Fire Assay Verified 999.9 Gold Benchmark' })}
+              className="glass-panel"
+              style={{
+                borderRadius: '2rem',
+                border: '2px solid rgba(212, 167, 44, 0.5)',
+                overflow: 'hidden',
+                background: 'linear-gradient(180deg, #020b1e 0%, #081226 100%)',
+                cursor: 'pointer',
+                transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                boxShadow: '0 15px 35px rgba(0,0,0,0.3)',
+                display: 'flex',
+                flexDirection: 'column'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = '#D4A72C';
+                e.currentTarget.style.transform = 'translateY(-8px)';
+                e.currentTarget.style.boxShadow = '0 25px 50px rgba(212, 167, 44, 0.35)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(212, 167, 44, 0.5)';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 15px 35px rgba(0,0,0,0.3)';
+              }}
+            >
+              <div style={{ position: 'relative', width: '100%', height: '280px', overflow: 'hidden', background: '#000' }}>
+                <img
+                  src="/gold3.png"
+                  alt="Fire Assay Gold Ingot"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block',
+                    transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+                  }}
+                />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(2, 11, 30, 0.95) 0%, transparent 60%)' }} />
+                
+                <span style={{
+                  position: 'absolute',
+                  top: '1.25rem',
+                  left: '1.25rem',
+                  padding: '0.4rem 0.9rem',
+                  borderRadius: '50px',
+                  background: 'rgba(2, 11, 30, 0.85)',
+                  border: '1px solid #D4A72C',
+                  color: '#D4A72C',
+                  fontSize: '0.75rem',
+                  fontWeight: 800,
+                  letterSpacing: '0.1em'
+                }}>
+                  FIRE ASSAY REFINED
+                </span>
+
+                <div style={{
+                  position: 'absolute',
+                  top: '1.25rem',
+                  right: '1.25rem',
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '50%',
+                  background: 'rgba(2, 11, 30, 0.85)',
+                  border: '1px solid #D4A72C',
+                  color: '#D4A72C',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <Eye style={{ width: '18px', height: '18px' }} />
+                </div>
+              </div>
+
+              <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', color: '#ffffff' }}>
+                <div>
+                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: '#ffffff' }}>
+                    Fire Assay & Refined Ingots
+                  </h3>
+                  <p style={{ fontSize: '0.95rem', color: 'rgba(255, 255, 255, 0.8)', lineHeight: '1.6', margin: 0 }}>
+                    Precision laboratory fire-assay and XRF spectrometry verified 999.9 pure gold ingots.
+                  </p>
+                </div>
+
+                <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(212, 167, 44, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#D4A72C', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                    ✦ CLICK TO VIEW HIGH-RES
+                  </span>
+                  <ArrowUpRight style={{ width: '18px', height: '18px', color: '#D4A72C' }} />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* 4. LUXURY BULLION CATALOG SHOWCASE (999.9 FINE GOLD & SILVER BULLION) */}
       <section style={{ padding: '0 0 6rem 0' }}>
         <div className="container">
@@ -650,26 +1175,19 @@ const TradePage = ({ setCurrentPage }) => {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '1.75rem',
-                  boxShadow: '0 10px 25px rgba(197, 160, 89, 0.12)'
-                }}>
+                  boxShadow: '0 10px 25px rgba(197, 160, 89, 0.12)',
+                  cursor: 'pointer'
+                }} onClick={() => setActiveModalMedia({ type: 'image', src: '/gold1.png', title: '1kg Fine Gold Bullion Bar (999.9 Purity)', sub: 'Wholesale Cast Bar · Same-day Settlement Available' })}>
                   <div style={{
-                    width: '64px',
-                    height: '84px',
-                    borderRadius: '8px',
-                    background: 'linear-gradient(135deg, #f3d082 0%, #D4A72C 50%, #8c6d2d 100%)',
-                    border: '1px solid #ffe8aa',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#020b1e',
-                    fontWeight: 900,
-                    boxShadow: '0 8px 16px rgba(0,0,0,0.4)',
+                    width: '100px',
+                    height: '90px',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                    border: '1.5px solid #D4A72C',
+                    boxShadow: '0 8px 20px rgba(0,0,0,0.5)',
                     flexShrink: 0
                   }}>
-                    <span style={{ fontSize: '0.6rem', letterSpacing: '0.1em' }}>1 KILO</span>
-                    <span style={{ fontSize: '0.65rem', fontWeight: 800 }}>FINE GOLD</span>
-                    <span style={{ fontSize: '0.55rem' }}>999.9</span>
+                    <img src="/gold1.png" alt="1kg Gold Bar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
 
                   <div>
@@ -1034,9 +1552,49 @@ const TradePage = ({ setCurrentPage }) => {
             color: '#ffffff',
             textAlign: 'center'
           }}>
-            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--primary)', letterSpacing: '0.15em', textTransform: 'uppercase', display: 'block', marginBottom: '1.25rem' }}>
-              TRADE ADVISORY & EXECUTION
+            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--primary)', letterSpacing: '0.15em', textTransform: 'uppercase', display: 'block', marginBottom: '1.5rem' }}>
+              TRADE ADVISORY & EXECUTIVE EXECUTION
             </span>
+
+            {/* Founder Profile Badge */}
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '1.5rem',
+              marginBottom: '2rem',
+              padding: '0.85rem 1.75rem',
+              borderRadius: '50px',
+              background: 'rgba(2, 11, 30, 0.85)',
+              border: '1.5px solid #D4A72C',
+              boxShadow: '0 10px 25px rgba(212, 167, 44, 0.2)',
+              backdropFilter: 'blur(10px)'
+            }}>
+              <img
+                src="/founder.png"
+                alt="Sam Tay - Founder & Managing Director"
+                style={{
+                  width: '64px',
+                  height: '64px',
+                  borderRadius: '50%',
+                  objectFit: 'cover',
+                  objectPosition: 'top',
+                  border: '2px solid #D4A72C',
+                  flexShrink: 0
+                }}
+              />
+              <div style={{ textAlign: 'left' }}>
+                <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#D4A72C', letterSpacing: '0.12em', textTransform: 'uppercase', display: 'block' }}>
+                  EXECUTIVE TRADE DESK
+                </span>
+                <h4 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#ffffff', margin: '0.1rem 0 0.15rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
+                  Sam Tay
+                </h4>
+                <span style={{ fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.85)', fontWeight: 600 }}>
+                  Founder & Managing Director
+                </span>
+              </div>
+            </div>
+
             <p style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '1.3rem', lineHeight: '1.85', maxWidth: '880px', margin: '0 auto 2.5rem auto' }}>
               Uniqix International Trade prioritizes reliability, clear communication, and professional execution across all mandates and commodity trades. Contact us to discuss your specific requirements for LNG, physical gold, industrial sands, or bulk commodities.
             </p>
@@ -1121,6 +1679,114 @@ const TradePage = ({ setCurrentPage }) => {
           </div>
         </div>
       </section>
+
+      {/* LIGHTBOX MEDIA MODAL */}
+      {activeModalMedia && (
+        <div
+          onClick={() => setActiveModalMedia(null)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 999999,
+            background: 'rgba(2, 11, 30, 0.96)',
+            backdropFilter: 'blur(24px)',
+            WebkitBackdropFilter: 'blur(24px)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '110px 2rem 2rem 2rem',
+            overflowY: 'auto'
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              position: 'relative',
+              maxWidth: '850px',
+              width: '100%',
+              borderRadius: '2rem',
+              overflow: 'hidden',
+              background: 'linear-gradient(135deg, #020b1e 0%, #0a1122 100%)',
+              border: '2px solid #D4A72C',
+              boxShadow: '0 30px 70px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 167, 44, 0.3)',
+              color: '#ffffff',
+              margin: 'auto 0'
+            }}
+          >
+            {/* Close Button Header Bar */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '1rem 1.75rem',
+              background: 'rgba(2, 11, 30, 0.95)',
+              borderBottom: '1px solid rgba(212, 167, 44, 0.3)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#D4A72C', fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+                <Sparkles style={{ width: '14px', height: '14px' }} /> PHYSICAL BULLION SPECIFICATION
+              </div>
+
+              <button
+                onClick={() => setActiveModalMedia(null)}
+                style={{
+                  background: 'rgba(212, 167, 44, 0.15)',
+                  border: '1px solid #D4A72C',
+                  borderRadius: '50px',
+                  padding: '0.4rem 1rem',
+                  color: '#D4A72C',
+                  fontSize: '0.85rem',
+                  fontWeight: 800,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#D4A72C';
+                  e.currentTarget.style.color = '#020b1e';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(212, 167, 44, 0.15)';
+                  e.currentTarget.style.color = '#D4A72C';
+                }}
+              >
+                Close Preview <X style={{ width: '16px', height: '16px' }} />
+              </button>
+            </div>
+
+            {/* Media Content Box */}
+            <div style={{ maxHeight: '52vh', minHeight: '300px', background: '#000000', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+              {activeModalMedia.type === 'video' ? (
+                <video
+                  src={activeModalMedia.src}
+                  controls
+                  autoPlay
+                  playsInline
+                  style={{ width: '100%', height: '100%', maxHeight: '52vh', objectFit: 'contain', display: 'block' }}
+                />
+              ) : (
+                <img
+                  src={activeModalMedia.src}
+                  alt={activeModalMedia.title}
+                  style={{ width: '100%', height: '100%', maxHeight: '52vh', objectFit: 'contain', display: 'block' }}
+                />
+              )}
+            </div>
+
+            {/* Modal Info Footer */}
+            <div style={{ padding: '1.75rem 2.25rem', background: 'linear-gradient(180deg, rgba(2, 11, 30, 0.98) 0%, #020b1e 100%)', borderTop: '1px solid rgba(212, 167, 44, 0.3)' }}>
+              <h3 style={{ fontSize: '1.6rem', fontWeight: 900, fontFamily: "'Playfair Display', Georgia, serif", color: '#ffffff', margin: '0 0 0.4rem 0' }}>
+                {activeModalMedia.title}
+              </h3>
+              <p style={{ color: 'rgba(255, 255, 255, 0.85)', fontSize: '0.98rem', margin: 0, lineHeight: '1.6' }}>
+                {activeModalMedia.sub}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <style>{`
         .fade-in-slide {
