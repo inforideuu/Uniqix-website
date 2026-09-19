@@ -223,7 +223,7 @@ const TradePage = ({ setCurrentPage }) => {
                     {/* Navigation Card */}
                     <div
                       onClick={() => setActiveServiceIdx(idx)}
-                      className="glass-panel"
+                      className={"glass-panel trade-portfolio-tab " + (activeServiceIdx === idx ? "active" : "")}
                       style={{
                         marginLeft: '3.25rem',
                         flex: 1,
@@ -237,8 +237,8 @@ const TradePage = ({ setCurrentPage }) => {
                           ? '5px solid #D4A72C'
                           : '1px solid rgba(212, 167, 44, 0.25)',
                         background: activeServiceIdx === idx
-                          ? 'linear-gradient(135deg, #ffffff 0%, #fffcf5 60%, #fff7eb 100%)'
-                          : 'linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.9) 100%), url("' + service.bgImage + '") center/cover no-repeat',
+                          ? 'var(--tab-active-bg, linear-gradient(135deg, #FFFDF8 0%, #FAF0D8 100%))'
+                          : 'var(--tab-inactive-bg, rgba(255, 255, 255, 0.94))',
                         boxShadow: activeServiceIdx === idx ? '0 12px 30px rgba(212, 167, 44, 0.25)' : '0 4px 15px rgba(0,0,0,0.03)',
                         transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
                         display: 'flex',
@@ -444,9 +444,9 @@ const TradePage = ({ setCurrentPage }) => {
       </section>
 
       {/* 2.5 LIVE PRECIOUS METALS RATES SECTION (EXACT REFERENCE DESIGN MATCH) */}
-      <section style={{
+      <section className="trade-live-metals-section" style={{
         padding: '6rem 0 6.5rem 0',
-        background: 'var(--live-metals-bg, radial-gradient(ellipse at 50% 30%, #FFFDF8 0%, #FAF3E6 50%, #F5E9D4 85%, #EFE1C7 100%))',
+        background: 'radial-gradient(ellipse at 50% 30%, #FFFDF8 0%, #FAF3E6 50%, #F5E9D4 85%, #EFE1C7 100%)',
         position: 'relative',
         overflow: 'hidden'
       }}>
@@ -652,7 +652,7 @@ const TradePage = ({ setCurrentPage }) => {
               }}>
 
                 {/* GOLD CARD (3D Glowing Gold Border Frame) */}
-                <div style={{
+                <div className="trade-live-card-gold" style={{
                   background: 'var(--card-bg, #FFFFFF)',
                   borderRadius: '1.75rem',
                   border: '2.5px solid #D4A72C',
@@ -753,7 +753,7 @@ const TradePage = ({ setCurrentPage }) => {
                 </div>
 
                 {/* SILVER CARD */}
-                <div style={{
+                <div className="trade-live-card-silver" style={{
                   background: 'var(--card-bg, #FFFFFF)',
                   borderRadius: '1.75rem',
                   border: '1.5px solid var(--border-glass-hover, #CBD5E1)',
@@ -1137,6 +1137,7 @@ const TradePage = ({ setCurrentPage }) => {
 
           {/* 1. MASSIVE CINEMATIC VIDEO PLAYER (CREATIVE WHITE & GOLD CARD) */}
           <div
+            className="trade-gallery-card"
             style={{
               borderRadius: '2.5rem',
               border: '2.5px solid #D4A72C',
@@ -1253,7 +1254,7 @@ const TradePage = ({ setCurrentPage }) => {
             </div>
 
             {/* Bottom Controls Bar (CREATIVE LIGHT CHAMPAGNE GOLD CONTROLS) */}
-            <div style={{
+            <div className="trade-gallery-controls" style={{
               padding: '1.85rem 2.5rem',
               background: 'linear-gradient(135deg, #FFFFFF 0%, #FFFDF8 60%, #FAF4E8 100%)',
               borderTop: '2px solid rgba(212, 167, 44, 0.3)',
@@ -1325,6 +1326,7 @@ const TradePage = ({ setCurrentPage }) => {
 
             {/* CARD 1: gold1.png */}
             <div
+              className="trade-gallery-card"
               onClick={() => setActiveModalMedia({ type: 'image', src: '/gold1.png', title: '999.9 Fine Gold Bars & Cast Bullion', sub: 'Fire Assayed & XRF Certified Pure Gold (AU 999.9)' })}
               style={{
                 borderRadius: '2rem',
@@ -1400,7 +1402,7 @@ const TradePage = ({ setCurrentPage }) => {
 
               <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', color: '#0F172A' }}>
                 <div>
-                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: '#0F172A' }}>
+                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: 'inherit' }}>
                     999.9 Fine Gold Bars
                   </h3>
                   <p style={{ fontSize: '0.95rem', color: '#475569', lineHeight: '1.6', margin: 0, fontWeight: 500 }}>
@@ -1419,6 +1421,7 @@ const TradePage = ({ setCurrentPage }) => {
 
             {/* CARD 2: gold2.png */}
             <div
+              className="trade-gallery-card"
               onClick={() => setActiveModalMedia({ type: 'image', src: '/gold2.png', title: 'Institutional Vaulted Bullion Reserves', sub: 'Audited Depository Reserves & Wholesale Trade Allocations' })}
               style={{
                 borderRadius: '2rem',
@@ -1494,7 +1497,7 @@ const TradePage = ({ setCurrentPage }) => {
 
               <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', color: '#0F172A' }}>
                 <div>
-                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: '#0F172A' }}>
+                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: 'inherit' }}>
                     Vault Storage & Reserves
                   </h3>
                   <p style={{ fontSize: '0.95rem', color: '#475569', lineHeight: '1.6', margin: 0, fontWeight: 500 }}>
@@ -1513,6 +1516,7 @@ const TradePage = ({ setCurrentPage }) => {
 
             {/* CARD 3: gold3.png */}
             <div
+              className="trade-gallery-card"
               onClick={() => setActiveModalMedia({ type: 'image', src: '/gold3.png', title: 'Fire Assay & High Purity Gold Ingots', sub: 'XRF Spectrometry & Fire Assay Verified 999.9 Gold Benchmark' })}
               style={{
                 borderRadius: '2rem',
@@ -1588,7 +1592,7 @@ const TradePage = ({ setCurrentPage }) => {
 
               <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', color: '#0F172A' }}>
                 <div>
-                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: '#0F172A' }}>
+                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: 'inherit' }}>
                     Fire Assay & Refined Ingots
                   </h3>
                   <p style={{ fontSize: '0.95rem', color: '#475569', lineHeight: '1.6', margin: 0, fontWeight: 500 }}>
@@ -1609,8 +1613,8 @@ const TradePage = ({ setCurrentPage }) => {
         </div>
       </section>
 
-        {/* 4. LUXURY BULLION CATALOG SHOWCASE (999.9 FINE GOLD & SILVER BULLION) */}
-      <section style={{
+          {/* 4. LUXURY BULLION CATALOG SHOWCASE (999.9 FINE GOLD & SILVER BULLION) */}
+      <section className="trade-bullion-section" style={{
         padding: '2rem 0 6rem 0',
         position: 'relative',
         overflow: 'hidden',
@@ -1646,7 +1650,7 @@ const TradePage = ({ setCurrentPage }) => {
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
 
           {/* MAIN CATALOG CONTAINER CARD */}
-          <div className="glass-panel" style={{
+          <div className="glass-panel trade-luxury-card" style={{
             borderRadius: '2.5rem',
             padding: '4.5rem 3.5rem',
             background: 'linear-gradient(180deg, #FFFDF8 0%, #FAF3E6 65%, #F7E9CF 100%)',
@@ -1682,7 +1686,7 @@ const TradePage = ({ setCurrentPage }) => {
               </div>
 
               {/* Spot Pricing Tagline Badge */}
-              <div style={{
+              <div className="trade-badge-pill" style={{
                 padding: '1.25rem 2rem',
                 borderRadius: '1.5rem',
                 background: 'linear-gradient(135deg, #FFFDF8 0%, #FAF0D8 100%)',
@@ -1738,7 +1742,7 @@ const TradePage = ({ setCurrentPage }) => {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1.75rem' }}>
 
                 {/* 1kg Gold Bar Card */}
-                <div style={{
+                <div className="trade-item-card-gold" style={{
                   padding: '2rem 2.25rem',
                   borderRadius: '1.75rem',
                   background: 'linear-gradient(135deg, #FFFDF8 0%, #FAF0D8 100%)',
@@ -1787,7 +1791,7 @@ const TradePage = ({ setCurrentPage }) => {
                 </div>
 
                 {/* 1kg Silver Bar Card */}
-                <div style={{
+                <div className="trade-item-card-silver" style={{
                   padding: '2rem 2.25rem',
                   borderRadius: '1.75rem',
                   background: 'linear-gradient(135deg, #FFFFFF 0%, #F5F7FA 100%)',
@@ -1859,7 +1863,7 @@ const TradePage = ({ setCurrentPage }) => {
                   { weight: '500g', h: '68px', w: '48px' },
                   { weight: '1kg', h: '74px', w: '52px' }
                 ].map((item, idx) => (
-                  <div key={idx} style={{
+                  <div key={idx} className="trade-item-card-gold" style={{
                     padding: '2rem 1rem',
                     borderRadius: '1.5rem',
                     background: 'linear-gradient(180deg, #FFFDF8 0%, #FAF0D8 100%)',
@@ -1927,7 +1931,7 @@ const TradePage = ({ setCurrentPage }) => {
                   { weight: '5g', h: '50px', w: '34px' },
                   { weight: '10g', h: '56px', w: '38px' }
                 ].map((item, idx) => (
-                  <div key={idx} style={{
+                  <div key={idx} className="trade-item-card-silver" style={{
                     padding: '2rem 1rem',
                     borderRadius: '1.5rem',
                     background: 'linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%)',
@@ -1977,7 +1981,7 @@ const TradePage = ({ setCurrentPage }) => {
             </div>
 
             {/* Certification Footer Note Banner */}
-            <div style={{
+            <div className="trade-hallmark-bar" style={{
               padding: '1.5rem 2.5rem',
               borderRadius: '1.75rem',
               background: 'linear-gradient(135deg, #FFFDF8 0%, #FAF0D8 100%)',
@@ -2020,7 +2024,7 @@ const TradePage = ({ setCurrentPage }) => {
       </section>
 
       {/* 5. ADVISORY BANNER */}
-      <section style={{
+      <section className="trade-advisory-section" style={{
         padding: '2rem 0 6rem 0',
         position: 'relative',
         overflow: 'hidden',
@@ -2054,7 +2058,7 @@ const TradePage = ({ setCurrentPage }) => {
         </div>
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <div className="glass-panel" style={{
+          <div className="glass-panel trade-luxury-card" style={{
             padding: '4.5rem 3.5rem',
             borderRadius: '2.5rem',
             background: 'linear-gradient(180deg, #FFFDF8 0%, #FAF3E6 65%, #F7E9CF 100%)',
@@ -2088,16 +2092,13 @@ const TradePage = ({ setCurrentPage }) => {
               </div>
 
               {/* Founder / Execution Desk Badge */}
-              <div style={{
+              <div className="trade-badge-pill" style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '1.5rem',
                 marginBottom: '2.5rem',
                 padding: '1rem 2.5rem',
-                borderRadius: '1.75rem',
-                background: 'linear-gradient(135deg, #FFFDF8 0%, #FAF0D8 100%)',
-                border: '1.5px solid rgba(212, 167, 44, 0.6)',
-                boxShadow: '0 12px 28px rgba(212, 167, 44, 0.22)'
+                borderRadius: '1.75rem'
               }}>
                 <div style={{
                   width: '56px',
@@ -2112,13 +2113,13 @@ const TradePage = ({ setCurrentPage }) => {
                   <img src="/founder.png" alt="Sam Tay" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div style={{ textAlign: 'left' }}>
-                  <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#B8860B', letterSpacing: '0.14em', textTransform: 'uppercase', display: 'block' }}>
+                  <span className="badge-title" style={{ fontSize: '0.74rem', fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', display: 'block' }}>
                     EXECUTION TRADE DESK
                   </span>
-                  <h4 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#0B132B', margin: '0.15rem 0 0.2rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
+                  <h4 className="badge-name" style={{ fontSize: '1.35rem', fontWeight: 900, margin: '0.15rem 0 0.2rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
                     Sam Tay
                   </h4>
-                  <span style={{ fontSize: '0.85rem', color: '#5C6B73', fontWeight: 700 }}>
+                  <span className="badge-role" style={{ fontSize: '0.85rem', fontWeight: 700 }}>
                     Founder & Managing Director
                   </span>
                 </div>
@@ -2391,6 +2392,194 @@ const TradePage = ({ setCurrentPage }) => {
             grid-template-columns: 1fr !important;
             gap: 2.5rem !important;
           }
+        }
+
+        /* PORTFOLIO TAB DARK MODE FIX */
+        :root[data-theme="dark"] .trade-portfolio-tab {
+          background: rgba(15, 23, 42, 0.88) !important;
+          border-color: rgba(212, 167, 44, 0.3) !important;
+          color: #f8fafc !important;
+        }
+        :root[data-theme="dark"] .trade-portfolio-tab h4 {
+          color: #f8fafc !important;
+        }
+        :root[data-theme="dark"] .trade-portfolio-tab.active {
+          background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+          border-color: #D4A72C !important;
+        }
+
+        /* LIVE METALS SECTION & CARDS DARK MODE FIX */
+        :root[data-theme="dark"] .trade-live-metals-section {
+          background: radial-gradient(circle at 50% 30%, #0c1020 0%, #030712 100%) !important;
+        }
+        :root[data-theme="dark"] .trade-live-card-gold,
+        :root[data-theme="dark"] .trade-live-card-silver {
+          background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%) !important;
+          border-color: rgba(212, 167, 44, 0.5) !important;
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6) !important;
+          color: #f8fafc !important;
+        }
+        :root[data-theme="dark"] .trade-live-card-gold h3,
+        :root[data-theme="dark"] .trade-live-card-silver h3 {
+          color: #f8fafc !important;
+        }
+        :root[data-theme="dark"] .trade-live-card-gold span,
+        :root[data-theme="dark"] .trade-live-card-silver span {
+          color: #cbd5e1 !important;
+        }
+
+        /* DARK THEME OVERRIDES FOR TRADE PAGE */
+        :root[data-theme="dark"] .trade-bullion-section,
+        :root[data-theme="dark"] .trade-advisory-section {
+          background: radial-gradient(circle at 50% 30%, #0c1020 0%, #030712 100%) !important;
+        }
+
+        :root[data-theme="dark"] .trade-luxury-card {
+          background: linear-gradient(180deg, #0f172a 0%, #0b0f19 65%, #030712 100%) !important;
+          border-color: rgba(212, 167, 44, 0.4) !important;
+          box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 0 0 30px rgba(212, 167, 44, 0.12) !important;
+          color: #f3f4f6 !important;
+        }
+
+        :root[data-theme="dark"] .trade-luxury-card h2,
+        :root[data-theme="dark"] .trade-luxury-card h3,
+        :root[data-theme="dark"] .trade-luxury-card h4 {
+          color: #f8fafc !important;
+        }
+
+        :root[data-theme="dark"] .trade-luxury-card p {
+          color: #9ca3af !important;
+        }
+
+        .trade-badge-pill {
+          background: linear-gradient(135deg, #FFFDF8 0%, #FAF0D8 100%);
+          border: 1.5px solid rgba(212, 167, 44, 0.6);
+          box-shadow: 0 12px 28px rgba(212, 167, 44, 0.22);
+          transition: all 0.3s ease;
+        }
+
+        .trade-badge-pill .badge-title {
+          color: #B8860B;
+        }
+
+        .trade-badge-pill .badge-name {
+          color: #0B132B;
+        }
+
+        .trade-badge-pill .badge-role {
+          color: #5C6B73;
+        }
+
+        :root[data-theme="dark"] .trade-badge-pill,
+        [data-theme="dark"] .trade-badge-pill {
+          background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+          border-color: rgba(212, 167, 44, 0.5) !important;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        :root[data-theme="dark"] .trade-badge-pill .badge-title,
+        [data-theme="dark"] .trade-badge-pill .badge-title {
+          color: #D4A72C !important;
+        }
+
+        :root[data-theme="dark"] .trade-badge-pill .badge-name,
+        [data-theme="dark"] .trade-badge-pill .badge-name {
+          color: #FFFFFF !important;
+        }
+
+        :root[data-theme="dark"] .trade-badge-pill .badge-role,
+        [data-theme="dark"] .trade-badge-pill .badge-role {
+          color: #94A3B8 !important;
+        }
+
+        /* MEDIA GALLERY CARDS & CONTROLS DARK MODE OVERRIDES */
+        :root[data-theme="dark"] .trade-gallery-card {
+          background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%) !important;
+          border-color: rgba(212, 167, 44, 0.5) !important;
+          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6) !important;
+          color: #f8fafc !important;
+        }
+
+        :root[data-theme="dark"] .trade-gallery-card h3 {
+          color: #f8fafc !important;
+        }
+
+        :root[data-theme="dark"] .trade-gallery-card p {
+          color: #9ca3af !important;
+        }
+
+        :root[data-theme="dark"] .trade-gallery-controls {
+          background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%) !important;
+          border-color: rgba(212, 167, 44, 0.4) !important;
+          color: #f8fafc !important;
+        }
+
+        :root[data-theme="dark"] .trade-gallery-controls h3 {
+          color: #f8fafc !important;
+        }
+
+        :root[data-theme="dark"] .trade-gallery-controls p {
+          color: #9ca3af !important;
+        }
+
+        :root[data-theme="dark"] .trade-item-card-gold {
+          background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%) !important;
+          border-color: rgba(212, 167, 44, 0.6) !important;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        :root[data-theme="dark"] .trade-item-card-gold h3,
+        :root[data-theme="dark"] .trade-item-card-gold h4,
+        :root[data-theme="dark"] .trade-item-card-gold span {
+          color: #f8fafc !important;
+        }
+
+        :root[data-theme="dark"] .trade-item-card-gold p {
+          color: #9ca3af !important;
+        }
+
+        :root[data-theme="dark"] .trade-item-card-silver {
+          background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%) !important;
+          border-color: rgba(255, 255, 255, 0.15) !important;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        :root[data-theme="dark"] .trade-item-card-silver h3,
+        :root[data-theme="dark"] .trade-item-card-silver h4,
+        :root[data-theme="dark"] .trade-item-card-silver span {
+          color: #f8fafc !important;
+        }
+
+        :root[data-theme="dark"] .trade-item-card-silver p {
+          color: #9ca3af !important;
+        }
+
+        :root[data-theme="dark"] .trade-hallmark-bar {
+          background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+          border-color: rgba(212, 167, 44, 0.5) !important;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        :root[data-theme="dark"] .trade-hallmark-bar div {
+          color: #cbd5e1 !important;
+        }
+
+        :root[data-theme="dark"] .trade-details-panel {
+          background: linear-gradient(90deg, #1e293b 0%, #0f172a 45%, #030712 100%) !important;
+          color: #f8fafc !important;
+          border-color: rgba(212, 167, 44, 0.3) !important;
+        }
+
+        :root[data-theme="dark"] .trade-details-panel h3,
+        :root[data-theme="dark"] .trade-details-panel h4,
+        :root[data-theme="dark"] .trade-details-panel p,
+        :root[data-theme="dark"] .trade-details-panel li {
+          color: #f8fafc !important;
+        }
+
+        :root[data-theme="dark"] .trade-details-panel p span,
+        :root[data-theme="dark"] .trade-details-panel strong {
+          color: #f59e0b !important;
         }
       `}</style>
 
