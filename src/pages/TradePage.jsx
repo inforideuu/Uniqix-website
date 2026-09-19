@@ -232,14 +232,14 @@ const TradePage = ({ setCurrentPage }) => {
                         cursor: 'pointer',
                         border: activeServiceIdx === idx
                           ? '2px solid #D4A72C'
-                          : '1px solid var(--border-glass)',
+                          : '1px solid rgba(212, 167, 44, 0.25)',
                         borderLeft: activeServiceIdx === idx
                           ? '5px solid #D4A72C'
-                          : '1px solid var(--border-glass)',
+                          : '1px solid rgba(212, 167, 44, 0.25)',
                         background: activeServiceIdx === idx
-                          ? 'linear-gradient(135deg, rgba(2, 11, 30, 0.92) 0%, rgba(2, 11, 30, 0.85) 100%), url("' + service.bgImage + '") center/cover no-repeat'
+                          ? 'linear-gradient(135deg, #ffffff 0%, #fffcf5 60%, #fff7eb 100%)'
                           : 'linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.9) 100%), url("' + service.bgImage + '") center/cover no-repeat',
-                        boxShadow: activeServiceIdx === idx ? '0 12px 30px rgba(197, 160, 89, 0.2)' : '0 4px 15px rgba(0,0,0,0.03)',
+                        boxShadow: activeServiceIdx === idx ? '0 12px 30px rgba(212, 167, 44, 0.25)' : '0 4px 15px rgba(0,0,0,0.03)',
                         transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
                         display: 'flex',
                         alignItems: 'center',
@@ -254,7 +254,7 @@ const TradePage = ({ setCurrentPage }) => {
                         height: '44px',
                         borderRadius: '10px',
                         background: activeServiceIdx === idx
-                          ? 'linear-gradient(135deg, #D4A72C 0%, #a8843f 100%)'
+                          ? 'linear-gradient(135deg, #D4A72C 0%, #b45309 100%)'
                           : 'rgba(197, 160, 89, 0.15)',
                         border: activeServiceIdx === idx ? 'none' : '1px solid rgba(197, 160, 89, 0.4)',
                         display: 'flex',
@@ -262,7 +262,7 @@ const TradePage = ({ setCurrentPage }) => {
                         justifyContent: 'center',
                         fontSize: '1.25rem',
                         fontWeight: 900,
-                        color: activeServiceIdx === idx ? '#020b1e' : '#D4A72C',
+                        color: activeServiceIdx === idx ? '#ffffff' : '#D4A72C',
                         fontFamily: "'Playfair Display', Georgia, serif",
                         flexShrink: 0,
                         transition: 'all 0.3s ease'
@@ -272,14 +272,14 @@ const TradePage = ({ setCurrentPage }) => {
 
                       {/* Title Content */}
                       <div style={{ flex: 1 }}>
-                        <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#D4A72C', textTransform: 'uppercase', display: 'block', marginBottom: '0.25rem', letterSpacing: '0.08em' }}>
+                        <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#b45309', textTransform: 'uppercase', display: 'block', marginBottom: '0.25rem', letterSpacing: '0.08em' }}>
                           {service.subtitle}
                         </span>
                         <h4 style={{
                           fontSize: '1.08rem',
                           fontWeight: 800,
                           margin: 0,
-                          color: activeServiceIdx === idx ? '#ffffff' : 'var(--text-primary)',
+                          color: activeServiceIdx === idx ? '#0f172a' : 'var(--text-primary)',
                           lineHeight: '1.35'
                         }}>
                           {service.title.split(' for ').pop().split(' of ').pop()}
@@ -291,7 +291,7 @@ const TradePage = ({ setCurrentPage }) => {
                         width: '36px',
                         height: '36px',
                         borderRadius: '50%',
-                        background: activeServiceIdx === idx ? '#D4A72C' : 'rgba(197, 160, 89, 0.1)',
+                        background: activeServiceIdx === idx ? 'linear-gradient(135deg, #D4A72C 0%, #b45309 100%)' : 'rgba(197, 160, 89, 0.1)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -302,7 +302,7 @@ const TradePage = ({ setCurrentPage }) => {
                         <ArrowRight style={{
                           width: '16px',
                           height: '16px',
-                          color: activeServiceIdx === idx ? '#020b1e' : '#D4A72C'
+                          color: activeServiceIdx === idx ? '#ffffff' : '#D4A72C'
                         }} />
                       </div>
 
@@ -317,7 +317,7 @@ const TradePage = ({ setCurrentPage }) => {
                           height: '0',
                           borderTop: '10px solid transparent',
                           borderBottom: '10px solid transparent',
-                          borderLeft: '16px solid #020b1e',
+                          borderLeft: '16px solid #FFFDF7',
                           zIndex: 3
                         }} />
                       )}
@@ -330,8 +330,8 @@ const TradePage = ({ setCurrentPage }) => {
             {/* Right Details Panel Column */}
             <div className="trade-details-panel" style={{
               borderRadius: '2rem',
-              border: '2px solid var(--card-gold-border, #D4A72C)',
-              background: 'linear-gradient(90deg, #020b1e 35%, rgba(2, 11, 30, 0.8) 60%, rgba(2, 11, 30, 0.25) 100%), url("' + activeService.bgImage + '") center right/cover no-repeat',
+              border: '2.5px solid #D4A72C',
+              background: 'linear-gradient(90deg, #F3E5AB 0%, #FFF9E6 28%, #FFFFFF 55%, rgba(255, 255, 255, 0.92) 75%, rgba(255, 249, 236, 0.6) 100%), url("' + activeService.bgImage + '") center right/cover no-repeat',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
@@ -339,8 +339,8 @@ const TradePage = ({ setCurrentPage }) => {
               overflow: 'hidden',
               minHeight: '520px',
               padding: '4rem',
-              boxShadow: 'var(--shadow-glass)',
-              color: '#ffffff'
+              boxShadow: '0 25px 60px rgba(212, 167, 44, 0.25), 0 5px 20px rgba(0, 0, 0, 0.04)',
+              color: '#1e293b'
             }}>
               {/* Giant watermarked number in top-right */}
               <div style={{
@@ -349,7 +349,7 @@ const TradePage = ({ setCurrentPage }) => {
                 right: '40px',
                 fontSize: '6.5rem',
                 fontWeight: 900,
-                color: 'rgba(197, 160, 89, 0.12)',
+                color: 'rgba(212, 167, 44, 0.15)',
                 fontFamily: "'Playfair Display', Georgia, serif",
                 userSelect: 'none',
                 zIndex: 0
@@ -357,45 +357,46 @@ const TradePage = ({ setCurrentPage }) => {
                 {activeService.num}
               </div>
 
-              <div style={{ position: 'relative', zIndex: 1, maxWidth: '65%' }} key={activeService.id} className="fade-in-slide">
+              <div style={{ position: 'relative', zIndex: 1, maxWidth: '90%' }} key={activeService.id} className="fade-in-slide">
                 {/* Gold-bordered icon square badge */}
                 <div style={{
                   width: '56px',
                   height: '56px',
                   borderRadius: '12px',
-                  background: 'rgba(197, 160, 89, 0.08)',
+                  background: 'linear-gradient(135deg, #FFFDF8 0%, #F5E8C8 100%)',
                   border: '2px solid #D4A72C',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  marginBottom: '2.5rem'
+                  marginBottom: '2.5rem',
+                  boxShadow: '0 6px 16px rgba(212, 167, 44, 0.25)'
                 }}>
-                  {React.cloneElement(activeService.icon, { style: { width: '28px', height: '28px', color: '#D4A72C' } })}
+                  {React.cloneElement(activeService.icon, { style: { width: '28px', height: '28px', color: '#b45309' } })}
                 </div>
 
-                <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#D4A72C', letterSpacing: '0.15em', textTransform: 'uppercase', display: 'block', marginBottom: '0.75rem' }}>
+                <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#b45309', letterSpacing: '0.15em', textTransform: 'uppercase', display: 'block', marginBottom: '0.75rem' }}>
                   {activeService.subtitle}
                 </span>
-                <h3 style={{ fontSize: '2.4rem', fontWeight: 900, color: '#ffffff', marginBottom: '1.75rem', fontFamily: "'Playfair Display', Georgia, serif", lineHeight: '1.25' }}>
+                <h3 style={{ fontSize: '2.4rem', fontWeight: 900, color: '#0f172a', marginBottom: '1.75rem', fontFamily: "'Playfair Display', Georgia, serif", lineHeight: '1.25' }}>
                   {activeService.title}
                 </h3>
 
                 {/* Thin gold decorative divider line */}
-                <div style={{ width: '80px', height: '2px', background: '#D4A72C', marginBottom: '2rem', borderRadius: '1px' }} />
+                <div style={{ width: '80px', height: '2px', background: 'linear-gradient(90deg, #D4A72C 0%, #b45309 100%)', marginBottom: '2rem', borderRadius: '1px' }} />
 
-                <p style={{ color: 'rgba(255, 255, 255, 0.85)', fontSize: '1.05rem', lineHeight: '1.8', marginBottom: '2.5rem' }}>
+                <p style={{ color: '#334155', fontSize: '1.05rem', lineHeight: '1.8', marginBottom: '2.5rem', fontWeight: 500 }}>
                   {activeService.desc}
                 </p>
 
                 {activeService.items.length > 0 && (
                   <div>
-                    <h5 style={{ fontSize: '0.9rem', fontWeight: 800, textTransform: 'uppercase', color: '#D4A72C', marginBottom: '1.25rem', letterSpacing: '0.05em' }}>
+                    <h5 style={{ fontSize: '0.9rem', fontWeight: 800, textTransform: 'uppercase', color: '#b45309', marginBottom: '1.25rem', letterSpacing: '0.05em' }}>
                       Key Products & Portfolio:
                     </h5>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                       {activeService.items.map((item, idx) => (
-                        <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.95rem', color: 'rgba(255,255,255,0.85)' }}>
-                          <Check style={{ width: '16px', height: '16px', color: '#D4A72C', strokeWidth: 3 }} />
+                        <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.95rem', color: '#334155', fontWeight: 600 }}>
+                          <Check style={{ width: '16px', height: '16px', color: '#b45309', strokeWidth: 3 }} />
                           <span>{item}</span>
                         </div>
                       ))}
@@ -410,16 +411,27 @@ const TradePage = ({ setCurrentPage }) => {
                   onClick={() => {setCurrentPage('contact');
                       window.scrollTo({top:0,behavior:'smooth'})
                     }}
-                  className="btn btn-primary"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '8px',
                     padding: '1rem 2.5rem',
-                    background: 'linear-gradient(135deg, #D4A72C 0%, #b08d4a 100%)',
+                    background: 'linear-gradient(135deg, #d97706 0%, #b45309 50%, #78350f 100%)',
                     border: 'none',
+                    borderRadius: '50px',
                     color: '#ffffff',
-                    fontWeight: 700
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    boxShadow: '0 10px 25px rgba(217, 119, 6, 0.35)',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 14px 30px rgba(217, 119, 6, 0.45)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 10px 25px rgba(217, 119, 6, 0.35)';
                   }}
                 >
                   Inquire Trade Mandate <ArrowRight style={{ width: '18px', height: '18px' }} />
@@ -434,7 +446,7 @@ const TradePage = ({ setCurrentPage }) => {
       {/* 2.5 LIVE PRECIOUS METALS RATES SECTION (EXACT REFERENCE DESIGN MATCH) */}
       <section style={{
         padding: '6rem 0 6.5rem 0',
-        background: 'radial-gradient(ellipse at 50% 30%, #FFFDF8 0%, #FAF3E6 50%, #F5E9D4 85%, #EFE1C7 100%)',
+        background: 'var(--live-metals-bg, radial-gradient(ellipse at 50% 30%, #FFFDF8 0%, #FAF3E6 50%, #F5E9D4 85%, #EFE1C7 100%))',
         position: 'relative',
         overflow: 'hidden'
       }}>
@@ -493,7 +505,7 @@ const TradePage = ({ setCurrentPage }) => {
                 fontSize: '3.6rem',
                 fontWeight: 900,
                 fontFamily: "'Playfair Display', Georgia, serif",
-                color: '#0B132B',
+                color: 'var(--text-primary)',
                 lineHeight: '1.12',
                 marginBottom: '1.5rem',
                 letterSpacing: '-0.01em'
@@ -509,7 +521,7 @@ const TradePage = ({ setCurrentPage }) => {
               </h2>
 
               <p style={{
-                color: '#5C6B73',
+                color: 'var(--text-secondary)',
                 fontSize: '1.1rem',
                 lineHeight: '1.65',
                 marginBottom: '2.5rem',
@@ -535,13 +547,13 @@ const TradePage = ({ setCurrentPage }) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     margin: '0 auto 0.6rem auto',
-                    background: 'linear-gradient(135deg, #FFFDF8 0%, #F5E8C8 100%)',
+                    background: 'var(--badge-bg, linear-gradient(135deg, #FFFDF8 0%, #F5E8C8 100%))',
                     color: '#B8860B',
-                    boxShadow: '0 4px 12px rgba(212, 167, 44, 0.25), inset 0 2px 4px #FFFFFF'
+                    boxShadow: '0 4px 12px rgba(212, 167, 44, 0.25)'
                   }}>
                     ⚡
                   </div>
-                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#1C2541', display: 'block', lineHeight: '1.2' }}>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--text-primary)', display: 'block', lineHeight: '1.2' }}>
                     Live Market<br />Updates
                   </span>
                 </div>
@@ -556,13 +568,13 @@ const TradePage = ({ setCurrentPage }) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     margin: '0 auto 0.6rem auto',
-                    background: 'linear-gradient(135deg, #FFFDF8 0%, #F5E8C8 100%)',
+                    background: 'var(--badge-bg, linear-gradient(135deg, #FFFDF8 0%, #F5E8C8 100%))',
                     color: '#B8860B',
-                    boxShadow: '0 4px 12px rgba(212, 167, 44, 0.25), inset 0 2px 4px #FFFFFF'
+                    boxShadow: '0 4px 12px rgba(212, 167, 44, 0.25)'
                   }}>
                     🛡️
                   </div>
-                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#1C2541', display: 'block', lineHeight: '1.2' }}>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--text-primary)', display: 'block', lineHeight: '1.2' }}>
                     Trusted<br />Rates
                   </span>
                 </div>
@@ -577,13 +589,13 @@ const TradePage = ({ setCurrentPage }) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     margin: '0 auto 0.6rem auto',
-                    background: 'linear-gradient(135deg, #FFFDF8 0%, #F5E8C8 100%)',
+                    background: 'var(--badge-bg, linear-gradient(135deg, #FFFDF8 0%, #F5E8C8 100%))',
                     color: '#B8860B',
-                    boxShadow: '0 4px 12px rgba(212, 167, 44, 0.25), inset 0 2px 4px #FFFFFF'
+                    boxShadow: '0 4px 12px rgba(212, 167, 44, 0.25)'
                   }}>
                     🌐
                   </div>
-                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#1C2541', display: 'block', lineHeight: '1.2' }}>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--text-primary)', display: 'block', lineHeight: '1.2' }}>
                     Global<br />Markets
                   </span>
                 </div>
@@ -598,13 +610,13 @@ const TradePage = ({ setCurrentPage }) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     margin: '0 auto 0.6rem auto',
-                    background: 'linear-gradient(135deg, #FFFDF8 0%, #F5E8C8 100%)',
+                    background: 'var(--badge-bg, linear-gradient(135deg, #FFFDF8 0%, #F5E8C8 100%))',
                     color: '#B8860B',
-                    boxShadow: '0 4px 12px rgba(212, 167, 44, 0.25), inset 0 2px 4px #FFFFFF'
+                    boxShadow: '0 4px 12px rgba(212, 167, 44, 0.25)'
                   }}>
                     🔄
                   </div>
-                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#1C2541', display: 'block', lineHeight: '1.2' }}>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--text-primary)', display: 'block', lineHeight: '1.2' }}>
                     Updated<br />Instantly
                   </span>
                 </div>
@@ -619,13 +631,18 @@ const TradePage = ({ setCurrentPage }) => {
               }}>
                 <img
                   src="/precious_metals_stack.png"
-                  alt="Gold and Silver Bullion Stack"
-                  style={{ width: '100%', height: '175px', objectFit: 'cover', display: 'block' }}
+                  alt="Gold & Silver Bullion Bars Showcase"
+                  style={{
+                    width: '100%',
+                    height: '185px',
+                    objectFit: 'cover',
+                    display: 'block'
+                  }}
                 />
               </div>
             </div>
 
-            {/* Right Column: Live Price Cards Container */}
+            {/* Right Column: Interactive Gold & Silver Cards */}
             <div>
               <div style={{
                 display: 'grid',
@@ -636,7 +653,7 @@ const TradePage = ({ setCurrentPage }) => {
 
                 {/* GOLD CARD (3D Glowing Gold Border Frame) */}
                 <div style={{
-                  background: '#FFFFFF',
+                  background: 'var(--card-bg, #FFFFFF)',
                   borderRadius: '1.75rem',
                   border: '2.5px solid #D4A72C',
                   padding: '2rem 1.75rem',
@@ -663,7 +680,7 @@ const TradePage = ({ setCurrentPage }) => {
                         <h3 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#B8860B', margin: 0, letterSpacing: '0.04em' }}>
                           GOLD
                         </h3>
-                        <span style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 600 }}>
+                        <span style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
                           (USD / oz)
                         </span>
                       </div>
@@ -673,11 +690,11 @@ const TradePage = ({ setCurrentPage }) => {
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '0.35rem',
-                      background: '#D1FAE5',
-                      border: '1px solid #A7F3D0',
+                      background: 'rgba(16, 185, 129, 0.15)',
+                      border: '1px solid rgba(16, 185, 129, 0.4)',
                       padding: '0.25rem 0.65rem',
                       borderRadius: '20px',
-                      color: '#059669',
+                      color: '#10B981',
                       fontSize: '0.7rem',
                       fontWeight: 800,
                       letterSpacing: '0.05em'
@@ -692,14 +709,14 @@ const TradePage = ({ setCurrentPage }) => {
                     <div style={{
                       fontSize: '2.4rem',
                       fontWeight: 900,
-                      color: goldFlash === 'up' ? '#059669' : goldFlash === 'down' ? '#DC2626' : '#0B132B',
+                      color: goldFlash === 'up' ? '#10B981' : goldFlash === 'down' ? '#EF4444' : 'var(--text-primary)',
                       fontFamily: "'Playfair Display', Georgia, serif",
                       lineHeight: '1.1',
                       transition: 'color 0.3s ease'
                     }}>
                       $ {goldPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </div>
-                    <div style={{ color: '#059669', fontSize: '0.88rem', fontWeight: 800, marginTop: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                    <div style={{ color: '#10B981', fontSize: '0.88rem', fontWeight: 800, marginTop: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                       ▲ +{goldChange.toFixed(2)} (+{goldChangePct.toFixed(2)}%)
                     </div>
                   </div>
@@ -719,27 +736,27 @@ const TradePage = ({ setCurrentPage }) => {
                   </div>
 
                   {/* Units Table Breakdown */}
-                  <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '1rem' }}>
+                  <div style={{ borderTop: '1px solid var(--border-glass)', paddingTop: '1rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: '#64748B', fontWeight: 500 }}>1 Gram</span>
-                      <span style={{ color: '#0B132B', fontWeight: 800 }}>$ {(goldPrice / 31.1035).toFixed(2)}</span>
+                      <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>1 Gram</span>
+                      <span style={{ color: 'var(--text-primary)', fontWeight: 800 }}>$ {(goldPrice / 31.1035).toFixed(2)}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: '#64748B', fontWeight: 500 }}>1 Tola</span>
-                      <span style={{ color: '#0B132B', fontWeight: 800 }}>$ {(goldPrice / 31.1035 * 11.6638).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                      <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>1 Tola</span>
+                      <span style={{ color: 'var(--text-primary)', fontWeight: 800 }}>$ {(goldPrice / 31.1035 * 11.6638).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: '#64748B', fontWeight: 500 }}>1 Kg</span>
-                      <span style={{ color: '#0B132B', fontWeight: 800 }}>$ {(goldPrice / 31.1035 * 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                      <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>1 Kg</span>
+                      <span style={{ color: 'var(--text-primary)', fontWeight: 800 }}>$ {(goldPrice / 31.1035 * 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* SILVER CARD */}
                 <div style={{
-                  background: '#FFFFFF',
+                  background: 'var(--card-bg, #FFFFFF)',
                   borderRadius: '1.75rem',
-                  border: '1.5px solid #CBD5E1',
+                  border: '1.5px solid var(--border-glass-hover, #CBD5E1)',
                   padding: '2rem 1.75rem',
                   boxShadow: '0 15px 35px rgba(0, 0, 0, 0.06)',
                   position: 'relative'
@@ -761,10 +778,10 @@ const TradePage = ({ setCurrentPage }) => {
                         🥈
                       </div>
                       <div>
-                        <h3 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#334155', margin: 0, letterSpacing: '0.04em' }}>
+                        <h3 style={{ fontSize: '1.35rem', fontWeight: 900, color: 'var(--text-primary)', margin: 0, letterSpacing: '0.04em' }}>
                           SILVER
                         </h3>
-                        <span style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 600 }}>
+                        <span style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
                           (USD / oz)
                         </span>
                       </div>
@@ -774,11 +791,11 @@ const TradePage = ({ setCurrentPage }) => {
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '0.35rem',
-                      background: '#D1FAE5',
-                      border: '1px solid #A7F3D0',
+                      background: 'rgba(16, 185, 129, 0.15)',
+                      border: '1px solid rgba(16, 185, 129, 0.4)',
                       padding: '0.25rem 0.65rem',
                       borderRadius: '20px',
-                      color: '#059669',
+                      color: '#10B981',
                       fontSize: '0.7rem',
                       fontWeight: 800,
                       letterSpacing: '0.05em'
@@ -793,14 +810,14 @@ const TradePage = ({ setCurrentPage }) => {
                     <div style={{
                       fontSize: '2.4rem',
                       fontWeight: 900,
-                      color: silverFlash === 'up' ? '#059669' : silverFlash === 'down' ? '#DC2626' : '#0B132B',
+                      color: silverFlash === 'up' ? '#10B981' : silverFlash === 'down' ? '#EF4444' : 'var(--text-primary)',
                       fontFamily: "'Playfair Display', Georgia, serif",
                       lineHeight: '1.1',
                       transition: 'color 0.3s ease'
                     }}>
-                      $ {silverPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      $ {silverPrice.toFixed(2)}
                     </div>
-                    <div style={{ color: '#059669', fontSize: '0.88rem', fontWeight: 800, marginTop: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                    <div style={{ color: '#10B981', fontSize: '0.88rem', fontWeight: 800, marginTop: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                       ▲ +{silverChange.toFixed(2)} (+{silverChangePct.toFixed(2)}%)
                     </div>
                   </div>
@@ -810,71 +827,69 @@ const TradePage = ({ setCurrentPage }) => {
                     <svg viewBox="0 0 200 60" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
                       <defs>
                         <linearGradient id="silverRefGradMatch" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#64748B" stopOpacity="0.3" />
-                          <stop offset="100%" stopColor="#64748B" stopOpacity="0.0" />
+                          <stop offset="0%" stopColor="#94A3B8" stopOpacity="0.4" />
+                          <stop offset="100%" stopColor="#94A3B8" stopOpacity="0.0" />
                         </linearGradient>
                       </defs>
-                      <path d="M0,50 Q40,42 70,35 T130,45 T170,25 T200,18 L200,60 L0,60 Z" fill="url(#silverRefGradMatch)" />
-                      <path d="M0,50 Q40,42 70,35 T130,45 T170,25 T200,18" fill="none" stroke="#64748B" strokeWidth="2.5" strokeLinecap="round" />
+                      <path d="M0,50 Q40,35 80,42 T140,25 T200,15 L200,60 L0,60 Z" fill="url(#silverRefGradMatch)" />
+                      <path d="M0,50 Q40,35 80,42 T140,25 T200,15" fill="none" stroke="#94A3B8" strokeWidth="2.5" strokeLinecap="round" />
                     </svg>
                   </div>
 
                   {/* Units Table Breakdown */}
-                  <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '1rem' }}>
+                  <div style={{ borderTop: '1px solid var(--border-glass)', paddingTop: '1rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: '#64748B', fontWeight: 500 }}>1 Gram</span>
-                      <span style={{ color: '#0B132B', fontWeight: 800 }}>$ {(silverPrice / 31.1035).toFixed(2)}</span>
+                      <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>1 Gram</span>
+                      <span style={{ color: 'var(--text-primary)', fontWeight: 800 }}>$ {(silverPrice / 31.1035).toFixed(2)}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: '#64748B', fontWeight: 500 }}>1 Kg</span>
-                      <span style={{ color: '#0B132B', fontWeight: 800 }}>$ {(silverPrice / 31.1035 * 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                      <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>1 Kg</span>
+                      <span style={{ color: 'var(--text-primary)', fontWeight: 800 }}>$ {(silverPrice / 31.1035 * 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: '#64748B', fontWeight: 500 }}>1 Tola</span>
-                      <span style={{ color: '#0B132B', fontWeight: 800 }}>$ {(silverPrice / 31.1035 * 11.6638).toFixed(2)}</span>
+                      <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>1 Tola</span>
+                      <span style={{ color: 'var(--text-primary)', fontWeight: 800 }}>$ {(silverPrice / 31.1035 * 11.6638).toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
 
               </div>
 
-              {/* Inquire Live Trade Mandate Button */}
-              <div style={{ textAlign: 'center' }}>
-                <button
-                  onClick={() => {
-                    if (setCurrentPage) {
-                      setCurrentPage('contact');
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }
-                  }}
-                  style={{
-                    background: 'linear-gradient(135deg, #D4A72C 0%, #A16207 100%)',
-                    border: 'none',
-                    color: '#FFFFFF',
-                    padding: '0.9rem 2.2rem',
-                    borderRadius: '30px',
-                    fontSize: '0.95rem',
-                    fontWeight: 800,
-                    cursor: 'pointer',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.65rem',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 8px 25px rgba(161, 98, 7, 0.35)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = '0 12px 28px rgba(161, 98, 7, 0.5)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'none';
-                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(161, 98, 7, 0.35)';
-                  }}
-                >
-                  Inquire Live Trade Mandate <ArrowRight style={{ width: '18px', height: '18px' }} />
-                </button>
-              </div>
-
+              {/* Bottom Large Action Button Navigating to Contact Page */}
+              <button
+                onClick={() => {
+                  setCurrentPage('contact');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                style={{
+                  width: '100%',
+                  padding: '1.15rem 2rem',
+                  borderRadius: '50px',
+                  background: 'linear-gradient(135deg, #D4A72C 0%, #B8860B 100%)',
+                  color: '#FFFFFF',
+                  fontWeight: 900,
+                  fontSize: '1.05rem',
+                  border: 'none',
+                  boxShadow: '0 12px 30px rgba(212, 167, 44, 0.4)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.75rem',
+                  letterSpacing: '0.04em',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-3px)';
+                  e.currentTarget.style.boxShadow = '0 16px 40px rgba(212, 167, 44, 0.55)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 12px 30px rgba(212, 167, 44, 0.4)';
+                }}
+              >
+                Inquire Live Trade Mandate <ArrowRight style={{ width: '20px', height: '20px' }} />
+              </button>
             </div>
 
           </div>
@@ -914,29 +929,29 @@ const TradePage = ({ setCurrentPage }) => {
             <div
               className="glass-panel"
               style={{
-                background: 'linear-gradient(180deg, #020b1e 0%, #081226 60%, #0f1c36 100%)',
+                background: 'linear-gradient(145deg, #E5BA42 0%, #D4A72C 45%, #B8860B 80%, #906502 100%)',
                 borderRadius: '2rem',
-                border: '1px solid rgba(197, 160, 89, 0.4)',
+                border: '2.5px solid #FFDF80',
                 padding: '3.5rem 3rem 2.5rem 3rem',
                 position: 'relative',
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
+                boxShadow: '0 25px 60px rgba(212, 167, 44, 0.4), 0 5px 20px rgba(0, 0, 0, 0.15)',
                 color: '#ffffff'
               }}
             >
               {/* Top Accent Gold Bar */}
-              <div style={{ position: 'absolute', top: 0, left: '3rem', width: '4px', height: '40px', background: '#D4A72C', borderRadius: '0 0 2px 2px' }} />
+              <div style={{ position: 'absolute', top: 0, left: '3rem', width: '4px', height: '40px', background: '#FFFFFF', borderRadius: '0 0 2px 2px' }} />
 
               <div>
                 {/* Roman Numeral & Label */}
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '2rem' }}>
-                  <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', fontSize: '2.2rem', color: '#D4A72C', fontWeight: 700 }}>
+                  <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', fontSize: '2.2rem', color: '#FFFFFF', fontWeight: 900 }}>
                     i.
                   </span>
-                  <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255, 255, 255, 0.7)' }}>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255, 255, 255, 0.9)' }}>
                     OUR VISION
                   </span>
                 </div>
@@ -950,15 +965,15 @@ const TradePage = ({ setCurrentPage }) => {
                   lineHeight: '1.25',
                   marginBottom: '2rem'
                 }}>
-                  To redefine the future of <em style={{ fontStyle: 'italic', color: '#D4A72C' }}>gold</em>.
+                  To redefine the future of <em style={{ fontStyle: 'italic', color: '#FFF5D6' }}>gold</em>.
                 </h3>
 
                 {/* Body Text Blocks */}
-                <p style={{ color: 'rgba(255, 255, 255, 0.88)', fontSize: '1.05rem', lineHeight: '1.8', marginBottom: '1.75rem' }}>
-                  To set new standards in <strong style={{ color: '#ffffff', fontWeight: 700 }}>excellence</strong>, <strong style={{ color: '#ffffff', fontWeight: 700 }}>transparency, and sustainability</strong>. To create lasting value for generations.
+                <p style={{ color: 'rgba(255, 255, 255, 0.95)', fontSize: '1.05rem', lineHeight: '1.8', marginBottom: '1.75rem', fontWeight: 500 }}>
+                  To set new standards in <strong style={{ color: '#ffffff', fontWeight: 900 }}>excellence</strong>, <strong style={{ color: '#ffffff', fontWeight: 900 }}>transparency, and sustainability</strong>. To create lasting value for generations.
                 </p>
 
-                <p style={{ color: 'rgba(197, 160, 89, 0.95)', fontSize: '1.05rem', lineHeight: '1.8', fontWeight: 600, borderLeft: '2px solid #D4A72C', paddingLeft: '1rem', margin: 0 }}>
+                <p style={{ color: '#FFF5D6', fontSize: '1.05rem', lineHeight: '1.8', fontWeight: 700, borderLeft: '3px solid #FFFFFF', paddingLeft: '1rem', margin: 0 }}>
                   Gold as more than wealth. As a foundation for security and shared prosperity.
                 </p>
               </div>
@@ -970,14 +985,14 @@ const TradePage = ({ setCurrentPage }) => {
                 borderRadius: '1.25rem',
                 background: 'url("/gold2.png") center/cover no-repeat',
                 position: 'relative',
-                border: '1px solid rgba(197, 160, 89, 0.4)',
-                boxShadow: 'inset 0 0 30px rgba(0,0,0,0.6)',
+                border: '2px solid #FFDF80',
+                boxShadow: '0 8px 20px rgba(0, 0, 0, 0.3)',
                 cursor: 'pointer'
               }} onClick={() => setActiveModalMedia({ type: 'image', src: '/gold2.png', title: 'Physical Gold Bullion & Vault Stock', sub: 'Assayed & Certified Institutional Stock' })}>
                 <div style={{
                   position: 'absolute',
                   inset: 0,
-                  background: 'linear-gradient(to top, rgba(2, 11, 30, 0.9) 0%, transparent 60%)',
+                  background: 'linear-gradient(to top, rgba(15, 23, 42, 0.85) 0%, transparent 60%)',
                   borderRadius: '1.25rem'
                 }} />
                 <span style={{
@@ -1002,12 +1017,12 @@ const TradePage = ({ setCurrentPage }) => {
             <div
               className="glass-panel"
               style={{
-                background: 'var(--bg-secondary, #faf7ee)',
+                background: 'var(--bg-glass)',
                 borderRadius: '2rem',
                 border: '1px solid rgba(197, 160, 89, 0.35)',
                 padding: '3.5rem 3.5rem 3.5rem 3.5rem',
                 position: 'relative',
-                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.08)',
+                boxShadow: 'var(--shadow-glass)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between'
@@ -1594,148 +1609,227 @@ const TradePage = ({ setCurrentPage }) => {
         </div>
       </section>
 
-      {/* 4. LUXURY BULLION CATALOG SHOWCASE (999.9 FINE GOLD & SILVER BULLION) */}
-      <section style={{ padding: '0 0 6rem 0' }}>
-        <div className="container">
+        {/* 4. LUXURY BULLION CATALOG SHOWCASE (999.9 FINE GOLD & SILVER BULLION) */}
+      <section style={{
+        padding: '2rem 0 6rem 0',
+        position: 'relative',
+        overflow: 'hidden',
+        background: 'radial-gradient(circle at 50% 30%, #FFFDF8 0%, #FAF3E6 60%, #F3E5C8 100%)'
+      }}>
+        {/* Background Decorative Gold Silk Ribbons / Waves */}
+        <div style={{ position: 'absolute', top: '-10%', left: '-10%', width: '45%', height: '60%', pointerEvents: 'none', zIndex: 0, opacity: 0.85 }}>
+          <svg viewBox="0 0 500 500" fill="none" style={{ width: '100%', height: '100%' }}>
+            <defs>
+              <linearGradient id="goldRibbonTopLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#FFEAA7" stopOpacity="0.8" />
+                <stop offset="50%" stopColor="#D4A72C" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#B8860B" stopOpacity="0.2" />
+              </linearGradient>
+            </defs>
+            <path d="M-100,50 Q150,-50 250,150 T450,250 T200,450 Z" fill="url(#goldRibbonTopLeft)" />
+          </svg>
+        </div>
 
+        <div style={{ position: 'absolute', bottom: '-5%', right: '-10%', width: '50%', height: '55%', pointerEvents: 'none', zIndex: 0, opacity: 0.85 }}>
+          <svg viewBox="0 0 500 500" fill="none" style={{ width: '100%', height: '100%' }}>
+            <defs>
+              <linearGradient id="goldRibbonBottomRight" x1="100%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" stopColor="#F5D061" stopOpacity="0.75" />
+                <stop offset="60%" stopColor="#E5BA42" stopOpacity="0.45" />
+                <stop offset="100%" stopColor="#FAF3E6" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <path d="M100,450 Q300,200 450,300 T600,100 T250,-50 Z" fill="url(#goldRibbonBottomRight)" />
+          </svg>
+        </div>
+
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+
+          {/* MAIN CATALOG CONTAINER CARD */}
           <div className="glass-panel" style={{
             borderRadius: '2.5rem',
-            padding: '4rem 3.5rem',
-            background: 'linear-gradient(135deg, rgba(2, 11, 30, 0.98) 0%, rgba(10, 17, 34, 0.95) 100%)',
-            border: '1px solid rgba(197, 160, 89, 0.35)',
-            boxShadow: '0 25px 50px rgba(0, 0, 0, 0.35)',
-            color: '#ffffff'
+            padding: '4.5rem 3.5rem',
+            background: 'linear-gradient(180deg, #FFFDF8 0%, #FAF3E6 65%, #F7E9CF 100%)',
+            border: '2px solid rgba(212, 167, 44, 0.45)',
+            boxShadow: '0 30px 70px rgba(212, 167, 44, 0.18), 0 8px 24px rgba(0, 0, 0, 0.03)',
+            color: '#1e293b'
           }}>
 
             {/* Header Area */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '2rem', marginBottom: '3.5rem' }}>
-              <div style={{ maxWidth: '650px' }}>
-                <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#D4A72C', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'block', marginBottom: '0.75rem' }}>
-                  PRECIOUS METALS CATALOG & SPECIFICATIONS
-                </span>
+              <div style={{ maxWidth: '680px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.85rem' }}>
+                  <span style={{ color: '#C59619', fontSize: '0.8rem' }}>✦</span>
+                  <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#B8860B', textTransform: 'uppercase', letterSpacing: '0.15em' }}>
+                    PRECIOUS METALS CATALOG & SPECIFICATIONS
+                  </span>
+                  <span style={{ color: '#C59619', fontSize: '0.8rem' }}>✦</span>
+                </div>
                 <h2 style={{
-                  fontSize: '3.2rem',
+                  fontSize: '3.6rem',
                   fontWeight: 900,
                   fontFamily: "'Playfair Display', Georgia, serif",
-                  color: '#ffffff',
-                  margin: '0 0 1.25rem 0',
-                  lineHeight: '1.15'
+                  color: '#0B132B',
+                  margin: '0 0 1rem 0',
+                  lineHeight: '1.12'
                 }}>
-                  999.9 fine gold & <em style={{ fontStyle: 'italic', color: '#cbd5e1' }}>silver bullion.</em>
+                  999.9 fine gold & silver <br />
+                  <em style={{ fontStyle: 'italic', color: '#B8860B', fontWeight: 800 }}>bullion.</em>
                 </h2>
-                <p style={{ color: 'rgba(255, 255, 255, 0.82)', fontSize: '1.05rem', lineHeight: '1.7', margin: 0 }}>
-                  999.9 fine gold and silver bullion. Wholesale and retail tiers. Live XAU/XAG spot pricing, transparent spreads, same-day settlement.
+                <p style={{ color: '#5C6B73', fontSize: '1.05rem', lineHeight: '1.7', margin: 0, fontWeight: 500 }}>
+                  999.9 fine gold and silver bullion. Wholesale and retail bars. Live XAUUSD spot pricing. Transparent spreads, zero-delay settlement.
                 </p>
               </div>
 
               {/* Spot Pricing Tagline Badge */}
               <div style={{
-                padding: '1.25rem 1.75rem',
-                borderRadius: '1.25rem',
-                background: 'rgba(197, 160, 89, 0.08)',
-                border: '1px solid rgba(197, 160, 89, 0.4)',
-                textAlign: 'right'
+                padding: '1.25rem 2rem',
+                borderRadius: '1.5rem',
+                background: 'linear-gradient(135deg, #FFFDF8 0%, #FAF0D8 100%)',
+                border: '1.5px solid rgba(212, 167, 44, 0.55)',
+                boxShadow: '0 10px 25px rgba(212, 167, 44, 0.18)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1.25rem',
+                alignSelf: 'flex-start'
               }}>
-                <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#D4A72C', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: '0.35rem' }}>
-                  LIVE MARKET INTEGRATION
-                </span>
-                <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', fontSize: '1.15rem', color: '#ffffff', fontWeight: 700 }}>
-                  "Linked to global XAU and XAG spot."
-                </span>
+                <div style={{
+                  width: '44px',
+                  height: '44px',
+                  borderRadius: '12px',
+                  background: 'linear-gradient(135deg, #F3D082 0%, #C59619 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#0B132B',
+                  boxShadow: '0 4px 12px rgba(197, 150, 25, 0.35)',
+                  flexShrink: 0
+                }}>
+                  <TrendingUp style={{ width: '22px', height: '22px', strokeWidth: 2.5 }} />
+                </div>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.2rem' }}>
+                    <span style={{ color: '#C59619', fontSize: '0.75rem' }}>✦</span>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#B8860B', textTransform: 'uppercase', letterSpacing: '0.12em' }}>
+                      LIVE MARKET FIXATION
+                    </span>
+                    <span style={{ color: '#C59619', fontSize: '0.75rem' }}>✦</span>
+                  </div>
+                  <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', fontSize: '1.2rem', color: '#0B132B', fontWeight: 800 }}>
+                    "Linked to global XAU and XAG spot."
+                  </span>
+                </div>
               </div>
             </div>
 
-            {/* TIER I: WHOLESALE · BULK ORDERS · MIN. 1 KILOGRAM */}
+            {/* TIER I: WHOLESALE · BULLION BARS · KILOGRAM */}
             <div style={{ marginBottom: '3.5rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-                <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', fontSize: '1.5rem', color: '#D4A72C', fontWeight: 700 }}>
-                  i.
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.75rem' }}>
+                <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', fontSize: '1.5rem', color: '#B8860B', fontWeight: 900 }}>
+                  I.
                 </span>
-                <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#D4A72C' }}>
-                  WHOLESALE · BULK ORDERS · MIN. 1 KILOGRAM
+                <span style={{ color: '#C59619', fontSize: '0.75rem' }}>✦</span>
+                <span style={{ fontSize: '0.82rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#B8860B' }}>
+                  WHOLESALE - BULLION BARS - KILOGRAM
                 </span>
-                <div style={{ flex: 1, height: '1px', background: 'rgba(197, 160, 89, 0.25)' }} />
+                <div style={{ flex: 1, height: '1.5px', background: 'rgba(212, 167, 44, 0.35)' }} />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1.75rem' }}>
 
                 {/* 1kg Gold Bar Card */}
                 <div style={{
-                  padding: '1.75rem 2rem',
-                  borderRadius: '1.5rem',
-                  background: 'linear-gradient(135deg, rgba(197, 160, 89, 0.15) 0%, rgba(2, 11, 30, 0.9) 100%)',
-                  border: '1.5px solid #D4A72C',
+                  padding: '2rem 2.25rem',
+                  borderRadius: '1.75rem',
+                  background: 'linear-gradient(135deg, #FFFDF8 0%, #FAF0D8 100%)',
+                  border: '2px solid #D4A72C',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '1.75rem',
-                  boxShadow: '0 10px 25px rgba(197, 160, 89, 0.12)',
-                  cursor: 'pointer'
-                }} onClick={() => setActiveModalMedia({ type: 'image', src: '/gold1.png', title: '1kg Fine Gold Bullion Bar (999.9 Purity)', sub: 'Wholesale Cast Bar · Same-day Settlement Available' })}>
+                  gap: '2rem',
+                  boxShadow: '0 14px 30px rgba(212, 167, 44, 0.28), inset 0 2px 4px #FFFFFF',
+                  cursor: 'pointer',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+                }}
+                onClick={() => setActiveModalMedia({ type: 'image', src: '/gold1.png', title: '1kg Fine Gold Bullion Bar (999.9 Purity)', sub: 'Wholesale Cast Bar · Same-day Settlement Available' })}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(212, 167, 44, 0.4), inset 0 2px 4px #FFFFFF';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 14px 30px rgba(212, 167, 44, 0.28), inset 0 2px 4px #FFFFFF';
+                }}
+                >
                   <div style={{
-                    width: '100px',
-                    height: '90px',
-                    borderRadius: '12px',
+                    width: '110px',
+                    height: '95px',
+                    borderRadius: '16px',
                     overflow: 'hidden',
-                    border: '1.5px solid #D4A72C',
-                    boxShadow: '0 8px 20px rgba(0,0,0,0.5)',
-                    flexShrink: 0
+                    border: '2px solid #D4A72C',
+                    boxShadow: '0 10px 24px rgba(212, 167, 44, 0.35)',
+                    flexShrink: 0,
+                    background: '#FAF0D8'
                   }}>
                     <img src="/gold1.png" alt="1kg Gold Bar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
 
                   <div>
-                    <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#D4A72C', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                      AU · 999.9 · PURE GOLD
+                    <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#B8860B', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+                      GOLD - FINE GOLD
                     </span>
-                    <h3 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#ffffff', margin: '0.2rem 0 0.4rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
-                      Gold Bar · 1kg
+                    <h3 style={{ fontSize: '1.75rem', fontWeight: 900, color: '#0B132B', margin: '0.2rem 0 0.4rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
+                      Gold Bar - 1kg
                     </h3>
-                    <p style={{ fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.75)', margin: 0 }}>
-                      Cast bar. Wholesale. Same-day settlement.
+                    <p style={{ fontSize: '0.88rem', color: '#5C6B73', margin: 0, fontWeight: 500 }}>
+                      Good Luck. Wholesaler. 0% purity, guaranteed.
                     </p>
                   </div>
                 </div>
 
                 {/* 1kg Silver Bar Card */}
                 <div style={{
-                  padding: '1.75rem 2rem',
-                  borderRadius: '1.5rem',
-                  background: 'linear-gradient(135deg, rgba(226, 232, 240, 0.12) 0%, rgba(2, 11, 30, 0.9) 100%)',
-                  border: '1.5px solid rgba(226, 232, 240, 0.5)',
+                  padding: '2rem 2.25rem',
+                  borderRadius: '1.75rem',
+                  background: 'linear-gradient(135deg, #FFFFFF 0%, #F5F7FA 100%)',
+                  border: '1.5px solid #CBD5E1',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '1.75rem',
-                  boxShadow: '0 10px 25px rgba(255, 255, 255, 0.05)'
-                }}>
+                  gap: '2rem',
+                  boxShadow: '0 10px 25px rgba(0, 0, 0, 0.05)',
+                  transition: 'transform 0.3s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                >
                   <div style={{
-                    width: '64px',
-                    height: '84px',
-                    borderRadius: '8px',
-                    background: 'linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #64748b 100%)',
-                    border: '1px solid #ffffff',
+                    width: '75px',
+                    height: '95px',
+                    borderRadius: '12px',
+                    background: 'linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 50%, #94A3B8 100%)',
+                    border: '1.5px solid #E2E8F0',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: '#0f172a',
+                    color: '#0F172A',
                     fontWeight: 900,
-                    boxShadow: '0 8px 16px rgba(0,0,0,0.4)',
+                    boxShadow: '0 10px 20px rgba(0,0,0,0.12)',
                     flexShrink: 0
                   }}>
-                    <span style={{ fontSize: '0.6rem', letterSpacing: '0.1em' }}>1 KILO</span>
-                    <span style={{ fontSize: '0.65rem', fontWeight: 800 }}>FINE SILVER</span>
-                    <span style={{ fontSize: '0.55rem' }}>999.9</span>
+                    <span style={{ fontSize: '0.62rem', letterSpacing: '0.1em' }}>1 KILO</span>
+                    <span style={{ fontSize: '0.68rem', fontWeight: 800 }}>FINE SILVER</span>
+                    <span style={{ fontSize: '0.58rem', opacity: 0.8 }}>999.9</span>
                   </div>
 
                   <div>
-                    <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#cbd5e1', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                      AG · 999.9 · FINE SILVER
+                    <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#64748B', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+                      SILVER - FINE SILVER
                     </span>
-                    <h3 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#ffffff', margin: '0.2rem 0 0.4rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
-                      Silver Bar · 1kg
+                    <h3 style={{ fontSize: '1.75rem', fontWeight: 900, color: '#0B132B', margin: '0.2rem 0 0.4rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
+                      Silver Bar - 1kg
                     </h3>
-                    <p style={{ fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.75)', margin: 0 }}>
-                      Cast bar · wholesale · same-day settlement.
+                    <p style={{ fontSize: '0.88rem', color: '#5C6B73', margin: 0, fontWeight: 500 }}>
+                      Good Luck. Wholesaler. 0% purity, guaranteed.
                     </p>
                   </div>
                 </div>
@@ -1743,289 +1837,181 @@ const TradePage = ({ setCurrentPage }) => {
               </div>
             </div>
 
-            {/* TIER II: RETAIL · GOLD BARS · 999.9 FINE */}
+            {/* TIER II: RETAIL - GOLD BARS - 100g & FINE */}
             <div style={{ marginBottom: '3.5rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-                <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', fontSize: '1.5rem', color: '#D4A72C', fontWeight: 700 }}>
-                  ii.
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.75rem' }}>
+                <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', fontSize: '1.5rem', color: '#B8860B', fontWeight: 900 }}>
+                  II.
                 </span>
-                <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#D4A72C' }}>
-                  RETAIL · GOLD BARS · 999.9 FINE
+                <span style={{ color: '#C59619', fontSize: '0.75rem' }}>✦</span>
+                <span style={{ fontSize: '0.82rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#B8860B' }}>
+                  RETAIL - GOLD BARS - 100g & FINE
                 </span>
-                <div style={{ flex: 1, height: '1px', background: 'rgba(197, 160, 89, 0.25)' }} />
+                <div style={{ flex: 1, height: '1.5px', background: 'rgba(212, 167, 44, 0.35)' }} />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '1.25rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '1.25rem' }}>
 
-                {/* 1g Gold */}
-                <div style={{
-                  padding: '1.75rem 1rem',
-                  borderRadius: '1.25rem',
-                  background: 'rgba(197, 160, 89, 0.06)',
-                  border: '1px solid rgba(197, 160, 89, 0.4)',
-                  textAlign: 'center',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center'
-                }}>
-                  <div style={{
-                    width: '36px',
-                    height: '50px',
-                    borderRadius: '4px',
-                    background: 'linear-gradient(135deg, #f3d082 0%, #D4A72C 100%)',
-                    marginBottom: '1rem',
-                    border: '1px solid #ffe8aa',
-                    boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
-                  }} />
-                  <h4 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#ffffff', margin: '0 0 0.25rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
-                    1g
-                  </h4>
-                  <span style={{ fontSize: '0.7rem', color: '#D4A72C', fontWeight: 800, letterSpacing: '0.05em' }}>
-                    AU · 999.9
-                  </span>
-                  <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.65)' }}>
-                    Minted
-                  </span>
-                </div>
-
-                {/* 50g Gold */}
-                <div style={{
-                  padding: '1.75rem 1rem',
-                  borderRadius: '1.25rem',
-                  background: 'rgba(197, 160, 89, 0.06)',
-                  border: '1px solid rgba(197, 160, 89, 0.4)',
-                  textAlign: 'center',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center'
-                }}>
-                  <div style={{
-                    width: '42px',
-                    height: '56px',
-                    borderRadius: '6px',
-                    background: 'linear-gradient(135deg, #f3d082 0%, #D4A72C 100%)',
-                    marginBottom: '1rem',
-                    border: '1px solid #ffe8aa',
-                    boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
-                  }} />
-                  <h4 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#ffffff', margin: '0 0 0.25rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
-                    50g
-                  </h4>
-                  <span style={{ fontSize: '0.7rem', color: '#D4A72C', fontWeight: 800, letterSpacing: '0.05em' }}>
-                    AU · 999.9
-                  </span>
-                  <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.65)' }}>
-                    Cast
-                  </span>
-                </div>
-
-                {/* 100g Gold */}
-                <div style={{
-                  padding: '1.75rem 1rem',
-                  borderRadius: '1.25rem',
-                  background: 'rgba(197, 160, 89, 0.06)',
-                  border: '1px solid rgba(197, 160, 89, 0.4)',
-                  textAlign: 'center',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center'
-                }}>
-                  <div style={{
-                    width: '48px',
-                    height: '62px',
-                    borderRadius: '6px',
-                    background: 'linear-gradient(135deg, #f3d082 0%, #D4A72C 100%)',
-                    marginBottom: '1rem',
-                    border: '1px solid #ffe8aa',
-                    boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
-                  }} />
-                  <h4 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#ffffff', margin: '0 0 0.25rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
-                    100g
-                  </h4>
-                  <span style={{ fontSize: '0.7rem', color: '#D4A72C', fontWeight: 800, letterSpacing: '0.05em' }}>
-                    AU · 999.9
-                  </span>
-                  <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.65)' }}>
-                    Cast
-                  </span>
-                </div>
-
-                {/* 500g Gold */}
-                <div style={{
-                  padding: '1.75rem 1rem',
-                  borderRadius: '1.25rem',
-                  background: 'rgba(197, 160, 89, 0.06)',
-                  border: '1px solid rgba(197, 160, 89, 0.4)',
-                  textAlign: 'center',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center'
-                }}>
-                  <div style={{
-                    width: '52px',
-                    height: '68px',
-                    borderRadius: '6px',
-                    background: 'linear-gradient(135deg, #f3d082 0%, #D4A72C 100%)',
-                    marginBottom: '1rem',
-                    border: '1px solid #ffe8aa',
-                    boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
-                  }} />
-                  <h4 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#ffffff', margin: '0 0 0.25rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
-                    500g
-                  </h4>
-                  <span style={{ fontSize: '0.7rem', color: '#D4A72C', fontWeight: 800, letterSpacing: '0.05em' }}>
-                    AU · 999.9
-                  </span>
-                  <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.65)' }}>
-                    Cast
-                  </span>
-                </div>
-
-                {/* 1kg Gold */}
-                <div style={{
-                  padding: '1.75rem 1rem',
-                  borderRadius: '1.25rem',
-                  background: 'rgba(197, 160, 89, 0.06)',
-                  border: '1px solid rgba(197, 160, 89, 0.4)',
-                  textAlign: 'center',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center'
-                }}>
-                  <div style={{
-                    width: '56px',
-                    height: '74px',
-                    borderRadius: '6px',
-                    background: 'linear-gradient(135deg, #f3d082 0%, #D4A72C 100%)',
-                    marginBottom: '1rem',
-                    border: '1px solid #ffe8aa',
-                    boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
-                  }} />
-                  <h4 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#ffffff', margin: '0 0 0.25rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
-                    1kg
-                  </h4>
-                  <span style={{ fontSize: '0.7rem', color: '#D4A72C', fontWeight: 800, letterSpacing: '0.05em' }}>
-                    AU · 999.9
-                  </span>
-                  <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.65)' }}>
-                    Cast
-                  </span>
-                </div>
+                {[
+                  { weight: '25g', h: '50px', w: '34px' },
+                  { weight: '50g', h: '56px', w: '38px' },
+                  { weight: '100g', h: '62px', w: '44px' },
+                  { weight: '500g', h: '68px', w: '48px' },
+                  { weight: '1kg', h: '74px', w: '52px' }
+                ].map((item, idx) => (
+                  <div key={idx} style={{
+                    padding: '2rem 1rem',
+                    borderRadius: '1.5rem',
+                    background: 'linear-gradient(180deg, #FFFDF8 0%, #FAF0D8 100%)',
+                    border: '1.5px solid rgba(212, 167, 44, 0.55)',
+                    textAlign: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    boxShadow: '0 6px 18px rgba(212, 167, 44, 0.14)',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.boxShadow = '0 12px 28px rgba(212, 167, 44, 0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 6px 18px rgba(212, 167, 44, 0.14)';
+                  }}
+                  >
+                    {/* 3D Gold Bar Icon */}
+                    <div style={{
+                      width: item.w,
+                      height: item.h,
+                      borderRadius: '6px',
+                      background: 'linear-gradient(135deg, #FFEAA7 0%, #D4A72C 50%, #906502 100%)',
+                      marginBottom: '1.2rem',
+                      border: '1px solid #FFE8AA',
+                      boxShadow: '0 6px 16px rgba(212, 167, 44, 0.35), inset 0 1px 2px #FFFFFF',
+                      position: 'relative'
+                    }}>
+                      <div style={{ position: 'absolute', top: '3px', left: '3px', right: '3px', height: '2px', background: 'rgba(255,255,255,0.7)', borderRadius: '2px' }} />
+                    </div>
+                    <h4 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#0B132B', margin: '0 0 0.2rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
+                      {item.weight}
+                    </h4>
+                    <span style={{ fontSize: '0.8rem', color: '#1E293B', fontWeight: 700, display: 'block' }}>
+                      Gold Bar
+                    </span>
+                    <span style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 500 }}>
+                      (Retail)
+                    </span>
+                  </div>
+                ))}
 
               </div>
             </div>
 
-            {/* TIER III: RETAIL · SILVER BARS · 999.9 FINE */}
+            {/* TIER III: RETAIL - SILVER BARS - 500g & FINE */}
             <div style={{ marginBottom: '3.5rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-                <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', fontSize: '1.5rem', color: '#cbd5e1', fontWeight: 700 }}>
-                  iii.
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.75rem' }}>
+                <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic', fontSize: '1.5rem', color: '#B8860B', fontWeight: 900 }}>
+                  III.
                 </span>
-                <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#cbd5e1' }}>
-                  RETAIL · SILVER BARS · 999.9 FINE
+                <span style={{ color: '#C59619', fontSize: '0.75rem' }}>✦</span>
+                <span style={{ fontSize: '0.82rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#B8860B' }}>
+                  RETAIL - SILVER BARS - 500g & FINE
                 </span>
-                <div style={{ flex: 1, height: '1px', background: 'rgba(226, 232, 240, 0.25)' }} />
+                <div style={{ flex: 1, height: '1.5px', background: 'rgba(212, 167, 44, 0.35)' }} />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 240px))', gap: '1.25rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 240px))', gap: '1.5rem' }}>
 
-                {/* 1g Silver */}
-                <div style={{
-                  padding: '1.75rem 1rem',
-                  borderRadius: '1.25rem',
-                  background: 'rgba(226, 232, 240, 0.05)',
-                  border: '1px solid rgba(226, 232, 240, 0.3)',
-                  textAlign: 'center',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center'
-                }}>
-                  <div style={{
-                    width: '36px',
-                    height: '50px',
-                    borderRadius: '4px',
-                    background: 'linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%)',
-                    marginBottom: '1rem',
-                    border: '1px solid #ffffff',
-                    boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
-                  }} />
-                  <h4 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#ffffff', margin: '0 0 0.25rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
-                    1g
-                  </h4>
-                  <span style={{ fontSize: '0.7rem', color: '#cbd5e1', fontWeight: 800, letterSpacing: '0.05em' }}>
-                    AG · 999.9
-                  </span>
-                  <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.65)' }}>
-                    Cast
-                  </span>
-                </div>
-
-                {/* 1kg Silver */}
-                <div style={{
-                  padding: '1.75rem 1rem',
-                  borderRadius: '1.25rem',
-                  background: 'rgba(226, 232, 240, 0.05)',
-                  border: '1px solid rgba(226, 232, 240, 0.3)',
-                  textAlign: 'center',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center'
-                }}>
-                  <div style={{
-                    width: '56px',
-                    height: '74px',
-                    borderRadius: '6px',
-                    background: 'linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%)',
-                    marginBottom: '1rem',
-                    border: '1px solid #ffffff',
-                    boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
-                  }} />
-                  <h4 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#ffffff', margin: '0 0 0.25rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
-                    1kg
-                  </h4>
-                  <span style={{ fontSize: '0.7rem', color: '#cbd5e1', fontWeight: 800, letterSpacing: '0.05em' }}>
-                    AG · 999.9
-                  </span>
-                  <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.65)' }}>
-                    Cast
-                  </span>
-                </div>
+                {[
+                  { weight: '5g', h: '50px', w: '34px' },
+                  { weight: '10g', h: '56px', w: '38px' }
+                ].map((item, idx) => (
+                  <div key={idx} style={{
+                    padding: '2rem 1rem',
+                    borderRadius: '1.5rem',
+                    background: 'linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%)',
+                    border: '1.5px solid #CBD5E1',
+                    textAlign: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    boxShadow: '0 6px 18px rgba(0, 0, 0, 0.04)',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.08)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 6px 18px rgba(0, 0, 0, 0.04)';
+                  }}
+                  >
+                    {/* 3D Silver Bar Icon */}
+                    <div style={{
+                      width: item.w,
+                      height: item.h,
+                      borderRadius: '6px',
+                      background: 'linear-gradient(135deg, #FFFFFF 0%, #CBD5E1 50%, #64748B 100%)',
+                      marginBottom: '1.2rem',
+                      border: '1px solid #FFFFFF',
+                      boxShadow: '0 6px 16px rgba(0,0,0,0.15), inset 0 1px 2px #FFFFFF',
+                      position: 'relative'
+                    }}>
+                      <div style={{ position: 'absolute', top: '3px', left: '3px', right: '3px', height: '2px', background: 'rgba(255,255,255,0.9)', borderRadius: '2px' }} />
+                    </div>
+                    <h4 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#0B132B', margin: '0 0 0.2rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
+                      {item.weight}
+                    </h4>
+                    <span style={{ fontSize: '0.8rem', color: '#1E293B', fontWeight: 700, display: 'block' }}>
+                      Silver Bar
+                    </span>
+                    <span style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 500 }}>
+                      (Retail)
+                    </span>
+                  </div>
+                ))}
 
               </div>
             </div>
 
             {/* Certification Footer Note Banner */}
             <div style={{
-              padding: '1.5rem 2rem',
-              borderRadius: '1.25rem',
-              background: 'rgba(197, 160, 89, 0.08)',
-              border: '1px solid rgba(197, 160, 89, 0.3)',
-              display: 'flex',
+              padding: '1.5rem 2.5rem',
+              borderRadius: '1.75rem',
+              background: 'linear-gradient(135deg, #FFFDF8 0%, #FAF0D8 100%)',
+              border: '1.5px solid rgba(212, 167, 44, 0.6)',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
               alignItems: 'center',
               justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '1.5rem'
+              gap: '2rem',
+              boxShadow: '0 10px 25px rgba(212, 167, 44, 0.18)'
             }}>
-              <div style={{ fontSize: '0.88rem', color: 'rgba(255, 255, 255, 0.9)', maxWidth: '400px', lineHeight: '1.5' }}>
-                All bars assayed to <strong style={{ color: '#D4A72C' }}>999.9</strong> by fire assay and XRF. Released with full international certification.
+              <div style={{ fontSize: '0.88rem', color: '#475569', lineHeight: '1.55', fontWeight: 600, flex: 1 }}>
+                All bars accompanied by 999.9 purity and assay certificate, ensuring authenticity and international certification.
               </div>
 
-              {/* Au · Ag Hallmark Badge */}
+              {/* Au | Ag Hallmark Badge */}
               <div style={{
-                padding: '0.5rem 1.25rem',
+                padding: '0.75rem 2.25rem',
                 borderRadius: '50px',
-                background: 'linear-gradient(135deg, #D4A72C 0%, #b08d4a 100%)',
-                color: '#020b1e',
+                background: 'linear-gradient(135deg, #D4A72C 0%, #B8860B 100%)',
+                color: '#ffffff',
                 fontWeight: 900,
-                fontSize: '1rem',
-                letterSpacing: '0.1em',
-                boxShadow: '0 4px 15px rgba(197, 160, 89, 0.3)'
+                fontSize: '1.15rem',
+                letterSpacing: '0.08em',
+                boxShadow: '0 8px 20px rgba(212, 167, 44, 0.4)',
+                textAlign: 'center',
+                margin: '0 auto',
+                whiteSpace: 'nowrap'
               }}>
-                Au · Ag
+                Au | Ag
               </div>
 
-              <div style={{ fontSize: '0.88rem', color: 'rgba(255, 255, 255, 0.9)', maxWidth: '400px', lineHeight: '1.5', textAlign: 'right' }}>
-                Bulk and institutional enquiries welcome. Same-day settlement available.
+              <div style={{ fontSize: '0.88rem', color: '#475569', lineHeight: '1.55', textAlign: 'right', fontWeight: 600, flex: 1 }}>
+                Right next to live XAU/XAG pricing and real-time updates. Reliable. Transparent. Secure.
               </div>
             </div>
 
@@ -2033,142 +2019,240 @@ const TradePage = ({ setCurrentPage }) => {
         </div>
       </section>
 
-      {/* 4. ADVISORY BANNER */}
-      <section style={{ padding: '2rem 0 6rem 0' }}>
-        <div className="container">
+      {/* 5. ADVISORY BANNER */}
+      <section style={{
+        padding: '2rem 0 6rem 0',
+        position: 'relative',
+        overflow: 'hidden',
+        background: 'radial-gradient(circle at 50% 50%, #FFFDF8 0%, #FAF3E6 60%, #F3E5C8 100%)'
+      }}>
+        {/* Outer Ribbon Graphics Wrapping Bottom Container Corners */}
+        <div style={{ position: 'absolute', bottom: '-15%', left: '-8%', width: '40%', height: '70%', pointerEvents: 'none', zIndex: 0, opacity: 0.9 }}>
+          <svg viewBox="0 0 500 500" fill="none" style={{ width: '100%', height: '100%' }}>
+            <defs>
+              <linearGradient id="advRibbonLeft" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#F5D061" stopOpacity="0.8" />
+                <stop offset="70%" stopColor="#E5BA42" stopOpacity="0.3" />
+                <stop offset="100%" stopColor="#FAF3E6" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <path d="M-50,500 Q150,300 250,400 T450,200 Z" fill="url(#advRibbonLeft)" />
+          </svg>
+        </div>
+
+        <div style={{ position: 'absolute', bottom: '-15%', right: '-8%', width: '40%', height: '70%', pointerEvents: 'none', zIndex: 0, opacity: 0.9 }}>
+          <svg viewBox="0 0 500 500" fill="none" style={{ width: '100%', height: '100%' }}>
+            <defs>
+              <linearGradient id="advRibbonRight" x1="100%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" stopColor="#FFEAA7" stopOpacity="0.85" />
+                <stop offset="70%" stopColor="#D4A72C" stopOpacity="0.4" />
+                <stop offset="100%" stopColor="#FAF3E6" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <path d="M550,500 Q350,300 250,400 T50,200 Z" fill="url(#advRibbonRight)" />
+          </svg>
+        </div>
+
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div className="glass-panel" style={{
             padding: '4.5rem 3.5rem',
             borderRadius: '2.5rem',
-            background: 'var(--footer-bg)',
-            border: '1px solid rgba(255,255,255,0.05)',
-            boxShadow: 'var(--shadow-glass)',
-            color: '#ffffff',
-            textAlign: 'center'
+            background: 'linear-gradient(180deg, #FFFDF8 0%, #FAF3E6 65%, #F7E9CF 100%)',
+            border: '2px solid rgba(212, 167, 44, 0.45)',
+            boxShadow: '0 30px 70px rgba(212, 167, 44, 0.18), 0 8px 24px rgba(0, 0, 0, 0.03)',
+            color: '#1e293b',
+            textAlign: 'center',
+            position: 'relative',
+            overflow: 'hidden'
           }}>
-            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--primary)', letterSpacing: '0.15em', textTransform: 'uppercase', display: 'block', marginBottom: '1.5rem' }}>
-              TRADE ADVISORY & EXECUTIVE EXECUTION
-            </span>
-
-            {/* Founder Profile Badge */}
+            {/* World Map Overlay Watermark */}
             <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '1.5rem',
-              marginBottom: '2rem',
-              padding: '0.85rem 1.75rem',
-              borderRadius: '50px',
-              background: 'rgba(2, 11, 30, 0.85)',
-              border: '1.5px solid #D4A72C',
-              boxShadow: '0 10px 25px rgba(212, 167, 44, 0.2)',
-              backdropFilter: 'blur(10px)'
-            }}>
-              <img
-                src="/founder.png"
-                alt="Sam Tay - Founder & Managing Director"
-                style={{
-                  width: '64px',
-                  height: '64px',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundImage: 'radial-gradient(rgba(212, 167, 44, 0.15) 1px, transparent 1px)',
+              backgroundSize: '24px 24px',
+              pointerEvents: 'none',
+              opacity: 0.7
+            }} />
+
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.75rem' }}>
+                <span style={{ color: '#C59619', fontSize: '0.8rem' }}>✦</span>
+                <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#B8860B', textTransform: 'uppercase', letterSpacing: '0.15em' }}>
+                  TRADE ASSISTANCE & EXECUTIVE EXECUTION
+                </span>
+                <span style={{ color: '#C59619', fontSize: '0.8rem' }}>✦</span>
+              </div>
+
+              {/* Founder / Execution Desk Badge */}
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '1.5rem',
+                marginBottom: '2.5rem',
+                padding: '1rem 2.5rem',
+                borderRadius: '1.75rem',
+                background: 'linear-gradient(135deg, #FFFDF8 0%, #FAF0D8 100%)',
+                border: '1.5px solid rgba(212, 167, 44, 0.6)',
+                boxShadow: '0 12px 28px rgba(212, 167, 44, 0.22)'
+              }}>
+                <div style={{
+                  width: '56px',
+                  height: '56px',
                   borderRadius: '50%',
-                  objectFit: 'cover',
-                  objectPosition: 'top',
+                  overflow: 'hidden',
                   border: '2px solid #D4A72C',
-                  flexShrink: 0
+                  boxShadow: '0 6px 16px rgba(212, 167, 44, 0.4)',
+                  flexShrink: 0,
+                  background: 'linear-gradient(135deg, #D4A72C 0%, #B8860B 100%)'
+                }}>
+                  <img src="/founder.png" alt="Sam Tay" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+                <div style={{ textAlign: 'left' }}>
+                  <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#B8860B', letterSpacing: '0.14em', textTransform: 'uppercase', display: 'block' }}>
+                    EXECUTION TRADE DESK
+                  </span>
+                  <h4 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#0B132B', margin: '0.15rem 0 0.2rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
+                    Sam Tay
+                  </h4>
+                  <span style={{ fontSize: '0.85rem', color: '#5C6B73', fontWeight: 700 }}>
+                    Founder & Managing Director
+                  </span>
+                </div>
+              </div>
+
+              <p style={{ color: '#334155', fontSize: '1.2rem', lineHeight: '1.85', maxWidth: '880px', margin: '0 auto 2.5rem auto', fontWeight: 500 }}>
+                Uniqix International Trade prioritizes reliability, clear communication, and professional execution across all mandates and commodity trades. Contact us to discuss your specific requirements for LNG, physical gold, industrial sands, or bulk commodities.
+              </p>
+
+              {/* Contact CTA Button */}
+              <button
+                onClick={() => {
+                  setCurrentPage('contact');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-              />
-              <div style={{ textAlign: 'left' }}>
-                <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#D4A72C', letterSpacing: '0.12em', textTransform: 'uppercase', display: 'block' }}>
-                  EXECUTIVE TRADE DESK
-                </span>
-                <h4 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#ffffff', margin: '0.1rem 0 0.15rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
-                  Sam Tay
-                </h4>
-                <span style={{ fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.85)', fontWeight: 600 }}>
-                  Founder & Managing Director
-                </span>
+                style={{
+                  padding: '1.15rem 3rem',
+                  marginBottom: '2.8rem',
+                  background: 'linear-gradient(135deg, #D4A72C 0%, #B8860B 100%)',
+                  color: '#ffffff',
+                  border: 'none',
+                  borderRadius: '50px',
+                  fontWeight: 900,
+                  fontSize: '1.05rem',
+                  letterSpacing: '0.04em',
+                  boxShadow: '0 14px 32px rgba(212, 167, 44, 0.42)',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-3px)';
+                  e.currentTarget.style.boxShadow = '0 18px 40px rgba(212, 167, 44, 0.6)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 14px 32px rgba(212, 167, 44, 0.42)';
+                }}
+              >
+                <Mail style={{ width: '20px', height: '20px' }} /> Contact Our Trade Desk <ArrowRight style={{ width: '20px', height: '20px' }} />
+              </button>
+
+              {/* DIRECT INSTANT DESK CHANNELS */}
+              <div style={{
+                borderTop: '1.5px solid rgba(212, 167, 44, 0.35)',
+                paddingTop: '2.5rem',
+                marginTop: '1rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '1.25rem'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ color: '#C59619', fontSize: '0.75rem' }}>✦</span>
+                  <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#B8860B', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                    DIRECT INSTANT DESK CHANNELS
+                  </span>
+                  <span style={{ color: '#C59619', fontSize: '0.75rem' }}>✦</span>
+                </div>
+
+                <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap', width: '100%', maxWidth: '680px' }}>
+                  {/* WhatsApp Direct */}
+                  <a
+                    href="https://wa.me/6591805830?text=Hello%20Uniqix%20Trade%20Desk,%20I%20have%20an%20inquiry%20regarding%20Trade%20Services."
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      flex: '1 1 260px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '10px',
+                      padding: '1rem 2rem',
+                      borderRadius: '50px',
+                      background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                      color: '#ffffff',
+                      fontWeight: 800,
+                      fontSize: '1rem',
+                      textDecoration: 'none',
+                      boxShadow: '0 10px 24px rgba(16, 185, 129, 0.38)',
+                      transition: 'transform 0.2s, box-shadow 0.2s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 14px 30px rgba(16, 185, 129, 0.5)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 10px 24px rgba(16, 185, 129, 0.38)';
+                    }}
+                  >
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                    </svg>
+                    WhatsApp: +65 9180 5830
+                  </a>
+
+                  {/* Email Direct */}
+                  <a
+                    href="mailto:saas@uniqixhq.com?subject=Trade%20Desk%20Inquiry"
+                    style={{
+                      flex: '1 1 260px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '10px',
+                      padding: '1rem 2rem',
+                      borderRadius: '50px',
+                      background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
+                      color: '#ffffff',
+                      fontWeight: 800,
+                      fontSize: '1rem',
+                      textDecoration: 'none',
+                      boxShadow: '0 10px 24px rgba(37, 99, 235, 0.38)',
+                      transition: 'transform 0.2s, box-shadow 0.2s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 14px 30px rgba(37, 99, 235, 0.5)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 10px 24px rgba(37, 99, 235, 0.38)';
+                    }}
+                  >
+                    <Mail style={{ width: '22px', height: '22px' }} />
+                    Email: saas@uniqixhq.com
+                  </a>
+                </div>
               </div>
             </div>
 
-            <p style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '1.3rem', lineHeight: '1.85', maxWidth: '880px', margin: '0 auto 2.5rem auto' }}>
-              Uniqix International Trade prioritizes reliability, clear communication, and professional execution across all mandates and commodity trades. Contact us to discuss your specific requirements for LNG, physical gold, industrial sands, or bulk commodities.
-            </p>
-
-            <button onClick={() => {setCurrentPage('contact');
-                      window.scrollTo({top:0,behavior:'smooth'})
-                    }} className="btn btn-primary" style={{ padding: '0.95rem 2.5rem', marginBottom: '2.5rem' }}>
-              Contact Our Trade Desk <ArrowRight style={{ width: '18px', height: '18px' }} />
-            </button>
-
-            {/* DIRECT FAST CONTACT DESK (WhatsApp & Email) */}
-            <div style={{
-              borderTop: '1px solid rgba(255, 255, 255, 0.15)',
-              paddingTop: '2.5rem',
-              marginTop: '1rem',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '1.25rem'
-            }}>
-              <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#D4A72C', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
-                DIRECT INSTANT DESK CHANNELS
-              </span>
-              <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap', width: '100%', maxWidth: '650px' }}>
-                {/* WhatsApp Direct */}
-                <a
-                  href="https://wa.me/6596262970?text=Hello%20Uniqix%20Trade%20Desk,%20I%20have%20an%20inquiry%20regarding%20Trade%20Services."
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    flex: '1 1 240px',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '10px',
-                    padding: '0.9rem 1.5rem',
-                    borderRadius: '14px',
-                    background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
-                    color: '#ffffff',
-                    fontWeight: 800,
-                    fontSize: '0.98rem',
-                    textDecoration: 'none',
-                    boxShadow: '0 8px 20px rgba(37, 211, 102, 0.3)',
-                    transition: 'transform 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-                  </svg>
-                  WhatsApp: +65 96262970
-                </a>
-
-                {/* Email Direct */}
-                <a
-                  href="mailto:sam@aptiveight.com?subject=Trade%20Desk%20Inquiry"
-                  style={{
-                    flex: '1 1 240px',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '10px',
-                    padding: '0.9rem 1.5rem',
-                    borderRadius: '14px',
-                    background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
-                    color: '#ffffff',
-                    fontWeight: 800,
-                    fontSize: '0.98rem',
-                    textDecoration: 'none',
-                    boxShadow: '0 8px 20px rgba(59, 130, 246, 0.3)',
-                    transition: 'transform 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                >
-                  <Mail style={{ width: '20px', height: '20px' }} />
-                  Email: sam@aptiveight.com
-                </a>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -2299,11 +2383,8 @@ const TradePage = ({ setCurrentPage }) => {
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
         }
-        .trade-details-panel * {
-          color: #ffffff !important;
-        }
         .trade-details-panel strong {
-          color: #D4A72C !important;
+          color: #b45309 !important;
         }
         @media (max-width: 991px) {
           .responsive-split-grid, .responsive-vision-grid {
