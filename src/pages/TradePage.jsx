@@ -431,23 +431,45 @@ const TradePage = ({ setCurrentPage }) => {
         </div>
       </section>
 
-      {/* 2.5 LIVE PRECIOUS METALS RATES SECTION */}
+      {/* 2.5 LIVE PRECIOUS METALS RATES SECTION (EXACT REFERENCE DESIGN MATCH) */}
       <section style={{
-        padding: '5rem 0',
-        background: 'linear-gradient(180deg, #020b1e 0%, #05132b 50%, #020b1e 100%)',
+        padding: '6rem 0 6.5rem 0',
+        background: 'radial-gradient(ellipse at 50% 30%, #FFFDF8 0%, #FAF3E6 50%, #F5E9D4 85%, #EFE1C7 100%)',
         position: 'relative',
         overflow: 'hidden'
       }}>
-        {/* Ambient Wave Background Overlay */}
+        {/* Top & Bottom Sweeping Luxury Gold Wave Ribbons */}
         <div style={{
+          position: 'absolute',
+          top: '-10px',
+          left: 0,
+          right: 0,
+          height: '80px',
+          background: 'radial-gradient(ellipse at 50% 0%, rgba(212, 167, 44, 0.4) 0%, transparent 75%)',
+          pointerEvents: 'none'
+        }} />
+
+        {/* Top Right & Bottom Left Swirling Gold Arc Borders */}
+        <svg viewBox="0 0 1440 600" style={{
           position: 'absolute',
           top: 0,
           left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: 'radial-gradient(ellipse at top right, rgba(212, 167, 44, 0.12) 0%, transparent 60%), radial-gradient(ellipse at bottom left, rgba(212, 167, 44, 0.08) 0%, transparent 50%)',
-          pointerEvents: 'none'
-        }} />
+          width: '100%',
+          height: '100%',
+          pointerEvents: 'none',
+          zIndex: 1,
+          opacity: 0.65
+        }}>
+          <defs>
+            <linearGradient id="goldArcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#FFD700" stopOpacity="0.8" />
+              <stop offset="50%" stopColor="#D4A72C" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#B3871E" stopOpacity="0.0" />
+            </linearGradient>
+          </defs>
+          <path d="M-100,-50 C300,100 800,-80 1550,120 M-100,650 C600,450 1100,680 1550,480" stroke="url(#goldArcGrad)" strokeWidth="3" fill="none" />
+          <path d="M-50,-20 C350,140 850,-40 1600,160 M-50,680 C650,480 1150,710 1600,510" stroke="url(#goldArcGrad)" strokeWidth="1.5" fill="none" opacity="0.6" />
+        </svg>
 
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
           <div style={{
@@ -459,59 +481,67 @@ const TradePage = ({ setCurrentPage }) => {
 
             {/* Left Column: Heading, Subtitle & Value Proposition */}
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem' }}>
-                <span style={{ color: '#D4A72C', fontSize: '0.75rem' }}>✦</span>
-                <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#D4A72C', textTransform: 'uppercase', letterSpacing: '0.2em' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+                <span style={{ color: '#C59619', fontSize: '0.8rem' }}>✦</span>
+                <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#B8860B', textTransform: 'uppercase', letterSpacing: '0.15em' }}>
                   LIVE PRECIOUS METALS RATES
                 </span>
-                <span style={{ color: '#D4A72C', fontSize: '0.75rem' }}>✦</span>
+                <span style={{ color: '#C59619', fontSize: '0.8rem' }}>✦</span>
               </div>
 
               <h2 style={{
-                fontSize: '3.5rem',
+                fontSize: '3.6rem',
                 fontWeight: 900,
                 fontFamily: "'Playfair Display', Georgia, serif",
-                color: '#ffffff',
-                lineHeight: '1.15',
-                marginBottom: '1.5rem'
+                color: '#0B132B',
+                lineHeight: '1.12',
+                marginBottom: '1.5rem',
+                letterSpacing: '-0.01em'
               }}>
-                Live Gold & Silver <br />
-                <span style={{ color: '#D4A72C' }}>Prices</span>
+                Live Gold & <br />
+                Silver <br />
+                <span style={{
+                  background: 'linear-gradient(135deg, #D4A72C 0%, #99741A 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  display: 'inline-block'
+                }}>Prices</span>
               </h2>
 
               <p style={{
-                color: 'rgba(255, 255, 255, 0.8)',
+                color: '#5C6B73',
                 fontSize: '1.1rem',
-                lineHeight: '1.7',
+                lineHeight: '1.65',
                 marginBottom: '2.5rem',
-                maxWidth: '460px'
+                maxWidth: '440px'
               }}>
                 Real-time market rates for your trusted precious metals trading.
               </p>
 
-              {/* 4 Feature Badges */}
+              {/* 4 Circular Metallic Feature Badges */}
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(4, 1fr)',
                 gap: '1rem',
-                marginBottom: '3rem'
+                marginBottom: '2.5rem'
               }}>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{
                     width: '48px',
                     height: '48px',
                     borderRadius: '50%',
-                    border: '1px solid rgba(212, 167, 44, 0.4)',
+                    border: '1.5px solid #D4A72C',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     margin: '0 auto 0.6rem auto',
-                    background: 'rgba(212, 167, 44, 0.05)',
-                    color: '#D4A72C'
+                    background: 'linear-gradient(135deg, #FFFDF8 0%, #F5E8C8 100%)',
+                    color: '#B8860B',
+                    boxShadow: '0 4px 12px rgba(212, 167, 44, 0.25), inset 0 2px 4px #FFFFFF'
                   }}>
                     ⚡
                   </div>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#ffffff', display: 'block', lineHeight: '1.2' }}>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#1C2541', display: 'block', lineHeight: '1.2' }}>
                     Live Market<br />Updates
                   </span>
                 </div>
@@ -521,17 +551,18 @@ const TradePage = ({ setCurrentPage }) => {
                     width: '48px',
                     height: '48px',
                     borderRadius: '50%',
-                    border: '1px solid rgba(212, 167, 44, 0.4)',
+                    border: '1.5px solid #D4A72C',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     margin: '0 auto 0.6rem auto',
-                    background: 'rgba(212, 167, 44, 0.05)',
-                    color: '#D4A72C'
+                    background: 'linear-gradient(135deg, #FFFDF8 0%, #F5E8C8 100%)',
+                    color: '#B8860B',
+                    boxShadow: '0 4px 12px rgba(212, 167, 44, 0.25), inset 0 2px 4px #FFFFFF'
                   }}>
                     🛡️
                   </div>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#ffffff', display: 'block', lineHeight: '1.2' }}>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#1C2541', display: 'block', lineHeight: '1.2' }}>
                     Trusted<br />Rates
                   </span>
                 </div>
@@ -541,17 +572,18 @@ const TradePage = ({ setCurrentPage }) => {
                     width: '48px',
                     height: '48px',
                     borderRadius: '50%',
-                    border: '1px solid rgba(212, 167, 44, 0.4)',
+                    border: '1.5px solid #D4A72C',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     margin: '0 auto 0.6rem auto',
-                    background: 'rgba(212, 167, 44, 0.05)',
-                    color: '#D4A72C'
+                    background: 'linear-gradient(135deg, #FFFDF8 0%, #F5E8C8 100%)',
+                    color: '#B8860B',
+                    boxShadow: '0 4px 12px rgba(212, 167, 44, 0.25), inset 0 2px 4px #FFFFFF'
                   }}>
                     🌐
                   </div>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#ffffff', display: 'block', lineHeight: '1.2' }}>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#1C2541', display: 'block', lineHeight: '1.2' }}>
                     Global<br />Markets
                   </span>
                 </div>
@@ -561,33 +593,34 @@ const TradePage = ({ setCurrentPage }) => {
                     width: '48px',
                     height: '48px',
                     borderRadius: '50%',
-                    border: '1px solid rgba(212, 167, 44, 0.4)',
+                    border: '1.5px solid #D4A72C',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     margin: '0 auto 0.6rem auto',
-                    background: 'rgba(212, 167, 44, 0.05)',
-                    color: '#D4A72C'
+                    background: 'linear-gradient(135deg, #FFFDF8 0%, #F5E8C8 100%)',
+                    color: '#B8860B',
+                    boxShadow: '0 4px 12px rgba(212, 167, 44, 0.25), inset 0 2px 4px #FFFFFF'
                   }}>
                     🔄
                   </div>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#ffffff', display: 'block', lineHeight: '1.2' }}>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#1C2541', display: 'block', lineHeight: '1.2' }}>
                     Updated<br />Instantly
                   </span>
                 </div>
               </div>
 
-              {/* Bottom Image Showcase */}
+              {/* Bottom Bullion Stack Image Showcase */}
               <div style={{
-                borderRadius: '1.5rem',
+                borderRadius: '1.25rem',
                 overflow: 'hidden',
-                border: '1px solid rgba(212, 167, 44, 0.3)',
-                boxShadow: '0 15px 35px rgba(0,0,0,0.4)'
+                border: '2px solid rgba(212, 167, 44, 0.6)',
+                boxShadow: '0 15px 30px rgba(212, 167, 44, 0.2), 0 5px 15px rgba(0, 0, 0, 0.1)'
               }}>
                 <img
                   src="/precious_metals_stack.png"
                   alt="Gold and Silver Bullion Stack"
-                  style={{ width: '100%', height: '180px', objectFit: 'cover', display: 'block' }}
+                  style={{ width: '100%', height: '175px', objectFit: 'cover', display: 'block' }}
                 />
               </div>
             </div>
@@ -598,39 +631,39 @@ const TradePage = ({ setCurrentPage }) => {
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
                 gap: '1.5rem',
-                marginBottom: '2rem'
+                marginBottom: '2.5rem'
               }}>
 
-                {/* GOLD CARD */}
+                {/* GOLD CARD (3D Glowing Gold Border Frame) */}
                 <div style={{
-                  background: 'linear-gradient(145deg, rgba(15, 23, 42, 0.9) 0%, rgba(2, 11, 30, 0.95) 100%)',
+                  background: '#FFFFFF',
                   borderRadius: '1.75rem',
-                  border: '2px solid #D4A72C',
+                  border: '2.5px solid #D4A72C',
                   padding: '2rem 1.75rem',
-                  boxShadow: '0 0 30px rgba(212, 167, 44, 0.15)',
-                  position: 'relative',
-                  backdropFilter: 'blur(10px)'
+                  boxShadow: '0 20px 45px rgba(212, 167, 44, 0.28), 0 0 25px rgba(255, 215, 0, 0.15)',
+                  position: 'relative'
                 }}>
-                  {/* Top Live Badge */}
+                  {/* Top Live Badge Header */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                       <div style={{
                         width: '42px',
                         height: '42px',
                         borderRadius: '10px',
-                        background: 'linear-gradient(135deg, #D4A72C 0%, #99741a 100%)',
+                        background: 'linear-gradient(135deg, #EAB308 0%, #CA8A04 100%)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        boxShadow: '0 4px 12px rgba(212, 167, 44, 0.3)'
+                        boxShadow: '0 4px 10px rgba(202, 138, 4, 0.35)',
+                        fontSize: '1.2rem'
                       }}>
                         🏆
                       </div>
                       <div>
-                        <h3 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#ffffff', margin: 0, letterSpacing: '0.05em' }}>
+                        <h3 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#B8860B', margin: 0, letterSpacing: '0.04em' }}>
                           GOLD
                         </h3>
-                        <span style={{ fontSize: '0.72rem', color: '#8E9BAE', fontWeight: 600 }}>
+                        <span style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 600 }}>
                           (USD / oz)
                         </span>
                       </div>
@@ -639,35 +672,34 @@ const TradePage = ({ setCurrentPage }) => {
                     <div style={{
                       display: 'inline-flex',
                       alignItems: 'center',
-                      gap: '0.4rem',
-                      background: 'rgba(34, 197, 94, 0.15)',
-                      border: '1px solid rgba(34, 197, 94, 0.4)',
+                      gap: '0.35rem',
+                      background: '#D1FAE5',
+                      border: '1px solid #A7F3D0',
                       padding: '0.25rem 0.65rem',
                       borderRadius: '20px',
-                      color: '#4ADE80',
+                      color: '#059669',
                       fontSize: '0.7rem',
                       fontWeight: 800,
                       letterSpacing: '0.05em'
                     }}>
-                      <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4ADE80', boxShadow: '0 0 8px #4ADE80' }}></span>
+                      <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981' }}></span>
                       LIVE
                     </div>
                   </div>
 
-                  {/* Price Header with pulse/flash tick effect */}
+                  {/* Price Header */}
                   <div style={{ marginBottom: '1rem' }}>
                     <div style={{
                       fontSize: '2.4rem',
                       fontWeight: 900,
-                      color: goldFlash === 'up' ? '#4ADE80' : goldFlash === 'down' ? '#EF4444' : '#ffffff',
+                      color: goldFlash === 'up' ? '#059669' : goldFlash === 'down' ? '#DC2626' : '#0B132B',
                       fontFamily: "'Playfair Display', Georgia, serif",
                       lineHeight: '1.1',
-                      transition: 'color 0.3s ease, text-shadow 0.3s ease',
-                      textShadow: goldFlash === 'up' ? '0 0 15px rgba(74, 222, 128, 0.6)' : goldFlash === 'down' ? '0 0 15px rgba(239, 68, 68, 0.6)' : 'none'
+                      transition: 'color 0.3s ease'
                     }}>
                       $ {goldPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </div>
-                    <div style={{ color: '#4ADE80', fontSize: '0.9rem', fontWeight: 700, marginTop: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                    <div style={{ color: '#059669', fontSize: '0.88rem', fontWeight: 800, marginTop: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                       ▲ +{goldChange.toFixed(2)} (+{goldChangePct.toFixed(2)}%)
                     </div>
                   </div>
@@ -676,63 +708,63 @@ const TradePage = ({ setCurrentPage }) => {
                   <div style={{ height: '60px', margin: '1rem 0 1.5rem 0' }}>
                     <svg viewBox="0 0 200 60" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
                       <defs>
-                        <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
+                        <linearGradient id="goldRefGradMatch" x1="0" y1="0" x2="0" y2="1">
                           <stop offset="0%" stopColor="#D4A72C" stopOpacity="0.4" />
                           <stop offset="100%" stopColor="#D4A72C" stopOpacity="0.0" />
                         </linearGradient>
                       </defs>
-                      <path d="M0,45 Q30,40 60,48 T120,30 T170,38 T200,10 L200,60 L0,60 Z" fill="url(#goldGrad)" />
+                      <path d="M0,45 Q30,40 60,48 T120,30 T170,38 T200,10 L200,60 L0,60 Z" fill="url(#goldRefGradMatch)" />
                       <path d="M0,45 Q30,40 60,48 T120,30 T170,38 T200,10" fill="none" stroke="#D4A72C" strokeWidth="2.5" strokeLinecap="round" />
                     </svg>
                   </div>
 
                   {/* Units Table Breakdown */}
-                  <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)', paddingTop: '1rem' }}>
+                  <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '1rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: '#94A3B8' }}>1 Gram</span>
-                      <span style={{ color: '#ffffff', fontWeight: 700 }}>$ {(goldPrice / 31.1035).toFixed(2)}</span>
+                      <span style={{ color: '#64748B', fontWeight: 500 }}>1 Gram</span>
+                      <span style={{ color: '#0B132B', fontWeight: 800 }}>$ {(goldPrice / 31.1035).toFixed(2)}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: '#94A3B8' }}>1 Tola</span>
-                      <span style={{ color: '#ffffff', fontWeight: 700 }}>$ {(goldPrice / 31.1035 * 11.6638).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                      <span style={{ color: '#64748B', fontWeight: 500 }}>1 Tola</span>
+                      <span style={{ color: '#0B132B', fontWeight: 800 }}>$ {(goldPrice / 31.1035 * 11.6638).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: '#94A3B8' }}>1 Kg</span>
-                      <span style={{ color: '#ffffff', fontWeight: 700 }}>$ {(goldPrice / 31.1035 * 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                      <span style={{ color: '#64748B', fontWeight: 500 }}>1 Kg</span>
+                      <span style={{ color: '#0B132B', fontWeight: 800 }}>$ {(goldPrice / 31.1035 * 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* SILVER CARD */}
                 <div style={{
-                  background: 'linear-gradient(145deg, rgba(15, 23, 42, 0.9) 0%, rgba(2, 11, 30, 0.95) 100%)',
+                  background: '#FFFFFF',
                   borderRadius: '1.75rem',
-                  border: '1px solid rgba(148, 163, 184, 0.3)',
+                  border: '1.5px solid #CBD5E1',
                   padding: '2rem 1.75rem',
-                  boxShadow: '0 10px 25px rgba(0,0,0,0.3)',
-                  position: 'relative',
-                  backdropFilter: 'blur(10px)'
+                  boxShadow: '0 15px 35px rgba(0, 0, 0, 0.06)',
+                  position: 'relative'
                 }}>
-                  {/* Top Live Badge */}
+                  {/* Top Live Badge Header */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                       <div style={{
                         width: '42px',
                         height: '42px',
                         borderRadius: '10px',
-                        background: 'linear-gradient(135deg, #CBD5E1 0%, #64748B 100%)',
+                        background: 'linear-gradient(135deg, #94A3B8 0%, #64748B 100%)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        boxShadow: '0 4px 12px rgba(203, 213, 225, 0.2)'
+                        boxShadow: '0 4px 10px rgba(100, 116, 139, 0.2)',
+                        fontSize: '1.2rem'
                       }}>
                         🥈
                       </div>
                       <div>
-                        <h3 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#ffffff', margin: 0, letterSpacing: '0.05em' }}>
+                        <h3 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#334155', margin: 0, letterSpacing: '0.04em' }}>
                           SILVER
                         </h3>
-                        <span style={{ fontSize: '0.72rem', color: '#8E9BAE', fontWeight: 600 }}>
+                        <span style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 600 }}>
                           (USD / oz)
                         </span>
                       </div>
@@ -741,35 +773,34 @@ const TradePage = ({ setCurrentPage }) => {
                     <div style={{
                       display: 'inline-flex',
                       alignItems: 'center',
-                      gap: '0.4rem',
-                      background: 'rgba(34, 197, 94, 0.15)',
-                      border: '1px solid rgba(34, 197, 94, 0.4)',
+                      gap: '0.35rem',
+                      background: '#D1FAE5',
+                      border: '1px solid #A7F3D0',
                       padding: '0.25rem 0.65rem',
                       borderRadius: '20px',
-                      color: '#4ADE80',
+                      color: '#059669',
                       fontSize: '0.7rem',
                       fontWeight: 800,
                       letterSpacing: '0.05em'
                     }}>
-                      <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4ADE80', boxShadow: '0 0 8px #4ADE80' }}></span>
+                      <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981' }}></span>
                       LIVE
                     </div>
                   </div>
 
-                  {/* Price Header with pulse/flash tick effect */}
+                  {/* Price Header */}
                   <div style={{ marginBottom: '1rem' }}>
                     <div style={{
                       fontSize: '2.4rem',
                       fontWeight: 900,
-                      color: silverFlash === 'up' ? '#4ADE80' : silverFlash === 'down' ? '#EF4444' : '#ffffff',
+                      color: silverFlash === 'up' ? '#059669' : silverFlash === 'down' ? '#DC2626' : '#0B132B',
                       fontFamily: "'Playfair Display', Georgia, serif",
                       lineHeight: '1.1',
-                      transition: 'color 0.3s ease, text-shadow 0.3s ease',
-                      textShadow: silverFlash === 'up' ? '0 0 15px rgba(74, 222, 128, 0.6)' : silverFlash === 'down' ? '0 0 15px rgba(239, 68, 68, 0.6)' : 'none'
+                      transition: 'color 0.3s ease'
                     }}>
                       $ {silverPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </div>
-                    <div style={{ color: '#4ADE80', fontSize: '0.9rem', fontWeight: 700, marginTop: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                    <div style={{ color: '#059669', fontSize: '0.88rem', fontWeight: 800, marginTop: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                       ▲ +{silverChange.toFixed(2)} (+{silverChangePct.toFixed(2)}%)
                     </div>
                   </div>
@@ -778,36 +809,36 @@ const TradePage = ({ setCurrentPage }) => {
                   <div style={{ height: '60px', margin: '1rem 0 1.5rem 0' }}>
                     <svg viewBox="0 0 200 60" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
                       <defs>
-                        <linearGradient id="silverGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#CBD5E1" stopOpacity="0.4" />
-                          <stop offset="100%" stopColor="#CBD5E1" stopOpacity="0.0" />
+                        <linearGradient id="silverRefGradMatch" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#64748B" stopOpacity="0.3" />
+                          <stop offset="100%" stopColor="#64748B" stopOpacity="0.0" />
                         </linearGradient>
                       </defs>
-                      <path d="M0,50 Q40,42 70,35 T130,45 T170,25 T200,18 L200,60 L0,60 Z" fill="url(#silverGrad)" />
-                      <path d="M0,50 Q40,42 70,35 T130,45 T170,25 T200,18" fill="none" stroke="#CBD5E1" strokeWidth="2.5" strokeLinecap="round" />
+                      <path d="M0,50 Q40,42 70,35 T130,45 T170,25 T200,18 L200,60 L0,60 Z" fill="url(#silverRefGradMatch)" />
+                      <path d="M0,50 Q40,42 70,35 T130,45 T170,25 T200,18" fill="none" stroke="#64748B" strokeWidth="2.5" strokeLinecap="round" />
                     </svg>
                   </div>
 
                   {/* Units Table Breakdown */}
-                  <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)', paddingTop: '1rem' }}>
+                  <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '1rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: '#94A3B8' }}>1 Gram</span>
-                      <span style={{ color: '#ffffff', fontWeight: 700 }}>$ {(silverPrice / 31.1035).toFixed(2)}</span>
+                      <span style={{ color: '#64748B', fontWeight: 500 }}>1 Gram</span>
+                      <span style={{ color: '#0B132B', fontWeight: 800 }}>$ {(silverPrice / 31.1035).toFixed(2)}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: '#94A3B8' }}>1 Kg</span>
-                      <span style={{ color: '#ffffff', fontWeight: 700 }}>$ {(silverPrice / 31.1035 * 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                      <span style={{ color: '#64748B', fontWeight: 500 }}>1 Kg</span>
+                      <span style={{ color: '#0B132B', fontWeight: 800 }}>$ {(silverPrice / 31.1035 * 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: '#94A3B8' }}>1 Tola</span>
-                      <span style={{ color: '#ffffff', fontWeight: 700 }}>$ {(silverPrice / 31.1035 * 11.6638).toFixed(2)}</span>
+                      <span style={{ color: '#64748B', fontWeight: 500 }}>1 Tola</span>
+                      <span style={{ color: '#0B132B', fontWeight: 800 }}>$ {(silverPrice / 31.1035 * 11.6638).toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
 
               </div>
 
-              {/* View Full Price Chart Button */}
+              {/* Inquire Live Trade Mandate Button */}
               <div style={{ textAlign: 'center' }}>
                 <button
                   onClick={() => {
@@ -817,30 +848,30 @@ const TradePage = ({ setCurrentPage }) => {
                     }
                   }}
                   style={{
-                    background: 'transparent',
-                    border: '1px solid #D4A72C',
-                    color: '#ffffff',
-                    padding: '0.85rem 2rem',
+                    background: 'linear-gradient(135deg, #D4A72C 0%, #A16207 100%)',
+                    border: 'none',
+                    color: '#FFFFFF',
+                    padding: '0.9rem 2.2rem',
                     borderRadius: '30px',
-                    fontSize: '0.9rem',
-                    fontWeight: 700,
+                    fontSize: '0.95rem',
+                    fontWeight: 800,
                     cursor: 'pointer',
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '0.6rem',
+                    gap: '0.65rem',
                     transition: 'all 0.3s ease',
-                    boxShadow: '0 4px 15px rgba(212, 167, 44, 0.15)'
+                    boxShadow: '0 8px 25px rgba(161, 98, 7, 0.35)'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#D4A72C';
-                    e.currentTarget.style.color = '#020b1e';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 12px 28px rgba(161, 98, 7, 0.5)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.color = '#ffffff';
+                    e.currentTarget.style.transform = 'none';
+                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(161, 98, 7, 0.35)';
                   }}
                 >
-                  Inquire Live Trade Mandate <ArrowRight style={{ width: '16px', height: '16px' }} />
+                  Inquire Live Trade Mandate <ArrowRight style={{ width: '18px', height: '18px' }} />
                 </button>
               </div>
 
@@ -1061,18 +1092,17 @@ const TradePage = ({ setCurrentPage }) => {
       </section>
 
       {/* 3.5 CREATIVE GOLD VAULT & REFINERY MEDIA SHOWCASE */}
-      {/* 3.5 CREATIVE GOLD VAULT & REFINERY MEDIA SHOWCASE */}
-      <section style={{ padding: '0 0 6rem 0' }}>
+      <section style={{ padding: '2rem 0 6rem 0' }}>
         <div className="container">
 
           {/* Section Header */}
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
-              <span style={{ color: '#D4A72C', fontSize: '1rem' }}>✦</span>
-              <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#D4A72C', textTransform: 'uppercase', letterSpacing: '0.2em' }}>
+              <span style={{ color: '#B8860B', fontSize: '1rem' }}>✦</span>
+              <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#B8860B', textTransform: 'uppercase', letterSpacing: '0.2em' }}>
                 PHYSICAL BULLION VERIFICATION & REFINERY MEDIA
               </span>
-              <span style={{ color: '#D4A72C', fontSize: '1rem' }}>✦</span>
+              <span style={{ color: '#B8860B', fontSize: '1rem' }}>✦</span>
             </div>
             <h2 style={{
               fontSize: '3.5rem',
@@ -1082,28 +1112,27 @@ const TradePage = ({ setCurrentPage }) => {
               margin: '0 0 1rem 0',
               lineHeight: '1.2'
             }}>
-              Gold Vault & Media <em style={{ fontStyle: 'italic', color: '#D4A72C' }}>Gallery</em>
+              Gold Vault & Media <em style={{ fontStyle: 'italic', color: '#B8860B' }}>Gallery</em>
             </h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', maxWidth: '780px', margin: '0 auto' }}>
               Authentic high-resolution visual inspection of our physical gold inventory, vaulted storage, fire-assay refining, and verification stream.
             </p>
-            <div style={{ width: '80px', height: '3px', background: 'linear-gradient(90deg, #D4A72C 0%, #e0c080 100%)', margin: '1.25rem auto 0 auto', borderRadius: '2px' }} />
+            <div style={{ width: '80px', height: '3px', background: 'linear-gradient(90deg, #D4A72C 0%, #CA8A04 100%)', margin: '1.25rem auto 0 auto', borderRadius: '2px' }} />
           </div>
 
-          {/* 1. MASSIVE CINEMATIC VIDEO PLAYER (gold4.mp4) */}
+          {/* 1. MASSIVE CINEMATIC VIDEO PLAYER (CREATIVE WHITE & GOLD CARD) */}
           <div
-            className="glass-panel"
             style={{
               borderRadius: '2.5rem',
-              border: '2px solid #D4A72C',
+              border: '2.5px solid #D4A72C',
               overflow: 'hidden',
               position: 'relative',
-              background: '#020b1e',
-              boxShadow: '0 25px 50px rgba(212, 167, 44, 0.3)',
-              marginBottom: '3rem'
+              background: '#FFFFFF',
+              boxShadow: '0 25px 60px rgba(212, 167, 44, 0.22), 0 5px 20px rgba(0, 0, 0, 0.04)',
+              marginBottom: '3.5rem'
             }}
           >
-            <div style={{ position: 'relative', width: '100%', height: '500px', background: '#000000' }}>
+            <div style={{ position: 'relative', width: '100%', height: '520px', background: '#0F172A' }}>
               <video
                 ref={videoRef}
                 src="/gold4.mp4"
@@ -1119,11 +1148,11 @@ const TradePage = ({ setCurrentPage }) => {
                 }}
               />
 
-              {/* Video Gradient Overlay */}
+              {/* Video Light Gradient Overlay */}
               <div style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'linear-gradient(to top, rgba(2, 11, 30, 0.95) 0%, rgba(2, 11, 30, 0.15) 50%, rgba(2, 11, 30, 0.7) 100%)',
+                background: 'linear-gradient(to top, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.1) 50%, rgba(15, 23, 42, 0.6) 100%)',
                 pointerEvents: 'none'
               }} />
 
@@ -1142,24 +1171,25 @@ const TradePage = ({ setCurrentPage }) => {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '10px',
-                  padding: '0.66rem 1.25rem',
+                  padding: '0.66rem 1.35rem',
                   borderRadius: '50px',
-                  background: 'rgba(2, 11, 30, 0.85)',
+                  background: 'rgba(255, 255, 255, 0.95)',
                   border: '1.5px solid #D4A72C',
                   backdropFilter: 'blur(12px)',
-                  color: '#ffffff',
+                  color: '#B8860B',
                   fontSize: '0.85rem',
-                  fontWeight: 800,
-                  letterSpacing: '0.12em'
+                  fontWeight: 900,
+                  letterSpacing: '0.1em',
+                  boxShadow: '0 4px 15px rgba(212, 167, 44, 0.25)'
                 }}>
-                  <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 12px #22c55e', display: 'inline-block' }} />
+                  <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#10B981', boxShadow: '0 0 10px #10B981', display: 'inline-block' }} />
                   LIVE VAULT & REFINERY REEL • 999.9 PURE AU
                 </div>
 
                 <button
                   onClick={() => setActiveModalMedia({ type: 'video', src: '/gold4.mp4', title: 'Gold Vault Operations & Refining Video Stream', sub: 'High-purity 999.9 Fine Gold Bullion Processing & Inspection' })}
                   style={{
-                    background: 'rgba(2, 11, 30, 0.85)',
+                    background: 'rgba(255, 255, 255, 0.95)',
                     border: '1.5px solid #D4A72C',
                     borderRadius: '50%',
                     width: '48px',
@@ -1167,9 +1197,10 @@ const TradePage = ({ setCurrentPage }) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: '#D4A72C',
+                    color: '#B8860B',
                     cursor: 'pointer',
                     backdropFilter: 'blur(12px)',
+                    boxShadow: '0 4px 15px rgba(212, 167, 44, 0.25)',
                     transition: 'all 0.3s ease'
                   }}
                   title="Expand Fullscreen"
@@ -1178,7 +1209,7 @@ const TradePage = ({ setCurrentPage }) => {
                 </button>
               </div>
 
-              {/* Center Big Play Button (shows when paused) */}
+              {/* Center Big Play Button */}
               {!isVideoPlaying && (
                 <button
                   onClick={toggleVideoPlay}
@@ -1187,43 +1218,43 @@ const TradePage = ({ setCurrentPage }) => {
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    width: '84px',
-                    height: '84px',
+                    width: '88px',
+                    height: '88px',
                     borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #D4A72C 0%, #a8843f 100%)',
-                    border: '4px solid #ffffff',
-                    color: '#020b1e',
+                    background: 'linear-gradient(135deg, #FFD700 0%, #D4A72C 100%)',
+                    border: '4px solid #FFFFFF',
+                    color: '#0F172A',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    boxShadow: '0 0 40px rgba(212, 167, 44, 0.9)',
+                    boxShadow: '0 0 45px rgba(212, 167, 44, 0.8)',
                     zIndex: 3
                   }}
                 >
-                  <Play style={{ width: '38px', height: '38px', marginLeft: '5px', fill: '#020b1e' }} />
+                  <Play style={{ width: '40px', height: '40px', marginLeft: '5px', fill: '#0F172A' }} />
                 </button>
               )}
             </div>
 
-            {/* Bottom Controls Bar */}
+            {/* Bottom Controls Bar (CREATIVE LIGHT CHAMPAGNE GOLD CONTROLS) */}
             <div style={{
-              padding: '1.75rem 2.5rem',
-              background: 'linear-gradient(180deg, rgba(2, 11, 30, 0.95) 0%, #020b1e 100%)',
-              borderTop: '1px solid rgba(212, 167, 44, 0.4)',
+              padding: '1.85rem 2.5rem',
+              background: 'linear-gradient(135deg, #FFFFFF 0%, #FFFDF8 60%, #FAF4E8 100%)',
+              borderTop: '2px solid rgba(212, 167, 44, 0.3)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              color: '#ffffff',
+              color: '#0F172A',
               flexWrap: 'wrap',
               gap: '1.5rem',
               zIndex: 2
             }}>
               <div>
-                <h3 style={{ fontSize: '1.4rem', fontWeight: 900, margin: '0 0 0.3rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: '#ffffff' }}>
+                <h3 style={{ fontSize: '1.45rem', fontWeight: 900, margin: '0 0 0.3rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: '#0F172A' }}>
                   Gold Vault Inspection & Live Refining Stream
                 </h3>
-                <p style={{ fontSize: '0.95rem', color: 'rgba(255, 255, 255, 0.8)', margin: 0 }}>
+                <p style={{ fontSize: '0.95rem', color: '#475569', margin: 0, fontWeight: 500 }}>
                   Real-time high-definition video of 999.9 fine gold bar inspection & bullion vault operations.
                 </p>
               </div>
@@ -1232,18 +1263,18 @@ const TradePage = ({ setCurrentPage }) => {
                 <button
                   onClick={toggleVideoPlay}
                   style={{
-                    background: 'linear-gradient(135deg, #D4A72C 0%, #b08d4a 100%)',
+                    background: 'linear-gradient(135deg, #D4A72C 0%, #CA8A04 100%)',
                     border: 'none',
                     borderRadius: '12px',
-                    padding: '0.75rem 1.5rem',
-                    color: '#020b1e',
+                    padding: '0.8rem 1.6rem',
+                    color: '#FFFFFF',
                     fontWeight: 900,
                     fontSize: '0.92rem',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '8px',
                     cursor: 'pointer',
-                    boxShadow: '0 4px 15px rgba(212, 167, 44, 0.4)'
+                    boxShadow: '0 6px 18px rgba(212, 167, 44, 0.35)'
                   }}
                 >
                   {isVideoPlaying ? <Pause style={{ width: '18px', height: '18px' }} /> : <Play style={{ width: '18px', height: '18px' }} />}
@@ -1253,17 +1284,18 @@ const TradePage = ({ setCurrentPage }) => {
                 <button
                   onClick={toggleVideoMute}
                   style={{
-                    background: 'rgba(255, 255, 255, 0.12)',
-                    border: '1px solid rgba(255, 255, 255, 0.25)',
+                    background: '#FFFFFF',
+                    border: '1.5px solid #D4A72C',
                     borderRadius: '12px',
-                    padding: '0.75rem 1.25rem',
-                    color: '#ffffff',
-                    fontWeight: 700,
+                    padding: '0.8rem 1.35rem',
+                    color: '#B8860B',
+                    fontWeight: 800,
                     fontSize: '0.9rem',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '8px',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    boxShadow: '0 3px 10px rgba(0,0,0,0.03)'
                   }}
                 >
                   {isVideoMuted ? <VolumeX style={{ width: '18px', height: '18px' }} /> : <Volume2 style={{ width: '18px', height: '18px' }} />}
@@ -1273,36 +1305,35 @@ const TradePage = ({ setCurrentPage }) => {
             </div>
           </div>
 
-          {/* 2. THREE LARGE HIGH-RESOLUTION GOLD IMAGE CARDS */}
+          {/* 2. THREE LARGE HIGH-RESOLUTION GOLD IMAGE CARDS (CREATIVE WHITE & GOLD THEME) */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '2.5rem' }}>
 
-            {/* CARD 1: gold1.png (LARGE) */}
+            {/* CARD 1: gold1.png */}
             <div
               onClick={() => setActiveModalMedia({ type: 'image', src: '/gold1.png', title: '999.9 Fine Gold Bars & Cast Bullion', sub: 'Fire Assayed & XRF Certified Pure Gold (AU 999.9)' })}
-              className="glass-panel"
               style={{
                 borderRadius: '2rem',
-                border: '2px solid rgba(212, 167, 44, 0.5)',
+                border: '2px solid #D4A72C',
                 overflow: 'hidden',
-                background: 'linear-gradient(180deg, #020b1e 0%, #081226 100%)',
+                background: 'linear-gradient(145deg, #FFFFFF 0%, #FFFDF5 100%)',
                 cursor: 'pointer',
                 transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                boxShadow: '0 15px 35px rgba(0,0,0,0.3)',
+                boxShadow: '0 15px 35px rgba(212, 167, 44, 0.18), 0 4px 15px rgba(0,0,0,0.03)',
                 display: 'flex',
                 flexDirection: 'column'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#D4A72C';
+                e.currentTarget.style.borderColor = '#B8860B';
                 e.currentTarget.style.transform = 'translateY(-8px)';
-                e.currentTarget.style.boxShadow = '0 25px 50px rgba(212, 167, 44, 0.35)';
+                e.currentTarget.style.boxShadow = '0 25px 50px rgba(212, 167, 44, 0.3)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(212, 167, 44, 0.5)';
+                e.currentTarget.style.borderColor = '#D4A72C';
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 15px 35px rgba(0,0,0,0.3)';
+                e.currentTarget.style.boxShadow = '0 15px 35px rgba(212, 167, 44, 0.18), 0 4px 15px rgba(0,0,0,0.03)';
               }}
             >
-              <div style={{ position: 'relative', width: '100%', height: '280px', overflow: 'hidden', background: '#000' }}>
+              <div style={{ position: 'relative', width: '100%', height: '280px', overflow: 'hidden', background: '#0F172A' }}>
                 <img
                   src="/gold1.png"
                   alt="999.9 Fine Gold Bars"
@@ -1314,20 +1345,21 @@ const TradePage = ({ setCurrentPage }) => {
                     transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
                   }}
                 />
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(2, 11, 30, 0.95) 0%, transparent 60%)' }} />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(15, 23, 42, 0.75) 0%, transparent 60%)' }} />
                 
                 <span style={{
                   position: 'absolute',
                   top: '1.25rem',
                   left: '1.25rem',
-                  padding: '0.4rem 0.9rem',
+                  padding: '0.45rem 1rem',
                   borderRadius: '50px',
-                  background: 'rgba(2, 11, 30, 0.85)',
-                  border: '1px solid #D4A72C',
-                  color: '#D4A72C',
+                  background: 'rgba(255, 255, 255, 0.95)',
+                  border: '1.5px solid #D4A72C',
+                  color: '#B8860B',
                   fontSize: '0.75rem',
-                  fontWeight: 800,
-                  letterSpacing: '0.1em'
+                  fontWeight: 900,
+                  letterSpacing: '0.1em',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                 }}>
                   AU · 999.9 PURE GOLD
                 </span>
@@ -1336,66 +1368,66 @@ const TradePage = ({ setCurrentPage }) => {
                   position: 'absolute',
                   top: '1.25rem',
                   right: '1.25rem',
-                  width: '36px',
-                  height: '36px',
+                  width: '38px',
+                  height: '38px',
                   borderRadius: '50%',
-                  background: 'rgba(2, 11, 30, 0.85)',
-                  border: '1px solid #D4A72C',
-                  color: '#D4A72C',
+                  background: 'rgba(255, 255, 255, 0.95)',
+                  border: '1.5px solid #D4A72C',
+                  color: '#B8860B',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                 }}>
                   <Eye style={{ width: '18px', height: '18px' }} />
                 </div>
               </div>
 
-              <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', color: '#ffffff' }}>
+              <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', color: '#0F172A' }}>
                 <div>
-                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: '#ffffff' }}>
+                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: '#0F172A' }}>
                     999.9 Fine Gold Bars
                   </h3>
-                  <p style={{ fontSize: '0.95rem', color: 'rgba(255, 255, 255, 0.8)', lineHeight: '1.6', margin: 0 }}>
+                  <p style={{ fontSize: '0.95rem', color: '#475569', lineHeight: '1.6', margin: 0, fontWeight: 500 }}>
                     Certified investment-grade 1g, 50g, 100g, 500g, and 1kg pure gold bullion bars with fire-assay credentials.
                   </p>
                 </div>
 
-                <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(212, 167, 44, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#D4A72C', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(212, 167, 44, 0.25)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 900, color: '#B8860B', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                     ✦ CLICK TO VIEW HIGH-RES
                   </span>
-                  <ArrowUpRight style={{ width: '18px', height: '18px', color: '#D4A72C' }} />
+                  <ArrowUpRight style={{ width: '18px', height: '18px', color: '#B8860B' }} />
                 </div>
               </div>
             </div>
 
-            {/* CARD 2: gold2.png (LARGE) */}
+            {/* CARD 2: gold2.png */}
             <div
               onClick={() => setActiveModalMedia({ type: 'image', src: '/gold2.png', title: 'Institutional Vaulted Bullion Reserves', sub: 'Audited Depository Reserves & Wholesale Trade Allocations' })}
-              className="glass-panel"
               style={{
                 borderRadius: '2rem',
-                border: '2px solid rgba(212, 167, 44, 0.5)',
+                border: '2px solid #D4A72C',
                 overflow: 'hidden',
-                background: 'linear-gradient(180deg, #020b1e 0%, #081226 100%)',
+                background: 'linear-gradient(145deg, #FFFFFF 0%, #FFFDF5 100%)',
                 cursor: 'pointer',
                 transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                boxShadow: '0 15px 35px rgba(0,0,0,0.3)',
+                boxShadow: '0 15px 35px rgba(212, 167, 44, 0.18), 0 4px 15px rgba(0,0,0,0.03)',
                 display: 'flex',
                 flexDirection: 'column'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#D4A72C';
+                e.currentTarget.style.borderColor = '#B8860B';
                 e.currentTarget.style.transform = 'translateY(-8px)';
-                e.currentTarget.style.boxShadow = '0 25px 50px rgba(212, 167, 44, 0.35)';
+                e.currentTarget.style.boxShadow = '0 25px 50px rgba(212, 167, 44, 0.3)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(212, 167, 44, 0.5)';
+                e.currentTarget.style.borderColor = '#D4A72C';
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 15px 35px rgba(0,0,0,0.3)';
+                e.currentTarget.style.boxShadow = '0 15px 35px rgba(212, 167, 44, 0.18), 0 4px 15px rgba(0,0,0,0.03)';
               }}
             >
-              <div style={{ position: 'relative', width: '100%', height: '280px', overflow: 'hidden', background: '#000' }}>
+              <div style={{ position: 'relative', width: '100%', height: '280px', overflow: 'hidden', background: '#0F172A' }}>
                 <img
                   src="/gold2.png"
                   alt="Vaulted Bullion Reserves"
@@ -1407,20 +1439,21 @@ const TradePage = ({ setCurrentPage }) => {
                     transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
                   }}
                 />
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(2, 11, 30, 0.95) 0%, transparent 60%)' }} />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(15, 23, 42, 0.75) 0%, transparent 60%)' }} />
                 
                 <span style={{
                   position: 'absolute',
                   top: '1.25rem',
                   left: '1.25rem',
-                  padding: '0.4rem 0.9rem',
+                  padding: '0.45rem 1rem',
                   borderRadius: '50px',
-                  background: 'rgba(2, 11, 30, 0.85)',
-                  border: '1px solid #D4A72C',
-                  color: '#D4A72C',
+                  background: 'rgba(255, 255, 255, 0.95)',
+                  border: '1.5px solid #D4A72C',
+                  color: '#B8860B',
                   fontSize: '0.75rem',
-                  fontWeight: 800,
-                  letterSpacing: '0.1em'
+                  fontWeight: 900,
+                  letterSpacing: '0.1em',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                 }}>
                   VAULTED BULLION STOCK
                 </span>
@@ -1429,66 +1462,66 @@ const TradePage = ({ setCurrentPage }) => {
                   position: 'absolute',
                   top: '1.25rem',
                   right: '1.25rem',
-                  width: '36px',
-                  height: '36px',
+                  width: '38px',
+                  height: '38px',
                   borderRadius: '50%',
-                  background: 'rgba(2, 11, 30, 0.85)',
-                  border: '1px solid #D4A72C',
-                  color: '#D4A72C',
+                  background: 'rgba(255, 255, 255, 0.95)',
+                  border: '1.5px solid #D4A72C',
+                  color: '#B8860B',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                 }}>
                   <Eye style={{ width: '18px', height: '18px' }} />
                 </div>
               </div>
 
-              <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', color: '#ffffff' }}>
+              <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', color: '#0F172A' }}>
                 <div>
-                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: '#ffffff' }}>
+                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: '#0F172A' }}>
                     Vault Storage & Reserves
                   </h3>
-                  <p style={{ fontSize: '0.95rem', color: 'rgba(255, 255, 255, 0.8)', lineHeight: '1.6', margin: 0 }}>
+                  <p style={{ fontSize: '0.95rem', color: '#475569', lineHeight: '1.6', margin: 0, fontWeight: 500 }}>
                     High-security depository reserves for institutional buyers, bulk off-takers, and trading mandates.
                   </p>
                 </div>
 
-                <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(212, 167, 44, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#D4A72C', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(212, 167, 44, 0.25)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 900, color: '#B8860B', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                     ✦ CLICK TO VIEW HIGH-RES
                   </span>
-                  <ArrowUpRight style={{ width: '18px', height: '18px', color: '#D4A72C' }} />
+                  <ArrowUpRight style={{ width: '18px', height: '18px', color: '#B8860B' }} />
                 </div>
               </div>
             </div>
 
-            {/* CARD 3: gold3.png (LARGE) */}
+            {/* CARD 3: gold3.png */}
             <div
               onClick={() => setActiveModalMedia({ type: 'image', src: '/gold3.png', title: 'Fire Assay & High Purity Gold Ingots', sub: 'XRF Spectrometry & Fire Assay Verified 999.9 Gold Benchmark' })}
-              className="glass-panel"
               style={{
                 borderRadius: '2rem',
-                border: '2px solid rgba(212, 167, 44, 0.5)',
+                border: '2px solid #D4A72C',
                 overflow: 'hidden',
-                background: 'linear-gradient(180deg, #020b1e 0%, #081226 100%)',
+                background: 'linear-gradient(145deg, #FFFFFF 0%, #FFFDF5 100%)',
                 cursor: 'pointer',
                 transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                boxShadow: '0 15px 35px rgba(0,0,0,0.3)',
+                boxShadow: '0 15px 35px rgba(212, 167, 44, 0.18), 0 4px 15px rgba(0,0,0,0.03)',
                 display: 'flex',
                 flexDirection: 'column'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#D4A72C';
+                e.currentTarget.style.borderColor = '#B8860B';
                 e.currentTarget.style.transform = 'translateY(-8px)';
-                e.currentTarget.style.boxShadow = '0 25px 50px rgba(212, 167, 44, 0.35)';
+                e.currentTarget.style.boxShadow = '0 25px 50px rgba(212, 167, 44, 0.3)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(212, 167, 44, 0.5)';
+                e.currentTarget.style.borderColor = '#D4A72C';
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 15px 35px rgba(0,0,0,0.3)';
+                e.currentTarget.style.boxShadow = '0 15px 35px rgba(212, 167, 44, 0.18), 0 4px 15px rgba(0,0,0,0.03)';
               }}
             >
-              <div style={{ position: 'relative', width: '100%', height: '280px', overflow: 'hidden', background: '#000' }}>
+              <div style={{ position: 'relative', width: '100%', height: '280px', overflow: 'hidden', background: '#0F172A' }}>
                 <img
                   src="/gold3.png"
                   alt="Fire Assay Gold Ingot"
@@ -1500,20 +1533,21 @@ const TradePage = ({ setCurrentPage }) => {
                     transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
                   }}
                 />
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(2, 11, 30, 0.95) 0%, transparent 60%)' }} />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(15, 23, 42, 0.75) 0%, transparent 60%)' }} />
                 
                 <span style={{
                   position: 'absolute',
                   top: '1.25rem',
                   left: '1.25rem',
-                  padding: '0.4rem 0.9rem',
+                  padding: '0.45rem 1rem',
                   borderRadius: '50px',
-                  background: 'rgba(2, 11, 30, 0.85)',
-                  border: '1px solid #D4A72C',
-                  color: '#D4A72C',
+                  background: 'rgba(255, 255, 255, 0.95)',
+                  border: '1.5px solid #D4A72C',
+                  color: '#B8860B',
                   fontSize: '0.75rem',
-                  fontWeight: 800,
-                  letterSpacing: '0.1em'
+                  fontWeight: 900,
+                  letterSpacing: '0.1em',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                 }}>
                   FIRE ASSAY REFINED
                 </span>
@@ -1522,35 +1556,36 @@ const TradePage = ({ setCurrentPage }) => {
                   position: 'absolute',
                   top: '1.25rem',
                   right: '1.25rem',
-                  width: '36px',
-                  height: '36px',
+                  width: '38px',
+                  height: '38px',
                   borderRadius: '50%',
-                  background: 'rgba(2, 11, 30, 0.85)',
-                  border: '1px solid #D4A72C',
-                  color: '#D4A72C',
+                  background: 'rgba(255, 255, 255, 0.95)',
+                  border: '1.5px solid #D4A72C',
+                  color: '#B8860B',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                 }}>
                   <Eye style={{ width: '18px', height: '18px' }} />
                 </div>
               </div>
 
-              <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', color: '#ffffff' }}>
+              <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', color: '#0F172A' }}>
                 <div>
-                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: '#ffffff' }}>
+                  <h3 style={{ fontSize: '1.6rem', fontWeight: 900, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: '#0F172A' }}>
                     Fire Assay & Refined Ingots
                   </h3>
-                  <p style={{ fontSize: '0.95rem', color: 'rgba(255, 255, 255, 0.8)', lineHeight: '1.6', margin: 0 }}>
+                  <p style={{ fontSize: '0.95rem', color: '#475569', lineHeight: '1.6', margin: 0, fontWeight: 500 }}>
                     Precision laboratory fire-assay and XRF spectrometry verified 999.9 pure gold ingots.
                   </p>
                 </div>
 
-                <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(212, 167, 44, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#D4A72C', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(212, 167, 44, 0.25)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 900, color: '#B8860B', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                     ✦ CLICK TO VIEW HIGH-RES
                   </span>
-                  <ArrowUpRight style={{ width: '18px', height: '18px', color: '#D4A72C' }} />
+                  <ArrowUpRight style={{ width: '18px', height: '18px', color: '#B8860B' }} />
                 </div>
               </div>
             </div>
