@@ -1979,13 +1979,31 @@ const AdminPage = ({ setCurrentPage }) => {
                 </div>
 
                 <div style={{ padding: '1.5rem', borderRadius: '1rem', background: 'var(--bg-glass)', border: '1px solid var(--border-glass)' }}>
+                  <h4 style={{ fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>3.1 Cold Chain Packaging</h4>
+                  <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>Manage Cold Chain stats, comparison matrix & images.</p>
+                  <button onClick={() => { localStorage.setItem('uniqix_eco_admin', 'true'); setCurrentPage('eco-packaging'); }} style={{ background: 'var(--primary-glow)', color: 'var(--primary)', border: 'none', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer' }}>Edit Cold Chain Section</button>
+                </div>
+
+                <div style={{ padding: '1.5rem', borderRadius: '1rem', background: 'var(--bg-glass)', border: '1px solid var(--border-glass)' }}>
+                  <h4 style={{ fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>3.2 Industrial Equipment Packaging</h4>
+                  <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>Manage ESD equipment matrix and showcase images.</p>
+                  <button onClick={() => { localStorage.setItem('uniqix_eco_admin', 'true'); setCurrentPage('eco-packaging'); }} style={{ background: 'var(--primary-glow)', color: 'var(--primary)', border: 'none', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer' }}>Edit Industrial Section</button>
+                </div>
+
+                <div style={{ padding: '1.5rem', borderRadius: '1rem', background: 'var(--bg-glass)', border: '1px solid var(--border-glass)' }}>
+                  <h4 style={{ fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>3.3 Food & Beverage Packaging</h4>
+                  <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>Manage F&B comparison matrix & 4 square images.</p>
+                  <button onClick={() => { localStorage.setItem('uniqix_eco_admin', 'true'); setCurrentPage('eco-packaging'); }} style={{ background: 'var(--primary-glow)', color: 'var(--primary)', border: 'none', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer' }}>Edit F&B Section</button>
+                </div>
+
+                <div style={{ padding: '1.5rem', borderRadius: '1rem', background: 'var(--bg-glass)', border: '1px solid var(--border-glass)' }}>
                   <h4 style={{ fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>Core Technical Pillars</h4>
                   <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>Edit the 6 performance validation testing pillars.</p>
                   <button onClick={() => { localStorage.setItem('uniqix_eco_admin', 'true'); setCurrentPage('eco-packaging'); }} style={{ background: 'var(--primary-glow)', color: 'var(--primary)', border: 'none', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer' }}>Manage Tech Pillars</button>
                 </div>
 
                 <div style={{ padding: '1.5rem', borderRadius: '1rem', background: 'var(--bg-glass)', border: '1px solid var(--border-glass)' }}>
-                  <h4 style={{ fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>2x2 Application Gallery</h4>
+                  <h4 style={{ fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>Eco Packaging Showcase (2x2)</h4>
                   <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>Manage swipeable 2x2 showcase slide image sets.</p>
                   <button onClick={() => { localStorage.setItem('uniqix_eco_admin', 'true'); setCurrentPage('eco-packaging'); }} style={{ background: 'var(--primary-glow)', color: 'var(--primary)', border: 'none', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer' }}>Manage 2x2 Showcase</button>
                 </div>

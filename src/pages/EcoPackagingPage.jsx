@@ -433,6 +433,35 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
 
     if (sectionKey === 'hero') {
       updateEcoData({ ...ecoData, hero: formData });
+    } else if (modalType === 'matrixRow') {
+      const parentKey = sectionKey === 'coldChainMatrix' ? 'coldChainData' : sectionKey === 'industrialMatrix' ? 'industrialData' : 'foodBeverageData';
+      const newMatrix = [...(ecoData[parentKey]?.matrix || [])];
+      newMatrix[itemIndex] = formData;
+      updateEcoData({ ...ecoData, [parentKey]: { ...ecoData[parentKey], matrix: newMatrix } });
+    } else if (modalType === 'singleImage') {
+      let parentKey = 'coldChainData';
+      let imgIdx = itemIndex;
+      if (sectionKey.startsWith('industrial')) parentKey = 'industrialData';
+      if (sectionKey.startsWith('fb')) parentKey = 'foodBeverageData';
+      
+      const newImages = [...(ecoData[parentKey]?.images || [])];
+      newImages[imgIdx] = formData.url || formData.image;
+      updateEcoData({ ...ecoData, [parentKey]: { ...ecoData[parentKey], images: newImages } });
+    } else if (modalType === 'gallerySingleImage') {
+      const newSlides = [...ecoData.gallerySlides];
+      const slideImages = [...(newSlides[activeGallerySlide]?.images || [])];
+      if (sectionKey === 'galleryImageAdd') {
+        slideImages.push({ title: formData.title || 'New Item', tag: formData.tag || 'New Tag', url: formData.url || formData.image || 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80' });
+      } else {
+        slideImages[itemIndex] = {
+          ...slideImages[itemIndex],
+          title: formData.title,
+          tag: formData.tag,
+          url: formData.url || formData.image || slideImages[itemIndex].url
+        };
+      }
+      newSlides[activeGallerySlide].images = slideImages;
+      updateEcoData({ ...ecoData, gallerySlides: newSlides });
     } else if (sectionKey === 'coldChainData' || sectionKey === 'industrialData' || sectionKey === 'foodBeverageData') {
       updateEcoData({ ...ecoData, [sectionKey]: formData });
     } else {
@@ -547,15 +576,19 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
               overflow: 'hidden',
               border: '1px solid var(--border-glass)',
               marginBottom: '1rem',
-              height: '180px'
+              height: '180px',
+              background: '#0f172a',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}>
               <img
                 src={item.image}
                 alt={item.title}
                 style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  objectFit: 'contain',
                   display: 'block',
                   transition: 'transform 0.85s cubic-bezier(0.25, 1, 0.5, 1)',
                   transform: isHovered ? 'scale(1.05)' : 'scale(1)'
@@ -953,12 +986,24 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
               </h2>
             </div>
             {isAdminMode && (
-              <button
-                onClick={() => openModal('coldChainData', null, ecoData.coldChainData, 'coldChainConfig')}
-                style={{ background: '#2563eb', color: '#fff', border: 'none', padding: '0.6rem 1.2rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}
-              >
-                <Edit size={16} /> Edit Cold Chain Config & Images
-              </button>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button
+                  onClick={() => openModal('coldChainData', null, ecoData.coldChainData, 'coldChainConfig')}
+                  style={{ background: '#2563eb', color: '#fff', border: 'none', padding: '0.6rem 1.2rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}
+                >
+                  <Edit size={16} /> Edit Cold Chain Config
+                </button>
+                <button
+                  onClick={() => {
+                    const newMatrix = [...(ecoData.coldChainData?.matrix || [])];
+                    newMatrix.push({ category: 'New Row', boardBox: ['Sample entry'], stoneBox: ['Sample feature'] });
+                    updateEcoData({ ...ecoData, coldChainData: { ...ecoData.coldChainData, matrix: newMatrix } });
+                  }}
+                  style={{ background: '#10b981', color: '#fff', border: 'none', padding: '0.6rem 1.2rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}
+                >
+                  <Plus size={16} /> Add Matrix Row
+                </button>
+              </div>
             )}
           </div>
 
@@ -990,9 +1035,30 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                   </thead>
                   <tbody>
                     {(ecoData.coldChainData?.matrix || []).map((row, idx) => (
-                      <tr key={idx} style={{ borderBottom: '1px solid #e2e8f0', background: idx % 2 === 0 ? '#ffffff' : '#f8fafc' }}>
-                        <td style={{ padding: '1rem 1.25rem', background: '#2563eb', color: '#ffffff', fontWeight: 800, fontSize: '0.85rem' }}>
+                      <tr key={idx} style={{ borderBottom: '1px solid #e2e8f0', background: idx % 2 === 0 ? '#ffffff' : '#f8fafc', position: 'relative' }}>
+                        <td style={{ padding: '1rem 1.25rem', background: '#2563eb', color: '#ffffff', fontWeight: 800, fontSize: '0.85rem', position: 'relative' }}>
                           {row.category}
+                          {isAdminMode && (
+                            <div style={{ marginTop: '8px', display: 'flex', gap: '4px' }}>
+                              <button
+                                onClick={() => openModal('coldChainMatrix', idx, row, 'matrixRow')}
+                                style={{ background: '#ffffff', color: '#2563eb', border: 'none', padding: '2px 6px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.7rem', fontWeight: 700 }}
+                              >
+                                Edit
+                              </button>
+                              <button
+                                onClick={() => {
+                                  if (!window.confirm('Delete this row?')) return;
+                                  const newMat = [...ecoData.coldChainData.matrix];
+                                  newMat.splice(idx, 1);
+                                  updateEcoData({ ...ecoData, coldChainData: { ...ecoData.coldChainData, matrix: newMat } });
+                                }}
+                                style={{ background: '#ef4444', color: '#ffffff', border: 'none', padding: '2px 6px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.7rem', fontWeight: 700 }}
+                              >
+                                Del
+                              </button>
+                            </div>
+                          )}
                         </td>
                         <td style={{ padding: '1rem 1.25rem', verticalAlign: 'top', borderLeft: '1px solid #e2e8f0' }}>
                           <ul style={{ paddingLeft: '1.1rem', margin: 0, fontSize: '0.82rem', color: '#334155', lineHeight: 1.6 }}>
@@ -1017,18 +1083,38 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', height: '100%', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1 }}>
-                <div style={{ flex: 1, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border-glass)', minHeight: '140px' }}>
+                <div style={{ flex: 1, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border-glass)', minHeight: '140px', position: 'relative', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {isAdminMode && (
+                    <div style={{ position: 'absolute', top: '8px', right: '8px', zIndex: 10, display: 'flex', gap: '4px' }}>
+                      <button
+                        onClick={() => openModal('coldChainImg0', 0, { url: (ecoData.coldChainData?.images || [])[0] || '' }, 'singleImage')}
+                        style={{ background: '#2563eb', color: '#fff', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.72rem', fontWeight: 700 }}
+                      >
+                        Edit Image
+                      </button>
+                    </div>
+                  )}
                   <img
                     src={(ecoData.coldChainData?.images || [])[0] || 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=600&q=80'}
                     alt="Cold Chain Showcase 1"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
                   />
                 </div>
-                <div style={{ flex: 1, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border-glass)', minHeight: '140px' }}>
+                <div style={{ flex: 1, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border-glass)', minHeight: '140px', position: 'relative', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {isAdminMode && (
+                    <div style={{ position: 'absolute', top: '8px', right: '8px', zIndex: 10, display: 'flex', gap: '4px' }}>
+                      <button
+                        onClick={() => openModal('coldChainImg1', 1, { url: (ecoData.coldChainData?.images || [])[1] || '' }, 'singleImage')}
+                        style={{ background: '#2563eb', color: '#fff', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.72rem', fontWeight: 700 }}
+                      >
+                        Edit Image
+                      </button>
+                    </div>
+                  )}
                   <img
                     src={(ecoData.coldChainData?.images || [])[1] || 'https://images.unsplash.com/photo-1595246140625-573b715d11dc?auto=format&fit=crop&w=600&q=80'}
                     alt="Cold Chain Showcase 2"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
                   />
                 </div>
               </div>
@@ -1071,12 +1157,24 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
               </h2>
             </div>
             {isAdminMode && (
-              <button
-                onClick={() => openModal('industrialData', null, ecoData.industrialData, 'industrialConfig')}
-                style={{ background: '#2563eb', color: '#fff', border: 'none', padding: '0.6rem 1.2rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}
-              >
-                <Edit size={16} /> Edit Industrial Config & Images
-              </button>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button
+                  onClick={() => openModal('industrialData', null, ecoData.industrialData, 'industrialConfig')}
+                  style={{ background: '#2563eb', color: '#fff', border: 'none', padding: '0.6rem 1.2rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}
+                >
+                  <Edit size={16} /> Edit Industrial Config
+                </button>
+                <button
+                  onClick={() => {
+                    const newMatrix = [...(ecoData.industrialData?.matrix || [])];
+                    newMatrix.push({ category: 'New Row', boardBox: ['Sample entry'], stoneBox: ['Sample feature'] });
+                    updateEcoData({ ...ecoData, industrialData: { ...ecoData.industrialData, matrix: newMatrix } });
+                  }}
+                  style={{ background: '#10b981', color: '#fff', border: 'none', padding: '0.6rem 1.2rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}
+                >
+                  <Plus size={16} /> Add Matrix Row
+                </button>
+              </div>
             )}
           </div>
 
@@ -1096,6 +1194,27 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                       <tr key={idx} style={{ borderBottom: '1px solid #e2e8f0', background: idx % 2 === 0 ? '#ffffff' : '#f8fafc' }}>
                         <td style={{ padding: '1rem 1.25rem', background: '#2563eb', color: '#ffffff', fontWeight: 800, fontSize: '0.85rem' }}>
                           {row.category}
+                          {isAdminMode && (
+                            <div style={{ marginTop: '8px', display: 'flex', gap: '4px' }}>
+                              <button
+                                onClick={() => openModal('industrialMatrix', idx, row, 'matrixRow')}
+                                style={{ background: '#ffffff', color: '#2563eb', border: 'none', padding: '2px 6px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.7rem', fontWeight: 700 }}
+                              >
+                                Edit
+                              </button>
+                              <button
+                                onClick={() => {
+                                  if (!window.confirm('Delete this row?')) return;
+                                  const newMat = [...ecoData.industrialData.matrix];
+                                  newMat.splice(idx, 1);
+                                  updateEcoData({ ...ecoData, industrialData: { ...ecoData.industrialData, matrix: newMat } });
+                                }}
+                                style={{ background: '#ef4444', color: '#ffffff', border: 'none', padding: '2px 6px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.7rem', fontWeight: 700 }}
+                              >
+                                Del
+                              </button>
+                            </div>
+                          )}
                         </td>
                         <td style={{ padding: '1rem 1.25rem', verticalAlign: 'top', borderLeft: '1px solid #e2e8f0' }}>
                           <ul style={{ paddingLeft: '1.1rem', margin: 0, fontSize: '0.82rem', color: '#334155', lineHeight: 1.6 }}>
@@ -1120,11 +1239,31 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', height: '100%', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1, minHeight: '260px' }}>
-                <div style={{ flex: 1, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border-glass)' }}>
-                  <img src={(ecoData.industrialData?.images || [])[0] || 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80'} alt="Precision Medical Equipment" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <div style={{ flex: 1, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border-glass)', position: 'relative', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {isAdminMode && (
+                    <div style={{ position: 'absolute', top: '8px', right: '8px', zIndex: 10, display: 'flex', gap: '4px' }}>
+                      <button
+                        onClick={() => openModal('industrialImg0', 0, { url: (ecoData.industrialData?.images || [])[0] || '' }, 'singleImage')}
+                        style={{ background: '#2563eb', color: '#fff', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.72rem', fontWeight: 700 }}
+                      >
+                        Edit Image
+                      </button>
+                    </div>
+                  )}
+                  <img src={(ecoData.industrialData?.images || [])[0] || 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80'} alt="Precision Medical Equipment" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
                 </div>
-                <div style={{ flex: 1, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border-glass)' }}>
-                  <img src={(ecoData.industrialData?.images || [])[1] || 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80'} alt="ESD Semiconductor Component Box" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <div style={{ flex: 1, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border-glass)', position: 'relative', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {isAdminMode && (
+                    <div style={{ position: 'absolute', top: '8px', right: '8px', zIndex: 10, display: 'flex', gap: '4px' }}>
+                      <button
+                        onClick={() => openModal('industrialImg1', 1, { url: (ecoData.industrialData?.images || [])[1] || '' }, 'singleImage')}
+                        style={{ background: '#2563eb', color: '#fff', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.72rem', fontWeight: 700 }}
+                      >
+                        Edit Image
+                      </button>
+                    </div>
+                  )}
+                  <img src={(ecoData.industrialData?.images || [])[1] || 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80'} alt="ESD Semiconductor Component Box" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
                 </div>
               </div>
 
@@ -1163,12 +1302,24 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
               </h2>
             </div>
             {isAdminMode && (
-              <button
-                onClick={() => openModal('foodBeverageData', null, ecoData.foodBeverageData, 'foodBeverageConfig')}
-                style={{ background: '#2563eb', color: '#fff', border: 'none', padding: '0.6rem 1.2rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}
-              >
-                <Edit size={16} /> Edit F&B Config & 4 Images
-              </button>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button
+                  onClick={() => openModal('foodBeverageData', null, ecoData.foodBeverageData, 'foodBeverageConfig')}
+                  style={{ background: '#2563eb', color: '#fff', border: 'none', padding: '0.6rem 1.2rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}
+                >
+                  <Edit size={16} /> Edit F&B Config
+                </button>
+                <button
+                  onClick={() => {
+                    const newMatrix = [...(ecoData.foodBeverageData?.matrix || [])];
+                    newMatrix.push({ category: 'New Row', boardBox: ['Sample entry'], stoneBox: ['Sample feature'] });
+                    updateEcoData({ ...ecoData, foodBeverageData: { ...ecoData.foodBeverageData, matrix: newMatrix } });
+                  }}
+                  style={{ background: '#10b981', color: '#fff', border: 'none', padding: '0.6rem 1.2rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}
+                >
+                  <Plus size={16} /> Add Matrix Row
+                </button>
+              </div>
             )}
           </div>
 
@@ -1188,6 +1339,27 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                       <tr key={idx} style={{ borderBottom: '1px solid #e2e8f0', background: idx % 2 === 0 ? '#ffffff' : '#f8fafc' }}>
                         <td style={{ padding: '1rem 1.25rem', background: '#2563eb', color: '#ffffff', fontWeight: 800, fontSize: '0.85rem' }}>
                           {row.category}
+                          {isAdminMode && (
+                            <div style={{ marginTop: '8px', display: 'flex', gap: '4px' }}>
+                              <button
+                                onClick={() => openModal('foodBeverageMatrix', idx, row, 'matrixRow')}
+                                style={{ background: '#ffffff', color: '#2563eb', border: 'none', padding: '2px 6px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.7rem', fontWeight: 700 }}
+                              >
+                                Edit
+                              </button>
+                              <button
+                                onClick={() => {
+                                  if (!window.confirm('Delete this row?')) return;
+                                  const newMat = [...ecoData.foodBeverageData.matrix];
+                                  newMat.splice(idx, 1);
+                                  updateEcoData({ ...ecoData, foodBeverageData: { ...ecoData.foodBeverageData, matrix: newMat } });
+                                }}
+                                style={{ background: '#ef4444', color: '#ffffff', border: 'none', padding: '2px 6px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.7rem', fontWeight: 700 }}
+                              >
+                                Del
+                              </button>
+                            </div>
+                          )}
                         </td>
                         <td style={{ padding: '1rem 1.25rem', verticalAlign: 'top', borderLeft: '1px solid #e2e8f0' }}>
                           <ul style={{ paddingLeft: '1.1rem', margin: 0, fontSize: '0.82rem', color: '#334155', lineHeight: 1.6 }}>
@@ -1212,18 +1384,21 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '5.25rem', height: '100%' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', columnGap: '1rem', rowGap: '1.75rem' }}>
-                <div style={{ aspectRatio: '1 / 1', width: '100%', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-glass)' }}>
-                  <img src={(ecoData.foodBeverageData?.images || [])[0] || 'https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&w=600&q=80'} alt="F&B Image 1" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                <div style={{ aspectRatio: '1 / 1', width: '100%', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-glass)' }}>
-                  <img src={(ecoData.foodBeverageData?.images || [])[1] || 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80'} alt="F&B Image 2" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                <div style={{ aspectRatio: '1 / 1', width: '100%', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-glass)' }}>
-                  <img src={(ecoData.foodBeverageData?.images || [])[2] || 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=600&q=80'} alt="F&B Image 3" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                <div style={{ aspectRatio: '1 / 1', width: '100%', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-glass)' }}>
-                  <img src={(ecoData.foodBeverageData?.images || [])[3] || 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80'} alt="F&B Image 4" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
+                {[0, 1, 2, 3].map((imgIdx) => (
+                  <div key={imgIdx} style={{ aspectRatio: '1 / 1', width: '100%', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-glass)', position: 'relative', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {isAdminMode && (
+                      <div style={{ position: 'absolute', top: '6px', right: '6px', zIndex: 10 }}>
+                        <button
+                          onClick={() => openModal(`fbImg${imgIdx}`, imgIdx, { url: (ecoData.foodBeverageData?.images || [])[imgIdx] || '' }, 'singleImage')}
+                          style={{ background: '#2563eb', color: '#fff', border: 'none', padding: '4px 6px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.7rem', fontWeight: 700 }}
+                        >
+                          Edit
+                        </button>
+                      </div>
+                    )}
+                    <img src={(ecoData.foodBeverageData?.images || [])[imgIdx] || 'https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&w=600&q=80'} alt={`F&B Image ${imgIdx + 1}`} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+                  </div>
+                ))}
               </div>
 
               <div style={{ borderRadius: '16px', background: '#1d4ed8', padding: '1.5rem', color: '#ffffff', boxShadow: '0 15px 30px rgba(29, 78, 216, 0.3)' }}>
@@ -1266,7 +1441,13 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                   onClick={() => openModal('gallerySlides', activeGallerySlide, ecoData.gallerySlides[activeGallerySlide], 'gallerySlideConfig')}
                   style={{ background: '#2563eb', color: '#fff', border: 'none', padding: '0.6rem 1.2rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}
                 >
-                  <Edit size={16} /> Edit Current Slide
+                  <Edit size={16} /> Edit Current Slide Header
+                </button>
+                <button
+                  onClick={() => openModal('galleryImageAdd', activeGallerySlide, { title: '', tag: 'New Tag', url: '' }, 'gallerySingleImage')}
+                  style={{ background: '#10b981', color: '#fff', border: 'none', padding: '0.6rem 1.2rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}
+                >
+                  <Plus size={16} /> Add Image to Grid
                 </button>
               </div>
             )}
@@ -1385,7 +1566,34 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                     boxShadow: '0 8px 20px rgba(0,0,0,0.04)'
                   }}
                 >
-                  <img src={imgItem.url} alt={imgItem.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                  {isAdminMode && (
+                    <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 20, display: 'flex', gap: '6px' }}>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openModal('galleryImageEdit', imgIdx, imgItem, 'gallerySingleImage');
+                        }}
+                        style={{ background: '#2563eb', color: '#ffffff', border: 'none', padding: '4px 8px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.72rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}
+                      >
+                        <Edit size={12} /> Edit
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (!window.confirm('Delete this image from showcase grid?')) return;
+                          const newSlides = [...ecoData.gallerySlides];
+                          newSlides[activeGallerySlide].images.splice(imgIdx, 1);
+                          updateEcoData({ ...ecoData, gallerySlides: newSlides });
+                        }}
+                        style={{ background: '#ef4444', color: '#ffffff', border: 'none', padding: '4px 8px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.72rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}
+                      >
+                        <Trash2 size={12} /> Delete
+                      </button>
+                    </div>
+                  )}
+                  <div style={{ width: '100%', height: '100%', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src={imgItem.url} alt={imgItem.title} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' }} />
+                  </div>
                   <div style={{
                     position: 'absolute',
                     inset: 0,
@@ -1522,6 +1730,117 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                     />
                   </div>
                 </>
+              ) : modalConfig.modalType === 'matrixRow' ? (
+                <>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Category Name</label>
+                    <input
+                      type="text"
+                      value={modalConfig.formData.category || ''}
+                      onChange={(e) => setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, category: e.target.value } })}
+                      style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)' }}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Traditional / Board Box Bullet Points (one per line)</label>
+                    <textarea
+                      rows={4}
+                      value={(modalConfig.formData.boardBox || []).join('\n')}
+                      onChange={(e) => setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, boardBox: e.target.value.split('\n') } })}
+                      style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)' }}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Eco-friendly Stone Box Bullet Points (one per line)</label>
+                    <textarea
+                      rows={4}
+                      value={(modalConfig.formData.stoneBox || []).join('\n')}
+                      onChange={(e) => setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, stoneBox: e.target.value.split('\n') } })}
+                      style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)' }}
+                      required
+                    />
+                  </div>
+                </>
+              ) : modalConfig.modalType === 'gallerySingleImage' ? (
+                <>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Image Title</label>
+                    <input
+                      type="text"
+                      value={modalConfig.formData.title || ''}
+                      onChange={(e) => setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, title: e.target.value } })}
+                      style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)' }}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Badge Tag (e.g. Fresh Produce, ESD Protection)</label>
+                    <input
+                      type="text"
+                      value={modalConfig.formData.tag || ''}
+                      onChange={(e) => setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, tag: e.target.value } })}
+                      style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)' }}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Upload Image File</label>
+                    {(modalConfig.formData.url || modalConfig.formData.image) && (
+                      <div style={{ position: 'relative', display: 'inline-block', marginBottom: '0.75rem' }}>
+                        <img
+                          src={modalConfig.formData.url || modalConfig.formData.image}
+                          alt="Preview"
+                          style={{ maxWidth: '100%', height: '140px', objectFit: 'cover', borderRadius: '10px', border: '1px solid var(--border-glass)', display: 'block' }}
+                        />
+                      </div>
+                    )}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, url: reader.result, image: reader.result } });
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                      style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)', cursor: 'pointer' }}
+                    />
+                  </div>
+                </>
+              ) : modalConfig.modalType === 'singleImage' ? (
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Upload Replacement Image</label>
+                  {(modalConfig.formData.url || modalConfig.formData.image) && (
+                    <div style={{ position: 'relative', display: 'inline-block', marginBottom: '0.75rem' }}>
+                      <img
+                        src={modalConfig.formData.url || modalConfig.formData.image}
+                        alt="Preview"
+                        style={{ maxWidth: '100%', height: '160px', objectFit: 'cover', borderRadius: '10px', border: '1px solid var(--border-glass)', display: 'block' }}
+                      />
+                    </div>
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                          setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, url: reader.result, image: reader.result } });
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)', cursor: 'pointer' }}
+                  />
+                </div>
               ) : (
                 <>
                   <div>
