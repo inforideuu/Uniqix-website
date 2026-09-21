@@ -849,6 +849,7 @@ const AdminPage = ({ setCurrentPage }) => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', paddingLeft: '20px', marginTop: '4px' }}>
                   {[
                     { id: 'home', label: 'Home Page CMS', icon: <FileText size={16} /> },
+                    { id: 'eco-packaging', label: 'Eco Packaging CMS', icon: <Package size={16} /> },
                     { id: 'about us', label: 'About Us CMS', icon: <FileText size={16} /> },
                     { id: 'casestudies', label: 'Case Studies CMS', icon: <FileText size={16} /> },
                     { id: 'services', label: 'Services CMS', icon: <Briefcase size={16} /> },
@@ -1910,6 +1911,83 @@ const AdminPage = ({ setCurrentPage }) => {
                       )}
                     </tbody>
                   </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Eco Packaging CMS Tab */}
+          {activeTab === 'eco-packaging' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+              <div style={{ padding: '1.5rem', borderRadius: '1rem', background: 'var(--primary-glow)', border: '1px solid rgba(197, 160, 89, 0.3)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+                <div>
+                  <h3 style={{ margin: '0 0 0.4rem 0', fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+                    Eco Packaging Series CMS Manager
+                  </h3>
+                  <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--text-secondary)' }}>
+                    Full CRUD control over every section of the Eco Packaging Series page. Manage product catalogs, technical pillars, insulated boxes, and 2x2 showcase galleries.
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    localStorage.setItem('uniqix_eco_admin', 'true');
+                    setCurrentPage('eco-packaging');
+                  }}
+                  style={{
+                    background: '#D4A72C',
+                    color: '#ffffff',
+                    border: 'none',
+                    padding: '0.75rem 1.4rem',
+                    borderRadius: '8px',
+                    fontSize: '0.9rem',
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    boxShadow: '0 4px 14px rgba(212, 167, 44, 0.4)'
+                  }}
+                >
+                  <Package size={16} /> Launch Live Visual Editor
+                </button>
+              </div>
+
+              {/* Quick Actions Grid */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+                <div style={{ padding: '1.5rem', borderRadius: '1rem', background: 'var(--bg-glass)', border: '1px solid var(--border-glass)' }}>
+                  <h4 style={{ fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>Hero Section CMS</h4>
+                  <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>Update H1 Title, Category Badge, and Subtitle Description.</p>
+                  <button onClick={() => { localStorage.setItem('uniqix_eco_admin', 'true'); setCurrentPage('eco-packaging'); }} style={{ background: 'var(--primary-glow)', color: 'var(--primary)', border: 'none', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer' }}>Edit Hero Header</button>
+                </div>
+
+                <div style={{ padding: '1.5rem', borderRadius: '1rem', background: 'var(--bg-glass)', border: '1px solid var(--border-glass)' }}>
+                  <h4 style={{ fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>Turnover Box Catalog</h4>
+                  <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>Add, edit, or remove turnover box products and specifications.</p>
+                  <button onClick={() => { localStorage.setItem('uniqix_eco_admin', 'true'); setCurrentPage('eco-packaging'); }} style={{ background: 'var(--primary-glow)', color: 'var(--primary)', border: 'none', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer' }}>Manage Turnover Boxes</button>
+                </div>
+
+                <div style={{ padding: '1.5rem', borderRadius: '1rem', background: 'var(--bg-glass)', border: '1px solid var(--border-glass)' }}>
+                  <h4 style={{ fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>Colored Corrugated Boxes</h4>
+                  <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>Manage fruit, agricultural, and craft beer box entries.</p>
+                  <button onClick={() => { localStorage.setItem('uniqix_eco_admin', 'true'); setCurrentPage('eco-packaging'); }} style={{ background: 'var(--primary-glow)', color: 'var(--primary)', border: 'none', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer' }}>Manage Corrugated Boxes</button>
+                </div>
+
+                <div style={{ padding: '1.5rem', borderRadius: '1rem', background: 'var(--bg-glass)', border: '1px solid var(--border-glass)' }}>
+                  <h4 style={{ fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>Insulated Box Catalog</h4>
+                  <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>Manage cold chain and foldable insulated box items.</p>
+                  <button onClick={() => { localStorage.setItem('uniqix_eco_admin', 'true'); setCurrentPage('eco-packaging'); }} style={{ background: 'var(--primary-glow)', color: 'var(--primary)', border: 'none', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer' }}>Manage Insulated Boxes</button>
+                </div>
+
+                <div style={{ padding: '1.5rem', borderRadius: '1rem', background: 'var(--bg-glass)', border: '1px solid var(--border-glass)' }}>
+                  <h4 style={{ fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>Core Technical Pillars</h4>
+                  <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>Edit the 6 performance validation testing pillars.</p>
+                  <button onClick={() => { localStorage.setItem('uniqix_eco_admin', 'true'); setCurrentPage('eco-packaging'); }} style={{ background: 'var(--primary-glow)', color: 'var(--primary)', border: 'none', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer' }}>Manage Tech Pillars</button>
+                </div>
+
+                <div style={{ padding: '1.5rem', borderRadius: '1rem', background: 'var(--bg-glass)', border: '1px solid var(--border-glass)' }}>
+                  <h4 style={{ fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>2x2 Application Gallery</h4>
+                  <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>Manage swipeable 2x2 showcase slide image sets.</p>
+                  <button onClick={() => { localStorage.setItem('uniqix_eco_admin', 'true'); setCurrentPage('eco-packaging'); }} style={{ background: 'var(--primary-glow)', color: 'var(--primary)', border: 'none', padding: '0.5rem 1rem', borderRadius: '6px', fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer' }}>Manage 2x2 Showcase</button>
                 </div>
               </div>
             </div>

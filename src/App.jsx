@@ -13,6 +13,7 @@ import PartnershipPage from './pages/PartnershipPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import CaseStudiesPage from './pages/CaseStudiesPage';
+import EcoPackagingPage from './pages/EcoPackagingPage';
 import AdminPage from './pages/AdminPage';
 
 function App() {
@@ -136,6 +137,8 @@ function App() {
         return <ContactPage />;
       case 'case-studies':
         return <CaseStudiesPage setCurrentPage={setCurrentPage} />;
+      case 'eco-packaging':
+        return <EcoPackagingPage setCurrentPage={setCurrentPage} />;
       case 'admin':
         return <AdminPage setCurrentPage={setCurrentPage} />;
       default:

@@ -122,6 +122,7 @@ const Navbar = ({ currentPage, setCurrentPage, theme, toggleTheme, setActiveProd
               <button onClick={() => handleNavClick('services')}>Procurement Services</button>
               <button onClick={() => { setActiveProductTab(0); handleNavClick('products'); }}>AI Robotics</button>
               <button onClick={() => { setActiveProductTab(1); handleNavClick('products'); }}>Sustainable Packaging</button>
+              <button onClick={() => handleNavClick('eco-packaging')}>Eco Packaging Series</button>
               <button onClick={() => { setActiveProductTab(2); handleNavClick('products'); }}>Smart Energy Solutions</button>
             </div>
           )}
