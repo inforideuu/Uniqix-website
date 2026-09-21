@@ -448,19 +448,42 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
       newImages[imgIdx] = formData.url || formData.image;
       updateEcoData({ ...ecoData, [parentKey]: { ...ecoData[parentKey], images: newImages } });
     } else if (modalType === 'gallerySingleImage') {
-      const newSlides = [...ecoData.gallerySlides];
-      const slideImages = [...(newSlides[activeGallerySlide]?.images || [])];
+      const newSlides = JSON.parse(JSON.stringify(ecoData.gallerySlides || []));
+      
       if (sectionKey === 'galleryImageAdd') {
-        slideImages.push({ title: formData.title || 'New Item', tag: formData.tag || 'New Tag', url: formData.url || formData.image || 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80' });
-      } else {
-        slideImages[itemIndex] = {
-          ...slideImages[itemIndex],
-          title: formData.title,
-          tag: formData.tag,
-          url: formData.url || formData.image || slideImages[itemIndex].url
+        const newImgObj = { 
+          title: formData.title || 'New Item', 
+          tag: formData.tag || 'New Tag', 
+          url: formData.url || formData.image || 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80' 
         };
+
+        const lastSlideIdx = newSlides.length - 1;
+        const lastSlide = newSlides[lastSlideIdx];
+
+        if (lastSlide && lastSlide.images.length < 4) {
+          lastSlide.images.push(newImgObj);
+          setActiveGallerySlide(lastSlideIdx);
+        } else {
+          const newSlideObj = {
+            id: `slide_${Date.now()}`,
+            category: lastSlide?.category || 'APPLICATION GALLERY',
+            title: lastSlide?.title ? `${lastSlide.title} (Cont.)` : 'Showcase Grid',
+            images: [newImgObj]
+          };
+          newSlides.push(newSlideObj);
+          setActiveGallerySlide(newSlides.length - 1);
+        }
+      } else {
+        const currentSlide = newSlides[activeGallerySlide];
+        if (currentSlide && currentSlide.images[itemIndex]) {
+          currentSlide.images[itemIndex] = {
+            ...currentSlide.images[itemIndex],
+            title: formData.title,
+            tag: formData.tag,
+            url: formData.url || formData.image || currentSlide.images[itemIndex].url
+          };
+        }
       }
-      newSlides[activeGallerySlide].images = slideImages;
       updateEcoData({ ...ecoData, gallerySlides: newSlides });
     } else if (sectionKey === 'coldChainData' || sectionKey === 'industrialData' || sectionKey === 'foodBeverageData') {
       updateEcoData({ ...ecoData, [sectionKey]: formData });
@@ -576,8 +599,8 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
               overflow: 'hidden',
               border: '1px solid var(--border-glass)',
               marginBottom: '1rem',
-              height: '180px',
-              background: '#0f172a',
+              height: '210px',
+              background: 'var(--bg-glass)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center'
@@ -586,9 +609,9 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                 src={item.image}
                 alt={item.title}
                 style={{
-                  maxWidth: '100%',
-                  maxHeight: '100%',
-                  objectFit: 'contain',
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
                   display: 'block',
                   transition: 'transform 0.85s cubic-bezier(0.25, 1, 0.5, 1)',
                   transform: isHovered ? 'scale(1.05)' : 'scale(1)'
@@ -1083,7 +1106,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', height: '100%', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1 }}>
-                <div style={{ flex: 1, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border-glass)', minHeight: '140px', position: 'relative', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ flex: 1, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border-glass)', minHeight: '140px', position: 'relative', background: 'var(--bg-glass)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   {isAdminMode && (
                     <div style={{ position: 'absolute', top: '8px', right: '8px', zIndex: 10, display: 'flex', gap: '4px' }}>
                       <button
@@ -1097,10 +1120,10 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                   <img
                     src={(ecoData.coldChainData?.images || [])[0] || 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=600&q=80'}
                     alt="Cold Chain Showcase 1"
-                    style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
                 </div>
-                <div style={{ flex: 1, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border-glass)', minHeight: '140px', position: 'relative', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ flex: 1, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border-glass)', minHeight: '140px', position: 'relative', background: 'var(--bg-glass)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   {isAdminMode && (
                     <div style={{ position: 'absolute', top: '8px', right: '8px', zIndex: 10, display: 'flex', gap: '4px' }}>
                       <button
@@ -1114,7 +1137,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                   <img
                     src={(ecoData.coldChainData?.images || [])[1] || 'https://images.unsplash.com/photo-1595246140625-573b715d11dc?auto=format&fit=crop&w=600&q=80'}
                     alt="Cold Chain Showcase 2"
-                    style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
                 </div>
               </div>
@@ -1239,7 +1262,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', height: '100%', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1, minHeight: '260px' }}>
-                <div style={{ flex: 1, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border-glass)', position: 'relative', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ flex: 1, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border-glass)', position: 'relative', background: 'var(--bg-glass)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   {isAdminMode && (
                     <div style={{ position: 'absolute', top: '8px', right: '8px', zIndex: 10, display: 'flex', gap: '4px' }}>
                       <button
@@ -1250,9 +1273,9 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                       </button>
                     </div>
                   )}
-                  <img src={(ecoData.industrialData?.images || [])[0] || 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80'} alt="Precision Medical Equipment" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+                  <img src={(ecoData.industrialData?.images || [])[0] || 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80'} alt="Precision Medical Equipment" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
-                <div style={{ flex: 1, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border-glass)', position: 'relative', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ flex: 1, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border-glass)', position: 'relative', background: 'var(--bg-glass)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   {isAdminMode && (
                     <div style={{ position: 'absolute', top: '8px', right: '8px', zIndex: 10, display: 'flex', gap: '4px' }}>
                       <button
@@ -1263,7 +1286,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                       </button>
                     </div>
                   )}
-                  <img src={(ecoData.industrialData?.images || [])[1] || 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80'} alt="ESD Semiconductor Component Box" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+                  <img src={(ecoData.industrialData?.images || [])[1] || 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80'} alt="ESD Semiconductor Component Box" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
               </div>
 
@@ -1385,7 +1408,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '5.25rem', height: '100%' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', columnGap: '1rem', rowGap: '1.75rem' }}>
                 {[0, 1, 2, 3].map((imgIdx) => (
-                  <div key={imgIdx} style={{ aspectRatio: '1 / 1', width: '100%', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-glass)', position: 'relative', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div key={imgIdx} style={{ aspectRatio: '1 / 1', width: '100%', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-glass)', position: 'relative', background: 'var(--bg-glass)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     {isAdminMode && (
                       <div style={{ position: 'absolute', top: '6px', right: '6px', zIndex: 10 }}>
                         <button
@@ -1396,7 +1419,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                         </button>
                       </div>
                     )}
-                    <img src={(ecoData.foodBeverageData?.images || [])[imgIdx] || 'https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&w=600&q=80'} alt={`F&B Image ${imgIdx + 1}`} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+                    <img src={(ecoData.foodBeverageData?.images || [])[imgIdx] || 'https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&w=600&q=80'} alt={`F&B Image ${imgIdx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
                 ))}
               </div>
@@ -1554,7 +1577,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem' }}>
-              {((ecoData.gallerySlides || [])[activeGallerySlide]?.images || []).map((imgItem, imgIdx) => (
+              {(((ecoData.gallerySlides || [])[activeGallerySlide]?.images || []).slice(0, 4)).map((imgItem, imgIdx) => (
                 <div
                   key={imgIdx}
                   style={{
@@ -1591,8 +1614,8 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                       </button>
                     </div>
                   )}
-                  <div style={{ width: '100%', height: '100%', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src={imgItem.url} alt={imgItem.title} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' }} />
+                  <div style={{ width: '100%', height: '100%', background: 'var(--bg-glass)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src={imgItem.url} alt={imgItem.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                   </div>
                   <div style={{
                     position: 'absolute',
