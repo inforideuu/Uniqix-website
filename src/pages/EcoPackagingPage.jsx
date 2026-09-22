@@ -6,6 +6,49 @@ import {
 } from 'lucide-react';
 import ecoShowcaseImg from '../assets/eco_box_showcase.png';
 
+// Helper to compress uploaded image files to lightweight JPEG data URLs to prevent localStorage quota errors
+const compressImageFile = (file, maxWidth = 800, maxHeight = 800, quality = 0.75) => {
+  return new Promise((resolve) => {
+    if (!file || !file.type.startsWith('image/')) {
+      resolve('');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+        resolve(compressedDataUrl);
+      };
+      img.onerror = () => resolve(e.target.result);
+      img.src = e.target.result;
+    };
+    reader.onerror = () => resolve('');
+    reader.readAsDataURL(file);
+  });
+};
+
 // Default initial dataset for all sections
 const DEFAULT_ECO_DATA = {
   hero: {
@@ -412,7 +455,14 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
       }
     }
     setEcoData(newData);
-    localStorage.setItem('uniqix_eco_packaging_data', JSON.stringify(newData));
+    try {
+      localStorage.setItem('uniqix_eco_packaging_data', JSON.stringify(newData));
+    } catch (e) {
+      console.error('Error saving eco data to localStorage:', e);
+      if (e.name === 'QuotaExceededError' || e.code === 22) {
+        alert('Storage quota exceeded! The image has been auto-compressed, but please try using an Image URL or smaller file.');
+      }
+    }
   };
 
   // Exit & Save Admin Mode
@@ -649,7 +699,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'cover',
+                  objectFit: 'contain',
                   display: 'block',
                   transition: 'transform 0.85s cubic-bezier(0.25, 1, 0.5, 1)',
                   transform: isHovered ? 'scale(1.05)' : 'scale(1)'
@@ -1877,7 +1927,14 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Upload Image File</label>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Upload Image File or Paste Image URL</label>
+                    <input
+                      type="text"
+                      placeholder="Paste image URL (https://...)"
+                      value={modalConfig.formData.url || modalConfig.formData.image || ''}
+                      onChange={(e) => setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, url: e.target.value, image: e.target.value } })}
+                      style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)', marginBottom: '0.5rem' }}
+                    />
                     {(modalConfig.formData.url || modalConfig.formData.image) && (
                       <div style={{ position: 'relative', display: 'inline-block', marginBottom: '0.75rem' }}>
                         <img
@@ -1890,14 +1947,13 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                     <input
                       type="file"
                       accept="image/*"
-                      onChange={(e) => {
+                      onChange={async (e) => {
                         const file = e.target.files[0];
                         if (file) {
-                          const reader = new FileReader();
-                          reader.onloadend = () => {
-                            setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, url: reader.result, image: reader.result } });
-                          };
-                          reader.readAsDataURL(file);
+                          const compressed = await compressImageFile(file);
+                          if (compressed) {
+                            setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, url: compressed, image: compressed } });
+                          }
                         }
                       }}
                       style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)', cursor: 'pointer' }}
@@ -1906,7 +1962,14 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                 </>
               ) : modalConfig.modalType === 'singleImage' ? (
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Upload Replacement Image</label>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Upload Replacement Image or Paste Image URL</label>
+                  <input
+                    type="text"
+                    placeholder="Paste image URL (https://...)"
+                    value={modalConfig.formData.url || modalConfig.formData.image || ''}
+                    onChange={(e) => setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, url: e.target.value, image: e.target.value } })}
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)', marginBottom: '0.5rem' }}
+                  />
                   {(modalConfig.formData.url || modalConfig.formData.image) && (
                     <div style={{ position: 'relative', display: 'inline-block', marginBottom: '0.75rem' }}>
                       <img
@@ -1919,14 +1982,13 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                   <input
                     type="file"
                     accept="image/*"
-                    onChange={(e) => {
+                    onChange={async (e) => {
                       const file = e.target.files[0];
                       if (file) {
-                        const reader = new FileReader();
-                        reader.onloadend = () => {
-                          setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, url: reader.result, image: reader.result } });
-                        };
-                        reader.readAsDataURL(file);
+                        const compressed = await compressImageFile(file);
+                        if (compressed) {
+                          setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, url: compressed, image: compressed } });
+                        }
                       }
                     }}
                     style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)', cursor: 'pointer' }}
@@ -1981,7 +2043,14 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                   )}
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Upload Image File</label>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Upload Image File or Paste Image URL</label>
+                    <input
+                      type="text"
+                      placeholder="Paste image URL (https://...)"
+                      value={modalConfig.formData.image || modalConfig.formData.url || ''}
+                      onChange={(e) => setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, image: e.target.value, url: e.target.value } })}
+                      style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)', marginBottom: '0.5rem' }}
+                    />
                     
                     {(modalConfig.formData.image || modalConfig.formData.url) && (
                       <div style={{ position: 'relative', display: 'inline-block', marginBottom: '0.75rem' }}>
@@ -2020,21 +2089,20 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                     <input
                       type="file"
                       accept="image/*"
-                      onChange={(e) => {
+                      onChange={async (e) => {
                         const file = e.target.files[0];
                         if (file) {
-                          const reader = new FileReader();
-                          reader.onloadend = () => {
+                          const compressed = await compressImageFile(file);
+                          if (compressed) {
                             setModalConfig({
                               ...modalConfig,
                               formData: {
                                 ...modalConfig.formData,
-                                image: reader.result,
-                                url: reader.result
+                                image: compressed,
+                                url: compressed
                               }
                             });
-                          };
-                          reader.readAsDataURL(file);
+                          }
                         }
                       }}
                       style={{
