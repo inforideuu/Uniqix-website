@@ -66,10 +66,12 @@ const getImageUrl = (url) => {
     .replace(/\/item3\.png$/i, '/item 3.png')
     .replace(/\/item4\.png$/i, '/item 4.png')
     .replace(/\/item5\.png$/i, '/item 5.png')
-    .replace(/\/item6\.png$/i, '/item 6.png');
+    .replace(/\/item6\.png$/i, '/item 6.png')
+    .replace(/\/item7\.png$/i, '/item 7.png')
+    .replace(/\/item8\.png$/i, '/item 8.png');
 };
 
-const ECO_DATA_VERSION = 'v3';
+const ECO_DATA_VERSION = 'v4';
 
 // Default initial dataset for all sections
 const DEFAULT_ECO_DATA = {
@@ -139,7 +141,7 @@ const DEFAULT_ECO_DATA = {
       specs: '400X307X180mm',
       advantages: 'Thermal insulation, antibacterial freshness preservation, foldable portability, high-definition printing capability.',
       applications: 'Fruits and vegetables, hot pot ingredients, baked goods, chilled dough, prepared meals, raw meats, mushrooms.',
-      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80'
+      image: '/item 7.png'
     },
     {
       id: 'cold-chain-insulated',
@@ -147,7 +149,7 @@ const DEFAULT_ECO_DATA = {
       specs: '380X275X220mm',
       advantages: 'Superior freeze resistance, eco-friendly and recyclable, thermal insulation.',
       applications: 'Fish and shrimp, cake and tart crusts, offal, hot pot bases, etc.',
-      image: 'https://images.unsplash.com/photo-1516594915697-87c37e724bd0?auto=format&fit=crop&w=800&q=80'
+      image: '/item 8.png'
     }
   ],
   coreAdvantagesPillars: [
