@@ -1565,8 +1565,8 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
               </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '5.25rem', height: '100%' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', columnGap: '1rem', rowGap: '1.75rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', height: '100%', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1 }}>
                 {[0, 1, 2, 3].map((imgIdx) => (
                   <div key={imgIdx} style={{ aspectRatio: '16 / 9', width: '100%', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-glass)', position: 'relative', background: 'var(--bg-glass)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     {isAdminMode && (
@@ -1579,7 +1579,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                         </button>
                       </div>
                     )}
-                    <img src={(ecoData.foodBeverageData?.images || [])[imgIdx] || 'https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&w=600&q=80'} alt={`F&B Image ${imgIdx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <img src={getImageUrl((ecoData.foodBeverageData?.images || [])[imgIdx] || 'https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&w=600&q=80')} alt={`F&B Image ${imgIdx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
                 ))}
               </div>
