@@ -54,7 +54,8 @@ const DEFAULT_ECO_DATA = {
   hero: {
     category: 'SUSTAINABLE PACKAGING SOLUTIONS',
     title: 'Eco Packaging Series',
-    description: 'Next-generation eco-friendly Stone Box & corrugated packaging solutions engineered for high compression performance, superior cold chain thermal insulation, precision industrial asset protection, and zero-waste circular logistics.'
+    description: 'Next-generation eco-friendly Stone Box & corrugated packaging solutions engineered for high compression performance, superior cold chain thermal insulation, precision industrial asset protection, and zero-waste circular logistics.',
+    image: ''
   },
   turnoverProducts: [
     {
@@ -862,15 +863,50 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
             </div>
 
             {/* Premium Featured Image */}
-            <div style={{ position: 'relative' }}>
+            <div style={{ position: 'relative', width: '100%' }}>
+              {isAdminMode && (
+                <button
+                  onClick={() => openModal('hero', null, ecoData.hero)}
+                  style={{
+                    position: 'absolute',
+                    top: '12px',
+                    right: '12px',
+                    zIndex: 20,
+                    background: '#2563eb',
+                    color: '#fff',
+                    border: 'none',
+                    padding: '0.4rem 0.8rem',
+                    borderRadius: '8px',
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+                  }}
+                >
+                  <Edit style={{ width: '12px', height: '12px' }} /> Edit Hero Image
+                </button>
+              )}
               <div style={{
                 borderRadius: '2rem',
                 overflow: 'hidden',
                 boxShadow: 'var(--shadow-glass)',
                 border: '1px solid var(--border-glass)',
-                height: '320px',
-                background: `url(${ecoShowcaseImg}) center/cover no-repeat`
-              }} />
+                width: '100%',
+                aspectRatio: '16 / 9',
+                background: 'var(--bg-glass)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <img
+                  src={ecoData.hero?.image || ecoShowcaseImg}
+                  alt={ecoData.hero?.title || 'Eco Packaging'}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                />
+              </div>
 
               <div style={{
                 position: 'absolute',
@@ -1817,6 +1853,39 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                       onChange={(e) => setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, description: e.target.value } })}
                       style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)' }}
                       required
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Upload Hero Image File or Paste Image URL</label>
+                    <input
+                      type="text"
+                      placeholder="Paste image URL (https://...)"
+                      value={modalConfig.formData.image || modalConfig.formData.url || ''}
+                      onChange={(e) => setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, image: e.target.value, url: e.target.value } })}
+                      style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)', marginBottom: '0.5rem' }}
+                    />
+                    {(modalConfig.formData.image || modalConfig.formData.url) && (
+                      <div style={{ position: 'relative', width: '100%', marginBottom: '0.75rem' }}>
+                        <img
+                          src={modalConfig.formData.image || modalConfig.formData.url}
+                          alt="Hero Preview"
+                          style={{ width: '100%', aspectRatio: '16 / 9', objectFit: 'cover', borderRadius: '10px', border: '1px solid var(--border-glass)', display: 'block' }}
+                        />
+                      </div>
+                    )}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={async (e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                          const compressed = await compressImageFile(file);
+                          if (compressed) {
+                            setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, image: compressed, url: compressed } });
+                          }
+                        }
+                      }}
+                      style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)', cursor: 'pointer' }}
                     />
                   </div>
                 </>
