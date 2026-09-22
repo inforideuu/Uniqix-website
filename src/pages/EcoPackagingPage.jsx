@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Cpu, ShieldCheck, ChevronDown, ChevronLeft, ChevronRight, Droplet, Shield, 
-  ThermometerSnowflake, Flame, Trash2, Sparkles, Plus, Edit, X, CheckCircle, 
-  RefreshCw, Lock, Unlock, Settings, Image as ImageIcon, Save, Check 
+import {
+  Cpu, ShieldCheck, ChevronDown, ChevronLeft, ChevronRight, Droplet, Shield,
+  ThermometerSnowflake, Flame, Trash2, Sparkles, Plus, Edit, X, CheckCircle,
+  RefreshCw, Lock, Unlock, Settings, Image as ImageIcon, Save, Check
 } from 'lucide-react';
 import ecoShowcaseImg from '../assets/eco_box_showcase.png';
 import ecoHeroBannerImg from '../assets/eco_packaging_hero.png';
@@ -50,6 +50,25 @@ const compressImageFile = (file, maxWidth = 960, maxHeight = 540, quality = 0.75
   });
 };
 
+// Helper to resolve public image URLs cleanly
+const getImageUrl = (url) => {
+  if (!url) return '';
+  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
+    return url;
+  }
+  let cleanUrl = url.trim();
+  if (!cleanUrl.startsWith('/')) {
+    cleanUrl = '/' + cleanUrl;
+  }
+  return cleanUrl
+    .replace(/\/item1\.png$/i, '/item 1.png')
+    .replace(/\/item2\.png$/i, '/item 2.png')
+    .replace(/\/item3\.png$/i, '/item 3.png')
+    .replace(/\/item4\.png$/i, '/item 4.png')
+    .replace(/\/item5\.png$/i, '/item 5.png')
+    .replace(/\/item6\.png$/i, '/item 6.png');
+};
+
 // Default initial dataset for all sections
 const DEFAULT_ECO_DATA = {
   hero: {
@@ -65,7 +84,7 @@ const DEFAULT_ECO_DATA = {
       specs: '680X560X360mm',
       advantages: 'Easy folding for loading/unloading, slip-resistant, pressure-resistant and durable, high recyclability.',
       applications: 'Fresh produce cold chain logistics, production line parts distribution, retail circular logistics.',
-      image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80'
+      image: '/item 1.png'
     },
     {
       id: 'knife-card',
@@ -73,7 +92,7 @@ const DEFAULT_ECO_DATA = {
       specs: '600X300X50mm',
       advantages: 'Lightweight and durable, precision die-cutting, foldable portability, ultrasonic edge sealing.',
       applications: 'Glass industry bottle filling, precision instrument protection.',
-      image: 'https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=800&q=80'
+      image: '/item 2.png'
     },
     {
       id: 'pallet-box',
@@ -81,7 +100,7 @@ const DEFAULT_ECO_DATA = {
       specs: '1000X1200mm',
       advantages: 'Sturdy load-bearing, stackable for visibility, customizable in multiple specifications.',
       applications: 'Fruit and vegetable distribution centers, inter-factory transportation for auto parts, express parcel consolidation and circulation.',
-      image: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80'
+      image: '/item 3.png'
     }
   ],
   coloredBoxesProducts: [
@@ -91,7 +110,7 @@ const DEFAULT_ECO_DATA = {
       specs: '303x170x190mm',
       advantages: 'Waterproof & Antistatic, Multi-functional Composite, Diverse Customizable Designs.',
       applications: 'Passion fruit, peaches, navel oranges, pears, etc.',
-      image: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=800&q=80'
+      image: '/item 4.png'
     },
     {
       id: 'agricultural-packaging',
@@ -99,7 +118,7 @@ const DEFAULT_ECO_DATA = {
       specs: '560X376X292mm',
       advantages: 'Food-grade antibacterial protection, thermal insulation and freshness preservation, waterproof and eco-friendly.',
       applications: 'Passion fruit, peaches, navel oranges, pears, radishes, rice, vegetables, etc.',
-      image: 'https://images.unsplash.com/photo-1595246140625-573b715d11dc?auto=format&fit=crop&w=800&q=80'
+      image: '/item 5.png'
     },
     {
       id: 'craft-beer',
@@ -107,7 +126,7 @@ const DEFAULT_ECO_DATA = {
       specs: '255X172X267mm',
       advantages: 'Moisture-resistant, lightweight, shockproof, recyclable.',
       applications: 'Beer, bayberry juice beverages, mineral water, etc.',
-      image: 'https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&w=800&q=80'
+      image: '/item 6.png'
     }
   ],
   insulatedBoxesProducts: [
@@ -520,18 +539,18 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
         let imgIdx = itemIndex;
         if (sectionKey.startsWith('industrial')) parentKey = 'industrialData';
         if (sectionKey.startsWith('fb')) parentKey = 'foodBeverageData';
-        
+
         const newImages = [...(ecoData[parentKey]?.images || [])];
         newImages[imgIdx] = formData.url || formData.image;
         updateEcoData({ ...ecoData, [parentKey]: { ...ecoData[parentKey], images: newImages } });
       } else if (modalType === 'gallerySingleImage') {
         const newSlides = JSON.parse(JSON.stringify(ecoData.gallerySlides || []));
-        
+
         if (sectionKey === 'galleryImageAdd') {
-          const newImgObj = { 
-            title: formData.title || 'New Item', 
-            tag: formData.tag || 'New Tag', 
-            url: formData.url || formData.image || 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80' 
+          const newImgObj = {
+            title: formData.title || 'New Item',
+            tag: formData.tag || 'New Tag',
+            url: formData.url || formData.image || 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80'
           };
 
           const lastSlideIdx = newSlides.length - 1;
@@ -697,7 +716,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
               justifyContent: 'center'
             }}>
               <img
-                src={item.image}
+                src={getImageUrl(item.image)}
                 alt={item.title}
                 style={{
                   width: '100%',
@@ -768,7 +787,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
 
   return (
     <div className="eco-packaging-page" style={{ color: 'var(--text-primary)', background: 'var(--bg-primary)', minHeight: '100vh', paddingBottom: '3rem' }}>
-      
+
       {/* FLOATING ADMIN TOOLBAR WHEN ADMIN MODE ACTIVE */}
       {isAdminMode && (
         <div style={{
@@ -793,7 +812,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
             </div>
             <div style={{ fontSize: '0.72rem', color: '#94a3b8', marginTop: '2px' }}>Click any Edit button on the page to modify content</div>
           </div>
-          
+
           <div style={{ display: 'flex', gap: '8px' }}>
             <button
               onClick={handleResetDefaults}
@@ -968,7 +987,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
               </button>
             )}
           </div>
-          
+
           {renderProductCardsSection('turnoverProducts', ecoData.turnoverProducts || [])}
         </div>
       </section>
@@ -1162,7 +1181,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
             gap: '2.5rem',
             alignItems: 'stretch'
           }} className="bridge-layout">
-            
+
             <div style={{
               borderRadius: '16px',
               overflow: 'hidden',
@@ -1602,7 +1621,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
             )}
           </div>
 
-          <div 
+          <div
             onTouchStart={(e) => handleStart(e.touches[0].clientX)}
             onTouchMove={(e) => handleMove(e.touches[0].clientX)}
             onTouchEnd={handleEnd}
@@ -1814,9 +1833,9 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                 <Edit style={{ color: '#D4A72C', width: '22px', height: '22px' }} />
                 {modalConfig.itemIndex !== null ? 'Edit Section Item' : 'Add New Section Item'}
               </h3>
-              <button 
+              <button
                 type="button"
-                onClick={() => setShowModal(false)} 
+                onClick={() => setShowModal(false)}
                 style={{ background: 'rgba(0,0,0,0.05)', border: 'none', color: 'var(--text-primary)', cursor: 'pointer', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
                 <X style={{ width: '20px', height: '20px' }} />
@@ -2123,7 +2142,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                       onChange={(e) => setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, image: e.target.value, url: e.target.value } })}
                       style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)', marginBottom: '0.5rem' }}
                     />
-                    
+
                     {(modalConfig.formData.image || modalConfig.formData.url) && (
                       <div style={{ position: 'relative', width: '100%', marginBottom: '0.75rem' }}>
                         <img
