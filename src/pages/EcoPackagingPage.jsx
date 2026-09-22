@@ -68,10 +68,16 @@ const getImageUrl = (url) => {
     .replace(/\/item5\.png$/i, '/item 5.png')
     .replace(/\/item6\.png$/i, '/item 6.png')
     .replace(/\/item7\.png$/i, '/item 7.png')
-    .replace(/\/item8\.png$/i, '/item 8.png');
+    .replace(/\/item8\.png$/i, '/item 8.png')
+    .replace(/\/item9\.png$/i, '/item 9.png')
+    .replace(/\/item11\.png$/i, '/item 11.png')
+    .replace(/\/item12\.png$/i, '/item 12.png')
+    .replace(/\/item13\.png$/i, '/item 13.png')
+    .replace(/\/item14\.png$/i, '/item 14.png')
+    .replace(/\/item15\.png$/i, '/item 15.png');
 };
 
-const ECO_DATA_VERSION = 'v4';
+const ECO_DATA_VERSION = 'v5';
 
 // Default initial dataset for all sections
 const DEFAULT_ECO_DATA = {
@@ -159,7 +165,7 @@ const DEFAULT_ECO_DATA = {
       title: 'Excellent Water & Moisture Resistance',
       desc: 'Soaking test for one week – the box remains intact without damage.',
       iconKey: 'Droplet',
-      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80'
+      image: '/item 9.png'
     },
     {
       id: 'p2',
@@ -167,7 +173,7 @@ const DEFAULT_ECO_DATA = {
       title: 'Superior Compression Resistance',
       desc: 'Tested on a customer’s sample box.',
       iconKey: 'Shield',
-      image: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80'
+      image: '/item 11.png'
     },
     {
       id: 'p3',
@@ -175,7 +181,7 @@ const DEFAULT_ECO_DATA = {
       title: 'Outstanding Freezing Resistance',
       desc: 'Frozen in a cold storage facility for 3–4 months – the Eco-Box becomes tougher and more resilient at low temperatures, with no softening or collapse.',
       iconKey: 'ThermometerSnowflake',
-      image: 'https://images.unsplash.com/photo-1516594915697-87c37e724bd0?auto=format&fit=crop&w=600&q=80'
+      image: '/item 12.png'
     },
     {
       id: 'p4',
@@ -183,7 +189,7 @@ const DEFAULT_ECO_DATA = {
       title: 'Excellent Environmental Performance',
       desc: 'Comparative combustion test between plastic and the Eco-Box, the Eco-box burns instantly into powder, achieving complete degradation with superior environmental performance.',
       iconKey: 'Flame',
-      image: 'https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=600&q=80'
+      image: '/item 13.png'
     },
     {
       id: 'p5',
@@ -191,7 +197,7 @@ const DEFAULT_ECO_DATA = {
       title: 'Controllable Degradation Advantage',
       desc: 'Degradation can be controlled according to customer requirements, allowing adjustable service life of the box.',
       iconKey: 'Trash2',
-      image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80'
+      image: '/item 14.png'
     },
     {
       id: 'p6',
@@ -199,7 +205,7 @@ const DEFAULT_ECO_DATA = {
       title: 'Strong Stain & Oil Resistance',
       desc: 'Edible oil, chili sauce, soy sauce, and coffee spilled on the box can be wiped clean easily, leaving the surface as good as new.',
       iconKey: 'Sparkles',
-      image: 'https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&w=600&q=80'
+      image: '/item 15.png'
     }
   ],
   coldChainData: {
@@ -1116,7 +1122,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                 )}
 
                 <div style={{ width: '100%', aspectRatio: '16 / 9', position: 'relative', overflow: 'hidden' }}>
-                  <img src={pillar.image} alt={pillar.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={getImageUrl(pillar.image)} alt={pillar.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   <div style={{
                     position: 'absolute',
                     top: '12px',
