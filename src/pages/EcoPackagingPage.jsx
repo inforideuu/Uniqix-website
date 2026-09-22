@@ -85,7 +85,7 @@ const getImageUrl = (url) => {
     .replace(/\/item23\.png$/i, '/item 23.png');
 };
 
-const ECO_DATA_VERSION = 'v8';
+const ECO_DATA_VERSION = 'v9';
 
 // Default initial dataset for all sections
 const DEFAULT_ECO_DATA = {
@@ -404,10 +404,10 @@ const DEFAULT_ECO_DATA = {
       category: 'COLD CHAIN & FRESH PRODUCE',
       title: 'Perishable Food & Temperature Controlled Cases',
       images: [
-        { url: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=800&q=80', title: 'Lychee & Fresh Berry Box', tag: 'Fresh Produce' },
-        { url: 'https://images.unsplash.com/photo-1595246140625-573b715d11dc?auto=format&fit=crop&w=800&q=80', title: 'Protected Poultry & Egg Crate', tag: 'Zero Rupture' },
-        { url: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80', title: 'Foldable Insulated Pallet Container', tag: 'Thermal Sealed' },
-        { url: 'https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=800&q=80', title: 'Cold Storage Grocery Turnover Box', tag: '24hr Insulation' }
+        { url: '/package/WhatsApp Image 2026-09-21 at 10.07.38 AM (1).jpeg', title: 'Lychee & Fresh Berry Box', tag: 'Fresh Produce' },
+        { url: '/package/WhatsApp Image 2026-09-21 at 10.07.38 AM (2).jpeg', title: 'Protected Poultry & Egg Crate', tag: 'Zero Rupture' },
+        { url: '/package/WhatsApp Image 2026-09-21 at 10.07.38 AM.jpeg', title: 'Foldable Insulated Pallet Container', tag: 'Thermal Sealed' },
+        { url: '/package/WhatsApp Image 2026-09-21 at 10.07.39 AM (1).jpeg', title: 'Cold Storage Grocery Turnover Box', tag: '24hr Insulation' }
       ]
     },
     {
@@ -415,10 +415,10 @@ const DEFAULT_ECO_DATA = {
       category: 'HIGH-PRECISION & INDUSTRIAL',
       title: 'Semiconductor, ESD & Heavy Equipment Packaging',
       images: [
-        { url: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80', title: 'ESD Antistatic Circuit Board Box', tag: 'ESD ≤10⁹ Ω' },
-        { url: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80', title: 'Precision Medical Device Container', tag: '50G Impact Rated' },
-        { url: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80', title: 'Heavy Duty Industrial Pallet Crate', tag: 'High Load' },
-        { url: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80', title: 'Automotive Precision Knife Card Box', tag: 'Custom Die-Cut' }
+        { url: '/package/WhatsApp Image 2026-09-21 at 10.07.39 AM.jpeg', title: 'ESD Antistatic Circuit Board Box', tag: 'ESD ≤10⁹ Ω' },
+        { url: '/package/WhatsApp Image 2026-09-21 at 10.07.40 AM (1).jpeg', title: 'Precision Medical Device Container', tag: '50G Impact Rated' },
+        { url: '/package/WhatsApp Image 2026-09-21 at 10.07.40 AM (2).jpeg', title: 'Heavy Duty Industrial Pallet Crate', tag: 'High Load' },
+        { url: '/package/WhatsApp Image 2026-09-21 at 10.07.40 AM.jpeg', title: 'Automotive Precision Knife Card Box', tag: 'Custom Die-Cut' }
       ]
     },
     {
@@ -426,10 +426,20 @@ const DEFAULT_ECO_DATA = {
       category: 'CONSUMER BEVERAGE & LOGISTICS',
       title: 'Craft Beer, Mineral Water & Agricultural Cases',
       images: [
-        { url: 'https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&w=800&q=80', title: 'RedBull & Energy Drink Multi-Pack', tag: '8-Layer Stacking' },
-        { url: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80', title: 'Craft Brewery Eco Corrugated Case', tag: 'Moisture Barrier' },
-        { url: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80', title: 'Agricultural Fruit Export Box', tag: '100% Degradable' },
-        { url: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80', title: 'Warehouse Palletized Distribution', tag: '85% Space Saved' }
+        { url: '/package/WhatsApp Image 2026-09-21 at 10.07.41 AM (1).jpeg', title: 'RedBull & Energy Drink Multi-Pack', tag: '8-Layer Stacking' },
+        { url: '/package/WhatsApp Image 2026-09-21 at 10.07.41 AM (2).jpeg', title: 'Craft Brewery Eco Corrugated Case', tag: 'Moisture Barrier' },
+        { url: '/package/WhatsApp Image 2026-09-21 at 10.07.41 AM.jpeg', title: 'Agricultural Fruit Export Box', tag: '100% Degradable' },
+        { url: '/package/WhatsApp Image 2026-09-21 at 10.07.42 AM (1).jpeg', title: 'Warehouse Palletized Distribution', tag: '85% Space Saved' }
+      ]
+    },
+    {
+      id: 'eco-showcase-extended',
+      category: 'CIRCULAR LOGISTICS & turnover',
+      title: 'Heavy-Duty Turnover & Storage Cases',
+      images: [
+        { url: '/package/WhatsApp Image 2026-09-21 at 10.07.42 AM.jpeg', title: 'Heavy Duty Modular Turnover Case', tag: 'Modular Design' },
+        { url: '/package/WhatsApp Image 2026-09-21 at 10.07.45 AM (2).jpeg', title: 'Ultra-Tough Eco Pallet Box', tag: 'Stackable Crate' },
+        { url: '/package/WhatsApp Image 2026-09-21 at 10.07.46 AM.jpeg', title: 'High-Density Circular Storage Box', tag: 'Zero Waste' }
       ]
     }
   ]
@@ -1789,7 +1799,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                     </div>
                   )}
                   <div style={{ width: '100%', height: '100%', background: 'var(--bg-glass)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src={imgItem.url} alt={imgItem.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                    <img src={getImageUrl(imgItem.url)} alt={imgItem.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                   </div>
                   <div style={{
                     position: 'absolute',
