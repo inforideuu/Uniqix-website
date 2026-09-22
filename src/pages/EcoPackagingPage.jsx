@@ -366,13 +366,28 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
     const saved = localStorage.getItem('uniqix_eco_packaging_data');
     if (saved) {
       try {
-        return { ...DEFAULT_ECO_DATA, ...JSON.parse(saved) };
+        const parsed = JSON.parse(saved);
+        const merged = { ...DEFAULT_ECO_DATA, ...parsed };
+        if (merged.gallerySlides) {
+          const nonEmpty = merged.gallerySlides.filter(s => s && s.images && s.images.length > 0);
+          if (nonEmpty.length > 0) {
+            merged.gallerySlides = nonEmpty;
+          }
+        }
+        return merged;
       } catch (e) {
         console.error('Error parsing eco packaging data:', e);
       }
     }
     return DEFAULT_ECO_DATA;
   });
+
+  useEffect(() => {
+    const slideCount = ecoData.gallerySlides?.length || 0;
+    if (activeGallerySlide >= slideCount && slideCount > 0) {
+      setActiveGallerySlide(slideCount - 1);
+    }
+  }, [ecoData.gallerySlides, activeGallerySlide]);
 
   // Modal State for CRUD operations
   const [showModal, setShowModal] = useState(false);
@@ -390,6 +405,12 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
 
   // Helper to persist data updates
   const updateEcoData = (newData) => {
+    if (newData.gallerySlides) {
+      const nonEmpty = newData.gallerySlides.filter(s => s && s.images && s.images.length > 0);
+      if (nonEmpty.length > 0) {
+        newData.gallerySlides = nonEmpty;
+      }
+    }
     setEcoData(newData);
     localStorage.setItem('uniqix_eco_packaging_data', JSON.stringify(newData));
   };
@@ -403,7 +424,10 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
   // Reset to Defaults
   const handleResetDefaults = () => {
     if (window.confirm('Reset all Eco Packaging sections to factory defaults?')) {
-      updateEcoData(DEFAULT_ECO_DATA);
+      const freshDefaultData = JSON.parse(JSON.stringify(DEFAULT_ECO_DATA));
+      setActiveGallerySlide(0);
+      setEcoData(freshDefaultData);
+      localStorage.removeItem('uniqix_eco_packaging_data');
     }
   };
 
@@ -429,76 +453,90 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
   // Save Form Handler
   const handleSaveForm = (e) => {
     e.preventDefault();
-    const { sectionKey, itemIndex, modalType, formData } = modalConfig;
+    try {
+      const { sectionKey, itemIndex, modalType, formData } = modalConfig;
 
-    if (sectionKey === 'hero') {
-      updateEcoData({ ...ecoData, hero: formData });
-    } else if (modalType === 'matrixRow') {
-      const parentKey = sectionKey === 'coldChainMatrix' ? 'coldChainData' : sectionKey === 'industrialMatrix' ? 'industrialData' : 'foodBeverageData';
-      const newMatrix = [...(ecoData[parentKey]?.matrix || [])];
-      newMatrix[itemIndex] = formData;
-      updateEcoData({ ...ecoData, [parentKey]: { ...ecoData[parentKey], matrix: newMatrix } });
-    } else if (modalType === 'singleImage') {
-      let parentKey = 'coldChainData';
-      let imgIdx = itemIndex;
-      if (sectionKey.startsWith('industrial')) parentKey = 'industrialData';
-      if (sectionKey.startsWith('fb')) parentKey = 'foodBeverageData';
-      
-      const newImages = [...(ecoData[parentKey]?.images || [])];
-      newImages[imgIdx] = formData.url || formData.image;
-      updateEcoData({ ...ecoData, [parentKey]: { ...ecoData[parentKey], images: newImages } });
-    } else if (modalType === 'gallerySingleImage') {
-      const newSlides = JSON.parse(JSON.stringify(ecoData.gallerySlides || []));
-      
-      if (sectionKey === 'galleryImageAdd') {
-        const newImgObj = { 
-          title: formData.title || 'New Item', 
-          tag: formData.tag || 'New Tag', 
-          url: formData.url || formData.image || 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80' 
-        };
+      if (sectionKey === 'hero') {
+        updateEcoData({ ...ecoData, hero: formData });
+      } else if (modalType === 'matrixRow') {
+        const parentKey = sectionKey === 'coldChainMatrix' ? 'coldChainData' : sectionKey === 'industrialMatrix' ? 'industrialData' : 'foodBeverageData';
+        const newMatrix = [...(ecoData[parentKey]?.matrix || [])];
+        newMatrix[itemIndex] = formData;
+        updateEcoData({ ...ecoData, [parentKey]: { ...ecoData[parentKey], matrix: newMatrix } });
+      } else if (modalType === 'singleImage') {
+        let parentKey = 'coldChainData';
+        let imgIdx = itemIndex;
+        if (sectionKey.startsWith('industrial')) parentKey = 'industrialData';
+        if (sectionKey.startsWith('fb')) parentKey = 'foodBeverageData';
+        
+        const newImages = [...(ecoData[parentKey]?.images || [])];
+        newImages[imgIdx] = formData.url || formData.image;
+        updateEcoData({ ...ecoData, [parentKey]: { ...ecoData[parentKey], images: newImages } });
+      } else if (modalType === 'gallerySingleImage') {
+        const newSlides = JSON.parse(JSON.stringify(ecoData.gallerySlides || []));
+        
+        if (sectionKey === 'galleryImageAdd') {
+          const newImgObj = { 
+            title: formData.title || 'New Item', 
+            tag: formData.tag || 'New Tag', 
+            url: formData.url || formData.image || 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80' 
+          };
 
-        const lastSlideIdx = newSlides.length - 1;
-        const lastSlide = newSlides[lastSlideIdx];
+          const lastSlideIdx = newSlides.length - 1;
+          const lastSlide = newSlides[lastSlideIdx];
 
-        if (lastSlide && lastSlide.images.length < 4) {
-          lastSlide.images.push(newImgObj);
-          setActiveGallerySlide(lastSlideIdx);
+          if (lastSlide && lastSlide.images.length < 4) {
+            lastSlide.images.push(newImgObj);
+            setActiveGallerySlide(lastSlideIdx);
+          } else {
+            const newSlideObj = {
+              id: `slide_${Date.now()}`,
+              category: lastSlide?.category || 'APPLICATION GALLERY',
+              title: lastSlide?.title ? `${lastSlide.title} (Cont.)` : 'Showcase Grid',
+              images: [newImgObj]
+            };
+            newSlides.push(newSlideObj);
+            setActiveGallerySlide(newSlides.length - 1);
+          }
         } else {
-          const newSlideObj = {
-            id: `slide_${Date.now()}`,
-            category: lastSlide?.category || 'APPLICATION GALLERY',
-            title: lastSlide?.title ? `${lastSlide.title} (Cont.)` : 'Showcase Grid',
-            images: [newImgObj]
-          };
-          newSlides.push(newSlideObj);
-          setActiveGallerySlide(newSlides.length - 1);
+          const currentSlide = newSlides[activeGallerySlide];
+          if (currentSlide && currentSlide.images[itemIndex]) {
+            currentSlide.images[itemIndex] = {
+              ...currentSlide.images[itemIndex],
+              title: formData.title,
+              tag: formData.tag,
+              url: formData.url || formData.image || currentSlide.images[itemIndex].url
+            };
+          }
         }
-      } else {
-        const currentSlide = newSlides[activeGallerySlide];
-        if (currentSlide && currentSlide.images[itemIndex]) {
-          currentSlide.images[itemIndex] = {
-            ...currentSlide.images[itemIndex],
-            title: formData.title,
-            tag: formData.tag,
-            url: formData.url || formData.image || currentSlide.images[itemIndex].url
+        updateEcoData({ ...ecoData, gallerySlides: newSlides });
+      } else if (modalType === 'gallerySlideConfig') {
+        const newSlides = [...(ecoData.gallerySlides || [])];
+        if (newSlides[itemIndex]) {
+          newSlides[itemIndex] = {
+            ...newSlides[itemIndex],
+            category: formData.category || newSlides[itemIndex].category,
+            title: formData.title || newSlides[itemIndex].title
           };
+          updateEcoData({ ...ecoData, gallerySlides: newSlides });
         }
-      }
-      updateEcoData({ ...ecoData, gallerySlides: newSlides });
-    } else if (sectionKey === 'coldChainData' || sectionKey === 'industrialData' || sectionKey === 'foodBeverageData') {
-      updateEcoData({ ...ecoData, [sectionKey]: formData });
-    } else {
-      const currentList = [...(ecoData[sectionKey] || [])];
-      if (itemIndex !== null && itemIndex !== undefined) {
-        currentList[itemIndex] = formData;
+      } else if (sectionKey === 'coldChainData' || sectionKey === 'industrialData' || sectionKey === 'foodBeverageData') {
+        updateEcoData({ ...ecoData, [sectionKey]: formData });
       } else {
-        const newItem = { id: `item_${Date.now()}`, ...formData };
-        currentList.push(newItem);
+        const currentList = [...(ecoData[sectionKey] || [])];
+        if (itemIndex !== null && itemIndex !== undefined) {
+          currentList[itemIndex] = formData;
+        } else {
+          const newItem = { id: `item_${Date.now()}`, ...formData };
+          currentList.push(newItem);
+        }
+        updateEcoData({ ...ecoData, [sectionKey]: currentList });
       }
-      updateEcoData({ ...ecoData, [sectionKey]: currentList });
+    } catch (err) {
+      console.error('Error saving form:', err);
+    } finally {
+      setShowModal(false);
     }
-
-    setShowModal(false);
   };
 
   // Swipe Handlers
@@ -1551,7 +1589,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                       cursor: activeGallerySlide === 0 ? 'not-allowed' : 'pointer'
                     }}
                   >
-                    <ChevronLeft style={{ width: '24px', height: '24px', strokeWidth: 3, color: '#ffffff' }} />
+                    -
                   </button>
 
                   <button
@@ -1570,7 +1608,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                       cursor: activeGallerySlide === (ecoData.gallerySlides?.length || 1) - 1 ? 'not-allowed' : 'pointer'
                     }}
                   >
-                    <ChevronRight style={{ width: '24px', height: '24px', strokeWidth: 3, color: '#ffffff' }} />
+                    +
                   </button>
                 </div>
               </div>
@@ -1604,9 +1642,16 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                         onClick={(e) => {
                           e.stopPropagation();
                           if (!window.confirm('Delete this image from showcase grid?')) return;
-                          const newSlides = [...ecoData.gallerySlides];
-                          newSlides[activeGallerySlide].images.splice(imgIdx, 1);
-                          updateEcoData({ ...ecoData, gallerySlides: newSlides });
+                          const newSlides = JSON.parse(JSON.stringify(ecoData.gallerySlides || []));
+                          if (newSlides[activeGallerySlide] && newSlides[activeGallerySlide].images) {
+                            newSlides[activeGallerySlide].images.splice(imgIdx, 1);
+                            const nonEmpty = newSlides.filter(s => s && s.images && s.images.length > 0);
+                            const finalSlides = nonEmpty.length > 0 ? nonEmpty : newSlides;
+                            if (activeGallerySlide >= finalSlides.length) {
+                              setActiveGallerySlide(Math.max(0, finalSlides.length - 1));
+                            }
+                            updateEcoData({ ...ecoData, gallerySlides: finalSlides });
+                          }
                         }}
                         style={{ background: '#ef4444', color: '#ffffff', border: 'none', padding: '4px 8px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.72rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}
                       >
@@ -1753,6 +1798,29 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                     />
                   </div>
                 </>
+              ) : modalConfig.modalType === 'gallerySlideConfig' ? (
+                <>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Category Badge</label>
+                    <input
+                      type="text"
+                      value={modalConfig.formData.category || ''}
+                      onChange={(e) => setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, category: e.target.value } })}
+                      style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)' }}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Slide Title</label>
+                    <input
+                      type="text"
+                      value={modalConfig.formData.title || ''}
+                      onChange={(e) => setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, title: e.target.value } })}
+                      style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)' }}
+                      required
+                    />
+                  </div>
+                </>
               ) : modalConfig.modalType === 'matrixRow' ? (
                 <>
                   <div>
@@ -1877,7 +1945,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                     />
                   </div>
 
-                  {modalConfig.formData.specs !== undefined && (
+                  {(modalConfig.formData.specs !== undefined || ['turnoverProducts', 'coloredBoxesProducts', 'insulatedBoxesProducts'].includes(modalConfig.sectionKey)) && (
                     <div>
                       <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Dimensions / Specs</label>
                       <input
@@ -1887,6 +1955,29 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                         style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)' }}
                       />
                     </div>
+                  )}
+
+                  {modalConfig.sectionKey === 'coreAdvantagesPillars' && (
+                    <>
+                      <div>
+                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Pillar Number (e.g. 1)</label>
+                        <input
+                          type="text"
+                          value={modalConfig.formData.num || ''}
+                          onChange={(e) => setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, num: e.target.value } })}
+                          style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)' }}
+                        />
+                      </div>
+                      <div>
+                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Icon (Droplet, Shield, ThermometerSnowflake, Flame, Trash2, Sparkles)</label>
+                        <input
+                          type="text"
+                          value={modalConfig.formData.iconKey || ''}
+                          onChange={(e) => setModalConfig({ ...modalConfig, formData: { ...modalConfig.formData, iconKey: e.target.value } })}
+                          style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)' }}
+                        />
+                      </div>
+                    </>
                   )}
 
                   <div>
@@ -1958,7 +2049,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                     />
                   </div>
 
-                  {modalConfig.formData.advantages !== undefined && (
+                  {(modalConfig.formData.advantages !== undefined || ['turnoverProducts', 'coloredBoxesProducts', 'insulatedBoxesProducts'].includes(modalConfig.sectionKey)) && (
                     <div>
                       <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Core Advantages</label>
                       <textarea
@@ -1970,7 +2061,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                     </div>
                   )}
 
-                  {modalConfig.formData.applications !== undefined && (
+                  {(modalConfig.formData.applications !== undefined || ['turnoverProducts', 'coloredBoxesProducts', 'insulatedBoxesProducts'].includes(modalConfig.sectionKey)) && (
                     <div>
                       <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Wide Applications</label>
                       <textarea
@@ -1982,7 +2073,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                     </div>
                   )}
 
-                  {modalConfig.formData.desc !== undefined && (
+                  {(modalConfig.formData.desc !== undefined || modalConfig.sectionKey === 'coreAdvantagesPillars') && (
                     <div>
                       <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>Description</label>
                       <textarea
