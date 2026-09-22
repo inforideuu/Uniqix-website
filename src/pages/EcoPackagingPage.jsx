@@ -6,8 +6,8 @@ import {
 } from 'lucide-react';
 import ecoShowcaseImg from '../assets/eco_box_showcase.png';
 
-// Helper to compress uploaded image files to lightweight JPEG data URLs to prevent localStorage quota errors
-const compressImageFile = (file, maxWidth = 800, maxHeight = 800, quality = 0.75) => {
+// Helper to compress uploaded image files to lightweight 16:9 JPEG data URLs to prevent localStorage quota errors
+const compressImageFile = (file, maxWidth = 960, maxHeight = 540, quality = 0.75) => {
   return new Promise((resolve) => {
     if (!file || !file.type.startsWith('image/')) {
       resolve('');
@@ -687,7 +687,8 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
               overflow: 'hidden',
               border: '1px solid var(--border-glass)',
               marginBottom: '1rem',
-              height: '210px',
+              width: '100%',
+              aspectRatio: '16 / 9',
               background: 'var(--bg-glass)',
               display: 'flex',
               alignItems: 'center',
@@ -699,7 +700,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'contain',
+                  objectFit: 'cover',
                   display: 'block',
                   transition: 'transform 0.85s cubic-bezier(0.25, 1, 0.5, 1)',
                   transform: isHovered ? 'scale(1.05)' : 'scale(1)'
@@ -1051,7 +1052,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                   </div>
                 )}
 
-                <div style={{ height: '180px', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ width: '100%', aspectRatio: '16 / 9', position: 'relative', overflow: 'hidden' }}>
                   <img src={pillar.image} alt={pillar.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   <div style={{
                     position: 'absolute',
@@ -1496,7 +1497,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '5.25rem', height: '100%' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', columnGap: '1rem', rowGap: '1.75rem' }}>
                 {[0, 1, 2, 3].map((imgIdx) => (
-                  <div key={imgIdx} style={{ aspectRatio: '1 / 1', width: '100%', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-glass)', position: 'relative', background: 'var(--bg-glass)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div key={imgIdx} style={{ aspectRatio: '16 / 9', width: '100%', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-glass)', position: 'relative', background: 'var(--bg-glass)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     {isAdminMode && (
                       <div style={{ position: 'absolute', top: '6px', right: '6px', zIndex: 10 }}>
                         <button
@@ -1672,7 +1673,8 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                     borderRadius: '16px',
                     overflow: 'hidden',
                     position: 'relative',
-                    height: '240px',
+                    width: '100%',
+                    aspectRatio: '16 / 9',
                     border: '1px solid var(--border-glass)',
                     boxShadow: '0 8px 20px rgba(0,0,0,0.04)'
                   }}
@@ -1936,11 +1938,11 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                       style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)', marginBottom: '0.5rem' }}
                     />
                     {(modalConfig.formData.url || modalConfig.formData.image) && (
-                      <div style={{ position: 'relative', display: 'inline-block', marginBottom: '0.75rem' }}>
+                      <div style={{ position: 'relative', width: '100%', marginBottom: '0.75rem' }}>
                         <img
                           src={modalConfig.formData.url || modalConfig.formData.image}
                           alt="Preview"
-                          style={{ maxWidth: '100%', height: '140px', objectFit: 'cover', borderRadius: '10px', border: '1px solid var(--border-glass)', display: 'block' }}
+                          style={{ width: '100%', aspectRatio: '16 / 9', objectFit: 'cover', borderRadius: '10px', border: '1px solid var(--border-glass)', display: 'block' }}
                         />
                       </div>
                     )}
@@ -1971,11 +1973,11 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                     style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid var(--border-glass)', background: 'var(--bg-glass)', color: 'var(--text-primary)', marginBottom: '0.5rem' }}
                   />
                   {(modalConfig.formData.url || modalConfig.formData.image) && (
-                    <div style={{ position: 'relative', display: 'inline-block', marginBottom: '0.75rem' }}>
+                    <div style={{ position: 'relative', width: '100%', marginBottom: '0.75rem' }}>
                       <img
                         src={modalConfig.formData.url || modalConfig.formData.image}
                         alt="Preview"
-                        style={{ maxWidth: '100%', height: '160px', objectFit: 'cover', borderRadius: '10px', border: '1px solid var(--border-glass)', display: 'block' }}
+                        style={{ width: '100%', aspectRatio: '16 / 9', objectFit: 'cover', borderRadius: '10px', border: '1px solid var(--border-glass)', display: 'block' }}
                       />
                     </div>
                   )}
@@ -2053,11 +2055,11 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                     />
                     
                     {(modalConfig.formData.image || modalConfig.formData.url) && (
-                      <div style={{ position: 'relative', display: 'inline-block', marginBottom: '0.75rem' }}>
+                      <div style={{ position: 'relative', width: '100%', marginBottom: '0.75rem' }}>
                         <img
                           src={modalConfig.formData.image || modalConfig.formData.url}
                           alt="Selected Preview"
-                          style={{ maxWidth: '100%', height: '140px', objectFit: 'cover', borderRadius: '10px', border: '1px solid var(--border-glass)', display: 'block' }}
+                          style={{ width: '100%', aspectRatio: '16 / 9', objectFit: 'cover', borderRadius: '10px', border: '1px solid var(--border-glass)', display: 'block' }}
                         />
                         <button
                           type="button"
