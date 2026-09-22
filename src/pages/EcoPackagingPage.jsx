@@ -76,10 +76,12 @@ const getImageUrl = (url) => {
     .replace(/\/item14\.png$/i, '/item 14.png')
     .replace(/\/item15\.png$/i, '/item 15.png')
     .replace(/\/item16\.png$/i, '/item 16.png')
-    .replace(/\/item17\.png$/i, '/item 17.png');
+    .replace(/\/item17\.png$/i, '/item 17.png')
+    .replace(/\/item18\.png$/i, '/item 18.png')
+    .replace(/\/item19\.png$/i, '/item 19.png');
 };
 
-const ECO_DATA_VERSION = 'v6';
+const ECO_DATA_VERSION = 'v7';
 
 // Default initial dataset for all sections
 const DEFAULT_ECO_DATA = {
@@ -269,8 +271,8 @@ const DEFAULT_ECO_DATA = {
   },
   industrialData: {
     images: [
-      'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80'
+      '/item 18.png',
+      '/item 19.png'
     ],
     matrix: [
       {
@@ -1433,7 +1435,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                       </button>
                     </div>
                   )}
-                  <img src={(ecoData.industrialData?.images || [])[0] || 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80'} alt="Precision Medical Equipment" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={getImageUrl((ecoData.industrialData?.images || [])[0] || '/item 18.png')} alt="Precision Medical Equipment" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div style={{ flex: 1, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border-glass)', position: 'relative', background: 'var(--bg-glass)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   {isAdminMode && (
@@ -1446,7 +1448,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                       </button>
                     </div>
                   )}
-                  <img src={(ecoData.industrialData?.images || [])[1] || 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80'} alt="ESD Semiconductor Component Box" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={getImageUrl((ecoData.industrialData?.images || [])[1] || '/item 19.png')} alt="ESD Semiconductor Component Box" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
               </div>
 
