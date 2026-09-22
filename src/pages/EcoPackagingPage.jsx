@@ -78,10 +78,14 @@ const getImageUrl = (url) => {
     .replace(/\/item16\.png$/i, '/item 16.png')
     .replace(/\/item17\.png$/i, '/item 17.png')
     .replace(/\/item18\.png$/i, '/item 18.png')
-    .replace(/\/item19\.png$/i, '/item 19.png');
+    .replace(/\/item19\.png$/i, '/item 19.png')
+    .replace(/\/item20\.png$/i, '/item 20.png')
+    .replace(/\/item21\.png$/i, '/item 21.png')
+    .replace(/\/item22\.png$/i, '/item 22.png')
+    .replace(/\/item23\.png$/i, '/item 23.png');
 };
 
-const ECO_DATA_VERSION = 'v7';
+const ECO_DATA_VERSION = 'v8';
 
 // Default initial dataset for all sections
 const DEFAULT_ECO_DATA = {
@@ -332,10 +336,10 @@ const DEFAULT_ECO_DATA = {
   },
   foodBeverageData: {
     images: [
-      'https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80'
+      '/item 20.png',
+      '/item 21.png',
+      '/item 22.png',
+      '/item 23.png'
     ],
     matrix: [
       {
