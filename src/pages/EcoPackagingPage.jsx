@@ -74,10 +74,12 @@ const getImageUrl = (url) => {
     .replace(/\/item12\.png$/i, '/item 12.png')
     .replace(/\/item13\.png$/i, '/item 13.png')
     .replace(/\/item14\.png$/i, '/item 14.png')
-    .replace(/\/item15\.png$/i, '/item 15.png');
+    .replace(/\/item15\.png$/i, '/item 15.png')
+    .replace(/\/item16\.png$/i, '/item 16.png')
+    .replace(/\/item17\.png$/i, '/item 17.png');
 };
 
-const ECO_DATA_VERSION = 'v5';
+const ECO_DATA_VERSION = 'v6';
 
 // Default initial dataset for all sections
 const DEFAULT_ECO_DATA = {
@@ -210,8 +212,8 @@ const DEFAULT_ECO_DATA = {
   ],
   coldChainData: {
     images: [
-      'https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1595246140625-573b715d11dc?auto=format&fit=crop&w=600&q=80'
+      '/item 16.png',
+      '/item 17.png'
     ],
     stats: {
       damageRate: '< 1%',
@@ -1276,7 +1278,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                     </div>
                   )}
                   <img
-                    src={(ecoData.coldChainData?.images || [])[0] || 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=600&q=80'}
+                    src={getImageUrl((ecoData.coldChainData?.images || [])[0] || '/item 16.png')}
                     alt="Cold Chain Showcase 1"
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
@@ -1293,7 +1295,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                     </div>
                   )}
                   <img
-                    src={(ecoData.coldChainData?.images || [])[1] || 'https://images.unsplash.com/photo-1595246140625-573b715d11dc?auto=format&fit=crop&w=600&q=80'}
+                    src={getImageUrl((ecoData.coldChainData?.images || [])[1] || '/item 17.png')}
                     alt="Cold Chain Showcase 2"
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
