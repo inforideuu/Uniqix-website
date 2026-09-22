@@ -69,8 +69,11 @@ const getImageUrl = (url) => {
     .replace(/\/item6\.png$/i, '/item 6.png');
 };
 
+const ECO_DATA_VERSION = 'v3';
+
 // Default initial dataset for all sections
 const DEFAULT_ECO_DATA = {
+  _version: ECO_DATA_VERSION,
   hero: {
     category: 'SUSTAINABLE PACKAGING SOLUTIONS',
     title: 'Eco Packaging Series',
@@ -431,14 +434,16 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        const merged = { ...DEFAULT_ECO_DATA, ...parsed };
-        if (merged.gallerySlides) {
-          const nonEmpty = merged.gallerySlides.filter(s => s && s.images && s.images.length > 0);
-          if (nonEmpty.length > 0) {
-            merged.gallerySlides = nonEmpty;
+        if (parsed && parsed._version === ECO_DATA_VERSION) {
+          const merged = { ...DEFAULT_ECO_DATA, ...parsed };
+          if (merged.gallerySlides) {
+            const nonEmpty = merged.gallerySlides.filter(s => s && s.images && s.images.length > 0);
+            if (nonEmpty.length > 0) {
+              merged.gallerySlides = nonEmpty;
+            }
           }
+          return merged;
         }
-        return merged;
       } catch (e) {
         console.error('Error parsing eco packaging data:', e);
       }
