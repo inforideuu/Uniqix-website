@@ -5,6 +5,7 @@ import {
   RefreshCw, Lock, Unlock, Settings, Image as ImageIcon, Save, Check 
 } from 'lucide-react';
 import ecoShowcaseImg from '../assets/eco_box_showcase.png';
+import ecoHeroBannerImg from '../assets/eco_packaging_hero.png';
 
 // Helper to compress uploaded image files to lightweight 16:9 JPEG data URLs to prevent localStorage quota errors
 const compressImageFile = (file, maxWidth = 960, maxHeight = 540, quality = 0.75) => {
@@ -55,7 +56,7 @@ const DEFAULT_ECO_DATA = {
     category: 'SUSTAINABLE PACKAGING SOLUTIONS',
     title: 'Eco Packaging Series',
     description: 'Next-generation eco-friendly Stone Box & corrugated packaging solutions engineered for high compression performance, superior cold chain thermal insulation, precision industrial asset protection, and zero-waste circular logistics.',
-    image: ''
+    image: ecoHeroBannerImg
   },
   turnoverProducts: [
     {
@@ -902,7 +903,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                 justifyContent: 'center'
               }}>
                 <img
-                  src={ecoData.hero?.image || ecoShowcaseImg}
+                  src={ecoData.hero?.image || ecoHeroBannerImg}
                   alt={ecoData.hero?.title || 'Eco Packaging'}
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
