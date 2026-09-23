@@ -20,7 +20,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(() => {
     const hash = window.location.hash.replace('#', '');
     if (hash) return hash;
-    return localStorage.getItem('uniqix_current_page') || 'home';
+    return 'home';
   });
 
   const [theme, setTheme] = useState('light');
@@ -30,7 +30,12 @@ function App() {
   useEffect(() => {
     if (currentPage) {
       localStorage.setItem('uniqix_current_page', currentPage);
-      if (window.location.hash.replace('#', '') !== currentPage) {
+      const currentHash = window.location.hash.replace('#', '');
+      if (currentPage === 'home') {
+        if (window.location.hash) {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+      } else if (currentHash !== currentPage) {
         window.location.hash = currentPage;
       }
     }
@@ -41,6 +46,8 @@ function App() {
       const hash = window.location.hash.replace('#', '');
       if (hash && hash !== currentPage) {
         setCurrentPage(hash);
+      } else if (!hash && currentPage !== 'home') {
+        setCurrentPage('home');
       }
     };
     window.addEventListener('hashchange', handleHashChange);
