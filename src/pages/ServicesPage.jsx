@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Home, ShieldCheck, Box, HardHat, Cpu, Globe, Check, HelpCircle, ArrowRight } from 'lucide-react';
+import { Home, ShieldCheck, Box, HardHat, Cpu, Globe, Check, HelpCircle, ArrowRight, Phone, Mail } from 'lucide-react';
 import { API_BASE_URL } from '../config';
 
 const ServicesPage = ({ setCurrentPage }) => {
@@ -270,9 +270,50 @@ const ServicesPage = ({ setCurrentPage }) => {
                 <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '1.05rem', lineHeight: '1.75', marginBottom: '2.5rem' }}>
                   Uniqix operates as a trusted intermediary mandate and trading partner for physical commodities, bridging producers and industrial buyers globally.
                 </p>
-                <button onClick={() => setCurrentPage('trade')} className="btn btn-primary" style={{ padding: '0.85rem 2rem' }}>
-                  Open Trade Desk
-                </button>
+                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '1rem' }}>
+                  <a
+                    href="https://wa.me/6596262970?text=Hello%20Uniqix%20Trade%20Desk%2C%20I%20would%20like%20to%20inquire%20about%20commodities%20trading."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn"
+                    style={{
+                      background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                      color: '#ffffff',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.6rem',
+                      fontWeight: 600,
+                      padding: '0.75rem 1.25rem',
+                      borderRadius: '0.75rem',
+                      textDecoration: 'none',
+                      fontSize: '0.92rem',
+                      boxShadow: '0 4px 12px rgba(16, 185, 129, 0.25)'
+                    }}
+                  >
+                    <Phone style={{ width: '16px', height: '16px' }} />
+                    +65 9626 2970
+                  </a>
+                  <a
+                    href="mailto:Sam@uniqix.com?subject=International%20Trade%20Desk%20Inquiry"
+                    className="btn"
+                    style={{
+                      background: 'linear-gradient(135deg, #D4A72C 0%, #B8860B 100%)',
+                      color: '#ffffff',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.6rem',
+                      fontWeight: 600,
+                      padding: '0.75rem 1.25rem',
+                      borderRadius: '0.75rem',
+                      textDecoration: 'none',
+                      fontSize: '0.92rem',
+                      boxShadow: '0 4px 12px rgba(212, 167, 44, 0.25)'
+                    }}
+                  >
+                    <Mail style={{ width: '16px', height: '16px' }} />
+                    Sam@uniqix.com
+                  </a>
+                </div>
               </div>
 
               {/* Right Column: Detailed Commodities List */}
