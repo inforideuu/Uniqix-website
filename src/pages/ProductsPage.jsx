@@ -1025,12 +1025,8 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                       padding: '2.5rem 2rem 2.25rem 2rem',
                       borderRadius: '1.25rem',
                       border: '1.5px solid rgba(212, 167, 44, 0.45)',
-                      background: hoveredCardId === cardId
-                        ? 'linear-gradient(180deg, #FFFFFF 0%, #FDF7EC 100%)'
-                        : 'linear-gradient(180deg, #FFFDF8 0%, #FAF4E8 100%)',
-                      boxShadow: hoveredCardId === cardId
-                        ? '0 20px 40px rgba(212, 167, 44, 0.22), 0 6px 18px rgba(0,0,0,0.06)'
-                        : '0 15px 35px rgba(212, 167, 44, 0.12), 0 4px 15px rgba(0,0,0,0.03)',
+                      background: 'var(--bg-glass)',
+                      boxShadow: 'var(--shadow-glass)',
                       cursor: 'pointer',
                       position: 'relative',
                       overflow: 'hidden',
@@ -1127,7 +1123,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                       height: '40px',
                       borderRadius: '50%',
                       border: '1.5px solid #D4A72C',
-                      background: hoveredCardId === cardId ? '#D4A72C' : '#ffffff',
+                      background: hoveredCardId === cardId ? '#D4A72C' : 'var(--bg-primary)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -1284,9 +1280,9 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
             <div className="glass-panel" style={{
               padding: '3.5rem 3rem',
               borderRadius: '2rem',
-              background: 'linear-gradient(180deg, #FFFDF8 0%, #FAF4E8 100%)',
+              background: 'var(--bg-glass)',
               border: '1.5px solid rgba(212, 167, 44, 0.35)',
-              boxShadow: '0 20px 45px rgba(212, 167, 44, 0.1), 0 4px 20px rgba(0,0,0,0.02)'
+              boxShadow: 'var(--shadow-glass)'
             }}>
               {/* Header */}
               <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
@@ -1306,7 +1302,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                 <div style={{ minWidth: '780px' }}>
                   {/* Table Column Headers Bar */}
                   <div style={{
-                    background: 'rgba(238, 230, 216, 0.45)',
+                    background: 'rgba(212, 167, 44, 0.08)',
                     borderRadius: '14px',
                     padding: '1.1rem 1.75rem',
                     marginBottom: '1rem',
@@ -1315,30 +1311,30 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                     alignItems: 'center',
                     gap: '1rem'
                   }}>
-                    <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#475569', letterSpacing: '0.05em' }}>
+                    <div style={{ fontSize: '0.78rem', fontWeight: 800, color: 'var(--text-secondary)', letterSpacing: '0.05em' }}>
                       SAMPLE / SECTOR CASE
                     </div>
-                    <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#475569', letterSpacing: '0.05em', textAlign: 'center' }}>
+                    <div style={{ fontSize: '0.78rem', fontWeight: 800, color: 'var(--text-secondary)', letterSpacing: '0.05em', textAlign: 'center' }}>
                       WEIGHT (B VS S)
                     </div>
-                    <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#475569', letterSpacing: '0.05em', textAlign: 'center' }}>
+                    <div style={{ fontSize: '0.78rem', fontWeight: 800, color: 'var(--text-secondary)', letterSpacing: '0.05em', textAlign: 'center' }}>
                       LOAD LIMIT (B VS S)
                     </div>
-                    <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#475569', letterSpacing: '0.05em', textAlign: 'center' }}>
+                    <div style={{ fontSize: '0.78rem', fontWeight: 800, color: 'var(--text-secondary)', letterSpacing: '0.05em', textAlign: 'center' }}>
                       EDGE CRUSH (ECT)
                     </div>
-                    <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#475569', letterSpacing: '0.05em', textAlign: 'center' }}>
+                    <div style={{ fontSize: '0.78rem', fontWeight: 800, color: 'var(--text-secondary)', letterSpacing: '0.05em', textAlign: 'center' }}>
                       BURSTING STRENGTH
                     </div>
                   </div>
 
-                  {/* 4 Independent White Row Cards */}
+                  {/* 4 Independent Row Cards */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                     {compressionRecords.map((row, idx) => (
                       <div
                         key={idx}
                         style={{
-                          background: '#ffffff',
+                          background: 'var(--bg-glass)',
                           borderRadius: '16px',
                           border: '1.5px solid rgba(212, 167, 44, 0.25)',
                           padding: '1.1rem 1.75rem',
@@ -1346,7 +1342,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                           gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr',
                           alignItems: 'center',
                           gap: '1rem',
-                          boxShadow: '0 4px 15px rgba(0, 0, 0, 0.03)',
+                          boxShadow: 'var(--shadow-glass)',
                           transition: 'all 0.3s ease'
                         }}
                       >
@@ -1365,14 +1361,14 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                           }}>
                             {row.icon}
                           </div>
-                          <span style={{ fontWeight: 800, fontSize: '0.95rem', color: '#0E1E38' }}>
+                          <span style={{ fontWeight: 800, fontSize: '0.95rem', color: 'var(--text-primary)' }}>
                             {row.case}
                           </span>
                         </div>
 
                         {/* Weight (B vs S) */}
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
-                          <div style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', padding: '6px 14px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 600, color: '#475569', minWidth: '55px', textAlign: 'center' }}>
+                          <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-glass)', padding: '6px 14px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)', minWidth: '55px', textAlign: 'center' }}>
                             {row.wB}
                           </div>
                           <span style={{ color: '#D4A72C', fontWeight: 800, fontSize: '0.95rem' }}>→</span>
@@ -1384,7 +1380,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
 
                         {/* Load Limit (B vs S) */}
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
-                          <div style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', padding: '6px 14px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 600, color: '#475569', minWidth: '55px', textAlign: 'center' }}>
+                          <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-glass)', padding: '6px 14px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)', minWidth: '55px', textAlign: 'center' }}>
                             {row.lB}
                           </div>
                           <span style={{ color: '#D4A72C', fontWeight: 800, fontSize: '0.95rem' }}>→</span>
@@ -1396,7 +1392,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
 
                         {/* Edge Crush (ECT) */}
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
-                          <div style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', padding: '6px 14px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 600, color: '#475569', minWidth: '55px', textAlign: 'center' }}>
+                          <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-glass)', padding: '6px 14px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)', minWidth: '55px', textAlign: 'center' }}>
                             {row.eB}
                           </div>
                           <span style={{ color: '#D4A72C', fontWeight: 800, fontSize: '0.95rem' }}>→</span>
@@ -1408,7 +1404,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
 
                         {/* Bursting Strength */}
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
-                          <div style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', padding: '6px 14px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 600, color: '#475569', minWidth: '55px', textAlign: 'center' }}>
+                          <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-glass)', padding: '6px 14px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)', minWidth: '55px', textAlign: 'center' }}>
                             {row.bB}
                           </div>
                           <span style={{ color: '#D4A72C', fontWeight: 800, fontSize: '0.95rem' }}>→</span>
@@ -1432,9 +1428,9 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
             <div className="glass-panel" style={{
               padding: '3.5rem 3rem',
               borderRadius: '2rem',
-              background: 'linear-gradient(180deg, #FFFDF8 0%, #FAF4E8 100%)',
+              background: 'var(--bg-glass)',
               border: '1.5px solid rgba(212, 167, 44, 0.35)',
-              boxShadow: '0 20px 45px rgba(212, 167, 44, 0.1), 0 4px 20px rgba(0,0,0,0.02)'
+              boxShadow: 'var(--shadow-glass)'
             }}>
 
               {/* Section Header with Hide/Show Spec Sheet Pill Button */}

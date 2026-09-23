@@ -274,9 +274,9 @@ const CaseStudiesPage = ({ setCurrentPage }) => {
           <div className="glass-panel" style={{
             padding: '3.5rem 3.5rem 3rem 3.5rem',
             borderRadius: '2rem',
-            background: '#ffffff',
-            border: '1px solid #e2e8f0',
-            boxShadow: '0 20px 45px rgba(0, 0, 0, 0.04)',
+            background: 'var(--bg-glass)',
+            border: '1px solid var(--border-glass)',
+            boxShadow: 'var(--shadow-glass)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -292,11 +292,11 @@ const CaseStudiesPage = ({ setCurrentPage }) => {
                 <span style={{
                   fontSize: '0.82rem',
                   fontWeight: 700,
-                  color: '#06122c',
-                  background: '#ffffff',
+                  color: 'var(--text-primary)',
+                  background: 'var(--bg-primary)',
                   padding: '6px 18px',
                   borderRadius: '30px',
-                  border: '1px solid #e2e8f0',
+                  border: '1px solid var(--border-glass)',
                   boxShadow: '0 2px 6px rgba(0,0,0,0.02)',
                   display: 'flex',
                   alignItems: 'center',
@@ -307,17 +307,17 @@ const CaseStudiesPage = ({ setCurrentPage }) => {
               </div>
 
               {/* Title & Subtitle */}
-              <h2 style={{ fontSize: '2.8rem', fontWeight: 900, marginBottom: '0.4rem', color: '#06122c', fontFamily: "'Playfair Display', Georgia, serif", lineHeight: 1.15 }}>
+              <h2 style={{ fontSize: '2.8rem', fontWeight: 900, marginBottom: '0.4rem', color: 'var(--text-primary)', fontFamily: "'Playfair Display', Georgia, serif", lineHeight: 1.15 }}>
                 {current.title}
               </h2>
-              <h4 style={{ fontSize: '1.15rem', fontWeight: 600, color: '#475569', marginBottom: '0.85rem', lineHeight: '1.4' }}>
+              <h4 style={{ fontSize: '1.15rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.85rem', lineHeight: '1.4' }}>
                 {current.subtitle}
               </h4>
 
               {/* Gold Accent Bar */}
               <div style={{ width: '65px', height: '3.5px', background: 'linear-gradient(90deg, #d4a72c 0%, #e6ae46 100%)', borderRadius: '2px', marginBottom: '2.25rem' }} />
 
-              {/* Stacked Zone Cards (3 Light Cream Cards) */}
+              {/* Stacked Zone Cards */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '2rem' }}>
                 {current.zones.map((zone, zIdx) => {
                   const isHovered = hoveredZoneCard === zIdx;
@@ -327,8 +327,8 @@ const CaseStudiesPage = ({ setCurrentPage }) => {
                       style={{
                         padding: '1.5rem 1.75rem',
                         borderRadius: '1.25rem',
-                        background: '#faf8f5',
-                        border: isHovered ? '1px solid #d4a72c' : '1px solid #efe9dc',
+                        background: 'var(--bg-glass)',
+                        border: isHovered ? '1px solid #d4a72c' : '1px solid var(--border-glass)',
                         display: 'flex',
                         gap: '1.25rem',
                         alignItems: 'flex-start',
@@ -344,8 +344,8 @@ const CaseStudiesPage = ({ setCurrentPage }) => {
                         width: '48px',
                         height: '48px',
                         borderRadius: '12px',
-                        background: '#f7f0e3',
-                        border: '1px solid #efe9dc',
+                        background: 'var(--bg-primary)',
+                        border: '1px solid var(--border-glass)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -355,10 +355,10 @@ const CaseStudiesPage = ({ setCurrentPage }) => {
                         {zone.icon || (zIdx === 0 ? <Building style={{ width: '22px', height: '22px', color: '#c59a27' }} /> : zIdx === 1 ? <Heart style={{ width: '22px', height: '22px', color: '#c59a27' }} /> : <Home style={{ width: '22px', height: '22px', color: '#c59a27' }} />)}
                       </div>
                       <div>
-                        <h5 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#06122c', marginBottom: '0.35rem' }}>
+                        <h5 style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.35rem' }}>
                           {zone.title}
                         </h5>
-                        <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: '1.55', margin: 0 }}>
+                        <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: '1.55', margin: 0 }}>
                           {zone.desc}
                         </p>
                       </div>
@@ -372,7 +372,7 @@ const CaseStudiesPage = ({ setCurrentPage }) => {
             <div style={{
               padding: '1.75rem 2rem',
               borderRadius: '1.25rem',
-              background: 'linear-gradient(180deg, #fffdf8 0%, #faf4e8 100%)',
+              background: 'var(--bg-glass)',
               border: '1.5px solid #d4a72c',
               boxShadow: '0 15px 35px rgba(212, 167, 44, 0.22), 0 4px 15px rgba(0, 0, 0, 0.03)',
               display: 'flex',
@@ -408,10 +408,10 @@ const CaseStudiesPage = ({ setCurrentPage }) => {
                 <TrendingUp style={{ width: '22px', height: '22px', color: '#ffffff' }} />
               </div>
               <div style={{ position: 'relative', zIndex: 2 }}>
-                <h5 style={{ fontSize: '1.08rem', fontWeight: 900, color: '#06122c', marginBottom: '0.35rem' }}>
+                <h5 style={{ fontSize: '1.08rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.35rem' }}>
                   The Result
                 </h5>
-                <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: '1.55', margin: 0 }}>
+                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: '1.55', margin: 0 }}>
                   {current.result}
                 </p>
               </div>
@@ -422,13 +422,13 @@ const CaseStudiesPage = ({ setCurrentPage }) => {
           {/* Right Column: 4 Stacked Cards matching reference image */}
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', gap: '1.25rem' }}>
 
-            {/* Card 1: Metrics Card (Light Mode Theme) */}
+            {/* Card 1: Metrics Card ("JUST 14 DAYS – A MEASURABLE SHIFT") */}
             <div style={{
               padding: '1.75rem 2rem',
               borderRadius: '1.25rem',
-              background: 'linear-gradient(180deg, #ffffff 0%, #faf8f5 100%)',
-              border: '1px solid #efe9dc',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.03)',
+              background: 'var(--bg-glass)',
+              border: '1px solid var(--border-glass)',
+              boxShadow: 'var(--shadow-glass)',
               position: 'relative',
               overflow: 'hidden'
             }}>
@@ -455,7 +455,7 @@ const CaseStudiesPage = ({ setCurrentPage }) => {
                       width: '38px',
                       height: '38px',
                       borderRadius: '50%',
-                      background: '#e6f7f0',
+                      background: 'rgba(16, 185, 129, 0.12)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -464,10 +464,10 @@ const CaseStudiesPage = ({ setCurrentPage }) => {
                       {mIdx === 0 ? <ArrowRight style={{ width: '18px', height: '18px', color: '#10b981', transform: 'rotate(90deg)' }} /> : mIdx === 1 ? <ShieldCheck style={{ width: '18px', height: '18px', color: '#10b981' }} /> : <Clock style={{ width: '18px', height: '18px', color: '#10b981' }} />}
                     </div>
                     <div>
-                      <div style={{ fontSize: '1.65rem', fontWeight: 900, color: '#06122c', lineHeight: 1 }}>
+                      <div style={{ fontSize: '1.65rem', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1 }}>
                         {metric.val}
                       </div>
-                      <div style={{ fontSize: '0.8rem', color: '#475569', marginTop: '3px', fontWeight: 500 }}>
+                      <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '3px', fontWeight: 500 }}>
                         {metric.label}
                       </div>
                     </div>
@@ -494,20 +494,20 @@ const CaseStudiesPage = ({ setCurrentPage }) => {
               </cite>
             </div>
 
-            {/* Card 3: Key Outcomes Card (Light Mode Theme) */}
+            {/* Card 3: Key Outcomes Card */}
             <div style={{
               padding: '1.75rem 2rem',
               borderRadius: '1.25rem',
-              background: '#faf8f5',
-              border: '1px solid #efe9dc',
-              boxShadow: '0 10px 25px rgba(0,0,0,0.03)'
+              background: 'var(--bg-glass)',
+              border: '1px solid var(--border-glass)',
+              boxShadow: 'var(--shadow-glass)'
             }}>
-              <h4 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#06122c', marginBottom: '1rem', fontFamily: "'Playfair Display', Georgia, serif" }}>
+              <h4 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '1rem', fontFamily: "'Playfair Display', Georgia, serif" }}>
                 Key Outcomes
               </h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {current.outcomes.map((outcome, oIdx) => (
-                  <div key={oIdx} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem', color: '#475569' }}>
+                  <div key={oIdx} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem', color: 'var(--text-secondary)' }}>
                     <ShieldCheck style={{ width: '18px', height: '18px', color: '#d4a72c', flexShrink: 0 }} />
                     <span style={{ fontWeight: 600 }}>{outcome}</span>
                   </div>
