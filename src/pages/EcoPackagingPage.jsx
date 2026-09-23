@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Cpu, ShieldCheck, ChevronDown, ChevronLeft, ChevronRight, Droplet, Shield,
   ThermometerSnowflake, Flame, Trash2, Sparkles, Plus, Edit, X, CheckCircle,
-  RefreshCw, Lock, Unlock, Settings, Image as ImageIcon, Save, Check
+  RefreshCw, Lock, Unlock, Settings, Image as ImageIcon, Save, Check, Phone, Mail
 } from 'lucide-react';
 import ecoShowcaseImg from '../assets/eco_box_showcase.png';
 import ecoHeroBannerImg from '../assets/eco_packaging_hero.png';
@@ -1828,6 +1828,78 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Direct Contact Card for Eco Packaging Series */}
+      <section style={{ padding: '0 0 4rem 0' }}>
+        <div className="container">
+          <div
+            style={{
+              padding: '3rem 2.5rem',
+              borderRadius: '1.75rem',
+              background: 'linear-gradient(135deg, rgba(212, 167, 44, 0.09) 0%, rgba(197, 150, 25, 0.03) 100%)',
+              border: '1.5px solid rgba(212, 167, 44, 0.45)',
+              boxShadow: '0 15px 35px rgba(0,0,0,0.06)',
+              textAlign: 'center'
+            }}
+          >
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
+              <span style={{ color: '#D4A72C', fontSize: '0.8rem' }}>✦</span>
+              <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#D4A72C', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                ECO PACKAGING SERIES DIRECT CONTACT
+              </span>
+              <span style={{ color: '#D4A72C', fontSize: '0.8rem' }}>✦</span>
+            </div>
+            <h3 style={{ fontSize: '2rem', fontWeight: 850, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: 'var(--text-primary)' }}>
+              Get in Touch with Francis Lim
+            </h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', margin: '0 0 2rem 0', maxWidth: '620px', marginLeft: 'auto', marginRight: 'auto' }}>
+              Contact our eco-packaging specialist for custom Stone Box manufacturing specifications, sample testing, and bulk order inquiries.
+            </p>
+            <div style={{ display: 'flex', gap: '1.25rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <a
+                href="https://wa.me/6583995062?text=Hello%20Francis,%20I%20have%20an%20inquiry%20regarding%20Eco%20Packaging%20Series."
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '0.9rem 2rem',
+                  borderRadius: '50px',
+                  background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                  color: '#ffffff',
+                  fontWeight: 700,
+                  fontSize: '0.95rem',
+                  textDecoration: 'none',
+                  boxShadow: '0 6px 20px rgba(16, 185, 129, 0.3)'
+                }}
+              >
+                <Phone style={{ width: '18px', height: '18px' }} />
+                +65 83995062
+              </a>
+              <a
+                href="mailto:francislim@uniqix.com?subject=Eco%20Packaging%20Series%20Inquiry"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '0.9rem 2rem',
+                  borderRadius: '50px',
+                  background: 'linear-gradient(135deg, #D4A72C 0%, #B8860B 100%)',
+                  color: '#ffffff',
+                  fontWeight: 700,
+                  fontSize: '0.95rem',
+                  textDecoration: 'none',
+                  boxShadow: '0 6px 20px rgba(212, 167, 44, 0.3)'
+                }}
+              >
+                <Mail style={{ width: '18px', height: '18px' }} />
+                francislim@uniqix.com
+              </a>
             </div>
           </div>
         </div>

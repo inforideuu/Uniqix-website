@@ -4,7 +4,8 @@ import {
   TrendingUp, MessageCircle, ArrowRight, Check, CheckCircle, Cpu, Lightbulb,
   Droplet, ThermometerSnowflake, Flame, Trash2, Sparkles, ChevronRight,
   Building, ShieldCheck, Target, Award, Calendar, HelpCircle,
-  Utensils, ShoppingBag, Coffee, Wrench, Layers, Package, ChevronDown, ChevronUp
+  Utensils, ShoppingBag, Coffee, Wrench, Layers, Package, ChevronDown, ChevronUp,
+  Phone, Mail
 } from 'lucide-react';
 
 import fu from '../assets/fieldunit.png';
@@ -603,10 +604,54 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
               <button
                 onClick={() => { setCurrentPage('contact'); scrollTo(0, { top: 0, behavior: 'smooth' }); }}
                 className="btn btn-primary"
-                style={{ padding: '1rem 2.5rem' }}
+                style={{ padding: '1rem 2.5rem', marginBottom: '2rem' }}
               >
                 Book Vector Audit
               </button>
+
+              {/* Direct Contact Info */}
+              <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2rem', display: 'flex', gap: '1.25rem', justifyContent: 'center', flexWrap: 'wrap', alignItems: 'center' }}>
+                <a
+                  href="https://wa.me/6583995062?text=Hello%20Francis,%20I%20have%20an%20inquiry%20regarding%20AI%20Robotics."
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    padding: '0.85rem 1.75rem',
+                    borderRadius: '50px',
+                    background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                    color: '#ffffff',
+                    fontWeight: 700,
+                    fontSize: '0.95rem',
+                    textDecoration: 'none',
+                    boxShadow: '0 6px 20px rgba(16, 185, 129, 0.3)'
+                  }}
+                >
+                  <Phone style={{ width: '18px', height: '18px' }} />
+                  +65 83995062
+                </a>
+                <a
+                  href="mailto:francislim@uniqix.com?subject=AI%20Robotics%20Inquiry"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    padding: '0.85rem 1.75rem',
+                    borderRadius: '50px',
+                    background: 'linear-gradient(135deg, #D4A72C 0%, #B8860B 100%)',
+                    color: '#ffffff',
+                    fontWeight: 700,
+                    fontSize: '0.95rem',
+                    textDecoration: 'none',
+                    boxShadow: '0 6px 20px rgba(212, 167, 44, 0.3)'
+                  }}
+                >
+                  <Mail style={{ width: '18px', height: '18px' }} />
+                  francislim@uniqix.com
+                </a>
+              </div>
             </div>
           </div>
         </section>
@@ -1507,6 +1552,75 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                   ))}
                 </div>
               )}
+
+              {/* Direct Contact Card for Sustainable Packaging */}
+              <div
+                style={{
+                  marginTop: '4rem',
+                  padding: '2.5rem',
+                  borderRadius: '1.5rem',
+                  background: 'linear-gradient(135deg, rgba(212, 167, 44, 0.08) 0%, rgba(197, 150, 25, 0.03) 100%)',
+                  border: '1.5px solid rgba(212, 167, 44, 0.4)',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
+                  textAlign: 'center'
+                }}
+              >
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
+                  <span style={{ color: '#D4A72C', fontSize: '0.8rem' }}>✦</span>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#D4A72C', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                    SUSTAINABLE PACKAGING SPECIALIST CONTACT
+                  </span>
+                  <span style={{ color: '#D4A72C', fontSize: '0.8rem' }}>✦</span>
+                </div>
+                <h3 style={{ fontSize: '1.75rem', fontWeight: 850, margin: '0 0 0.5rem 0', fontFamily: "'Playfair Display', Georgia, serif", color: 'var(--text-primary)' }}>
+                  Get in Touch with Francis Lim
+                </h3>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.98rem', margin: '0 0 1.75rem 0' }}>
+                  Direct inquiries for bulk eco-packaging specs, custom box dimensions, and technical sales support.
+                </p>
+                <div style={{ display: 'flex', gap: '1.25rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                  <a
+                    href="https://wa.me/6583995062?text=Hello%20Francis,%20I%20have%20an%20inquiry%20regarding%20Sustainable%20Packaging."
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      padding: '0.85rem 1.75rem',
+                      borderRadius: '50px',
+                      background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                      color: '#ffffff',
+                      fontWeight: 700,
+                      fontSize: '0.95rem',
+                      textDecoration: 'none',
+                      boxShadow: '0 6px 20px rgba(16, 185, 129, 0.3)'
+                    }}
+                  >
+                    <Phone style={{ width: '18px', height: '18px' }} />
+                    +65 83995062
+                  </a>
+                  <a
+                    href="mailto:francislim@uniqix.com?subject=Sustainable%20Packaging%20Inquiry"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      padding: '0.85rem 1.75rem',
+                      borderRadius: '50px',
+                      background: 'linear-gradient(135deg, #D4A72C 0%, #B8860B 100%)',
+                      color: '#ffffff',
+                      fontWeight: 700,
+                      fontSize: '0.95rem',
+                      textDecoration: 'none',
+                      boxShadow: '0 6px 20px rgba(212, 167, 44, 0.3)'
+                    }}
+                  >
+                    <Mail style={{ width: '18px', height: '18px' }} />
+                    francislim@uniqix.com
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -1802,6 +1916,53 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                   >
                     Schedule Energy Audit &rarr;
                   </button>
+                </div>
+
+                {/* Direct Contact Info */}
+                <div style={{ borderTop: '1px solid rgba(212, 167, 44, 0.3)', paddingTop: '1.75rem', marginTop: '1.75rem', display: 'flex', gap: '1.25rem', justifyContent: 'center', flexWrap: 'wrap', alignItems: 'center' }}>
+                  <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-primary)' }}>
+                    Direct Specialist Contact:
+                  </span>
+                  <a
+                    href="https://wa.me/6583995062?text=Hello%20Francis,%20I%20have%20an%20inquiry%20regarding%20Smart%20Energy%20Solutions."
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '0.65rem 1.4rem',
+                      borderRadius: '50px',
+                      background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                      color: '#ffffff',
+                      fontWeight: 700,
+                      fontSize: '0.88rem',
+                      textDecoration: 'none',
+                      boxShadow: '0 4px 14px rgba(16, 185, 129, 0.3)'
+                    }}
+                  >
+                    <Phone style={{ width: '16px', height: '16px' }} />
+                    +65 83995062
+                  </a>
+                  <a
+                    href="mailto:francislim@uniqix.com?subject=Smart%20Energy%20Solutions%20Inquiry"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '0.65rem 1.4rem',
+                      borderRadius: '50px',
+                      background: 'linear-gradient(135deg, #D4A72C 0%, #B8860B 100%)',
+                      color: '#ffffff',
+                      fontWeight: 700,
+                      fontSize: '0.88rem',
+                      textDecoration: 'none',
+                      boxShadow: '0 4px 14px rgba(212, 167, 44, 0.3)'
+                    }}
+                  >
+                    <Mail style={{ width: '16px', height: '16px' }} />
+                    francislim@uniqix.com
+                  </a>
                 </div>
               </div>
 
