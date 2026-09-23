@@ -345,12 +345,8 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                       padding: '2.5rem 2rem 2.25rem 2rem',
                       borderRadius: '1.25rem',
                       border: '1.5px solid rgba(212, 167, 44, 0.45)',
-                      background: hoveredCardId === cardId
-                        ? 'linear-gradient(180deg, #FFFFFF 0%, #FDF7EC 100%)'
-                        : 'linear-gradient(180deg, #FFFDF8 0%, #FAF4E8 100%)',
-                      boxShadow: hoveredCardId === cardId
-                        ? '0 20px 40px rgba(212, 167, 44, 0.22), 0 6px 18px rgba(0,0,0,0.06)'
-                        : '0 15px 35px rgba(212, 167, 44, 0.12), 0 4px 15px rgba(0,0,0,0.03)',
+                      background: 'var(--bg-glass)',
+                      boxShadow: 'var(--shadow-glass)',
                       cursor: 'pointer',
                       position: 'relative',
                       overflow: 'hidden',
@@ -447,7 +443,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                       height: '40px',
                       borderRadius: '50%',
                       border: '1.5px solid #D4A72C',
-                      background: hoveredCardId === cardId ? '#D4A72C' : '#ffffff',
+                      background: hoveredCardId === cardId ? '#D4A72C' : 'var(--bg-primary)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -1446,7 +1442,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                 <button
                   onClick={() => setShowTechDetails(!showTechDetails)}
                   style={{
-                    background: '#ffffff',
+                    background: 'var(--bg-primary)',
                     border: '1.5px solid #D4A72C',
                     borderRadius: '10px',
                     padding: '0.65rem 1.4rem',
@@ -1477,7 +1473,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                       key={idx}
                       style={{
                         position: 'relative',
-                        background: '#ffffff',
+                        background: 'var(--bg-glass)',
                         borderRadius: '16px',
                         border: '1.5px solid rgba(212, 167, 44, 0.25)',
                         padding: '1.5rem 2rem 1.5rem 2.25rem',

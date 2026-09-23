@@ -1216,9 +1216,9 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
             <div style={{
               borderRadius: '16px',
               overflow: 'hidden',
-              border: '1px solid #2b6cb0',
-              boxShadow: '0 15px 35px rgba(27, 85, 155, 0.25)',
-              background: '#ffffff',
+              border: '1px solid var(--border-glass)',
+              boxShadow: 'var(--shadow-glass)',
+              background: 'var(--bg-glass)',
               height: '100%',
               display: 'flex',
               flexDirection: 'column'
@@ -1226,7 +1226,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
               <div style={{ overflowX: 'auto', flex: 1 }}>
                 <table style={{ width: '100%', height: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '600px' }}>
                   <thead>
-                    <tr style={{ background: '#ffffff', borderBottom: '1px solid #cbd5e1' }}>
+                    <tr style={{ background: 'var(--bg-primary)', borderBottom: '1px solid var(--border-glass)' }}>
                       <th style={{ padding: '1rem 1.25rem', width: '22%' }}></th>
                       <th style={{ padding: '0.9rem 1.25rem', background: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center', width: '39%', fontSize: '0.9rem' }}>Board box</th>
                       <th style={{ padding: '0.9rem 1.25rem', background: '#1d4ed8', color: '#ffffff', fontWeight: 800, textAlign: 'center', width: '39%', fontSize: '0.9rem' }}>Eco-friendly Stone Box</th>
@@ -1234,7 +1234,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                   </thead>
                   <tbody>
                     {(ecoData.coldChainData?.matrix || []).map((row, idx) => (
-                      <tr key={idx} style={{ borderBottom: '1px solid #e2e8f0', background: idx % 2 === 0 ? '#ffffff' : '#f8fafc', position: 'relative' }}>
+                      <tr key={idx} style={{ borderBottom: '1px solid var(--border-glass)', background: idx % 2 === 0 ? 'var(--bg-glass)' : 'var(--bg-primary)', position: 'relative' }}>
                         <td style={{ padding: '1rem 1.25rem', background: '#2563eb', color: '#ffffff', fontWeight: 800, fontSize: '0.85rem', position: 'relative' }}>
                           {row.category}
                           {isAdminMode && (
@@ -1259,15 +1259,15 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                             </div>
                           )}
                         </td>
-                        <td style={{ padding: '1rem 1.25rem', verticalAlign: 'top', borderLeft: '1px solid #e2e8f0' }}>
-                          <ul style={{ paddingLeft: '1.1rem', margin: 0, fontSize: '0.82rem', color: '#334155', lineHeight: 1.6 }}>
+                        <td style={{ padding: '1rem 1.25rem', verticalAlign: 'top', borderLeft: '1px solid var(--border-glass)' }}>
+                          <ul style={{ paddingLeft: '1.1rem', margin: 0, fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                             {row.boardBox.map((item, i) => (
                               <li key={i} style={{ marginBottom: '0.35rem' }}>{item}</li>
                             ))}
                           </ul>
                         </td>
-                        <td style={{ padding: '1rem 1.25rem', verticalAlign: 'top', borderLeft: '1px solid #e2e8f0', background: '#eff6ff' }}>
-                          <ul style={{ paddingLeft: '1.1rem', margin: 0, fontSize: '0.82rem', color: '#1e293b', lineHeight: 1.6, fontWeight: 500 }}>
+                        <td style={{ padding: '1rem 1.25rem', verticalAlign: 'top', borderLeft: '1px solid var(--border-glass)', background: 'rgba(37, 99, 235, 0.08)' }}>
+                          <ul style={{ paddingLeft: '1.1rem', margin: 0, fontSize: '0.82rem', color: 'var(--text-primary)', lineHeight: 1.6, fontWeight: 500 }}>
                             {row.stoneBox.map((item, i) => (
                               <li key={i} style={{ marginBottom: '0.35rem' }}>{item}</li>
                             ))}
@@ -1378,11 +1378,11 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 0.8fr', gap: '2.5rem', alignItems: 'stretch' }} className="bridge-layout">
-            <div style={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid #2b6cb0', boxShadow: '0 15px 35px rgba(27, 85, 155, 0.25)', background: '#ffffff', height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--border-glass)', boxShadow: 'var(--shadow-glass)', background: 'var(--bg-glass)', height: '100%', display: 'flex', flexDirection: 'column' }}>
               <div style={{ overflowX: 'auto', flex: 1 }}>
                 <table style={{ width: '100%', height: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '600px' }}>
                   <thead>
-                    <tr style={{ background: '#ffffff', borderBottom: '1px solid #cbd5e1' }}>
+                    <tr style={{ background: 'var(--bg-primary)', borderBottom: '1px solid var(--border-glass)' }}>
                       <th style={{ padding: '1rem 1.25rem', width: '22%' }}></th>
                       <th style={{ padding: '0.9rem 1.25rem', background: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center', width: '39%' }}>Board/Wool box</th>
                       <th style={{ padding: '0.9rem 1.25rem', background: '#1d4ed8', color: '#ffffff', fontWeight: 800, textAlign: 'center', width: '39%' }}>Eco-friendly Stone Box</th>
@@ -1390,7 +1390,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                   </thead>
                   <tbody>
                     {(ecoData.industrialData?.matrix || []).map((row, idx) => (
-                      <tr key={idx} style={{ borderBottom: '1px solid #e2e8f0', background: idx % 2 === 0 ? '#ffffff' : '#f8fafc' }}>
+                      <tr key={idx} style={{ borderBottom: '1px solid var(--border-glass)', background: idx % 2 === 0 ? 'var(--bg-glass)' : 'var(--bg-primary)' }}>
                         <td style={{ padding: '1rem 1.25rem', background: '#2563eb', color: '#ffffff', fontWeight: 800, fontSize: '0.85rem' }}>
                           {row.category}
                           {isAdminMode && (
@@ -1415,15 +1415,15 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                             </div>
                           )}
                         </td>
-                        <td style={{ padding: '1rem 1.25rem', verticalAlign: 'top', borderLeft: '1px solid #e2e8f0' }}>
-                          <ul style={{ paddingLeft: '1.1rem', margin: 0, fontSize: '0.82rem', color: '#334155', lineHeight: 1.6 }}>
+                        <td style={{ padding: '1rem 1.25rem', verticalAlign: 'top', borderLeft: '1px solid var(--border-glass)' }}>
+                          <ul style={{ paddingLeft: '1.1rem', margin: 0, fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                             {row.boardBox.map((item, i) => (
                               <li key={i} style={{ marginBottom: '0.35rem' }}>{item}</li>
                             ))}
                           </ul>
                         </td>
-                        <td style={{ padding: '1rem 1.25rem', verticalAlign: 'top', borderLeft: '1px solid #e2e8f0', background: '#eff6ff' }}>
-                          <ul style={{ paddingLeft: '1.1rem', margin: 0, fontSize: '0.82rem', color: '#1e293b', lineHeight: 1.6, fontWeight: 500 }}>
+                        <td style={{ padding: '1rem 1.25rem', verticalAlign: 'top', borderLeft: '1px solid var(--border-glass)', background: 'rgba(37, 99, 235, 0.08)' }}>
+                          <ul style={{ paddingLeft: '1.1rem', margin: 0, fontSize: '0.82rem', color: 'var(--text-primary)', lineHeight: 1.6, fontWeight: 500 }}>
                             {row.stoneBox.map((item, i) => (
                               <li key={i} style={{ marginBottom: '0.35rem' }}>{item}</li>
                             ))}
@@ -1523,11 +1523,11 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 0.8fr', gap: '2.5rem', alignItems: 'stretch' }} className="bridge-layout">
-            <div style={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid #2b6cb0', boxShadow: '0 15px 35px rgba(27, 85, 155, 0.25)', background: '#ffffff', height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--border-glass)', boxShadow: 'var(--shadow-glass)', background: 'var(--bg-glass)', height: '100%', display: 'flex', flexDirection: 'column' }}>
               <div style={{ overflowX: 'auto', flex: 1 }}>
                 <table style={{ width: '100%', height: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '600px' }}>
                   <thead>
-                    <tr style={{ background: '#ffffff', borderBottom: '1px solid #cbd5e1' }}>
+                    <tr style={{ background: 'var(--bg-primary)', borderBottom: '1px solid var(--border-glass)' }}>
                       <th style={{ padding: '1rem 1.25rem', width: '22%' }}></th>
                       <th style={{ padding: '0.9rem 1.25rem', background: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center', width: '39%' }}>Traditional Foam Box</th>
                       <th style={{ padding: '0.9rem 1.25rem', background: '#1d4ed8', color: '#ffffff', fontWeight: 800, textAlign: 'center', width: '39%' }}>Eco-friendly Stone Box</th>
@@ -1535,7 +1535,7 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                   </thead>
                   <tbody>
                     {(ecoData.foodBeverageData?.matrix || []).map((row, idx) => (
-                      <tr key={idx} style={{ borderBottom: '1px solid #e2e8f0', background: idx % 2 === 0 ? '#ffffff' : '#f8fafc' }}>
+                      <tr key={idx} style={{ borderBottom: '1px solid var(--border-glass)', background: idx % 2 === 0 ? 'var(--bg-glass)' : 'var(--bg-primary)' }}>
                         <td style={{ padding: '1rem 1.25rem', background: '#2563eb', color: '#ffffff', fontWeight: 800, fontSize: '0.85rem' }}>
                           {row.category}
                           {isAdminMode && (
@@ -1560,15 +1560,15 @@ const EcoPackagingPage = ({ setCurrentPage }) => {
                             </div>
                           )}
                         </td>
-                        <td style={{ padding: '1rem 1.25rem', verticalAlign: 'top', borderLeft: '1px solid #e2e8f0' }}>
-                          <ul style={{ paddingLeft: '1.1rem', margin: 0, fontSize: '0.82rem', color: '#334155', lineHeight: 1.6 }}>
+                        <td style={{ padding: '1rem 1.25rem', verticalAlign: 'top', borderLeft: '1px solid var(--border-glass)' }}>
+                          <ul style={{ paddingLeft: '1.1rem', margin: 0, fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                             {row.boardBox.map((item, i) => (
                               <li key={i} style={{ marginBottom: '0.35rem' }}>{item}</li>
                             ))}
                           </ul>
                         </td>
-                        <td style={{ padding: '1rem 1.25rem', verticalAlign: 'top', borderLeft: '1px solid #e2e8f0', background: '#eff6ff' }}>
-                          <ul style={{ paddingLeft: '1.1rem', margin: 0, fontSize: '0.82rem', color: '#1e293b', lineHeight: 1.6, fontWeight: 500 }}>
+                        <td style={{ padding: '1rem 1.25rem', verticalAlign: 'top', borderLeft: '1px solid var(--border-glass)', background: 'rgba(37, 99, 235, 0.08)' }}>
+                          <ul style={{ paddingLeft: '1.1rem', margin: 0, fontSize: '0.82rem', color: 'var(--text-primary)', lineHeight: 1.6, fontWeight: 500 }}>
                             {row.stoneBox.map((item, i) => (
                               <li key={i} style={{ marginBottom: '0.35rem' }}>{item}</li>
                             ))}

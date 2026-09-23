@@ -182,9 +182,9 @@ const PartnershipPage = ({ setCurrentPage }) => {
                 flex: 1,
                 padding: '2.5rem 1.5rem',
                 borderRadius: '1.25rem',
-                background: '#ffffff',
+                background: 'var(--bg-glass)',
                 textAlign: 'center',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.03)',
+                boxShadow: 'var(--shadow-glass)',
                 border: '1px solid var(--border-glass)',
                 minHeight: '260px',
                 display: 'flex',
@@ -195,7 +195,7 @@ const PartnershipPage = ({ setCurrentPage }) => {
                 <div style={{ background: 'var(--primary-glow)', padding: '12px', borderRadius: '50%', marginBottom: '1.25rem' }}>
                   <Users style={{ width: '24px', height: '24px', color: 'var(--primary)' }} />
                 </div>
-                <h4 style={{ fontSize: '1.05rem', fontWeight: 800, letterSpacing: '0.05em', color: '#0b1f3a', marginBottom: '0.75rem', textTransform: 'uppercase' }}>
+                <h4 style={{ fontSize: '1.05rem', fontWeight: 800, letterSpacing: '0.05em', color: 'var(--text-primary)', marginBottom: '0.75rem', textTransform: 'uppercase' }}>
                   Demand
                 </h4>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: '1.5', margin: 0 }}>
@@ -254,9 +254,9 @@ const PartnershipPage = ({ setCurrentPage }) => {
                 flex: 1,
                 padding: '2.5rem 1.5rem',
                 borderRadius: '1.25rem',
-                background: '#ffffff',
+                background: 'var(--bg-glass)',
                 textAlign: 'center',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.03)',
+                boxShadow: 'var(--shadow-glass)',
                 border: '1px solid var(--border-glass)',
                 minHeight: '260px',
                 display: 'flex',
@@ -267,7 +267,7 @@ const PartnershipPage = ({ setCurrentPage }) => {
                 <div style={{ background: 'var(--primary-glow)', padding: '12px', borderRadius: '50%', marginBottom: '1.25rem' }}>
                   <Landmark style={{ width: '24px', height: '24px', color: 'var(--primary)' }} />
                 </div>
-                <h4 style={{ fontSize: '1.05rem', fontWeight: 800, letterSpacing: '0.05em', color: '#0b1f3a', marginBottom: '0.75rem', textTransform: 'uppercase' }}>
+                <h4 style={{ fontSize: '1.05rem', fontWeight: 800, letterSpacing: '0.05em', color: 'var(--text-primary)', marginBottom: '0.75rem', textTransform: 'uppercase' }}>
                   Capital Source
                 </h4>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: '1.5', margin: 0 }}>
@@ -347,13 +347,9 @@ const PartnershipPage = ({ setCurrentPage }) => {
                 style={{
                   padding: '3.75rem 2rem 3rem 2rem',
                   borderRadius: '1.75rem',
-                  background: hoveredCard === idx
-                    ? 'linear-gradient(180deg, #ffffff 0%, #faf6ed 100%)'
-                    : 'linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(253, 251, 247, 0.95) 100%)',
+                  background: 'var(--bg-glass)',
                   border: '1.5px solid rgba(197, 160, 89, 0.35)',
-                  boxShadow: hoveredCard === idx
-                    ? '0 20px 45px rgba(197, 160, 89, 0.2)'
-                    : '0 10px 30px rgba(0, 0, 0, 0.04)',
+                  boxShadow: 'var(--shadow-glass)',
                   transform: hoveredCard === idx ? 'translateY(-8px)' : 'none',
                   transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
                   display: 'flex',
@@ -435,9 +431,7 @@ const PartnershipPage = ({ setCurrentPage }) => {
                   height: '38px',
                   borderRadius: '50%',
                   border: '1.5px solid #D4A72C',
-                  background: hoveredCard === idx
-                    ? '#D4A72C'
-                    : 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 237, 222, 0.9) 100%)',
+                  background: hoveredCard === idx ? '#D4A72C' : 'var(--bg-primary)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
