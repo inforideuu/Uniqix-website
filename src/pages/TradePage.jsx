@@ -405,37 +405,84 @@ const TradePage = ({ setCurrentPage }) => {
                 )}
               </div>
 
-              {/* Action Button at bottom left */}
+              {/* Action Button / Direct Contact Info at bottom left */}
               <div style={{ position: 'relative', zIndex: 1, marginTop: '3rem' }}>
-                <button
-                  onClick={() => {setCurrentPage('contact');
-                      window.scrollTo({top:0,behavior:'smooth'})
+                {activeService.id === 'gold' || activeService.num === '02' ? (
+                  <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                    <a
+                      href="https://wa.me/6596262970?text=Hello%20Uniqix%20Trade%20Desk,%20I%20have%20an%20inquiry%20regarding%20Physical%20Gold%20Trading."
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '0.85rem 1.75rem',
+                        borderRadius: '50px',
+                        background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                        color: '#ffffff',
+                        fontWeight: 800,
+                        fontSize: '0.92rem',
+                        textDecoration: 'none',
+                        boxShadow: '0 6px 20px rgba(16, 185, 129, 0.3)'
+                      }}
+                    >
+                      <Phone style={{ width: '18px', height: '18px' }} />
+                      WhatsApp: +65 96262970
+                    </a>
+
+                    <a
+                      href="mailto:Sam@uniqix.com?subject=Physical%20Gold%20Trading%20Inquiry"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '0.85rem 1.75rem',
+                        borderRadius: '50px',
+                        background: 'linear-gradient(135deg, #d97706 0%, #b45309 100%)',
+                        color: '#ffffff',
+                        fontWeight: 800,
+                        fontSize: '0.92rem',
+                        textDecoration: 'none',
+                        boxShadow: '0 6px 20px rgba(217, 119, 6, 0.3)'
+                      }}
+                    >
+                      <Mail style={{ width: '18px', height: '18px' }} />
+                      Email: Sam@uniqix.com
+                    </a>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setCurrentPage('contact');
+                      window.scrollTo({ top: 0, behavior: 'smooth' })
                     }}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    padding: '1rem 2.5rem',
-                    background: 'linear-gradient(135deg, #d97706 0%, #b45309 50%, #78350f 100%)',
-                    border: 'none',
-                    borderRadius: '50px',
-                    color: '#ffffff',
-                    fontWeight: 800,
-                    cursor: 'pointer',
-                    boxShadow: '0 10px 25px rgba(217, 119, 6, 0.35)',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = '0 14px 30px rgba(217, 119, 6, 0.45)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 10px 25px rgba(217, 119, 6, 0.35)';
-                  }}
-                >
-                  Inquire Trade Mandate <ArrowRight style={{ width: '18px', height: '18px' }} />
-                </button>
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '1rem 2.5rem',
+                      background: 'linear-gradient(135deg, #d97706 0%, #b45309 50%, #78350f 100%)',
+                      border: 'none',
+                      borderRadius: '50px',
+                      color: '#ffffff',
+                      fontWeight: 800,
+                      cursor: 'pointer',
+                      boxShadow: '0 10px 25px rgba(217, 119, 6, 0.35)',
+                      transition: 'all 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 14px 30px rgba(217, 119, 6, 0.45)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 10px 25px rgba(217, 119, 6, 0.35)';
+                    }}
+                  >
+                    Inquire Trade Mandate <ArrowRight style={{ width: '18px', height: '18px' }} />
+                  </button>
+                )}
               </div>
             </div>
 
@@ -1363,7 +1410,7 @@ const TradePage = ({ setCurrentPage }) => {
                   }}
                 />
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(15, 23, 42, 0.75) 0%, transparent 60%)' }} />
-                
+
                 <span style={{
                   position: 'absolute',
                   top: '1.25rem',
@@ -1458,7 +1505,7 @@ const TradePage = ({ setCurrentPage }) => {
                   }}
                 />
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(15, 23, 42, 0.75) 0%, transparent 60%)' }} />
-                
+
                 <span style={{
                   position: 'absolute',
                   top: '1.25rem',
@@ -1553,7 +1600,7 @@ const TradePage = ({ setCurrentPage }) => {
                   }}
                 />
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(15, 23, 42, 0.75) 0%, transparent 60%)' }} />
-                
+
                 <span style={{
                   position: 'absolute',
                   top: '1.25rem',
@@ -1613,7 +1660,7 @@ const TradePage = ({ setCurrentPage }) => {
         </div>
       </section>
 
-          {/* 4. LUXURY BULLION CATALOG SHOWCASE (999.9 FINE GOLD & SILVER BULLION) */}
+      {/* 4. LUXURY BULLION CATALOG SHOWCASE (999.9 FINE GOLD & SILVER BULLION) */}
       <section className="trade-bullion-section" style={{
         padding: '2rem 0 6rem 0',
         position: 'relative',
@@ -1754,15 +1801,15 @@ const TradePage = ({ setCurrentPage }) => {
                   cursor: 'pointer',
                   transition: 'transform 0.3s ease, box-shadow 0.3s ease'
                 }}
-                onClick={() => setActiveModalMedia({ type: 'image', src: '/gold1.png', title: '1kg Fine Gold Bullion Bar (999.9 Purity)', sub: 'Wholesale Cast Bar · Same-day Settlement Available' })}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-4px)';
-                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(212, 167, 44, 0.4), inset 0 2px 4px #FFFFFF';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 14px 30px rgba(212, 167, 44, 0.28), inset 0 2px 4px #FFFFFF';
-                }}
+                  onClick={() => setActiveModalMedia({ type: 'image', src: '/gold1.png', title: '1kg Fine Gold Bullion Bar (999.9 Purity)', sub: 'Wholesale Cast Bar · Same-day Settlement Available' })}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.boxShadow = '0 20px 40px rgba(212, 167, 44, 0.4), inset 0 2px 4px #FFFFFF';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 14px 30px rgba(212, 167, 44, 0.28), inset 0 2px 4px #FFFFFF';
+                  }}
                 >
                   <div style={{
                     width: '110px',
@@ -1802,8 +1849,8 @@ const TradePage = ({ setCurrentPage }) => {
                   boxShadow: '0 10px 25px rgba(0, 0, 0, 0.05)',
                   transition: 'transform 0.3s ease'
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
                 >
                   <div style={{
                     width: '75px',
@@ -1875,14 +1922,14 @@ const TradePage = ({ setCurrentPage }) => {
                     boxShadow: '0 6px 18px rgba(212, 167, 44, 0.14)',
                     transition: 'all 0.3s ease'
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 12px 28px rgba(212, 167, 44, 0.3)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 6px 18px rgba(212, 167, 44, 0.14)';
-                  }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-4px)';
+                      e.currentTarget.style.boxShadow = '0 12px 28px rgba(212, 167, 44, 0.3)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 6px 18px rgba(212, 167, 44, 0.14)';
+                    }}
                   >
                     {/* 3D Gold Bar Icon */}
                     <div style={{
@@ -1943,14 +1990,14 @@ const TradePage = ({ setCurrentPage }) => {
                     boxShadow: '0 6px 18px rgba(0, 0, 0, 0.04)',
                     transition: 'all 0.3s ease'
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.08)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 6px 18px rgba(0, 0, 0, 0.04)';
-                  }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-4px)';
+                      e.currentTarget.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.08)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 6px 18px rgba(0, 0, 0, 0.04)';
+                    }}
                   >
                     {/* 3D Silver Bar Icon */}
                     <div style={{
@@ -2214,14 +2261,14 @@ const TradePage = ({ setCurrentPage }) => {
                     }}
                   >
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
                     </svg>
                     WhatsApp: +65 96262970
                   </a>
 
                   {/* Email Direct */}
                   <a
-                    href="mailto:sam@aptiveight.com?subject=Trade%20Desk%20Inquiry"
+                    href="mailto:sam@uniqix.com?subject=Trade%20Desk%20Inquiry"
                     style={{
                       flex: '1 1 260px',
                       display: 'inline-flex',
@@ -2248,7 +2295,7 @@ const TradePage = ({ setCurrentPage }) => {
                     }}
                   >
                     <Mail style={{ width: '22px', height: '22px' }} />
-                    Email: sam@aptiveight.com  
+                    Email: sam@uniqix.com
 
                   </a>
                 </div>
