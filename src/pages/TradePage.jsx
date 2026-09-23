@@ -331,7 +331,7 @@ const TradePage = ({ setCurrentPage }) => {
             <div className="trade-details-panel" style={{
               borderRadius: '2rem',
               border: '2.5px solid #D4A72C',
-              background: 'linear-gradient(90deg, #F3E5AB 0%, #FFF9E6 28%, #FFFFFF 55%, rgba(255, 255, 255, 0.92) 75%, rgba(255, 249, 236, 0.6) 100%), url("' + activeService.bgImage + '") center right/cover no-repeat',
+              background: 'linear-gradient(90deg, #FFFDF8 0%, #FFF9E6 35%, rgba(255, 255, 255, 0.75) 55%, rgba(255, 255, 255, 0.25) 80%, transparent 100%), url("' + activeService.bgImage + '") center right/cover no-repeat',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',

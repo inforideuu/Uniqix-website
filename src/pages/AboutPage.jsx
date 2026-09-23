@@ -3,7 +3,7 @@ import {
   Building, HardHat, Factory, Compass, Truck, Flame, Home, Cpu,
   Layers, Users, ShieldAlert, Award, Target, Eye, Sparkles,
   Lightbulb, Briefcase, RefreshCw, Box, ShieldCheck, HeartHandshake,
-  TrendingUp, Users2, Shield, Heart, Globe, Calendar, FileText, Leaf
+  TrendingUp, Users2, Shield, Heart, Globe, Calendar, FileText, Leaf, Phone, Mail
 } from 'lucide-react';
 import aboutOfficeImage from '../assets/uniqix_hero_logistics.png'; // Fallback / existing asset
 import { API_BASE_URL } from '../config';
@@ -440,9 +440,45 @@ const AboutPage = () => {
                     <h3 style={{ fontSize: '1.6rem', fontWeight: 900, color: '#ffffff', margin: '0 0 0.2rem 0', fontFamily: "'Playfair Display', Georgia, serif" }}>
                       Sam Tay
                     </h3>
-                    <span style={{ fontSize: '0.88rem', color: 'rgba(255, 255, 255, 0.85)', fontWeight: 600 }}>
+                    <span style={{ fontSize: '0.88rem', color: 'rgba(255, 255, 255, 0.85)', fontWeight: 600, display: 'block', marginBottom: '0.75rem' }}>
                       Founder & Managing Director
                     </span>
+
+                    {/* Direct Contact Details */}
+                    <div style={{ borderTop: '1px solid rgba(212, 167, 44, 0.35)', paddingTop: '0.65rem', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                      <a
+                        href="https://wa.me/6596262970?text=Hello%20Sam,%20I%20have%20an%20inquiry%20regarding%20Uniqix."
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          color: '#10B981',
+                          fontWeight: 700,
+                          fontSize: '0.82rem',
+                          textDecoration: 'none'
+                        }}
+                      >
+                        <Phone style={{ width: '14px', height: '14px', color: '#10B981' }} />
+                        +65 96262970
+                      </a>
+                      <a
+                        href="mailto:Sam@uniqix.com?subject=Inquiry%20for%20Sam%20Tay%20-%20Uniqix"
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          color: '#ffffff',
+                          fontWeight: 700,
+                          fontSize: '0.82rem',
+                          textDecoration: 'none'
+                        }}
+                      >
+                        <Mail style={{ width: '14px', height: '14px', color: '#D4A72C' }} />
+                        Sam@uniqix.com
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
