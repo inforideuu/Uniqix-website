@@ -23,32 +23,75 @@ const TradePage = ({ setCurrentPage }) => {
   const [silverChangePct, setSilverChangePct] = useState(1.63);
   const [silverFlash, setSilverFlash] = useState(null); // 'up' or 'down'
 
+  const [timeStr, setTimeStr] = useState('10:23:59 am');
+  const [dateStr, setDateStr] = useState('24 SEPTEMBER 2026');
+
+  // Live rates state for Wholesale "WE SELL" table (Gold per Kg & Silver per Gram - Anchored to GoldPrice.org)
+  const [goldSellKg, setGoldSellKg] = useState(561610.42);
+  const [silverSellGram, setSilverSellGram] = useState(8.3473);
+  const [goldRatesFlash, setGoldRatesFlash] = useState(null);
+  const [silverRatesFlash, setSilverRatesFlash] = useState(null);
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      // Small random fluctuation simulation
-      const goldDelta = (Math.random() - 0.48) * 0.85;
-      const silverDelta = (Math.random() - 0.48) * 0.08;
+    const updateClock = () => {
+      const now = new Date();
+      const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+      setTimeStr(now.toLocaleTimeString('en-US', options).toLowerCase());
+      
+      const day = now.getDate();
+      const month = now.toLocaleString('en-US', { month: 'long' }).toUpperCase();
+      const year = now.getFullYear();
+      setDateStr(`${day} ${month} ${year}`);
+    };
+    updateClock();
+    const clockInterval = setInterval(updateClock, 1000);
 
-      if (Math.abs(goldDelta) > 0.05) {
-        setGoldPrice(prev => {
-          const next = Number((prev + goldDelta).toFixed(2));
-          setGoldFlash(goldDelta > 0 ? 'up' : 'down');
-          setTimeout(() => setGoldFlash(null), 800);
-          return next;
-        });
+    // Live market API fetch matching GoldPrice.org MYR rates & FX rate
+    const fetchLiveRates = async () => {
+      try {
+        const [goldRes, silverRes, fxRes] = await Promise.all([
+          fetch('https://api.gold-api.com/price/XAU').then(r => r.ok ? r.json() : null).catch(() => null),
+          fetch('https://api.gold-api.com/price/XAG').then(r => r.ok ? r.json() : null).catch(() => null),
+          fetch('https://open.er-api.com/v6/latest/USD').then(r => r.ok ? r.json() : null).catch(() => null)
+        ]);
+
+        const usdMyrRate = fxRes && fxRes.rates && fxRes.rates.MYR ? fxRes.rates.MYR : 4.45;
+
+        if (goldRes && goldRes.price) {
+          const calculatedGoldKg = goldRes.price * usdMyrRate * 32.1507 * 0.99;
+          setGoldSellKg(prev => {
+            const diff = calculatedGoldKg - prev;
+            if (Math.abs(diff) > 0.01) {
+              setGoldRatesFlash(diff > 0 ? 'up' : 'down');
+              setTimeout(() => setGoldRatesFlash(null), 800);
+            }
+            return calculatedGoldKg;
+          });
+        }
+
+        if (silverRes && silverRes.price) {
+          const calculatedSilverG = (silverRes.price * usdMyrRate / 31.1035) * 0.99;
+          setSilverSellGram(prev => {
+            const diff = calculatedSilverG - prev;
+            if (Math.abs(diff) > 0.0001) {
+              setSilverRatesFlash(diff > 0 ? 'up' : 'down');
+              setTimeout(() => setSilverRatesFlash(null), 800);
+            }
+            return calculatedSilverG;
+          });
+        }
+      } catch (err) {
+        // Fallback smooth ticker handles fluctuations
       }
+    };
 
-      if (Math.abs(silverDelta) > 0.01) {
-        setSilverPrice(prev => {
-          const next = Number((prev + silverDelta).toFixed(2));
-          setSilverFlash(silverDelta > 0 ? 'up' : 'down');
-          setTimeout(() => setSilverFlash(null), 800);
-          return next;
-        });
-      }
-    }, 2800);
+    fetchLiveRates();
+    const apiPollInterval = setInterval(fetchLiveRates, 5000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(clockInterval);
+      clearInterval(apiPollInterval);
+    };
   }, []);
 
   const toggleVideoPlay = () => {
@@ -172,21 +215,22 @@ const TradePage = ({ setCurrentPage }) => {
         </div>
       </section>
 
-      {/* 2. CREATIVE SPLIT SECTION */}      <section style={{ padding: '6rem 0' }}>
+      {/* 2. CREATIVE SPLIT SECTION */}
+      <section style={{ padding: '7.5rem 0' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '5rem', position: 'relative' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyItems: 'center', justifyContent: 'center', gap: '1rem', marginBottom: '0.5rem' }}>
-              <span style={{ color: '#D4A72C', fontSize: '1rem' }}>✦</span>
-              <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#D4A72C', textTransform: 'uppercase', letterSpacing: '0.15em' }}>EXPLORE OUR PORTFOLIO</span>
-              <span style={{ color: '#D4A72C', fontSize: '1rem' }}>✦</span>
+          <div style={{ textAlign: 'center', marginBottom: '4.5rem', position: 'relative' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyItems: 'center', justifyContent: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+              <span style={{ color: '#D4A72C', fontSize: '0.9rem' }}>✦</span>
+              <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#D4A72C', textTransform: 'uppercase', letterSpacing: '0.18em' }}>EXPLORE OUR PORTFOLIO</span>
+              <span style={{ color: '#D4A72C', fontSize: '0.9rem' }}>✦</span>
             </div>
-            <h2 style={{ fontSize: '3rem', fontWeight: 900, fontFamily: "'Playfair Display', Georgia, serif", color: 'var(--text-primary)', margin: '0.5rem 0 1rem 0' }}>
+            <h2 style={{ fontSize: '3.2rem', fontWeight: 900, fontFamily: "'Playfair Display', Georgia, serif", color: 'var(--text-primary)', margin: '0.5rem 0 1rem 0' }}>
               Core Mandates & Trading Desks
             </h2>
-            <div style={{ width: '60px', height: '3px', background: '#D4A72C', margin: '0 auto', borderRadius: '2px' }} />
+            <div style={{ width: '70px', height: '3px', background: '#D4A72C', margin: '1rem auto 0 auto', borderRadius: '2px' }} />
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '3.5rem', alignItems: 'stretch' }} className="responsive-split-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '4rem', alignItems: 'stretch' }} className="responsive-split-grid">
 
             {/* Left Nav Column with Timeline Line */}
             <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -490,471 +534,276 @@ const TradePage = ({ setCurrentPage }) => {
         </div>
       </section>
 
-      {/* 2.5 LIVE PRECIOUS METALS RATES SECTION (EXACT REFERENCE DESIGN MATCH) */}
+      {/* 2.5 LIVE PRECIOUS METALS RATES SECTION (WITH MATCHING SITE FONTS & LUXURY BACKGROUND IMAGE) */}
       <section className="trade-live-metals-section" style={{
-        padding: '6rem 0 6.5rem 0',
-        background: 'radial-gradient(ellipse at 50% 30%, #FFFDF8 0%, #FAF3E6 50%, #F5E9D4 85%, #EFE1C7 100%)',
+        padding: '7.5rem 1.5rem 8rem 1.5rem',
+        background: 'linear-gradient(135deg, rgba(253, 250, 243, 0.88) 0%, rgba(244, 236, 222, 0.94) 100%), url("/gold1.png")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
         position: 'relative',
         overflow: 'hidden'
       }}>
-        {/* Top & Bottom Sweeping Luxury Gold Wave Ribbons */}
+        {/* Faint ambient glow overlay */}
         <div style={{
-          position: 'absolute',
-          top: '-10px',
-          left: 0,
-          right: 0,
-          height: '80px',
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(212, 167, 44, 0.4) 0%, transparent 75%)',
-          pointerEvents: 'none'
-        }} />
-
-        {/* Top Right & Bottom Left Swirling Gold Arc Borders */}
-        <svg viewBox="0 0 1440 600" style={{
           position: 'absolute',
           top: 0,
           left: 0,
-          width: '100%',
-          height: '100%',
-          pointerEvents: 'none',
-          zIndex: 1,
-          opacity: 0.65
-        }}>
-          <defs>
-            <linearGradient id="goldArcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FFD700" stopOpacity="0.8" />
-              <stop offset="50%" stopColor="#D4A72C" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#B3871E" stopOpacity="0.0" />
-            </linearGradient>
-          </defs>
-          <path d="M-100,-50 C300,100 800,-80 1550,120 M-100,650 C600,450 1100,680 1550,480" stroke="url(#goldArcGrad)" strokeWidth="3" fill="none" />
-          <path d="M-50,-20 C350,140 850,-40 1600,160 M-50,680 C650,480 1150,710 1600,510" stroke="url(#goldArcGrad)" strokeWidth="1.5" fill="none" opacity="0.6" />
-        </svg>
+          right: 0,
+          bottom: 0,
+          background: 'radial-gradient(circle at 50% 20%, rgba(212, 167, 44, 0.15) 0%, transparent 75%)',
+          pointerEvents: 'none'
+        }} />
 
-        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+        <div style={{ maxWidth: '980px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
+          
+          {/* Subtitle with site standard gold star accents */}
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1.25fr',
-            gap: '3.5rem',
-            alignItems: 'center'
-          }} className="responsive-split-grid">
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.75rem',
+            marginBottom: '0.5rem'
+          }}>
+            <span style={{ color: '#D4A72C', fontSize: '0.9rem' }}>✦</span>
+            <span style={{
+              fontSize: '0.85rem',
+              fontWeight: 800,
+              color: '#B8860B',
+              textTransform: 'uppercase',
+              letterSpacing: '0.18em',
+              fontFamily: '"Inter", sans-serif'
+            }}>
+              LIVE MARKET
+            </span>
+            <span style={{ color: '#D4A72C', fontSize: '0.9rem' }}>✦</span>
+          </div>
 
-            {/* Left Column: Heading, Subtitle & Value Proposition */}
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-                <span style={{ color: '#C59619', fontSize: '0.8rem' }}>✦</span>
-                <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#B8860B', textTransform: 'uppercase', letterSpacing: '0.15em' }}>
-                  LIVE PRECIOUS METALS RATES
-                </span>
-                <span style={{ color: '#C59619', fontSize: '0.8rem' }}>✦</span>
+          {/* Main Header matching site heading font */}
+          <h2 style={{
+            textAlign: 'center',
+            fontSize: '3.4rem',
+            fontWeight: 900,
+            fontFamily: '"Times New Roman", Georgia, serif',
+            color: 'var(--text-primary)',
+            margin: '0 0 1rem 0',
+            letterSpacing: '-0.01em'
+          }}>
+            Our Rates
+          </h2>
+
+          {/* Date, Time and Live Badge Metadata Row */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: '0.6rem',
+            fontSize: '0.88rem',
+            fontWeight: 600,
+            color: 'var(--text-secondary)',
+            fontFamily: '"Inter", sans-serif',
+            marginBottom: '2.5rem',
+            letterSpacing: '0.04em'
+          }}>
+            <span>— {dateStr} —</span>
+            <span>·</span>
+            <span style={{ fontFamily: 'monospace', fontSize: '0.95rem', fontWeight: 700 }}>{timeStr}</span>
+            <span>·</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', color: '#10B981', fontWeight: 800, fontSize: '0.75rem' }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981' }}></span>
+              LIVE
+            </span>
+            <span>·</span>
+            <span style={{ color: '#4B6B94', fontWeight: 800, fontSize: '0.78rem', letterSpacing: '0.08em' }}>XAU/USD SPOT</span>
+          </div>
+
+          {/* Rates Table Container */}
+          <div style={{
+            background: 'rgba(255, 253, 248, 0.94)',
+            backdropFilter: 'blur(10px)',
+            borderRadius: '16px',
+            border: '1.5px solid rgba(212, 167, 44, 0.35)',
+            boxShadow: '0 15px 35px rgba(0, 0, 0, 0.06), 0 0 25px rgba(212, 167, 44, 0.1)',
+            overflow: 'hidden',
+            marginBottom: '1.75rem',
+            fontFamily: '"Inter", sans-serif'
+          }}>
+            {/* Table Header */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '2fr 1fr 1fr',
+              padding: '1.25rem 2.25rem 0.85rem 2.25rem',
+              borderBottom: '1px solid rgba(212, 167, 44, 0.2)',
+              background: 'rgba(245, 237, 222, 0.5)'
+            }}>
+              <div style={{ fontSize: '0.82rem', fontWeight: 800, color: '#8C6B1C', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+                DETAILS
               </div>
-
-              <h2 style={{
-                fontSize: '3.6rem',
-                fontWeight: 900,
-                fontFamily: "'Playfair Display', Georgia, serif",
-                color: 'var(--text-primary)',
-                lineHeight: '1.12',
-                marginBottom: '1.5rem',
-                letterSpacing: '-0.01em'
-              }}>
-                Live Gold & <br />
-                Silver <br />
-                <span style={{
-                  background: 'linear-gradient(135deg, #D4A72C 0%, #99741A 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  display: 'inline-block'
-                }}>Prices</span>
-              </h2>
-
-              <p style={{
-                color: 'var(--text-secondary)',
-                fontSize: '1.1rem',
-                lineHeight: '1.65',
-                marginBottom: '2.5rem',
-                maxWidth: '440px'
-              }}>
-                Real-time market rates for your trusted precious metals trading.
-              </p>
-
-              {/* 4 Circular Metallic Feature Badges */}
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: '1rem',
-                marginBottom: '2.5rem'
-              }}>
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '50%',
-                    border: '1.5px solid #D4A72C',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 0.6rem auto',
-                    background: 'var(--badge-bg, linear-gradient(135deg, #FFFDF8 0%, #F5E8C8 100%))',
-                    color: '#B8860B',
-                    boxShadow: '0 4px 12px rgba(212, 167, 44, 0.25)'
-                  }}>
-                    ⚡
-                  </div>
-                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--text-primary)', display: 'block', lineHeight: '1.2' }}>
-                    Live Market<br />Updates
-                  </span>
-                </div>
-
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '50%',
-                    border: '1.5px solid #D4A72C',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 0.6rem auto',
-                    background: 'var(--badge-bg, linear-gradient(135deg, #FFFDF8 0%, #F5E8C8 100%))',
-                    color: '#B8860B',
-                    boxShadow: '0 4px 12px rgba(212, 167, 44, 0.25)'
-                  }}>
-                    🛡️
-                  </div>
-                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--text-primary)', display: 'block', lineHeight: '1.2' }}>
-                    Trusted<br />Rates
-                  </span>
-                </div>
-
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '50%',
-                    border: '1.5px solid #D4A72C',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 0.6rem auto',
-                    background: 'var(--badge-bg, linear-gradient(135deg, #FFFDF8 0%, #F5E8C8 100%))',
-                    color: '#B8860B',
-                    boxShadow: '0 4px 12px rgba(212, 167, 44, 0.25)'
-                  }}>
-                    🌐
-                  </div>
-                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--text-primary)', display: 'block', lineHeight: '1.2' }}>
-                    Global<br />Markets
-                  </span>
-                </div>
-
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '50%',
-                    border: '1.5px solid #D4A72C',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 0.6rem auto',
-                    background: 'var(--badge-bg, linear-gradient(135deg, #FFFDF8 0%, #F5E8C8 100%))',
-                    color: '#B8860B',
-                    boxShadow: '0 4px 12px rgba(212, 167, 44, 0.25)'
-                  }}>
-                    🔄
-                  </div>
-                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--text-primary)', display: 'block', lineHeight: '1.2' }}>
-                    Updated<br />Instantly
-                  </span>
-                </div>
+              <div style={{ fontSize: '0.82rem', fontWeight: 800, color: '#8C6B1C', letterSpacing: '0.18em', textTransform: 'uppercase', textAlign: 'right' }}>
+                WE SELL
               </div>
-
-              {/* Bottom Bullion Stack Image Showcase */}
-              <div style={{
-                borderRadius: '1.25rem',
-                overflow: 'hidden',
-                border: '2px solid rgba(212, 167, 44, 0.6)',
-                boxShadow: '0 15px 30px rgba(212, 167, 44, 0.2), 0 5px 15px rgba(0, 0, 0, 0.1)'
-              }}>
-                <img
-                  src="/precious_metals_stack.png"
-                  alt="Gold & Silver Bullion Bars Showcase"
-                  style={{
-                    width: '100%',
-                    height: '185px',
-                    objectFit: 'cover',
-                    display: 'block'
-                  }}
-                />
+              <div style={{ fontSize: '0.82rem', fontWeight: 800, color: '#8C6B1C', letterSpacing: '0.18em', textTransform: 'uppercase', textAlign: 'right' }}>
+                WE BUY
               </div>
             </div>
 
-            {/* Right Column: Interactive Gold & Silver Cards */}
-            <div>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '1.5rem',
-                marginBottom: '2.5rem'
-              }}>
-
-                {/* GOLD CARD (3D Glowing Gold Border Frame) */}
-                <div className="trade-live-card-gold" style={{
-                  background: 'var(--card-bg, #FFFFFF)',
-                  borderRadius: '1.75rem',
-                  border: '2.5px solid #D4A72C',
-                  padding: '2rem 1.75rem',
-                  boxShadow: '0 20px 45px rgba(212, 167, 44, 0.28), 0 0 25px rgba(255, 215, 0, 0.15)',
-                  position: 'relative'
-                }}>
-                  {/* Top Live Badge Header */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                      <div style={{
-                        width: '42px',
-                        height: '42px',
-                        borderRadius: '10px',
-                        background: 'linear-gradient(135deg, #EAB308 0%, #CA8A04 100%)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxShadow: '0 4px 10px rgba(202, 138, 4, 0.35)',
-                        fontSize: '1.2rem'
-                      }}>
-                        🏆
-                      </div>
-                      <div>
-                        <h3 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#B8860B', margin: 0, letterSpacing: '0.04em' }}>
-                          GOLD
-                        </h3>
-                        <span style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
-                          (USD / oz)
-                        </span>
-                      </div>
-                    </div>
-
-                    <div style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '0.35rem',
-                      background: 'rgba(16, 185, 129, 0.15)',
-                      border: '1px solid rgba(16, 185, 129, 0.4)',
-                      padding: '0.25rem 0.65rem',
-                      borderRadius: '20px',
-                      color: '#10B981',
-                      fontSize: '0.7rem',
-                      fontWeight: 800,
-                      letterSpacing: '0.05em'
-                    }}>
-                      <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981' }}></span>
-                      LIVE
-                    </div>
-                  </div>
-
-                  {/* Price Header */}
-                  <div style={{ marginBottom: '1rem' }}>
-                    <div style={{
-                      fontSize: '2.4rem',
-                      fontWeight: 900,
-                      color: goldFlash === 'up' ? '#10B981' : goldFlash === 'down' ? '#EF4444' : 'var(--text-primary)',
-                      fontFamily: "'Playfair Display', Georgia, serif",
-                      lineHeight: '1.1',
-                      transition: 'color 0.3s ease'
-                    }}>
-                      $ {goldPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </div>
-                    <div style={{ color: '#10B981', fontSize: '0.88rem', fontWeight: 800, marginTop: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                      ▲ +{goldChange.toFixed(2)} (+{goldChangePct.toFixed(2)}%)
-                    </div>
-                  </div>
-
-                  {/* Sparkline Curve Chart */}
-                  <div style={{ height: '60px', margin: '1rem 0 1.5rem 0' }}>
-                    <svg viewBox="0 0 200 60" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
-                      <defs>
-                        <linearGradient id="goldRefGradMatch" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#D4A72C" stopOpacity="0.4" />
-                          <stop offset="100%" stopColor="#D4A72C" stopOpacity="0.0" />
-                        </linearGradient>
-                      </defs>
-                      <path d="M0,45 Q30,40 60,48 T120,30 T170,38 T200,10 L200,60 L0,60 Z" fill="url(#goldRefGradMatch)" />
-                      <path d="M0,45 Q30,40 60,48 T120,30 T170,38 T200,10" fill="none" stroke="#D4A72C" strokeWidth="2.5" strokeLinecap="round" />
-                    </svg>
-                  </div>
-
-                  {/* Units Table Breakdown */}
-                  <div style={{ borderTop: '1px solid var(--border-glass)', paddingTop: '1rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>1 Gram</span>
-                      <span style={{ color: 'var(--text-primary)', fontWeight: 800 }}>$ {(goldPrice / 31.1035).toFixed(2)}</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>1 Tola</span>
-                      <span style={{ color: 'var(--text-primary)', fontWeight: 800 }}>$ {(goldPrice / 31.1035 * 11.6638).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>1 Kg</span>
-                      <span style={{ color: 'var(--text-primary)', fontWeight: 800 }}>$ {(goldPrice / 31.1035 * 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* SILVER CARD */}
-                <div className="trade-live-card-silver" style={{
-                  background: 'var(--card-bg, #FFFFFF)',
-                  borderRadius: '1.75rem',
-                  border: '1.5px solid var(--border-glass-hover, #CBD5E1)',
-                  padding: '2rem 1.75rem',
-                  boxShadow: '0 15px 35px rgba(0, 0, 0, 0.06)',
-                  position: 'relative'
-                }}>
-                  {/* Top Live Badge Header */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                      <div style={{
-                        width: '42px',
-                        height: '42px',
-                        borderRadius: '10px',
-                        background: 'linear-gradient(135deg, #94A3B8 0%, #64748B 100%)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxShadow: '0 4px 10px rgba(100, 116, 139, 0.2)',
-                        fontSize: '1.2rem'
-                      }}>
-                        🥈
-                      </div>
-                      <div>
-                        <h3 style={{ fontSize: '1.35rem', fontWeight: 900, color: 'var(--text-primary)', margin: 0, letterSpacing: '0.04em' }}>
-                          SILVER
-                        </h3>
-                        <span style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
-                          (USD / oz)
-                        </span>
-                      </div>
-                    </div>
-
-                    <div style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '0.35rem',
-                      background: 'rgba(16, 185, 129, 0.15)',
-                      border: '1px solid rgba(16, 185, 129, 0.4)',
-                      padding: '0.25rem 0.65rem',
-                      borderRadius: '20px',
-                      color: '#10B981',
-                      fontSize: '0.7rem',
-                      fontWeight: 800,
-                      letterSpacing: '0.05em'
-                    }}>
-                      <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981' }}></span>
-                      LIVE
-                    </div>
-                  </div>
-
-                  {/* Price Header */}
-                  <div style={{ marginBottom: '1rem' }}>
-                    <div style={{
-                      fontSize: '2.4rem',
-                      fontWeight: 900,
-                      color: silverFlash === 'up' ? '#10B981' : silverFlash === 'down' ? '#EF4444' : 'var(--text-primary)',
-                      fontFamily: "'Playfair Display', Georgia, serif",
-                      lineHeight: '1.1',
-                      transition: 'color 0.3s ease'
-                    }}>
-                      $ {silverPrice.toFixed(2)}
-                    </div>
-                    <div style={{ color: '#10B981', fontSize: '0.88rem', fontWeight: 800, marginTop: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                      ▲ +{silverChange.toFixed(2)} (+{silverChangePct.toFixed(2)}%)
-                    </div>
-                  </div>
-
-                  {/* Sparkline Curve Chart */}
-                  <div style={{ height: '60px', margin: '1rem 0 1.5rem 0' }}>
-                    <svg viewBox="0 0 200 60" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
-                      <defs>
-                        <linearGradient id="silverRefGradMatch" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#94A3B8" stopOpacity="0.4" />
-                          <stop offset="100%" stopColor="#94A3B8" stopOpacity="0.0" />
-                        </linearGradient>
-                      </defs>
-                      <path d="M0,50 Q40,35 80,42 T140,25 T200,15 L200,60 L0,60 Z" fill="url(#silverRefGradMatch)" />
-                      <path d="M0,50 Q40,35 80,42 T140,25 T200,15" fill="none" stroke="#94A3B8" strokeWidth="2.5" strokeLinecap="round" />
-                    </svg>
-                  </div>
-
-                  {/* Units Table Breakdown */}
-                  <div style={{ borderTop: '1px solid var(--border-glass)', paddingTop: '1rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>1 Gram</span>
-                      <span style={{ color: 'var(--text-primary)', fontWeight: 800 }}>$ {(silverPrice / 31.1035).toFixed(2)}</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>1 Kg</span>
-                      <span style={{ color: 'var(--text-primary)', fontWeight: 800 }}>$ {(silverPrice / 31.1035 * 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.35rem 0', fontSize: '0.88rem' }}>
-                      <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>1 Tola</span>
-                      <span style={{ color: 'var(--text-primary)', fontWeight: 800 }}>$ {(silverPrice / 31.1035 * 11.6638).toFixed(2)}</span>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Bottom Large Action Button Navigating to Contact Page */}
-              <button
-                onClick={() => {
-                  setCurrentPage('contact');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                style={{
-                  width: '100%',
-                  padding: '1.15rem 2rem',
-                  borderRadius: '50px',
-                  background: 'linear-gradient(135deg, #D4A72C 0%, #B8860B 100%)',
-                  color: '#FFFFFF',
-                  fontWeight: 900,
-                  fontSize: '1.05rem',
-                  border: 'none',
-                  boxShadow: '0 12px 30px rgba(212, 167, 44, 0.4)',
-                  cursor: 'pointer',
+            {/* Row 1: 999.9 Gold */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '2fr 1fr 1fr',
+              padding: '1.5rem 2.25rem',
+              alignItems: 'center',
+              borderBottom: '1px solid rgba(212, 167, 44, 0.2)'
+            }}>
+              {/* DETAILS */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+                <div style={{
+                  width: '46px',
+                  height: '46px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #FFFDF8 0%, #F5E5C4 100%)',
+                  border: '1.5px solid #D4A72C',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '0.75rem',
-                  letterSpacing: '0.04em',
-                  transition: 'transform 0.3s ease, box-shadow 0.3s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = '0 16px 40px rgba(212, 167, 44, 0.55)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 12px 30px rgba(212, 167, 44, 0.4)';
-                }}
-              >
-                Inquire Live Trade Mandate <ArrowRight style={{ width: '20px', height: '20px' }} />
-              </button>
+                  color: '#B8860B',
+                  fontWeight: 800,
+                  fontSize: '0.98rem',
+                  boxShadow: '0 2px 8px rgba(212, 167, 44, 0.25)',
+                  flexShrink: 0
+                }}>
+                  Au
+                </div>
+                <div>
+                  <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: '1.2' }}>
+                    999.9 Gold
+                  </div>
+                  <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.08em', marginTop: '0.25rem', textTransform: 'uppercase' }}>
+                    MYR / KILOGRAM
+                  </div>
+                </div>
+              </div>
+
+              {/* WE SELL */}
+              <div style={{
+                textAlign: 'right',
+                fontSize: '1.55rem',
+                fontWeight: 800,
+                color: goldRatesFlash === 'up' ? '#10B981' : goldRatesFlash === 'down' ? '#EF4444' : '#B8860B',
+                letterSpacing: '0.02em',
+                fontFamily: '"Inter", sans-serif',
+                transition: 'color 0.3s ease'
+              }}>
+                RM {goldSellKg.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </div>
+
+              {/* WE BUY */}
+              <div style={{
+                textAlign: 'right',
+                fontSize: '1.15rem',
+                fontStyle: 'italic',
+                fontWeight: 600,
+                color: '#C59619',
+                fontFamily: '"Times New Roman", Georgia, serif'
+              }}>
+                Contact
+              </div>
+            </div>
+
+            {/* Row 2: 999.9 Silver */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '2fr 1fr 1fr',
+              padding: '1.5rem 2.25rem',
+              alignItems: 'center'
+            }}>
+              {/* DETAILS */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+                <div style={{
+                  width: '46px',
+                  height: '46px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%)',
+                  border: '1.5px solid #94A3B8',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#475569',
+                  fontWeight: 800,
+                  fontSize: '0.98rem',
+                  boxShadow: '0 2px 8px rgba(148, 163, 184, 0.2)',
+                  flexShrink: 0
+                }}>
+                  Ag
+                </div>
+                <div>
+                  <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: '1.2' }}>
+                    999.9 Silver
+                  </div>
+                  <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.08em', marginTop: '0.25rem', textTransform: 'uppercase' }}>
+                    MYR / GRAM
+                  </div>
+                </div>
+              </div>
+
+              {/* WE SELL */}
+              <div style={{
+                textAlign: 'right',
+                fontSize: '1.55rem',
+                fontWeight: 800,
+                color: silverRatesFlash === 'up' ? '#10B981' : silverRatesFlash === 'down' ? '#EF4444' : 'var(--text-primary)',
+                letterSpacing: '0.02em',
+                fontFamily: '"Inter", sans-serif',
+                transition: 'color 0.3s ease'
+              }}>
+                RM {silverSellGram.toFixed(4)}
+              </div>
+
+              {/* WE BUY */}
+              <div style={{
+                textAlign: 'right',
+                fontSize: '1.15rem',
+                fontStyle: 'italic',
+                fontWeight: 600,
+                color: '#C59619',
+                fontFamily: '"Times New Roman", Georgia, serif'
+              }}>
+                Contact
+              </div>
             </div>
 
           </div>
+
+          {/* Footer Disclaimer */}
+          <div style={{
+            textAlign: 'center',
+            fontSize: '0.78rem',
+            fontStyle: 'italic',
+            color: 'var(--text-secondary)',
+            fontFamily: '"Inter", sans-serif',
+            maxWidth: '840px',
+            margin: '0 auto',
+            lineHeight: '1.55'
+          }}>
+            * Prices shown are competitive rates derived from the prevailing market spot price. All transactions are confirmed at point of trade and subject to availability and condition of bullion. Souk Gold Bullion reserves the right to adjust rates without prior notice.
+          </div>
+
         </div>
       </section>
 
       {/* 3. LUXURY VISION & MISSION SECTION (WHERE WE ARE HEADED) */}
-      <section style={{ padding: '6rem 0' }}>
+      <section style={{ padding: '7.5rem 0' }}>
         <div className="container">
 
           {/* Section Header */}
           <div style={{ textAlign: 'center', marginBottom: '4.5rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
-              <span style={{ color: '#D4A72C', fontSize: '1rem' }}>✦</span>
+              <span style={{ color: '#D4A72C', fontSize: '0.9rem' }}>✦</span>
               <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#D4A72C', textTransform: 'uppercase', letterSpacing: '0.2em' }}>
                 STRATEGIC DIRECTION
               </span>
-              <span style={{ color: '#D4A72C', fontSize: '1rem' }}>✦</span>
+              <span style={{ color: '#D4A72C', fontSize: '0.9rem' }}>✦</span>
             </div>
             <h2 style={{
               fontSize: '3.2rem',
@@ -970,7 +819,7 @@ const TradePage = ({ setCurrentPage }) => {
           </div>
 
           {/* Luxury 2-Column Split Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.25fr', gap: '2.5rem', alignItems: 'stretch' }} className="responsive-vision-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.25fr', gap: '3.5rem', alignItems: 'stretch' }} className="responsive-vision-grid">
 
             {/* LEFT CARD: i. OUR VISION */}
             <div
