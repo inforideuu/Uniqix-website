@@ -449,84 +449,51 @@ const TradePage = ({ setCurrentPage }) => {
                 )}
               </div>
 
-              {/* Action Button / Direct Contact Info at bottom left */}
+              {/* Action Buttons / Direct Contact Info at bottom left */}
               <div style={{ position: 'relative', zIndex: 1, marginTop: '3rem' }}>
-                {activeService.id === 'gold' || activeService.num === '02' ? (
-                  <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
-                    <a
-                      href="https://wa.me/6596262970?text=Hello%20Uniqix%20Trade%20Desk,%20I%20have%20an%20inquiry%20regarding%20Physical%20Gold%20Trading."
-                      target="_blank"
-                      rel="noreferrer"
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        padding: '0.85rem 1.75rem',
-                        borderRadius: '50px',
-                        background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-                        color: '#ffffff',
-                        fontWeight: 800,
-                        fontSize: '0.92rem',
-                        textDecoration: 'none',
-                        boxShadow: '0 6px 20px rgba(16, 185, 129, 0.3)'
-                      }}
-                    >
-                      <Phone style={{ width: '18px', height: '18px' }} />
-                      WhatsApp: +65 96262970
-                    </a>
-
-                    <a
-                      href="mailto:Sam@uniqix.com?subject=Physical%20Gold%20Trading%20Inquiry"
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        padding: '0.85rem 1.75rem',
-                        borderRadius: '50px',
-                        background: 'linear-gradient(135deg, #d97706 0%, #b45309 100%)',
-                        color: '#ffffff',
-                        fontWeight: 800,
-                        fontSize: '0.92rem',
-                        textDecoration: 'none',
-                        boxShadow: '0 6px 20px rgba(217, 119, 6, 0.3)'
-                      }}
-                    >
-                      <Mail style={{ width: '18px', height: '18px' }} />
-                      Email: Sam@uniqix.com
-                    </a>
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => {
-                      setCurrentPage('contact');
-                      window.scrollTo({ top: 0, behavior: 'smooth' })
-                    }}
+                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                  <a
+                    href="https://wa.me/6596262970?text=Hello%20Uniqix%20Trade%20Desk,%20I%20have%20an%20inquiry%20regarding%20Trade%20Mandates."
+                    target="_blank"
+                    rel="noreferrer"
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '8px',
-                      padding: '1rem 2.5rem',
-                      background: 'linear-gradient(135deg, #d97706 0%, #b45309 50%, #78350f 100%)',
-                      border: 'none',
+                      padding: '0.85rem 1.75rem',
                       borderRadius: '50px',
+                      background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
                       color: '#ffffff',
                       fontWeight: 800,
-                      cursor: 'pointer',
-                      boxShadow: '0 10px 25px rgba(217, 119, 6, 0.35)',
-                      transition: 'all 0.3s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-2px)';
-                      e.currentTarget.style.boxShadow = '0 14px 30px rgba(217, 119, 6, 0.45)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = '0 10px 25px rgba(217, 119, 6, 0.35)';
+                      fontSize: '0.92rem',
+                      textDecoration: 'none',
+                      boxShadow: '0 6px 20px rgba(16, 185, 129, 0.3)'
                     }}
                   >
-                    Inquire Trade Mandate <ArrowRight style={{ width: '18px', height: '18px' }} />
-                  </button>
-                )}
+                    <Phone style={{ width: '18px', height: '18px' }} />
+                    WhatsApp: +65 96262970
+                  </a>
+
+                  <a
+                    href="mailto:Sam@uniqix.com?subject=Trade%20Mandate%20Inquiry"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '0.85rem 1.75rem',
+                      borderRadius: '50px',
+                      background: 'linear-gradient(135deg, #d97706 0%, #b45309 100%)',
+                      color: '#ffffff',
+                      fontWeight: 800,
+                      fontSize: '0.92rem',
+                      textDecoration: 'none',
+                      boxShadow: '0 6px 20px rgba(217, 119, 6, 0.3)'
+                    }}
+                  >
+                    <Mail style={{ width: '18px', height: '18px' }} />
+                    Email: Sam@uniqix.com
+                  </a>
+                </div>
               </div>
             </div>
 
