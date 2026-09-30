@@ -12,6 +12,9 @@ import fu from '../assets/fieldunit.png';
 import dash from '../assets/dashboard.png';
 import school from '../assets/school.png';
 import dragonflyConcept from '../assets/dragonfly_concept.jpg';
+import robotics1 from '../assets/robotics1.png';
+import robotics2 from '../assets/robotics2.png';
+import robotics3 from '../assets/robotics3.png';
 
 import emsMgmtImg from '../assets/ems_management.png';
 import dimmingImg from '../assets/stepless_dimming.png';
@@ -63,7 +66,10 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
       'fu': fu,
       'school': school,
       'dash': dash,
-      'dragonflyConcept': dragonflyConcept
+      'dragonflyConcept': dragonflyConcept,
+      'robotics1': robotics1,
+      'robotics2': robotics2,
+      'robotics3': robotics3
     };
     return map[key] || key;
   };
@@ -517,9 +523,12 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2.5rem' }}>
               {(telemetry.length > 0 ? telemetry : [
-                { id: 'vis-0', image_url: 'fu', caption: 'Dragonfly Autonomous Field Unit' },
+                { id: 'vis-0', image_url: 'fu', caption: 'Dragonfly Autonomous Field Unit Patrol' },
                 { id: 'vis-1', image_url: 'school', caption: 'Safe Chemical-Free Public Operations' },
-                { id: 'vis-2', image_url: 'dash', caption: 'L3 SUTD ROS Telemetry & Active Sensor Dashboard' }
+                { id: 'vis-2', image_url: 'dash', caption: 'L3 SUTD ROS Telemetry & Active Sensor Dashboard' },
+                { id: 'vis-3', image_url: 'robotics1', caption: 'Autonomous Fleet Deployment' },
+                { id: 'vis-4', image_url: 'robotics2', caption: 'Smart UV & Mosquito Trapping Mechanism' },
+                { id: 'vis-5', image_url: 'robotics3', caption: 'Dual Autonomous Vector Patrol Units' }
               ]).map((card, cIdx) => {
                 const cardId = `vis-${card.id || cIdx}`;
                 return (
