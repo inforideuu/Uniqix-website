@@ -5,7 +5,7 @@ import {
   Droplet, ThermometerSnowflake, Flame, Trash2, Sparkles, ChevronRight,
   Building, ShieldCheck, Target, Award, Calendar, HelpCircle,
   Utensils, ShoppingBag, Coffee, Wrench, Layers, Package, ChevronDown, ChevronUp,
-  Phone, Mail
+  Phone, Mail, X
 } from 'lucide-react';
 
 import fu from '../assets/fieldunit.png';
@@ -40,6 +40,140 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
   const [hoveredCardId, setHoveredCardId] = useState(null);
   const [dbProducts, setDbProducts] = useState([]);
   const [telemetry, setTelemetry] = useState([]);
+  const [inquireItem, setInquireItem] = useState(null);
+
+  const renderInquireModal = () => {
+    if (!inquireItem) return null;
+    return (
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(15, 23, 42, 0.45)',
+          backdropFilter: 'blur(8px)',
+          zIndex: 99999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '1.5rem'
+        }}
+        onClick={() => setInquireItem(null)}
+      >
+        <div
+          style={{
+            background: 'var(--bg-primary, #ffffff)',
+            border: '1.5px solid rgba(212, 167, 44, 0.5)',
+            borderRadius: '1.5rem',
+            padding: '2.25rem 2rem',
+            maxWidth: '460px',
+            width: '100%',
+            boxShadow: '0 25px 50px -12px rgba(15, 23, 42, 0.18), 0 0 30px rgba(212, 167, 44, 0.15)',
+            position: 'relative',
+            color: 'var(--text-primary)'
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={() => setInquireItem(null)}
+            aria-label="Close"
+            style={{
+              position: 'absolute',
+              top: '1.25rem',
+              right: '1.25rem',
+              background: 'rgba(15, 23, 42, 0.05)',
+              border: '1px solid rgba(15, 23, 42, 0.1)',
+              borderRadius: '50%',
+              width: '34px',
+              height: '34px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'var(--text-primary)',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(15, 23, 42, 0.12)'}
+            onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(15, 23, 42, 0.05)'}
+          >
+            X
+          </button>
+
+          <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
+            <div style={{ display: 'inline-flex', padding: '0.85rem', borderRadius: '1.25rem', background: 'rgba(212, 167, 44, 0.12)', color: '#D4A72C', marginBottom: '1rem', border: '1px solid rgba(212, 167, 44, 0.3)' }}>
+              <Package style={{ width: '30px', height: '30px' }} />
+            </div>
+            <h3 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '0.4rem', color: 'var(--text-primary)' }}>
+              Inquire Specifications
+            </h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.4 }}>
+              {inquireItem.title ? `Inquiry for ${inquireItem.title}` : (inquireItem.name ? `Inquiry for ${inquireItem.name}` : 'Direct technical inquiry for Sustainable Packaging specs.')}
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {/* WhatsApp Option */}
+            <a
+              href={`https://wa.me/6583995062?text=${encodeURIComponent(`Hello Francis, I have an inquiry regarding ${inquireItem.title || inquireItem.name || 'Sustainable Packaging'} specifications.`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                padding: '1rem 1.25rem',
+                borderRadius: '1rem',
+                background: 'rgba(37, 211, 102, 0.08)',
+                border: '1.5px solid rgba(37, 211, 102, 0.35)',
+                textDecoration: 'none',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(37, 211, 102, 0.18)'}
+              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(37, 211, 102, 0.08)'}
+            >
+              <div style={{ padding: '0.6rem', borderRadius: '0.75rem', background: '#25D366', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <MessageCircle style={{ width: '22px', height: '22px' }} />
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 700 }}>WhatsApp</div>
+                <div style={{ color: 'var(--text-primary)', fontWeight: 800, fontSize: '1rem' }}>+65 83995062</div>
+              </div>
+              <ArrowRight style={{ width: '18px', height: '18px', color: '#25D366' }} />
+            </a>
+
+            {/* Email Option */}
+            <a
+              href={`mailto:francislim@uniqix.com?subject=${encodeURIComponent(`Inquiry: ${inquireItem.title || inquireItem.name || 'Sustainable Packaging'} Specifications`)}`}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                padding: '1rem 1.25rem',
+                borderRadius: '1rem',
+                background: 'rgba(212, 167, 44, 0.08)',
+                border: '1.5px solid rgba(212, 167, 44, 0.35)',
+                textDecoration: 'none',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(212, 167, 44, 0.18)'}
+              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(212, 167, 44, 0.08)'}
+            >
+              <div style={{ padding: '0.6rem', borderRadius: '0.75rem', background: '#D4A72C', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Mail style={{ width: '22px', height: '22px' }} />
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 700 }}>Email</div>
+                <div style={{ color: 'var(--text-primary)', fontWeight: 800, fontSize: '0.95rem' }}>francislim@uniqix.com</div>
+              </div>
+              <ArrowRight style={{ width: '18px', height: '18px', color: '#D4A72C' }} />
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   useEffect(() => {
     fetch(`${API_BASE_URL}/api/products/`)
@@ -775,6 +909,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
           </div>
         </section>
 
+        {renderInquireModal()}
       </div>
     );
   }
@@ -1202,9 +1337,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                       ))}
                     </ul>
                   </div>
-                  <button onClick={() => {setCurrentPage('contact');
-                    window.scrollTo({top:0,behavior:'smooth'})
-                  }} className="btn btn-secondary" style={{ width: '100%', padding: '0.6rem', fontSize: '0.85rem', transform: 'translateZ(15px)' }}>
+                  <button onClick={() => setInquireItem(item)} className="btn btn-secondary" style={{ width: '100%', padding: '0.6rem', fontSize: '0.85rem', transform: 'translateZ(15px)' }}>
                     Inquire Specifications
                   </button>
                 </div>
@@ -1269,9 +1402,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
                       ))}
                     </ul>
                   </div>
-                  <button onClick={() => {setCurrentPage('contact');
-                    window.scrollTo({top:0,behavior:'smooth'})
-                  }} className="btn btn-secondary" style={{ width: '100%', padding: '0.6rem', fontSize: '0.85rem', transform: 'translateZ(15px)' }}>
+                  <button onClick={() => setInquireItem(item)} className="btn btn-secondary" style={{ width: '100%', padding: '0.6rem', fontSize: '0.85rem', transform: 'translateZ(15px)' }}>
                     Inquire Specifications
                   </button>
                 </div>
@@ -1626,6 +1757,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
           </div>
         </section>
 
+        {renderInquireModal()}
       </div>
     );
   }
@@ -2172,6 +2304,7 @@ const ProductsPage = ({ setCurrentPage, activeProductTab, setActiveProductTab })
         </div>
       </section>
 
+      {renderInquireModal()}
     </div>
   );
 };
